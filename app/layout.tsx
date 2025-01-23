@@ -1,44 +1,53 @@
-import type { Metadata } from "next";
-import { Outfit } from "next/font/google";
+'use client';
+
+import { Inter, Merriweather, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import Navigation from "@/components/homepage/Navigation";
+import React, { useState, useEffect } from 'react';
+import AuthLoader from '@/components/AuthLoader';
 
-const inter = Outfit({ subsets: ["latin"] });
-
-export const metadata: Metadata = {
-  title: "GSK - Gastroenterology Society of Kenya",
-  description: "Advancing Digestive Health Care in Kenya",
-  icons: {
-    icon: [
-      {
-        url: "/favicon.svg",
-        type: "image/svg+xml",
-      }
-    ],
-    shortcut: ["/favicon.svg"],
-    apple: [
-      {
-        url: "/favicon.svg",
-        type: "image/svg+xml",
-      }
-    ],
-  },
-};
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const merriweather = Merriweather({ 
+  weight: ['300', '400', '700', '900'],
+  subsets: ["latin"],
+  variable: "--font-merriweather"
+});
+const playfair = Playfair_Display({ 
+  subsets: ["latin"],
+  variable: "--font-playfair"
+});
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const auth = localStorage.getItem('gsk-auth');
+    setIsAuthenticated(auth === 'true');
+    setIsLoading(false);
+  }, []);
+
+  if (isLoading) {
+    return null;
+  }
+
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <div className="min-h-screen flex flex-col">
-          <Navigation />
-          <main className="flex-1">
-            {children}
-          </main>
-        </div>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${inter.variable} ${merriweather.variable} ${playfair.variable} font-sans ${!isAuthenticated ? 'overflow-hidden' : ''}`}>
+        {!isAuthenticated ? (
+          <AuthLoader onAuthenticated={() => setIsAuthenticated(true)} />
+        ) : (
+          <div className="w-full">
+            <Navigation />
+            <div className="w-full">
+              {children}
+            </div>
+          </div>
+        )}
       </body>
     </html>
   );

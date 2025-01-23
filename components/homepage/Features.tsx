@@ -153,35 +153,32 @@ const Features = () => {
         </div>
 
         {/* Icons Container */}
-        <div className="max-w-7xl mx-auto px-4 pt-16 pb-32">
-          {/* Header */}
+        <div className="max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Member Benefits
+            <h2 className="text-3xl font-serif font-bold text-white mb-4">
+              Empowering Gastroenterology Excellence
             </h2>
-            <p className="text-blue-100 max-w-2xl mx-auto">
-              Join Kenya's largest network of gastroenterology professionals and access exclusive benefits
+            <p className="text-lg font-serif text-blue-100 max-w-2xl mx-auto">
+              Access resources, connect with peers, and advance your professional development
             </p>
           </div>
 
-          <div className="grid grid-cols-3 md:grid-cols-6 gap-6 justify-items-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, index) => (
-              <a
-                key={index}
-                href={feature.link}
-                className="group flex flex-col items-center"
-              >
-                <div className="w-20 h-20 md:w-24 md:h-24 rounded-2xl bg-white/10 backdrop-blur-sm flex items-center justify-center shadow-lg transform transition-all duration-300 group-hover:scale-105 group-hover:bg-white/20 relative overflow-hidden">
-                  {/* Hover gradient overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-tr from-blue-400/0 via-blue-400/0 to-blue-400/0 group-hover:from-blue-400/20 group-hover:via-blue-400/10 group-hover:to-transparent transition-all duration-500"></div>
-                  <div className="relative z-10">
-                    {feature.icon}
-                  </div>
-                </div>
-                <span className="mt-3 text-sm text-white text-center font-medium">
-                  {feature.title}
-                </span>
-              </a>
+              <div key={index} className={`${feature.color} rounded-xl p-6 text-white`}>
+                {feature.icon}
+                <h3 className="text-xl font-serif font-bold mt-4 mb-2">{feature.title}</h3>
+                <p className="font-serif text-blue-100 mb-4">{feature.description}</p>
+                <a
+                  href={feature.link}
+                  className="inline-flex items-center px-6 py-3 bg-white text-[#003366] rounded-lg font-serif font-semibold hover:bg-blue-50 transition-colors"
+                >
+                  Learn More
+                  <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </a>
+              </div>
             ))}
           </div>
         </div>
@@ -194,9 +191,9 @@ const Features = () => {
             {/* Member Benefits Card */}
             <div className="bg-gradient-to-br from-[#003366] to-[#004080] rounded-xl shadow-xl overflow-hidden text-white">
               <div className="p-8">
-                <h2 className="text-2xl font-bold mb-6 flex items-center gap-3">
+                <h2 className="text-2xl font-serif font-bold mb-6 flex items-center gap-3">
                   <span>Why Join GSK?</span>
-                  <span className="px-3 py-1 bg-blue-400/20 text-blue-100 text-sm font-medium rounded-full">
+                  <span className="px-3 py-1 bg-blue-400/20 text-blue-100 text-sm font-serif rounded-full">
                     Premium Benefits
                   </span>
                 </h2>
@@ -207,8 +204,8 @@ const Features = () => {
                         {benefit.icon}
                       </div>
                       <div>
-                        <h3 className="font-semibold text-lg">{benefit.title}</h3>
-                        <p className="text-blue-100/80">{benefit.description}</p>
+                        <h3 className="font-serif font-semibold text-lg">{benefit.title}</h3>
+                        <p className="font-serif text-blue-100/80">{benefit.description}</p>
                       </div>
                     </div>
                   ))}
@@ -216,7 +213,7 @@ const Features = () => {
                 <div className="mt-8">
                   <a 
                     href="/join"
-                    className="inline-flex items-center px-6 py-3 bg-white text-[#003366] rounded-lg font-semibold hover:bg-blue-50 transition-colors"
+                    className="inline-flex items-center px-6 py-3 bg-white text-[#003366] rounded-lg font-serif font-semibold hover:bg-blue-50 transition-colors"
                   >
                     Join Now
                     <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -230,27 +227,27 @@ const Features = () => {
             {/* Events Card */}
             <div className="bg-white rounded-xl shadow-xl overflow-hidden border border-gray-100">
               <div className="p-8">
-                <h2 className="text-2xl font-bold text-[#003366] mb-6 flex items-center gap-3">
+                <h2 className="text-2xl font-serif font-bold text-[#003366] mb-6 flex items-center gap-3">
                   <span>Upcoming CPD Events</span>
-                  <span className="px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full">
+                  <span className="px-3 py-1 bg-blue-100 text-blue-800 text-sm font-serif rounded-full">
                     Earn Points
                   </span>
                 </h2>
                 <div className="space-y-6">
                   {upcomingEvents.map((event, index) => (
                     <div key={index} className="flex items-start gap-4 p-4 rounded-lg hover:bg-gray-50 transition-colors">
-                      <div className="w-16 h-16 bg-[#003366]/10 rounded-lg flex flex-col items-center justify-center text-[#003366] font-bold">
+                      <div className="w-16 h-16 bg-[#003366]/10 rounded-lg flex flex-col items-center justify-center text-[#003366] font-serif font-bold">
                         <span className="text-sm">{event.date.split(' ')[0]}</span>
                         <span className="text-lg">{event.date.split(' ')[1]}</span>
                       </div>
                       <div className="flex-1">
-                        <h3 className="font-semibold text-gray-900">{event.title}</h3>
-                        <p className="text-sm text-gray-600 mt-1">{event.location}</p>
+                        <h3 className="font-serif font-semibold text-gray-900">{event.title}</h3>
+                        <p className="text-sm font-serif text-gray-600 mt-1">{event.location}</p>
                         <div className="flex items-center gap-3 mt-2">
-                          <span className="text-xs px-2 py-1 bg-[#003366]/10 text-[#003366] rounded-full">
+                          <span className="text-xs font-serif px-2 py-1 bg-[#003366]/10 text-[#003366] rounded-full">
                             {event.type}
                           </span>
-                          <span className="text-xs px-2 py-1 bg-green-100 text-green-700 rounded-full">
+                          <span className="text-xs font-serif px-2 py-1 bg-green-100 text-green-700 rounded-full">
                             {event.points}
                           </span>
                         </div>
@@ -261,7 +258,7 @@ const Features = () => {
                 <div className="mt-6">
                   <a 
                     href="/events" 
-                    className="text-[#003366] font-medium hover:text-blue-800 transition-colors flex items-center gap-2"
+                    className="text-[#003366] font-serif font-medium hover:text-blue-800 transition-colors flex items-center gap-2"
                   >
                     View All Events
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

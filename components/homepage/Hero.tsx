@@ -43,9 +43,13 @@ const Hero = () => {
               {/* Mobile-optimized content */}
               <div className="flex flex-col px-4 pb-6 pt-20 sm:p-0">
                 {/* Title with gradient overlay for mobile */}
-                <h1 className="text-xl sm:text-2xl lg:text-4xl xl:text-5xl font-bold text-white leading-tight text-center sm:text-left mb-6 sm:mb-0">
+                <h1 className="text-4xl sm:text-5xl font-serif font-bold text-white leading-tight sm:leading-tight max-w-[600px]">
                   Advancing Digestive Health Care in Kenya
                 </h1>
+
+                <p className="mt-4 text-lg sm:text-xl text-white/90 max-w-[500px] font-serif">
+                  Join the leading community of gastroenterology professionals dedicated to improving digestive health across Kenya.
+                </p>
 
                 {/* Buttons - Full width on mobile */}
                 <div className="flex flex-col sm:flex-row gap-3 sm:items-center mt-4 sm:mt-4">
@@ -68,21 +72,21 @@ const Hero = () => {
                   <div className="relative group">
                     <div className="absolute inset-0 bg-gradient-to-b from-white/10 to-white/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity" />
                     <div className="relative p-3 rounded-xl border border-white/10 hover:border-white/20 transition-colors text-center sm:text-left">
-                      <div className="text-2xl sm:text-2xl font-bold bg-gradient-to-r from-white to-white/90 bg-clip-text text-transparent">500+</div>
+                      <div className="text-2xl sm:text-2xl font-serif font-bold bg-gradient-to-r from-white to-white/90 bg-clip-text text-transparent">500+</div>
                       <div className="text-[11px] sm:text-xs text-white/80 font-medium mt-0.5">Active Members</div>
                     </div>
                   </div>
                   <div className="relative group">
                     <div className="absolute inset-0 bg-gradient-to-b from-white/10 to-white/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity" />
                     <div className="relative p-3 rounded-xl border border-white/10 hover:border-white/20 transition-colors text-center sm:text-left">
-                      <div className="text-2xl sm:text-2xl font-bold bg-gradient-to-r from-white to-white/90 bg-clip-text text-transparent">47</div>
+                      <div className="text-2xl sm:text-2xl font-serif font-bold bg-gradient-to-r from-white to-white/90 bg-clip-text text-transparent">47</div>
                       <div className="text-[11px] sm:text-xs text-white/80 font-medium mt-0.5">Counties Covered</div>
                     </div>
                   </div>
                   <div className="relative group">
                     <div className="absolute inset-0 bg-gradient-to-b from-white/10 to-white/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity" />
                     <div className="relative p-3 rounded-xl border border-white/10 hover:border-white/20 transition-colors text-center sm:text-left">
-                      <div className="text-2xl sm:text-2xl font-bold bg-gradient-to-r from-white to-white/90 bg-clip-text text-transparent">25+</div>
+                      <div className="text-2xl sm:text-2xl font-serif font-bold bg-gradient-to-r from-white to-white/90 bg-clip-text text-transparent">25+</div>
                       <div className="text-[11px] sm:text-xs text-white/80 font-medium mt-0.5">Years of Excellence</div>
                     </div>
                   </div>

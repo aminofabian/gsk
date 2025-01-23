@@ -42,13 +42,13 @@ const Logo = () => (
       </div>
     </div>
     <div className="flex flex-col">
-      <span className="text-base sm:text-xl font-bold text-[#003366] leading-tight tracking-tight">
+      <span className="text-base sm:text-xl font-serif font-bold text-[#003366] leading-tight tracking-tight">
         Gastroenterology Society
       </span>
-      <span className="text-base sm:text-xl font-bold text-[#003366] leading-tight tracking-tight">
+      <span className="text-base sm:text-xl font-serif font-bold text-[#003366] leading-tight tracking-tight">
         of Kenya
       </span>
-      <span className="text-xs sm:text-sm font-medium text-[#003366]/80 mt-0.5">
+      <span className="text-xs sm:text-sm font-serif text-[#003366]/80 mt-0.5">
         Advancing Digestive Health Care
       </span>
     </div>
@@ -65,8 +65,8 @@ const NavItem = ({ item }: { item: NavItem }) => {
       onMouseLeave={() => setIsOpen(false)}
     >
       <a 
-        href={item.link} 
-        className="uppercase text-[14px] font-bold tracking-wider text-gray-700 hover:text-blue-600 px-6 py-4 inline-block transition-colors duration-200 border-b-2 border-transparent hover:border-blue-600"
+        href={item.link}
+        className="block px-4 py-2 font-serif text-[#003366] hover:text-[#004488] transition-colors"
       >
         {item.title}
       </a>
@@ -135,14 +135,20 @@ const MobileMenu = ({ navItems, isOpen, setIsOpen }: {
           <nav className="px-2 py-4">
             {navItems.map((item, index) => (
               <div key={index} className="mb-2">
-                <a href={item.link} className="block px-4 py-2 text-[14px] font-semibold text-gray-700 uppercase hover:bg-blue-50 rounded-lg">
+                <a 
+                  href="#" 
+                  className="block px-4 py-2 font-serif text-[#003366] hover:bg-blue-50 rounded-lg transition-colors"
+                >
                   {item.title}
                 </a>
                 {item.children && (
                   <div className="ml-4 mt-1 border-l-2 border-gray-100">
                     {item.children.map((child, childIdx) => (
                       <div key={childIdx}>
-                        <a href={child.link} className="block px-4 py-2 text-[14px] text-gray-600 hover:text-blue-600">
+                        <a 
+                          href="#" 
+                          className="block px-4 py-2 font-serif text-[#003366] hover:bg-blue-50 rounded-lg transition-colors"
+                        >
                           {child.title}
                         </a>
                         {child.children && (
@@ -150,8 +156,8 @@ const MobileMenu = ({ navItems, isOpen, setIsOpen }: {
                             {child.children.map((subChild, subIdx) => (
                               <a
                                 key={subIdx}
-                                href={subChild.link}
-                                className="block px-4 py-2 text-[14px] text-gray-600 hover:text-blue-600"
+                                href="#" 
+                                className="block px-4 py-2 font-serif text-[#003366] hover:bg-blue-50 rounded-lg transition-colors"
                               >
                                 {subChild.title}
                               </a>
@@ -184,59 +190,39 @@ const MobileMenu = ({ navItems, isOpen, setIsOpen }: {
 const HelloBar = () => (
   <div className="bg-[#003366] text-white">
     {/* Announcement Banner */}
-    <div className="bg-[#002244] py-1 text-center relative overflow-hidden">
-      <div className="animate-marquee whitespace-nowrap">
-        <span className="text-xs sm:text-sm font-medium inline-flex items-center gap-2">
-          <span className="inline-block w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-          New: Register for the 2024 Annual Gastroenterology Conference
-          <a href="/conference" className="underline hover:text-green-400 ml-2">Learn More →</a>
-        </span>
+    <div className="bg-[#002244] py-1.5 text-center relative overflow-hidden">
+      <div className="flex items-center justify-center gap-2">
+        <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+        <div className="whitespace-nowrap animate-marquee">
+          <span className="font-serif text-sm text-white/90">
+            Contact Us: +254 704 373746 | secretarygsk@gmail.com | ACS Building, 2nd Floor. Lenana Road, Nairobi, Kenya
+            <span className="mx-12">•</span>
+            Registration Now Open: 2024 Annual Gastroenterology Conference - Early Bird Rates Available
+          </span>
+        </div>
       </div>
     </div>
-
-    {/* Main HelloBar Content */}
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-1.5 flex justify-between items-center text-sm">
-      <div className="flex items-center space-x-4">
-        <span className="text-white/90 hidden sm:inline">Welcome to GSK</span>
-        <span className="h-4 w-px bg-white/20 hidden sm:inline"></span>
-        <a href="tel:+254700000000" className="text-white/90 hover:text-white flex items-center gap-1">
+    <div className="max-w-7xl mx-auto px-4 py-1 flex flex-wrap items-center justify-between gap-4">
+      <div className="flex items-center gap-6">
+        <a href="/donate" className="inline-flex items-center gap-2 px-4 py-1 bg-green-500 hover:bg-green-600 rounded-full text-sm font-serif text-white transition-colors">
+          Donate
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
           </svg>
-          <span className="hidden sm:inline">+254 700 000 000</span>
         </a>
-        <a href="mailto:info@gsk.or.ke" className="text-white/90 hover:text-white items-center gap-1 hidden sm:flex">
+        <a href="/volunteer" className="inline-flex items-center gap-2 px-4 py-1 bg-[#003366] hover:bg-[#004488] rounded-full text-sm font-serif text-white/90 hover:text-white transition-colors">
+          Volunteer
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 00-3 0m-6-3V11m0-5.5v-1a1.5 1.5 0 013 0v1m0 0V11m0-5.5a1.5 1.5 0 013 0v3m0 0V11" />
           </svg>
-          info@gsk.or.ke
         </a>
       </div>
-      <div className="flex items-center divide-x divide-white/20">
-        <div className="flex items-center space-x-4 px-4">
-          <a href="/contact" className="text-white/90 hover:text-white hidden sm:inline">Contact</a>
-          <a href="/faq" className="text-white/90 hover:text-white hidden sm:inline">FAQ</a>
-        </div>
-        <div className="flex items-center space-x-3 pl-4">
-          <a 
-            href="/donate" 
-            className="inline-flex items-center gap-1.5 bg-green-500 hover:bg-green-600 text-white px-3 py-0.5 rounded-full text-xs font-medium transition-colors duration-200"
-          >
-            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-            </svg>
-            Donate
-          </a>
-          <a 
-            href="/volunteer" 
-            className="hidden sm:inline-flex items-center gap-1.5 bg-[#003366] hover:bg-[#002244] text-white/90 hover:text-white px-3 py-0.5 rounded-full text-xs font-medium transition-colors duration-200 border border-white/20"
-          >
-            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-            </svg>
-            Volunteer
-          </a>
-        </div>
+      <div className="flex items-center gap-4">
+        <a href="/guidelines" className="text-sm font-serif text-white/90 hover:text-white transition-colors">Clinical Guidelines</a>
+        <span className="text-white/50">|</span>
+        <a href="/research" className="text-sm font-serif text-white/90 hover:text-white transition-colors">Research Updates</a>
+        <span className="text-white/50">|</span>
+        <a href="/cpd" className="text-sm font-serif text-white/90 hover:text-white transition-colors">CPD Points</a>
       </div>
     </div>
   </div>
