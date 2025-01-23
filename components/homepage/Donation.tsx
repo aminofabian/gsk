@@ -23,7 +23,7 @@ const Donation = () => {
           Make A Donation
         </h2>
         <p className="text-lg sm:text-xl font-serif text-white/80 text-center max-w-3xl mx-auto">
-          Support GSK's mission to advance digestive healthcare in Kenya through research, education, and community outreach.
+          Support GSK&apos;s mission to advance digestive healthcare in Kenya through research, education, and community outreach.
         </p>
       </div>
 
