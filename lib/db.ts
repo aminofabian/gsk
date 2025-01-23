@@ -1,14 +1,11 @@
-import { PrismaClient } from '@prisma/client'
-import { neon } from '@neondatabase/serverless'
+import { PrismaClient } from '@prisma/client/edge'
 
-const connectionString = process.env.DIRECT_URL!
+declare global {
+  var prisma: PrismaClient | undefined
+}
 
-const prismadb = new PrismaClient({
-  datasources: {
-    db: {
-      url: connectionString
-    }
-  }
-})
+const prismadb = globalThis.prisma || new PrismaClient()
+
+if (process.env.NODE_ENV !== "production") globalThis.prisma = prismadb
 
 export default prismadb
