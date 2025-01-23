@@ -56,7 +56,7 @@ export default function NotFound() {
           
           {/* Description */}
           <p className="text-lg text-blue-100/80 max-w-md mx-auto font-serif">
-            The page you're looking for doesn't exist or has been moved. Please check the URL or navigate back to the homepage.
+            The page you&apos;re looking for doesn&apos;t exist or has been moved. Please check the URL or navigate back to the homepage.
           </p>
 
           {/* Buttons */}

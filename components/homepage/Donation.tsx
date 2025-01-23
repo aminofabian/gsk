@@ -4,6 +4,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { FaHandHoldingHeart, FaChartLine, FaMicroscope, FaUserMd, FaHospital, FaBookMedical } from "react-icons/fa";
 import { GiStomach, GiMedicalDrip } from "react-icons/gi";
+import Image from "next/image";
 
 const Donation = () => {
   const images = [
@@ -126,32 +127,25 @@ const Donation = () => {
               {images.map((image, index) => (
                 <div
                   key={index}
-                  className={`
-                    relative h-full transform-gpu transition-transform duration-300
-                    [transform:skewX(-15deg)] sm:[transform:skewX(-25deg)]
-                    ${index === images.length - 1 ? 'border-none' : 'border-r-[3px] sm:border-r-[6px] border-white'}
-                  `}
+                  className="relative h-full transform-gpu transition-transform duration-300"
                   style={{
-                    width: index === 0 || index === images.length - 1 ? '28%' : '24%',
-                    marginLeft: index === 0 ? '0' : '-2%',
-                    overflow: 'hidden',
+                    width: "26%",
+                    transform: `skew(-10deg) translateX(${index * -70}%)`,
                     zIndex: 5 - index
                   }}
                 >
-                  <div 
-                    className="absolute inset-0 w-[200%] h-full transition-transform duration-700 hover:scale-105 [transform:skewX(15deg)] sm:[transform:skewX(25deg)]"
-                    style={{
-                      marginLeft: index === 0 ? '-30%' : index === images.length - 1 ? '-70%' : '-50%'
-                    }}
-                  >
-                    <img
+                  <div className="relative h-full w-full overflow-hidden">
+                    <Image
                       src={image}
                       alt={`Support ${index + 1}`}
-                      className="h-full w-full object-cover"
+                      fill
+                      className="object-cover"
+                      style={{
+                        transform: "skew(10deg) scale(1.5)",
+                        transformOrigin: "center"
+                      }}
                     />
                   </div>
-                  {/* Hover Overlay */}
-                  <div className="absolute inset-0 bg-black/20 opacity-0 hover:opacity-100 transition-opacity duration-300" />
                 </div>
               ))}
             </div>
