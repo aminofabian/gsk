@@ -225,7 +225,7 @@ const Partners = () => {
           {/* Right side - Enhanced Leadership Section */}
           <div className="flex flex-col h-full">
             <div className="bg-white rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 flex-1 flex flex-col">
-              <h3 className="text-2xl font-serif font-bold text-blue-900 mb-8">Meet GSK's Partners</h3>
+              <h3 className="text-2xl font-serif font-bold text-blue-900 mb-8">Meet GSK&apos;s Partners</h3>
               <div className="grid grid-cols-2 gap-6 flex-1">
                 {leaders.map((leader, index) => (
                   <div key={index} className="group relative">
