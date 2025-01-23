@@ -1,14 +1,17 @@
 import { PrismaClient } from '@prisma/client'
-import { Pool } from '@neondatabase/serverless'
+import { Pool, neonConfig } from '@neondatabase/serverless'
+import ws from 'ws'
 
 const connectionString = process.env.DATABASE_URL!
+
+// Required for Vercel Edge Functions
+neonConfig.webSocketConstructor = ws
 const pool = new Pool({ connectionString })
 
 const prismadb = new PrismaClient({
-  adapter: {
-    pool: {
-      pool,
-      options: { connectionString }
+  datasources: {
+    db: {
+      url: connectionString
     }
   }
 })
