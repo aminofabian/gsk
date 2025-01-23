@@ -1,12 +1,14 @@
 import { PrismaClient } from '@prisma/client'
-import { PrismaNeon } from '@prisma/adapter-neon'
-import { Pool } from '@neondatabase/serverless'
+import { neon } from '@neondatabase/serverless'
 
-const connectionString = process.env.DATABASE_URL!
-const pool = new Pool({ connectionString })
+const connectionString = process.env.DIRECT_URL!
 
 const prismadb = new PrismaClient({
-  adapter: new PrismaNeon(pool)
+  datasources: {
+    db: {
+      url: connectionString
+    }
+  }
 })
 
 export default prismadb
