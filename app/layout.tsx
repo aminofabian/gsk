@@ -6,8 +6,23 @@ import Navigation from "@/components/homepage/Navigation";
 const inter = Outfit({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Next Auth",
-  description: "Simple Authentication Service",
+  title: "GSK - Gastroenterology Society of Kenya",
+  description: "Advancing Digestive Health Care in Kenya",
+  icons: {
+    icon: [
+      {
+        url: "/favicon.svg",
+        type: "image/svg+xml",
+      }
+    ],
+    shortcut: ["/favicon.svg"],
+    apple: [
+      {
+        url: "/favicon.svg",
+        type: "image/svg+xml",
+      }
+    ],
+  },
 };
 
 export default function RootLayout({
