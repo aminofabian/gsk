@@ -5,20 +5,22 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-    relationMode = "prisma"
-
+  provider  = "postgresql"
+  url       = env("PRISMA_ACCELERATE_URL")
+  directUrl = env("DATABASE_URL_UNPOOLED")
 }
+
 enum UserRole {
   ADMIN
   USER
   VERIFIED_USER
 }
+
 model User {
   id                 String    @id @default(cuid())
   firstName          String?
@@ -30,45 +32,47 @@ model User {
   role               UserRole  @default(USER)
   accounts           Account[]
   isTwoFactorEnabled Boolean   @default(false)
- 
+  
   @@map("users")
 }
+
 model Account {
-  id                 String  @id @default(cuid())
-  userId             String  @map("user_id")
-  type               String
-  provider           String
-  providerAccountId  String  @map("provider_account_id")
-  refresh_token      String? @db.Text
-  access_token       String? @db.Text
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String? @db.Text
-  session_state      String?
- 
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
- 
+
   @@unique([provider, providerAccountId])
   @@map("accounts")
 }
- 
-model VerificationToken { 
-id String @id @default(cuid())
-email String
-token String @unique
-expires DateTime
 
-@@unique([email, token])
+model VerificationToken {
+  id      String   @id @default(cuid())
+  email   String
+  token   String   @unique
+  expires DateTime
+
+  @@unique([email, token])
+  @@map("verification_tokens")
 }
 
 model PasswordResetToken {
-id String @id @default(cuid())
-email String
-token String @unique
-expires DateTime
+  id      String   @id @default(cuid())
+  email   String
+  token   String   @unique
+  expires DateTime
 
-@@unique([email, token])
-
+  @@unique([email, token])
+  @@map("password_reset_tokens")
 }
 
