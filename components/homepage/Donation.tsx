@@ -118,139 +118,93 @@ const Donation = () => {
           </p>
         </motion.div>
 
-        {/* Interactive Image Gallery */}
-        <motion.div 
-          className="relative w-full mb-8 sm:mb-12 md:mb-16 lg:mb-20 perspective-[2000px]"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-        >
-          <div className="relative h-[400px] sm:h-[500px] md:h-[600px] lg:h-[700px] w-full">
-            {/* Main Showcase */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              <motion.div 
-                className="relative w-[80%] h-[90%] transform-style-3d"
-                animate={{ rotateY: [0, 360] }}
-                transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-              >
-                {images.map((image, index) => (
-                  <motion.div
-                    key={index}
-                    className="absolute inset-0 group cursor-pointer"
-                    style={{
-                      transform: `rotateY(${index * (360 / images.length)}deg) translateZ(300px)`,
-                      transformStyle: "preserve-3d",
-                    }}
-                    whileHover={{ scale: 1.1, z: 50 }}
-                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                  >
-                    <div className="relative w-[300px] h-[400px] rounded-2xl overflow-hidden shadow-2xl transform-gpu">
-                      <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20 mix-blend-overlay z-10" />
-                      <Image
-                        src={image}
-                        alt={`Gallery image ${index + 1}`}
-                        fill
-                        className="object-cover transition-transform duration-700 group-hover:scale-110"
-                        sizes="(max-width: 640px) 80vw, (max-width: 1024px) 40vw, 300px"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                      
-                      {/* Interactive Elements */}
-                      <motion.div 
-                        className="absolute inset-0 flex flex-col justify-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                        initial={{ y: 20 }}
-                        whileHover={{ y: 0 }}
-                      >
-                        <div className="transform-gpu">
-                          <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 shadow-lg">
-                            <h3 className="text-white font-serif text-lg font-bold mb-2">
-                              GSK Impact {index + 1}
-                            </h3>
-                            <p className="text-white/90 text-sm">
-                              Advancing healthcare through innovation and research
-                            </p>
-                          </div>
-                        </div>
-                      </motion.div>
-
-                      {/* Decorative Elements */}
-                      <div className="absolute inset-0 pointer-events-none">
-                        <div className="absolute top-0 left-0 w-full h-full bg-gradient-conic from-blue-500/20 via-purple-500/20 to-blue-500/20 mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                        <motion.div 
-                          className="absolute -top-20 -right-20 w-40 h-40 bg-blue-500/30 rounded-full blur-3xl"
-                          animate={{ 
-                            scale: [1, 1.2, 1],
-                            opacity: [0.3, 0.6, 0.3]
-                          }}
-                          transition={{
-                            duration: 4,
-                            repeat: Infinity,
-                            ease: "easeInOut"
-                          }}
-                        />
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
-              </motion.div>
-            </div>
-
-            {/* Interactive Particles */}
-            <div className="absolute inset-0 pointer-events-none">
-              {[...Array(20)].map((_, i) => (
-                <motion.div
-                  key={i}
-                  className="absolute w-2 h-2 bg-blue-500/30 rounded-full"
-                  style={{
-                    left: `${Math.random() * 100}%`,
-                    top: `${Math.random() * 100}%`,
-                  }}
-                  animate={{
-                    y: [0, -20, 0],
-                    opacity: [0, 1, 0],
-                    scale: [0, 1, 0],
-                  }}
-                  transition={{
-                    duration: 2 + Math.random() * 2,
-                    repeat: Infinity,
-                    delay: i * 0.1,
-                  }}
+        {/* Creative Image Gallery */}
+        <div className="relative w-full mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 h-[600px] md:h-[500px]">
+            {/* Main Large Image */}
+            <div className="col-span-1 md:col-span-6 h-full">
+              <div className="relative h-full w-full rounded-2xl overflow-hidden shadow-2xl group">
+                <Image
+                  src={images[0]}
+                  alt="Main GSK event"
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  priority
                 />
-              ))}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-6">
+                  <div className="bg-white/10 backdrop-blur-md rounded-xl p-4">
+                    <h3 className="text-white font-serif text-lg font-bold">Annual Conference</h3>
+                    <p className="text-white/90 text-sm">Bringing together healthcare professionals</p>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            {/* Custom Mouse Follower */}
-            <motion.div
-              className="fixed w-20 h-20 pointer-events-none z-50 rounded-full mix-blend-screen hidden md:block"
-              style={{
-                background: "radial-gradient(circle, rgba(59,130,246,0.3) 0%, rgba(59,130,246,0) 70%)",
-              }}
-              animate={{
-                x: -10,
-                y: -10,
-                scale: [1, 1.2, 1],
-              }}
-              transition={{
-                type: "spring",
-                stiffness: 500,
-                damping: 30,
-                mass: 0.5,
-              }}
-            />
-          </div>
+            {/* Right Side Column */}
+            <div className="col-span-1 md:col-span-6 grid grid-cols-2 gap-4 md:gap-6 h-full">
+              {/* Top Row */}
+              <div className="col-span-2 h-[250px] md:h-[240px]">
+                <div className="relative h-full w-full rounded-2xl overflow-hidden shadow-xl group">
+                  <Image
+                    src={images[1]}
+                    alt="Research initiatives"
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, 25vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-4">
+                    <div className="bg-white/10 backdrop-blur-md rounded-lg p-3">
+                      <h3 className="text-white font-serif text-base font-bold">Research</h3>
+                      <p className="text-white/90 text-xs">Advancing medical knowledge</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-          {/* Navigation Dots */}
-          <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-            {images.map((_, index) => (
-              <motion.button
-                key={index}
-                className="w-2 h-2 rounded-full bg-white/50 hover:bg-white/80 transition-colors"
-                whileHover={{ scale: 1.5 }}
-                whileTap={{ scale: 0.9 }}
-              />
-            ))}
+              {/* Bottom Row */}
+              <div className="col-span-1 h-[200px] md:h-[220px]">
+                <div className="relative h-full w-full rounded-2xl overflow-hidden shadow-xl group">
+                  <Image
+                    src={images[2]}
+                    alt="Training programs"
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 768px) 50vw, 25vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-4">
+                    <div className="bg-white/10 backdrop-blur-md rounded-lg p-3">
+                      <h3 className="text-white font-serif text-base font-bold">Training</h3>
+                      <p className="text-white/90 text-xs">Building expertise</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="col-span-1 h-[200px] md:h-[220px]">
+                <div className="relative h-full w-full rounded-2xl overflow-hidden shadow-xl group">
+                  <Image
+                    src={images[3]}
+                    alt="Community outreach"
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 768px) 50vw, 25vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-4">
+                    <div className="bg-white/10 backdrop-blur-md rounded-lg p-3">
+                      <h3 className="text-white font-serif text-base font-bold">Community</h3>
+                      <p className="text-white/90 text-xs">Making an impact</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* Specialized Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
