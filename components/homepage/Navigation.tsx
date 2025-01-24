@@ -149,7 +149,7 @@ const MobileMenu = ({ navItems, isOpen, setIsOpen }: {
             <a href="/login" className="w-full px-4 py-2 text-center text-[14px] font-semibold text-blue-600 border border-blue-600 rounded-md hover:bg-blue-50">
               SIGN IN
             </a>
-            <a href="/register" className="w-full px-4 py-2 text-center text-[14px] font-semibold text-white bg-blue-600 rounded-md hover:bg-blue-700">
+            <a href="/membership" className="w-full px-4 py-2 text-center text-[14px] font-semibold text-white bg-blue-600 rounded-md hover:bg-blue-700">
               JOIN GSK
             </a>
           </div>
