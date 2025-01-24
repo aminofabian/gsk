@@ -55,40 +55,43 @@ const Hero = () => {
             <div className="max-w-7xl mx-auto px-6">
               <div className="flex flex-col md:flex-row items-center justify-between gap-8">
                 {/* Text Content */}
-                <div className="max-w-2xl">
+                <div className="max-w-2xl relative z-10">
                   <div className="flex items-center gap-2 mb-3">
-                    <div className="h-0.5 w-8 bg-slate-100"></div>
-                    <span className="text-white font-medium tracking-wide text-base text-blue-100">MEMBERSHIP</span>
+                    <div className="h-0.5 w-12 bg-[#FF6B35]"></div>
+                    <span className="text-[#FF6B35] font-medium tracking-wider text-sm uppercase">Membership</span>
                   </div>
-                  <h2 className="text-2xl md:text-3xl lg:text-4xl font-playfair text-white font-bold leading-tight">
-                    Join Kenya&apos;s Premier Gastroenterology Network
+                  <h2 className="text-3xl md:text-4xl lg:text-5xl font-playfair text-white font-bold leading-tight drop-shadow-lg">
+                    Join Kenya&apos;s Premier
+                    <span className="block mt-1 text-[#FF6B35]">Gastroenterology Network</span>
                   </h2>
-                  <p className="mt-3 text-white/80 text-base md:text-lg font-light">
+                  <p className="mt-4 text-white/90 text-lg md:text-xl font-light leading-relaxed">
                     Access exclusive benefits including CME credits, research collaborations, and specialized training opportunities.
                   </p>
                 </div>
                 {/* CTAs */}
-                <div className="flex flex-col sm:flex-row gap-4 min-w-[300px]">
+                <div className="flex flex-col sm:flex-row gap-4 min-w-[300px] relative z-10">
                   <a 
                     href="/membership"
-                    className="group relative inline-flex justify-center items-center px-8 py-3.5 bg-[#083c74] text-white rounded-lg font-semibold hover:bg-[#083c74]/90 transition-all duration-300 text-base shadow-lg overflow-hidden"
+                    className="group relative inline-flex justify-center items-center px-8 py-4 bg-[#FF6B35] text-white rounded-lg font-semibold transition-all duration-300 text-base shadow-xl hover:shadow-2xl hover:-translate-y-0.5"
                   >
                     <span className="relative z-10 flex items-center">
                       <span>Become a Member</span>
-                      <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <svg className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <path d="M5 12h14M12 5l7 7-7 7"/>
                       </svg>
                     </span>
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#083c74] to-[#0a4d91] opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#FF6B35] to-[#ff8655] rounded-lg opacity-0 group-hover:opacity-100 transition-opacity"></div>
                   </a>
                   <a 
                     href="/about"
-                    className="group inline-flex justify-center items-center px-8 py-3.5 bg-white/5 hover:bg-white/10 text-white rounded-lg font-semibold transition-all duration-300 text-base border border-white/10"
+                    className="group relative inline-flex justify-center items-center px-8 py-4 bg-white/5 hover:bg-white/10 text-white rounded-lg font-semibold transition-all duration-300 text-base border border-white/20 hover:border-white/40 backdrop-blur-sm hover:backdrop-blur-md shadow-lg hover:-translate-y-0.5"
                   >
-                    <span>View Benefits</span>
-                    <svg className="w-4 h-4 ml-2 opacity-0 group-hover:opacity-100 translate-x-0 group-hover:translate-x-1 transition-all duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M5 12h14M12 5l7 7-7 7"/>
-                    </svg>
+                    <span className="relative z-10 flex items-center">
+                      <span>View Benefits</span>
+                      <svg className="w-5 h-5 ml-2 opacity-0 group-hover:opacity-100 translate-x-0 group-hover:translate-x-1 transition-all duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                      </svg>
+                    </span>
                   </a>
                 </div>
               </div>
@@ -123,7 +126,7 @@ const Hero = () => {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="text-2xl font-playfair font-bold mb-2 group-hover:text-white transition-colors">Member Benefits</h3>
+                    <h3 className="text-2xl font-playfair font-bold mb-2 group-hover:text-white transition-colors text-white">Member Benefits</h3>
                     <p className="text-white/70 group-hover:text-white/90 transition-colors">Access CME credits, research grants, and exclusive training opportunities.</p>
                   </div>
                 </div>
