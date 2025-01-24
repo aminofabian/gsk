@@ -121,7 +121,7 @@ const Hero = () => {
               <div className="group relative p-6 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 transition-all duration-300">
                 <div className="flex items-start space-x-4">
                   <div className="bg-gradient-to-br from-[#083c74] to-[#0a4d91] p-4 rounded-xl shadow-lg transition-all duration-300 group-hover:scale-110">
-                    <svg className="w-8 h-8" viewBox="0 0 24 24" fill="currentColor text-white ">
+                    <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="currentColor text-white ">
                       <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
                     </svg>
                   </div>
@@ -136,7 +136,7 @@ const Hero = () => {
               <div className="group relative p-6 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 transition-all duration-300">
                 <div className="flex items-start space-x-4">
                   <div className="bg-gradient-to-br from-[#083c74] to-[#0a4d91] p-4 rounded-xl shadow-lg transition-all duration-300 group-hover:scale-110">
-                    <svg className="w-8 h-8" viewBox="0 0 24 24" fill="currentColor text-white">
+                    <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="currentColor text-white">
                       <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
                     </svg>
                   </div>
@@ -151,7 +151,7 @@ const Hero = () => {
               <div className="group relative p-6 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 transition-all duration-300">
                 <div className="flex items-start space-x-4">
                   <div className="bg-gradient-to-br from-[#083c74] to-[#0a4d91] p-4 rounded-xl shadow-lg transition-all duration-300 group-hover:scale-110">
-                    <svg className="w-8 h-8" viewBox="0 0 24 24 text-white" fill="currentColor">
+                    <svg className="w-8 h-8 text-white" viewBox="0 0 24 24 text-white" fill="currentColor">
                       <path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
                     </svg>
                   </div>
