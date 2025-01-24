@@ -5,6 +5,7 @@ import "./globals.css";
 import Navigation from "@/components/homepage/Navigation";
 import React, { useState, useEffect } from 'react';
 import AuthLoader from '@/components/AuthLoader';
+import { usePathname } from 'next/navigation';
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const merriweather = Merriweather({ 
@@ -24,6 +25,8 @@ export default function RootLayout({
 }>) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const pathname = usePathname();
+  const isDashboard = pathname?.startsWith('/dashboard');
 
   useEffect(() => {
     const auth = localStorage.getItem('gsk-auth');
@@ -42,7 +45,7 @@ export default function RootLayout({
           <AuthLoader onAuthenticated={() => setIsAuthenticated(true)} />
         ) : (
           <div className="w-full">
-            <Navigation />
+            {!isDashboard && <Navigation />}
             <div className="w-full">
               {children}
             </div>

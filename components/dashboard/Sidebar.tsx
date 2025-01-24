@@ -6,132 +6,129 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import Logo from "@/components/homepage/Logo";
 import {
-  FaHome,
   FaUserMd,
   FaCalendarAlt,
-  FaBook,
   FaCertificate,
+  FaFileAlt,
   FaUsers,
   FaNewspaper,
-  FaCog,
   FaSignOutAlt,
-  FaChevronLeft,
-  FaChevronRight,
+  FaGraduationCap,
+  FaHandHoldingMedical,
+  FaHospital,
+  FaStethoscope,
+  FaMicroscope
 } from "react-icons/fa";
 import { MdPayments } from "react-icons/md";
-import { IoDocuments } from "react-icons/io5";
-import SidebarBackground from "./SidebarBackground";
-import SidebarMenuGroup from "./SidebarMenuGroup";
-import SidebarMenuItem from "./SidebarMenuItem";
 
-// Grouped menu items
+// Stats items
+const statsItems = [
+  { label: "CPD Points", value: "150", icon: "🎯" },
+  { label: "Membership", value: "Active", icon: "✅" },
+  { label: "Publications", value: "5", icon: "📚" },
+  { label: "Events", value: "2", icon: "📅" },
+];
+
+// Menu items grouped by category
 const menuGroups = [
-  {
-    title: "Main",
-    items: [
-      { icon: FaHome, label: "Dashboard", href: "/dashboard" },
-      { icon: FaUserMd, label: "My Profile", href: "/dashboard/profile" },
-    ]
-  },
   {
     title: "Professional",
     items: [
-      { icon: FaCalendarAlt, label: "Events & CME", href: "/dashboard/events" },
-      { icon: FaBook, label: "Resources", href: "/dashboard/resources" },
-      { icon: FaCertificate, label: "Certificates", href: "/dashboard/certificates" },
+      { icon: FaCalendarAlt, label: "CME Events", href: "/dashboard/events" },
+      { icon: FaStethoscope, label: "Clinical Updates", href: "/dashboard/updates" },
+      { icon: FaMicroscope, label: "Research Hub", href: "/dashboard/research" },
+      { icon: FaGraduationCap, label: "Resources", href: "/dashboard/resources" },
     ]
   },
   {
-    title: "Management",
+    title: "Membership",
     items: [
+      { icon: FaCertificate, label: "Certificates", href: "/dashboard/certificates" },
       { icon: MdPayments, label: "Payments", href: "/dashboard/payments" },
-      { icon: FaUsers, label: "Members Directory", href: "/dashboard/members" },
-      { icon: IoDocuments, label: "Documents", href: "/dashboard/documents" },
-      { icon: FaNewspaper, label: "News & Updates", href: "/dashboard/news" },
+      { icon: FaFileAlt, label: "Documents", href: "/dashboard/documents" },
+      { icon: FaHospital, label: "Facilities", href: "/dashboard/facilities" },
     ]
   }
 ];
 
 const bottomMenuItems = [
-  { icon: FaCog, label: "Settings", href: "/dashboard/settings" },
+  { icon: FaUserMd, label: "Profile", href: "/dashboard/profile" },
   { icon: FaSignOutAlt, label: "Sign Out", href: "/auth/signout" },
 ];
 
 export default function Sidebar() {
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const [hoveredItem, setHoveredItem] = useState<string | null>(null);
   const pathname = usePathname();
 
   return (
     <div 
-      className={`sticky top-0 h-screen transition-all duration-300 ${
+      className={`h-screen bg-[#004488] border-r border-white/10 transition-all duration-300 ${
         isCollapsed ? "w-20" : "w-72"
       }`}
     >
-      <SidebarBackground />
-
       {/* Content Container */}
-      <div className="relative h-full flex flex-col">
-        {/* Toggle Button */}
-        <motion.button
-          whileHover={{ scale: 1.2, rotate: isCollapsed ? 180 : 0 }}
-          whileTap={{ scale: 0.9 }}
-          onClick={() => setIsCollapsed(!isCollapsed)}
-          className="absolute -right-3 top-8 bg-white/20 backdrop-blur-md text-white p-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 border border-white/30"
-        >
-          {isCollapsed ? <FaChevronRight size={12} /> : <FaChevronLeft size={12} />}
-        </motion.button>
-
+      <div className="h-full flex flex-col">
         {/* Logo */}
-        <motion.div 
-          className="p-6"
-          animate={{ 
-            width: isCollapsed ? "40px" : "auto",
-            opacity: 1 
-          }}
-        >
-          <div className={`transition-all duration-300 ${isCollapsed ? "scale-75" : ""}`}>
+        <div className="p-4 border-b border-white/10">
+          <div className="scale-75 origin-left">
             <Logo variant="light" />
           </div>
-        </motion.div>
+        </div>
 
-        {/* Main Menu */}
-        <nav className="flex-1 px-3 py-4 overflow-y-auto scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent">
-          <div className="space-y-6">
-            {menuGroups.map((group) => (
-              <SidebarMenuGroup
-                key={group.title}
-                title={group.title}
-                items={group.items}
-                isCollapsed={isCollapsed}
-                hoveredItem={hoveredItem}
-                currentPath={pathname}
-                onHoverStart={(href) => setHoveredItem(href)}
-                onHoverEnd={() => setHoveredItem(null)}
-              />
+        {/* Stats Section */}
+        <div className="p-4 border-b border-white/10">
+          <h2 className="text-sm font-semibold text-white/60 mb-4">OVERVIEW</h2>
+          <div className="grid grid-cols-2 gap-4">
+            {statsItems.map((stat, index) => (
+              <div key={index} className="bg-[#003366] rounded-lg p-3">
+                <div className="flex items-center gap-2 text-white/60 text-sm mb-1">
+                  <span>{stat.icon}</span>
+                  <span>{stat.label}</span>
+                </div>
+                <div className="text-white font-medium">{stat.value}</div>
+              </div>
             ))}
           </div>
-        </nav>
+        </div>
 
-        {/* Bottom Menu */}
-        <div className="p-4">
-          <div className="pt-4 border-t border-white/10">
-            <div className="space-y-2">
-              {bottomMenuItems.map((item) => (
-                <SidebarMenuItem
+        {/* Menu Groups */}
+        {menuGroups.map((group) => (
+          <div key={group.title} className="p-4 border-b border-white/10">
+            <h2 className="text-sm font-semibold text-white/60 mb-4">{group.title.toUpperCase()}</h2>
+            <nav className="space-y-2">
+              {group.items.map((item) => (
+                <Link
                   key={item.href}
                   href={item.href}
-                  icon={item.icon}
-                  label={item.label}
-                  isActive={pathname === item.href}
-                  isCollapsed={isCollapsed}
-                  hoveredItem={hoveredItem}
-                  onHoverStart={() => setHoveredItem(item.href)}
-                  onHoverEnd={() => setHoveredItem(null)}
-                />
+                  className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-colors ${
+                    pathname === item.href
+                      ? "bg-[#003366] text-white"
+                      : "text-white/60 hover:text-white hover:bg-[#003366]"
+                  }`}
+                >
+                  <item.icon className="text-xl" />
+                  <span className="font-medium">{item.label}</span>
+                </Link>
               ))}
-            </div>
+            </nav>
           </div>
+        ))}
+
+        {/* Account Section */}
+        <div className="mt-auto p-4 border-t border-white/10">
+          <h2 className="text-sm font-semibold text-white/60 mb-4">ACCOUNT</h2>
+          <nav className="space-y-2">
+            {bottomMenuItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="flex items-center gap-3 px-3 py-2 rounded-lg text-white/60 hover:text-white hover:bg-[#003366] transition-colors"
+              >
+                <item.icon className="text-xl" />
+                <span className="font-medium">{item.label}</span>
+              </Link>
+            ))}
+          </nav>
         </div>
       </div>
     </div>
