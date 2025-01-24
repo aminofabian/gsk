@@ -36,6 +36,9 @@ export default auth((req) => {
   return;
 });
 
+// Force edge runtime
+export const runtime = "edge";
+
 export const config = {
   matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
 };
