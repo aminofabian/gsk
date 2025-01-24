@@ -128,7 +128,7 @@ const Features = () => {
   return (
     <section className="relative">
       {/* Top curved section with icons */}
-      <div className="relative bg-gradient-to-br from-[#003366] via-[#004080] to-[#002244]">
+      <div className="relative bg-gradient-to-br from-[#003366] via-[#004080] to-[#40e0d0]">
         {/* Decorative medical symbols background */}
         <div className="absolute inset-0 opacity-5">
           <div className="absolute inset-0" style={{
@@ -163,18 +163,23 @@ const Features = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {features.map((feature, index) => (
-              <div key={index} className={`${feature.color} rounded-xl p-6 text-white`}>
-                {feature.icon}
+              <div 
+                key={index} 
+                className="group bg-gradient-to-br from-[#003366] to-[#004080] hover:from-[#003366] hover:to-[#40e0d0] rounded-xl p-6 text-white transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl"
+              >
+                <div className="transition-transform duration-300 group-hover:scale-110">
+                  {feature.icon}
+                </div>
                 <h3 className="text-xl font-serif font-bold mt-4 mb-2">{feature.title}</h3>
                 <p className="font-serif text-blue-100 mb-4">{feature.description}</p>
                 <a
                   href={feature.link}
-                  className="inline-flex items-center px-6 py-3 bg-white text-[#003366] rounded-lg font-serif font-semibold hover:bg-blue-50 transition-colors"
+                  className="inline-flex items-center px-6 py-3 bg-white/10 backdrop-blur-sm text-white rounded-lg font-serif font-semibold hover:bg-[#40e0d0] hover:text-[#003366] transition-all duration-300"
                 >
                   Learn More
-                  <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
                 </a>
@@ -189,18 +194,18 @@ const Features = () => {
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-8">
             {/* Member Benefits Card */}
-            <div className="bg-gradient-to-br from-[#003366] to-[#004080] rounded-xl shadow-xl overflow-hidden text-white">
+            <div className="bg-gradient-to-br from-[#003366] via-[#004080] to-[#40e0d0] rounded-xl shadow-xl overflow-hidden text-white transform transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl">
               <div className="p-8">
                 <h2 className="text-2xl font-serif font-bold mb-6 flex items-center gap-3">
                   <span>Why Join GSK?</span>
-                  <span className="px-3 py-1 bg-blue-400/20 text-blue-100 text-sm font-serif rounded-full">
+                  <span className="px-3 py-1 bg-[#40e0d0]/20 text-white text-sm font-serif rounded-full">
                     Premium Benefits
                   </span>
                 </h2>
                 <div className="space-y-6">
                   {memberBenefits.map((benefit, index) => (
-                    <div key={index} className="flex items-start gap-4">
-                      <div className="w-8 h-8 bg-blue-400/20 rounded-full flex items-center justify-center text-blue-100">
+                    <div key={index} className="flex items-start gap-4 group">
+                      <div className="w-8 h-8 bg-[#40e0d0]/20 rounded-full flex items-center justify-center text-white transition-colors duration-300 group-hover:bg-[#40e0d0]/40">
                         {benefit.icon}
                       </div>
                       <div>
@@ -213,10 +218,10 @@ const Features = () => {
                 <div className="mt-8">
                   <a 
                     href="/join"
-                    className="inline-flex items-center px-6 py-3 bg-white text-[#003366] rounded-lg font-serif font-semibold hover:bg-blue-50 transition-colors"
+                    className="inline-flex items-center px-6 py-3 bg-[#40e0d0] text-[#003366] rounded-lg font-serif font-semibold hover:bg-white transition-all duration-300"
                   >
                     Join Now
-                    <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                     </svg>
                   </a>
@@ -225,18 +230,18 @@ const Features = () => {
             </div>
 
             {/* Events Card */}
-            <div className="bg-white rounded-xl shadow-xl overflow-hidden border border-gray-100">
+            <div className="bg-white rounded-xl shadow-xl overflow-hidden border border-gray-100 transform transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl">
               <div className="p-8">
                 <h2 className="text-2xl font-serif font-bold text-[#003366] mb-6 flex items-center gap-3">
                   <span>Upcoming CPD Events</span>
-                  <span className="px-3 py-1 bg-blue-100 text-blue-800 text-sm font-serif rounded-full">
+                  <span className="px-3 py-1 bg-[#40e0d0]/20 text-[#003366] text-sm font-serif rounded-full">
                     Earn Points
                   </span>
                 </h2>
                 <div className="space-y-6">
                   {upcomingEvents.map((event, index) => (
-                    <div key={index} className="flex items-start gap-4 p-4 rounded-lg hover:bg-gray-50 transition-colors">
-                      <div className="w-16 h-16 bg-[#003366]/10 rounded-lg flex flex-col items-center justify-center text-[#003366] font-serif font-bold">
+                    <div key={index} className="group flex items-start gap-4 p-4 rounded-lg hover:bg-[#40e0d0]/5 transition-colors duration-300">
+                      <div className="w-16 h-16 bg-[#40e0d0]/10 rounded-lg flex flex-col items-center justify-center text-[#003366] font-serif font-bold group-hover:bg-[#40e0d0]/20 transition-colors duration-300">
                         <span className="text-sm">{event.date.split(' ')[0]}</span>
                         <span className="text-lg">{event.date.split(' ')[1]}</span>
                       </div>
@@ -244,10 +249,10 @@ const Features = () => {
                         <h3 className="font-serif font-semibold text-gray-900">{event.title}</h3>
                         <p className="text-sm font-serif text-gray-600 mt-1">{event.location}</p>
                         <div className="flex items-center gap-3 mt-2">
-                          <span className="text-xs font-serif px-2 py-1 bg-[#003366]/10 text-[#003366] rounded-full">
+                          <span className="text-xs font-serif px-2 py-1 bg-[#40e0d0]/10 text-[#003366] rounded-full">
                             {event.type}
                           </span>
-                          <span className="text-xs font-serif px-2 py-1 bg-green-100 text-green-700 rounded-full">
+                          <span className="text-xs font-serif px-2 py-1 bg-[#40e0d0]/20 text-[#003366] rounded-full">
                             {event.points}
                           </span>
                         </div>
@@ -258,10 +263,10 @@ const Features = () => {
                 <div className="mt-6">
                   <a 
                     href="/events" 
-                    className="text-[#003366] font-serif font-medium hover:text-blue-800 transition-colors flex items-center gap-2"
+                    className="text-[#003366] font-serif font-medium hover:text-[#40e0d0] transition-colors flex items-center gap-2"
                   >
                     View All Events
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                     </svg>
                   </a>

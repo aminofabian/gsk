@@ -62,7 +62,7 @@ const Hero = () => {
                   </div>
                   <h1 className="text-3xl md:text-4xl lg:text-5xl text-white font-merriweather font-bold leading-tight drop-shadow-lg">
                     Join Kenya&apos;s Premier
-                    <span className="block mt-1 text-[#396390]">Gastroenterology Association</span>
+                    <span className="block mt-1 text-[#40e0d0]">Gastroenterology Association</span>
                   </h1>
                   <p className="mt-4 text-white/90 text-xl md:text-2xl font-merriweather font-light leading-relaxed">
                     Access exclusive benefits including CME credits, research collaborations, and specialized training opportunities.
@@ -72,7 +72,7 @@ const Hero = () => {
                 <div className="flex flex-col sm:flex-row gap-4 min-w-[300px] relative z-10">
                   <a 
                     href="/membership"
-                    className="group relative inline-flex justify-center items-center px-8 py-4 bg-[#396390] text-white rounded-lg font-merriweather font-semibold transition-all duration-300 text-base shadow-xl hover:shadow-2xl hover:-translate-y-0.5"
+                    className="group relative inline-flex justify-center items-center px-8 py-4 bg-[#40e0d0] text-white rounded-lg font-merriweather font-semibold transition-all duration-300 text-base shadow-xl hover:shadow-2xl hover:-translate-y-0.5"
                   >
                     <span className="relative z-10 flex items-center">
                       <span>Become a Member</span>
