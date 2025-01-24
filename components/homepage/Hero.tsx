@@ -51,9 +51,9 @@ const Hero = () => {
           <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
           
           {/* Main content */}
-          <div className="py-8">
+          <div className="py-4">
             <div className="max-w-7xl mx-auto px-6">
-              <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+              <div className="flex flex-col md:flex-row items-center justify-between gap-4">
                 {/* Text Content */}
                 <div className="max-w-2xl relative z-10">
                   <div className="flex items-center gap-2 mb-3">
