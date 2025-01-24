@@ -1,22 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-
-const Logo = () => (
-  <div className="relative w-20 h-20 flex-shrink-0">
-    <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[#003366] to-[#002244] p-[3px] shadow-lg">
-      <div className="h-full w-full rounded-full bg-white flex items-center justify-center overflow-hidden">
-        <div className="relative flex items-center justify-center w-full h-full">
-          <div className="absolute w-20 h-20 border-[4px] border-[#003366] rounded-full opacity-90"></div>
-          <div className="absolute w-20 h-20 border-[4px] border-[#003366] rounded-full transform rotate-45 opacity-80"></div>
-          <div className="absolute w-20 h-20 border-[4px] border-[#002244] rounded-full transform -rotate-45 opacity-70"></div>
-          <div className="relative z-10 bg-white rounded-full p-2">
-            <span className="text-2xl font-black text-[#003366] tracking-wider">GSK</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-);
+import Logo from './homepage/Logo';
 
 interface AuthLoaderProps {
   onAuthenticated: () => void;
@@ -47,7 +31,9 @@ const AuthLoader = ({ onAuthenticated }: AuthLoaderProps) => {
     >
       <div className="w-full max-w-md mx-auto p-6">
         <div className="flex flex-col items-center justify-center space-y-8">
-          <Logo />
+          <div className="scale-125">
+            <Logo variant="light" />
+          </div>
           
           <div className="text-center space-y-4">
             <h1 className="text-3xl font-serif font-bold text-white">
@@ -102,6 +88,6 @@ const AuthLoader = ({ onAuthenticated }: AuthLoaderProps) => {
       </div>
     </motion.div>
   );
-};
+}
 
 export default AuthLoader; 

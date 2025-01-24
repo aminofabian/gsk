@@ -5,24 +5,7 @@ import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaGlobe, FaChevronRight, FaDna, Fa
 import { GiStomach, GiDna2, GiMedicines } from 'react-icons/gi';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-
-const Logo = () => {
-  return (
-    <div className="flex items-center gap-4">
-      <div className="relative h-14 w-14 overflow-hidden group">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full shadow-lg group-hover:scale-105 transition-transform duration-300" />
-        <div className="absolute inset-[3px] bg-white rounded-full" />
-        <div className="absolute inset-[6px] bg-gradient-to-br from-[#003366] to-[#004488] rounded-full flex items-center justify-center shadow-inner">
-          <span className="text-white font-bold text-base">GSK</span>
-        </div>
-      </div>
-      <div className="flex flex-col">
-        <span className="text-xl font-serif font-bold leading-tight bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">GSK</span>
-        <span className="text-sm font-serif text-blue-200">Gastroenterology Society of Kenya</span>
-      </div>
-    </div>
-  );
-};
+import Logo from './Logo';
 
 const DNAStrand = () => {
   return (
@@ -112,7 +95,7 @@ const Footer = () => {
               className="relative"
             >
               <div className="relative z-10">
-                <Logo />
+                <Logo variant="light" />
                 <p className="mt-8 text-blue-100 leading-relaxed">
                   The Gastroenterology Society of Kenya (GSK) is a professional organization dedicated to advancing digestive healthcare through education, research, and clinical excellence.
                 </p>
