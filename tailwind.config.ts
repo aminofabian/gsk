@@ -20,7 +20,7 @@ const config = {
     extend: {
       fontFamily: {
         sans: ['var(--font-merriweather)', 'var(--font-outfit)', 'system-ui'],
-        display: ['var(--font-playfair)', 'serif'],
+        display: ['var(--font-merriweather)', 'var(--font-outfit)', 'serif'],
         outfit: ['var(--font-outfit)'],
         merriweather: ['var(--font-merriweather)'],
         playfair: ['var(--font-playfair)'],
