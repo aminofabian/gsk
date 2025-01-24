@@ -135,8 +135,8 @@ const Donation = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-6">
                   <div className="bg-white/10 backdrop-blur-md rounded-xl p-4">
-                    <h3 className="text-white font-serif text-lg font-bold">Annual Conference</h3>
-                    <p className="text-white/90 text-sm">Bringing together healthcare professionals</p>
+                    <h3 className="text-white font-display text-xl font-bold leading-tight">Annual Conference</h3>
+                    <p className="text-white/90 text-sm font-display italic">Bringing together healthcare professionals</p>
                   </div>
                 </div>
               </div>
@@ -157,8 +157,8 @@ const Donation = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-4">
                     <div className="bg-white/10 backdrop-blur-md rounded-lg p-3">
-                      <h3 className="text-white font-serif text-base font-bold">Research</h3>
-                      <p className="text-white/90 text-xs">Advancing medical knowledge</p>
+                      <h3 className="text-white font-display text-lg font-bold leading-tight">Research</h3>
+                      <p className="text-white/90 text-xs font-display italic">Advancing medical knowledge</p>
                     </div>
                   </div>
                 </div>
@@ -177,8 +177,8 @@ const Donation = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-4">
                     <div className="bg-white/10 backdrop-blur-md rounded-lg p-3">
-                      <h3 className="text-white font-serif text-base font-bold">Training</h3>
-                      <p className="text-white/90 text-xs">Building expertise</p>
+                      <h3 className="text-white font-display text-lg font-bold leading-tight">Training</h3>
+                      <p className="text-white/90 text-xs font-display italic">Building expertise</p>
                     </div>
                   </div>
                 </div>
@@ -196,8 +196,8 @@ const Donation = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-4">
                     <div className="bg-white/10 backdrop-blur-md rounded-lg p-3">
-                      <h3 className="text-white font-serif text-base font-bold">Community</h3>
-                      <p className="text-white/90 text-xs">Making an impact</p>
+                      <h3 className="text-white font-display text-lg font-bold leading-tight">Community</h3>
+                      <p className="text-white/90 text-xs font-display italic">Making an impact</p>
                     </div>
                   </div>
                 </div>
