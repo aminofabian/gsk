@@ -48,16 +48,15 @@ export default function Home() {
       </section>
 
       {/* Donation Section with dark background */}
-      <section className="relative bg-[#003366] py-24">
-        <div className="absolute inset-0 bg-[url('/patterns/grid.svg')] opacity-[0.03]" />
+      <section className="relative py-24">
+        <div className="absolute inset-0 bg-[url('/patterns/grid.svg')] opacity-[0.02]" />
         <div className="relative">
           <Donation />
         </div>
       </section>
 
       {/* Footer */}
-      <section className="relative bg-[#002347]">
-        <div className="absolute top-0 inset-x-0 h-px bg-white/10" />
+      <section className="relative bg-[#003366]">
         <Footer />
       </section>
     </div>
