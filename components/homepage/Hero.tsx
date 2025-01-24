@@ -57,12 +57,12 @@ const Hero = () => {
                 {/* Text Content */}
                 <div className="max-w-2xl relative z-10">
                   <div className="flex items-center gap-2 mb-3">
-                    <div className="h-0.5 w-12 bg-[#FF6B35]"></div>
-                    <span className="text-[#FF6B35] font-medium tracking-wider text-sm uppercase">Membership</span>
+                    <div className="h-0.5 w-12 bg-[#396390]"></div>
+                    <span className="text-[#396390] font-medium tracking-wider text-sm uppercase">Membership</span>
                   </div>
                   <h2 className="text-3xl md:text-4xl lg:text-5xl font-playfair text-white font-bold leading-tight drop-shadow-lg">
                     Join Kenya&apos;s Premier
-                    <span className="block mt-1 text-[#FF6B35]">Gastroenterology Network</span>
+                    <span className="block mt-1 text-[#396390]">Gastroenterology Network</span>
                   </h2>
                   <p className="mt-4 text-white/90 text-lg md:text-xl font-light leading-relaxed">
                     Access exclusive benefits including CME credits, research collaborations, and specialized training opportunities.
@@ -72,7 +72,7 @@ const Hero = () => {
                 <div className="flex flex-col sm:flex-row gap-4 min-w-[300px] relative z-10">
                   <a 
                     href="/membership"
-                    className="group relative inline-flex justify-center items-center px-8 py-4 bg-[#FF6B35] text-white rounded-lg font-semibold transition-all duration-300 text-base shadow-xl hover:shadow-2xl hover:-translate-y-0.5"
+                    className="group relative inline-flex justify-center items-center px-8 py-4 bg-[#396390] text-white rounded-lg font-semibold transition-all duration-300 text-base shadow-xl hover:shadow-2xl hover:-translate-y-0.5"
                   >
                     <span className="relative z-10 flex items-center">
                       <span>Become a Member</span>
@@ -80,7 +80,7 @@ const Hero = () => {
                         <path d="M5 12h14M12 5l7 7-7 7"/>
                       </svg>
                     </span>
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#FF6B35] to-[#ff8655] rounded-lg opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#396390] to-[#ff8655] rounded-lg opacity-0 group-hover:opacity-100 transition-opacity"></div>
                   </a>
                   <a 
                     href="/about"
@@ -126,7 +126,7 @@ const Hero = () => {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="text-2xl font-playfair font-bold mb-2 group-hover:text-[#FF6B35] transition-colors text-white">Member Benefits</h3>
+                    <h3 className="text-2xl font-playfair font-bold mb-2 group-hover:text-[#396390] transition-colors text-white">Member Benefits</h3>
                     <p className="text-white/70 group-hover:text-white/90 transition-colors">Access CME credits, research grants, and exclusive training opportunities.</p>
                   </div>
                 </div>
@@ -141,7 +141,7 @@ const Hero = () => {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="text-2xl font-playfair font-bold mb-2 group-hover:text-[#FF6B35] transition-colors text-white">Professional Network</h3>
+                    <h3 className="text-2xl font-playfair font-bold mb-2 group-hover:text-[#396390] transition-colors text-white">Professional Network</h3>
                     <p className="text-white/70 group-hover:text-white/90 transition-colors">Connect with leading gastroenterology experts across Kenya.</p>
                   </div>
                 </div>
