@@ -19,9 +19,11 @@ const config = {
     },
     extend: {
       fontFamily: {
-        sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
-        serif: ['var(--font-merriweather)', 'Georgia', 'serif'],
+        sans: ['var(--font-merriweather)', 'var(--font-outfit)', 'system-ui'],
         display: ['var(--font-playfair)', 'serif'],
+        outfit: ['var(--font-outfit)'],
+        merriweather: ['var(--font-merriweather)'],
+        playfair: ['var(--font-playfair)'],
       },
       colors: {
         border: "hsl(var(--border))",
