@@ -5,8 +5,10 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "postinstall": "prisma generate",
+    "lint": "next lint",
+    "start": "set NODE_OPTIONS=--no-deprecation && next start"
+
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.1.0",
