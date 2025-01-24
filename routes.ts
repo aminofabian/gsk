@@ -9,7 +9,8 @@ export const publicRoutes = ["/",
   "/admin",
   "/about",
   "/contact",
-  "/membership"
+  "/membership",
+  "cpd"
 ];
 
 /*
