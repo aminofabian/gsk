@@ -118,36 +118,94 @@ const Donation = () => {
           </p>
         </motion.div>
 
-        {/* Diagonal Image Layout */}
-        <div className="relative h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] w-full mb-12 sm:mb-16 md:mb-20 lg:mb-24 overflow-hidden">
-          {/* Image Container */}
-          <div className="absolute inset-0">
-            {/* Image Strips */}
-            <div className="absolute inset-[-10%] md:inset-[-15%] flex" style={{ width: '120%', left: '-8%' }}>
-              {images.map((image, index) => (
-                <div
-                  key={index}
-                  className="relative h-full transform-gpu transition-transform duration-300"
-                  style={{
-                    width: "26%",
-                    transform: `skew(-10deg) translateX(${index * -70}%)`,
-                    zIndex: 5 - index
-                  }}
-                >
-                  <div className="relative h-full w-full overflow-hidden">
-                    <Image
-                      src={image}
-                      alt={`Support ${index + 1}`}
-                      fill
-                      className="object-cover"
-                      style={{
-                        transform: "skew(10deg) scale(1.5)",
-                        transformOrigin: "center"
-                      }}
-                    />
-                  </div>
+        {/* Image Gallery Layout */}
+        <div className="relative w-full mb-8 sm:mb-12 md:mb-16 lg:mb-20">
+          <div className="relative h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] w-full">
+            {/* Center Image */}
+            <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[60%] sm:w-[45%] h-[80%] z-30">
+              <div className="relative w-full h-full group">
+                <div className="relative w-full h-full overflow-hidden rounded-2xl shadow-2xl transition-transform duration-500 group-hover:scale-[1.02]">
+                  <Image
+                    src={images[0]}
+                    alt="Main support"
+                    fill
+                    sizes="(max-width: 640px) 60vw, 45vw"
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    priority
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
                 </div>
-              ))}
+              </div>
+            </div>
+
+            {/* Left Floating Image */}
+            <div className="absolute left-[5%] sm:left-[15%] top-[15%] w-[40%] sm:w-[30%] h-[60%] z-20">
+              <div className="relative w-full h-full group">
+                <div className="relative w-full h-full overflow-hidden rounded-2xl shadow-xl transition-transform duration-500 group-hover:scale-[1.02] transform rotate-[-4deg]">
+                  <Image
+                    src={images[1]}
+                    alt="Support left"
+                    fill
+                    sizes="(max-width: 640px) 40vw, 30vw"
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                </div>
+              </div>
+            </div>
+
+            {/* Right Floating Image */}
+            <div className="absolute right-[5%] sm:right-[15%] top-[25%] w-[40%] sm:w-[30%] h-[60%] z-20">
+              <div className="relative w-full h-full group">
+                <div className="relative w-full h-full overflow-hidden rounded-2xl shadow-xl transition-transform duration-500 group-hover:scale-[1.02] transform rotate-[4deg]">
+                  <Image
+                    src={images[2]}
+                    alt="Support right"
+                    fill
+                    sizes="(max-width: 640px) 40vw, 30vw"
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                </div>
+              </div>
+            </div>
+
+            {/* Bottom Left Small Image */}
+            <div className="absolute left-[8%] sm:left-[22%] bottom-[10%] w-[25%] sm:w-[20%] h-[40%] z-10">
+              <div className="relative w-full h-full group">
+                <div className="relative w-full h-full overflow-hidden rounded-xl shadow-lg transition-transform duration-500 group-hover:scale-[1.02] transform rotate-[-8deg]">
+                  <Image
+                    src={images[3]}
+                    alt="Support bottom left"
+                    fill
+                    sizes="(max-width: 640px) 25vw, 20vw"
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                </div>
+              </div>
+            </div>
+
+            {/* Bottom Right Small Image */}
+            <div className="absolute right-[8%] sm:right-[22%] bottom-[15%] w-[25%] sm:w-[20%] h-[40%] z-10">
+              <div className="relative w-full h-full group">
+                <div className="relative w-full h-full overflow-hidden rounded-xl shadow-lg transition-transform duration-500 group-hover:scale-[1.02] transform rotate-[8deg]">
+                  <Image
+                    src={images[4]}
+                    alt="Support bottom right"
+                    fill
+                    sizes="(max-width: 640px) 25vw, 20vw"
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                </div>
+              </div>
+            </div>
+
+            {/* Decorative Elements */}
+            <div className="absolute inset-0 pointer-events-none">
+              <div className="absolute left-[10%] top-[20%] w-32 h-32 bg-blue-500/10 rounded-full blur-3xl" />
+              <div className="absolute right-[10%] bottom-[20%] w-32 h-32 bg-blue-500/10 rounded-full blur-3xl" />
             </div>
           </div>
         </div>
