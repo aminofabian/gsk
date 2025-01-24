@@ -55,7 +55,7 @@ const Partners = () => {
 
       <div className="max-w-7xl mx-auto px-4 relative">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-serif font-bold bg-gradient-to-r from-blue-900 via-blue-700 to-blue-900 bg-clip-text text-transparent inline-block">
+          <h2 className="text-4xl md:text-5xl font-merriweather font-bold bg-gradient-to-r from-blue-900 via-blue-700 to-blue-900 bg-clip-text text-transparent inline-block">
             GSK Network & Leadership
           </h2>
           <div className="w-20 h-1 bg-gradient-to-r from-blue-500 to-blue-700 mx-auto mt-4 rounded-full" />
@@ -65,8 +65,8 @@ const Partners = () => {
           {/* Left side - Enhanced Map Section */}
           <div className="flex flex-col h-full">
             <div className="bg-white rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 flex-1 flex flex-col">
-              <h3 className="text-2xl font-serif font-bold text-blue-900 mb-4">GSK Member Network</h3>
-              <p className="font-serif text-gray-600 leading-relaxed mb-6">
+              <h3 className="text-2xl font-merriweather font-bold text-blue-900 mb-4">GSK Member Network</h3>
+              <p className="font-merriweather text-gray-600 leading-relaxed mb-6">
                 GSK represents the largest network of gastroenterology professionals in East Africa, with over 500 dedicated practitioners across Kenya delivering exceptional healthcare services.
               </p>
               
@@ -177,8 +177,8 @@ const Partners = () => {
                   <div className="absolute inset-0 bg-gradient-to-r from-[#003366] to-[#002244] rounded-xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity" />
                   <div className="relative bg-white p-4 sm:p-6 rounded-xl border border-[#003366]/10 hover:border-[#003366]/20 transition-colors shadow-sm hover:shadow-md duration-300">
                     <div className="flex flex-col items-center sm:items-start">
-                      <div className="text-3xl sm:text-4xl font-serif font-bold bg-gradient-to-r from-[#003366] to-[#002244] bg-clip-text text-transparent mb-1">500+</div>
-                      <div className="text-sm font-serif font-medium text-[#003366]/80">Active Members</div>
+                      <div className="text-3xl sm:text-4xl font-merriweather font-bold bg-gradient-to-r from-[#003366] to-[#002244] bg-clip-text text-transparent mb-1">500+</div>
+                      <div className="text-sm font-merriweather font-medium text-[#003366]/80">Active Members</div>
                     </div>
                     <div className="absolute top-0 right-0 p-2 opacity-10">
                       <svg className="w-8 h-8 text-[#003366]" fill="currentColor" viewBox="0 0 20 20">
@@ -192,8 +192,8 @@ const Partners = () => {
                   <div className="absolute inset-0 bg-gradient-to-r from-[#003366] to-[#002244] rounded-xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity" />
                   <div className="relative bg-white p-4 sm:p-6 rounded-xl border border-[#003366]/10 hover:border-[#003366]/20 transition-colors shadow-sm hover:shadow-md duration-300">
                     <div className="flex flex-col items-center sm:items-start">
-                      <div className="text-3xl sm:text-4xl font-serif font-bold bg-gradient-to-r from-[#003366] to-[#002244] bg-clip-text text-transparent mb-1">47</div>
-                      <div className="text-sm font-serif font-medium text-[#003366]/80">Counties Covered</div>
+                      <div className="text-3xl sm:text-4xl font-merriweather font-bold bg-gradient-to-r from-[#003366] to-[#002244] bg-clip-text text-transparent mb-1">47</div>
+                      <div className="text-sm font-merriweather font-medium text-[#003366]/80">Counties Covered</div>
                     </div>
                     <div className="absolute top-0 right-0 p-2 opacity-10">
                       <svg className="w-8 h-8 text-[#003366]" fill="currentColor" viewBox="0 0 20 20">
@@ -207,8 +207,8 @@ const Partners = () => {
                   <div className="absolute inset-0 bg-gradient-to-r from-[#003366] to-[#002244] rounded-xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity" />
                   <div className="relative bg-white p-4 sm:p-6 rounded-xl border border-[#003366]/10 hover:border-[#003366]/20 transition-colors shadow-sm hover:shadow-md duration-300">
                     <div className="flex flex-col items-center sm:items-start">
-                      <div className="text-3xl sm:text-4xl font-serif font-bold bg-gradient-to-r from-[#003366] to-[#002244] bg-clip-text text-transparent mb-1">20+</div>
-                      <div className="text-sm font-serif font-medium text-[#003366]/80">Partners</div>
+                      <div className="text-3xl sm:text-4xl font-merriweather font-bold bg-gradient-to-r from-[#003366] to-[#002244] bg-clip-text text-transparent mb-1">20+</div>
+                      <div className="text-sm font-merriweather font-medium text-[#003366]/80">Partners</div>
                     </div>
                     <div className="absolute top-0 right-0 p-2 opacity-10">
                       <svg className="w-8 h-8 text-[#003366]" fill="currentColor" viewBox="0 0 20 20">
@@ -225,7 +225,7 @@ const Partners = () => {
           {/* Right side - Enhanced Leadership Section */}
           <div className="flex flex-col h-full">
             <div className="bg-white rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 flex-1 flex flex-col">
-              <h3 className="text-2xl font-serif font-bold text-blue-900 mb-8">Meet GSK&apos;s Partners</h3>
+              <h3 className="text-2xl font-merriweather font-bold text-blue-900 mb-8">Meet GSK&apos;s Partners</h3>
               <div className="grid grid-cols-2 gap-6 flex-1">
                 {leaders.map((leader, index) => (
                   <div key={index} className="group relative">
@@ -240,11 +240,11 @@ const Partners = () => {
                         <div className="absolute inset-0 bg-gradient-to-t from-blue-900 via-blue-900/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300" />
                       </div>
                       <div className="p-4 relative bg-white transform transition-transform duration-300 group-hover:-translate-y-2">
-                        <h4 className="font-serif font-semibold text-lg text-blue-900">{leader.name}</h4>
-                        <p className="font-serif text-blue-700">{leader.title}</p>
+                        <h4 className="font-merriweather font-semibold text-lg text-blue-900">{leader.name}</h4>
+                        <p className="font-merriweather text-blue-700">{leader.title}</p>
                         <div className="mt-2 pt-2 border-t border-blue-100">
-                          <p className="text-sm font-serif text-gray-600">{leader.specialty}</p>
-                          <p className="text-sm font-serif text-gray-500">{leader.experience}</p>
+                          <p className="text-sm font-merriweather text-gray-600">{leader.specialty}</p>
+                          <p className="text-sm font-merriweather text-gray-500">{leader.experience}</p>
                         </div>
                         <div className="absolute top-0 right-0 p-2 opacity-0 group-hover:opacity-100 transition-opacity">
                           <svg className="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">

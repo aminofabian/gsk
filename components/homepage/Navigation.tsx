@@ -38,7 +38,7 @@ const NavItem = ({ item }: { item: NavItem }) => {
     >
       <a 
         href={item.link}
-        className="block px-4 py-2 font-serif text-[#003366] hover:text-[#004488] transition-colors"
+        className="block px-4 py-2 font-merriweather text-[#003366] hover:text-[#004488] transition-colors"
       >
         {item.title}
       </a>
@@ -51,7 +51,7 @@ const NavItem = ({ item }: { item: NavItem }) => {
                 <div className="relative group/sub">
                   <a 
                     href={child.link}
-                    className="block px-6 py-3 uppercase text-[14px] text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200 flex justify-between items-center"
+                    className="block px-6 py-3 uppercase text-[14px] font-merriweather text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200 flex justify-between items-center"
                   >
                     {child.title}
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -63,7 +63,7 @@ const NavItem = ({ item }: { item: NavItem }) => {
                       <li key={subIdx} className="border-b border-gray-100 last:border-none">
                         <a 
                           href={subChild.link}
-                          className="block px-6 py-3 uppercase text-[14px] text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200"
+                          className="block px-6 py-3 uppercase text-[14px] font-merriweather text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200"
                         >
                           {subChild.title}
                         </a>
@@ -74,7 +74,7 @@ const NavItem = ({ item }: { item: NavItem }) => {
               ) : (
                 <a 
                   href={child.link}
-                  className="block px-6 py-3 uppercase text-[14px] text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200"
+                  className="block px-6 py-3 uppercase text-[14px] font-merriweather text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200"
                 >
                   {child.title}
                 </a>
@@ -96,7 +96,7 @@ const MobileMenu = ({ navItems, isOpen, setIsOpen }: {
     <div className={`fixed inset-y-0 right-0 w-[80%] max-w-sm bg-white shadow-xl transform transition-transform duration-300 ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
       <div className="flex flex-col h-full">
         <div className="p-4 border-b flex justify-between items-center">
-          <span className="text-lg font-bold text-blue-900">Menu</span>
+          <span className="text-lg font-merriweather font-bold text-blue-900">Menu</span>
           <button onClick={() => setIsOpen(false)} className="p-2 text-gray-500 hover:text-gray-700">
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -109,7 +109,7 @@ const MobileMenu = ({ navItems, isOpen, setIsOpen }: {
               <div key={index} className="mb-2">
                 <a 
                   href="#" 
-                  className="block px-4 py-2 font-serif text-[#003366] hover:bg-blue-50 rounded-lg transition-colors"
+                  className="block px-4 py-2 font-merriweather text-[#003366] hover:bg-blue-50 rounded-lg transition-colors"
                 >
                   {item.title}
                 </a>
@@ -119,7 +119,7 @@ const MobileMenu = ({ navItems, isOpen, setIsOpen }: {
                       <div key={childIdx}>
                         <a 
                           href="#" 
-                          className="block px-4 py-2 font-serif text-[#003366] hover:bg-blue-50 rounded-lg transition-colors"
+                          className="block px-4 py-2 font-merriweather text-[#003366] hover:bg-blue-50 rounded-lg transition-colors"
                         >
                           {child.title}
                         </a>
@@ -129,7 +129,7 @@ const MobileMenu = ({ navItems, isOpen, setIsOpen }: {
                               <a
                                 key={subIdx}
                                 href="#" 
-                                className="block px-4 py-2 font-serif text-[#003366] hover:bg-blue-50 rounded-lg transition-colors"
+                                className="block px-4 py-2 font-merriweather text-[#003366] hover:bg-blue-50 rounded-lg transition-colors"
                               >
                                 {subChild.title}
                               </a>
@@ -146,10 +146,10 @@ const MobileMenu = ({ navItems, isOpen, setIsOpen }: {
         </div>
         <div className="p-4 border-t">
           <div className="flex flex-col space-y-2">
-            <a href="/login" className="w-full px-4 py-2 text-center text-[14px] font-semibold text-blue-600 border border-blue-600 rounded-md hover:bg-blue-50">
+            <a href="/login" className="w-full px-4 py-2 text-center text-[14px] font-merriweather font-semibold text-blue-600 border border-blue-600 rounded-md hover:bg-blue-50">
               SIGN IN
             </a>
-            <a href="/membership" className="w-full px-4 py-2 text-center text-[14px] font-semibold text-white bg-blue-600 rounded-md hover:bg-blue-700">
+            <a href="/membership" className="w-full px-4 py-2 text-center text-[14px] font-merriweather font-semibold text-white bg-blue-600 rounded-md hover:bg-blue-700">
               JOIN GSK
             </a>
           </div>
@@ -166,7 +166,7 @@ const HelloBar = () => (
       <div className="flex items-center justify-center gap-2">
         <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></div>
         <div className="whitespace-nowrap animate-marquee">
-          <span className="font-serif text-xs text-white/90">
+          <span className="font-merriweather text-xs text-white/90">
             Contact Us: +254 704 373746 | secretarygsk@gmail.com | ACS Building, 2nd Floor. Lenana Road, Nairobi, Kenya
             <span className="mx-12">•</span>
             Registration Now Open: 2024 Annual Gastroenterology Conference - Early Bird Rates Available
@@ -176,13 +176,13 @@ const HelloBar = () => (
     </div>
     <div className="max-w-7xl mx-auto px-4 py-1 flex flex-wrap items-center justify-between gap-4">
       <div className="flex items-center gap-6">
-        <a href="/donate" className="inline-flex items-center gap-2 px-4 py-1 bg-green-500 hover:bg-green-600 rounded-full text-sm font-serif text-white transition-colors">
+        <a href="/donate" className="inline-flex items-center gap-2 px-4 py-1 bg-green-500 hover:bg-green-600 rounded-full text-sm font-merriweather text-white transition-colors">
           Donate
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
           </svg>
         </a>
-        <a href="/volunteer" className="inline-flex items-center gap-2 px-4 py-1 bg-[#003366] hover:bg-[#004488] rounded-full text-sm font-serif text-white/90 hover:text-white transition-colors">
+        <a href="/volunteer" className="inline-flex items-center gap-2 px-4 py-1 bg-[#003366] hover:bg-[#004488] rounded-full text-sm font-merriweather text-white/90 hover:text-white transition-colors">
           Volunteer
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 00-3 0m-6-3V11m0-5.5v-1a1.5 1.5 0 013 0v1m0 0V11m0-5.5a1.5 1.5 0 013 0v3m0 0V11" />
@@ -190,11 +190,11 @@ const HelloBar = () => (
         </a>
       </div>
       <div className="flex items-center gap-4">
-        <a href="/guidelines" className="text-sm font-serif text-white/90 hover:text-white transition-colors">Clinical Guidelines</a>
+        <a href="/guidelines" className="text-sm font-merriweather text-white/90 hover:text-white transition-colors">Clinical Guidelines</a>
         <span className="text-white/50">|</span>
-        <a href="/research" className="text-sm font-serif text-white/90 hover:text-white transition-colors">Research Updates</a>
+        <a href="/research" className="text-sm font-merriweather text-white/90 hover:text-white transition-colors">Research Updates</a>
         <span className="text-white/50">|</span>
-        <a href="/cpd" className="text-sm font-serif text-white/90 hover:text-white transition-colors">CPD Points</a>
+        <a href="/cpd" className="text-sm font-merriweather text-white/90 hover:text-white transition-colors">CPD Points</a>
       </div>
     </div>
   </div>

@@ -58,13 +58,13 @@ const Hero = () => {
                 <div className="max-w-2xl relative z-10">
                   <div className="flex items-center gap-2 mb-3">
                     <div className="h-0.5 w-12 bg-[#396390]"></div>
-                    <span className="text-[#396390] font-medium tracking-wider text-sm uppercase">Membership</span>
+                    <span className="text-[#396390] font-merriweather font-medium tracking-wider text-sm uppercase">Membership</span>
                   </div>
-                  <h1 className="text-3xl md:text-4xl lg:text-5xl text-white font-bold leading-tight drop-shadow-lg">
+                  <h1 className="text-3xl md:text-4xl lg:text-5xl text-white font-merriweather font-bold leading-tight drop-shadow-lg">
                     Join Kenya&apos;s Premier
                     <span className="block mt-1 text-[#396390]">Gastroenterology Association</span>
                   </h1>
-                  <p className="mt-4 text-white/90 text-xl md:text-2xl font-light leading-relaxed">
+                  <p className="mt-4 text-white/90 text-xl md:text-2xl font-merriweather font-light leading-relaxed">
                     Access exclusive benefits including CME credits, research collaborations, and specialized training opportunities.
                   </p>
                 </div>
@@ -72,7 +72,7 @@ const Hero = () => {
                 <div className="flex flex-col sm:flex-row gap-4 min-w-[300px] relative z-10">
                   <a 
                     href="/membership"
-                    className="group relative inline-flex justify-center items-center px-8 py-4 bg-[#396390] text-white rounded-lg font-semibold transition-all duration-300 text-base shadow-xl hover:shadow-2xl hover:-translate-y-0.5"
+                    className="group relative inline-flex justify-center items-center px-8 py-4 bg-[#396390] text-white rounded-lg font-merriweather font-semibold transition-all duration-300 text-base shadow-xl hover:shadow-2xl hover:-translate-y-0.5"
                   >
                     <span className="relative z-10 flex items-center">
                       <span>Become a Member</span>
@@ -84,7 +84,7 @@ const Hero = () => {
                   </a>
                   <a 
                     href="/about"
-                    className="group relative inline-flex justify-center items-center px-8 py-4 bg-white/5 hover:bg-white/10 text-white rounded-lg font-semibold transition-all duration-300 text-base border border-white/20 hover:border-white/40 backdrop-blur-sm hover:backdrop-blur-md shadow-lg hover:-translate-y-0.5"
+                    className="group relative inline-flex justify-center items-center px-8 py-4 bg-white/5 hover:bg-white/10 text-white rounded-lg font-merriweather font-semibold transition-all duration-300 text-base border border-white/20 hover:border-white/40 backdrop-blur-sm hover:backdrop-blur-md shadow-lg hover:-translate-y-0.5"
                   >
                     <span className="relative z-10 flex items-center">
                       <span>View Benefits</span>
@@ -126,8 +126,8 @@ const Hero = () => {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="text-2xl font-playfair font-bold mb-2 group-hover:text-[#396390] transition-colors text-white">Member Benefits</h3>
-                    <p className="text-white/70 group-hover:text-white/90 transition-colors">Access CME credits, research grants, and exclusive training opportunities.</p>
+                    <h3 className="text-2xl font-merriweather font-bold mb-2 group-hover:text-[#396390] transition-colors text-white">Member Benefits</h3>
+                    <p className="text-white/70 group-hover:text-white/90 transition-colors font-merriweather">Access CME credits, research grants, and exclusive training opportunities.</p>
                   </div>
                 </div>
               </div>
@@ -141,8 +141,8 @@ const Hero = () => {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="text-2xl font-playfair font-bold mb-2 group-hover:text-[#396390] transition-colors text-white">Professional Network</h3>
-                    <p className="text-white/70 group-hover:text-white/90 transition-colors">Connect with leading gastroenterology experts across Kenya.</p>
+                    <h3 className="text-2xl font-merriweather font-bold mb-2 group-hover:text-[#396390] transition-colors text-white">Professional Network</h3>
+                    <p className="text-white/70 group-hover:text-white/90 transition-colors font-merriweather">Connect with leading gastroenterology experts across Kenya.</p>
                   </div>
                 </div>
               </div>
@@ -156,8 +156,8 @@ const Hero = () => {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="text-2xl font-playfair font-bold mb-2 group-hover:text-blue-100 transition-colors text-white">Research & Innovation</h3>
-                    <p className="text-white/70 group-hover:text-white/90 transition-colors">Participate in cutting-edge research and clinical trials.</p>
+                    <h3 className="text-2xl font-merriweather font-bold mb-2 group-hover:text-blue-100 transition-colors text-white">Research & Innovation</h3>
+                    <p className="text-white/70 group-hover:text-white/90 transition-colors font-merriweather">Participate in cutting-edge research and clinical trials.</p>
                   </div>
                 </div>
               </div>
