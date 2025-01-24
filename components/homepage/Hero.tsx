@@ -31,27 +31,22 @@ const Hero = () => {
           <SwipeCarousel />
         </div>
         
-        {/* CTA Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#003366] via-[#003366]/60 to-transparent">
-          <div className="absolute bottom-0 left-0 right-0 p-8">
-            <div className="max-w-7xl mx-auto">
-              <div className="max-w-3xl">
-                
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <a 
-                    href="/membership"
-                    className="inline-flex justify-center items-center px-8 py-3 bg-[#083c74] text-white rounded-lg font-semibold hover:bg-[#083c74]/90 transition-all duration-300 text-lg shadow-lg"
-                  >
-                    Become a Member
-                  </a>
-                  <a 
-                    href="/about"
-                    className="inline-flex justify-center items-center px-8 py-3 bg-white/10 backdrop-blur-sm border border-white/30 text-white rounded-lg font-semibold hover:bg-white/20 transition-all duration-300 text-lg"
-                  >
-                    Learn More
-                  </a>
-                </div>
-              </div>
+        {/* CTA Overlay - Moved lower */}
+        <div className="absolute inset-x-0 bottom-0 h-[120px] bg-[#003366]">
+          <div className="h-full max-w-7xl mx-auto px-4 sm:px-8 flex items-center">
+            <div className="flex flex-col sm:flex-row gap-4">
+              <a 
+                href="/membership"
+                className="inline-flex justify-center items-center px-8 py-3 bg-[#083c74] text-white rounded-lg font-semibold hover:bg-[#083c74]/90 transition-all duration-300 text-lg shadow-lg"
+              >
+                Become a Member
+              </a>
+              <a 
+                href="/about"
+                className="inline-flex justify-center items-center px-8 py-3 bg-white text-[#003366] rounded-lg font-semibold hover:bg-white/90 transition-all duration-300 text-lg"
+              >
+                Learn More
+              </a>
             </div>
           </div>
         </div>
