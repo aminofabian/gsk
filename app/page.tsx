@@ -17,19 +17,49 @@ const font = Jost({
 export default function Home() {
   return (
     <div className="flex flex-col w-full">
-      <Hero />
-      <Features />
-      <Partners />
-      <Publications />
-      <Donation />
-      <Footer />
-      <div className="flex flex-1 w-full items-center justify-center bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-sky-400 to-blue-800 text-center">
-        <div className="space-y-6">
-          <div className="flex text-center">
-          </div>
-         
+      {/* Hero Section */}
+      <section className="relative">
+        <Hero />
+      </section>
+
+      {/* Features Section with top wave separator */}
+      <section className="relative bg-white pt-20 pb-32">
+        <div className="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-[#002347] to-transparent pointer-events-none" />
+        <div className="relative">
+          <Features />
         </div>
-      </div>
+      </section>
+
+      {/* Partners Section with gradient background */}
+      <section className="relative bg-gradient-to-b from-gray-50 to-white py-20">
+        <div className="absolute inset-0 bg-[url('/patterns/grid.svg')] opacity-[0.02]" />
+        <div className="relative">
+          <Partners />
+        </div>
+      </section>
+
+      {/* Publications Section with subtle separator */}
+      <section className="relative bg-white pt-32 pb-40">
+        <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent" />
+        <div className="absolute bottom-0 inset-x-0 h-40 bg-gradient-to-b from-transparent to-[#003366]" />
+        <div className="relative">
+          <Publications />
+        </div>
+      </section>
+
+      {/* Donation Section with dark background */}
+      <section className="relative bg-[#003366] py-24">
+        <div className="absolute inset-0 bg-[url('/patterns/grid.svg')] opacity-[0.03]" />
+        <div className="relative">
+          <Donation />
+        </div>
+      </section>
+
+      {/* Footer */}
+      <section className="relative bg-[#002347]">
+        <div className="absolute top-0 inset-x-0 h-px bg-white/10" />
+        <Footer />
+      </section>
     </div>
   );
 }
