@@ -118,29 +118,44 @@ export default function DashboardPage() {
 
       {/* Recent Updates */}
       <div className="bg-white rounded-2xl p-6 shadow-lg">
-        <h2 className="text-2xl font-bold text-[#083c74] mb-6 flex items-center gap-2">
-          <span className="w-1.5 h-6 bg-blue-500 rounded-full"></span>
-          Recent Updates
-        </h2>
-        <div className="space-y-3">
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-3">
+            <div className="w-1 h-8 bg-[#083c74] rounded-full"></div>
+            <div>
+              <h2 className="text-xl font-bold text-[#083c74]">Recent Updates</h2>
+              <p className="text-sm text-gray-500">Latest medical updates and announcements</p>
+            </div>
+          </div>
+          <Link href="/dashboard/updates" className="text-sm text-[#083c74] hover:text-[#004488] font-medium">
+            View All
+          </Link>
+        </div>
+        <div className="space-y-2.5">
           {recentUpdates.map((update, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
-              className="flex items-center justify-between p-4 rounded-xl bg-gray-50 hover:bg-gray-100 transition-all duration-200 border border-gray-100 hover:border-gray-200 group"
+              className="flex items-center justify-between p-3.5 rounded-xl bg-[#083c74]/5 hover:bg-[#083c74]/10 transition-all duration-200 border border-[#083c74]/10 hover:border-[#083c74]/20 group"
             >
-              <div className="space-y-1">
-                <h3 className="text-[#083c74] font-semibold group-hover:text-blue-700 transition-colors">
-                  {update.title}
-                </h3>
-                <p className="text-gray-500 text-sm flex items-center gap-2">
-                  <span className="w-1 h-1 bg-gray-300 rounded-full"></span>
-                  {update.date}
-                </p>
+              <div className="flex items-start gap-3">
+                <div className="p-2 rounded-lg bg-[#083c74]/10 text-[#083c74]">
+                  {update.type === 'Publication' ? <FaFileAlt className="text-sm" /> :
+                   update.type === 'Event' ? <FaCalendarAlt className="text-sm" /> :
+                   <FaGraduationCap className="text-sm" />}
+                </div>
+                <div className="space-y-0.5">
+                  <h3 className="text-[#083c74] font-medium text-sm group-hover:text-[#004488] transition-colors line-clamp-1">
+                    {update.title}
+                  </h3>
+                  <p className="text-gray-500 text-xs flex items-center gap-2">
+                    <span className="w-1 h-1 bg-[#083c74]/30 rounded-full"></span>
+                    {update.date}
+                  </p>
+                </div>
               </div>
-              <span className="px-3 py-1.5 rounded-full text-xs font-medium bg-blue-100 text-blue-700 group-hover:bg-blue-200 transition-colors">
+              <span className="px-2.5 py-1 rounded-full text-[10px] font-medium bg-[#083c74]/10 text-[#083c74]">
                 {update.type}
               </span>
             </motion.div>
