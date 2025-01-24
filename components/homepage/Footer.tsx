@@ -169,7 +169,7 @@ const Footer = () => {
                   {[
                     { icon: FaMapMarkerAlt, title: "Visit Us", content: "KMA Centre, 4th Floor, Wing C\nMara Road, Upper Hill\nNairobi, Kenya" },
                     { icon: FaPhone, title: "Call Us", content: "+254 123 456 789" },
-                    { icon: FaGlobe, title: "Website", content: "www.gsk.or.ke" },
+                    { icon: FaGlobe, title: "Website", content: "www.gastro.or.ke" },
                     { icon: FaEnvelope, title: "Email Us", content: "info@gastro.or.ke" }
                   ].map((item, index) => (
                     <motion.div 
