@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
+import Link from "next/link";
 import Logo from "@/components/homepage/Logo";
 import {
   FaHome,
@@ -20,17 +20,36 @@ import {
 } from "react-icons/fa";
 import { MdPayments } from "react-icons/md";
 import { IoDocuments } from "react-icons/io5";
+import SidebarBackground from "./SidebarBackground";
+import SidebarMenuGroup from "./SidebarMenuGroup";
+import SidebarMenuItem from "./SidebarMenuItem";
 
-const menuItems = [
-  { icon: FaHome, label: "Dashboard", href: "/dashboard" },
-  { icon: FaUserMd, label: "My Profile", href: "/dashboard/profile" },
-  { icon: FaCalendarAlt, label: "Events & CME", href: "/dashboard/events" },
-  { icon: FaBook, label: "Resources", href: "/dashboard/resources" },
-  { icon: FaCertificate, label: "Certificates", href: "/dashboard/certificates" },
-  { icon: MdPayments, label: "Payments", href: "/dashboard/payments" },
-  { icon: FaUsers, label: "Members Directory", href: "/dashboard/members" },
-  { icon: IoDocuments, label: "Documents", href: "/dashboard/documents" },
-  { icon: FaNewspaper, label: "News & Updates", href: "/dashboard/news" },
+// Grouped menu items
+const menuGroups = [
+  {
+    title: "Main",
+    items: [
+      { icon: FaHome, label: "Dashboard", href: "/dashboard" },
+      { icon: FaUserMd, label: "My Profile", href: "/dashboard/profile" },
+    ]
+  },
+  {
+    title: "Professional",
+    items: [
+      { icon: FaCalendarAlt, label: "Events & CME", href: "/dashboard/events" },
+      { icon: FaBook, label: "Resources", href: "/dashboard/resources" },
+      { icon: FaCertificate, label: "Certificates", href: "/dashboard/certificates" },
+    ]
+  },
+  {
+    title: "Management",
+    items: [
+      { icon: MdPayments, label: "Payments", href: "/dashboard/payments" },
+      { icon: FaUsers, label: "Members Directory", href: "/dashboard/members" },
+      { icon: IoDocuments, label: "Documents", href: "/dashboard/documents" },
+      { icon: FaNewspaper, label: "News & Updates", href: "/dashboard/news" },
+    ]
+  }
 ];
 
 const bottomMenuItems = [
@@ -40,84 +59,79 @@ const bottomMenuItems = [
 
 export default function Sidebar() {
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [hoveredItem, setHoveredItem] = useState<string | null>(null);
   const pathname = usePathname();
 
   return (
     <div 
-      className={`sticky top-0 h-screen bg-[#003366] text-white transition-all duration-300 ${
-        isCollapsed ? "w-20" : "w-64"
+      className={`sticky top-0 h-screen transition-all duration-300 ${
+        isCollapsed ? "w-20" : "w-72"
       }`}
     >
-      {/* Toggle Button */}
-      <button
-        onClick={() => setIsCollapsed(!isCollapsed)}
-        className="absolute -right-3 top-8 bg-[#003366] text-white p-1 rounded-full shadow-lg"
-      >
-        {isCollapsed ? <FaChevronRight size={16} /> : <FaChevronLeft size={16} />}
-      </button>
+      <SidebarBackground />
 
-      {/* Logo */}
-      <div className="p-4 mb-8">
-        <div className={`transition-all duration-300 ${isCollapsed ? "scale-75" : ""}`}>
-          <Logo variant="light" />
-        </div>
-      </div>
+      {/* Content Container */}
+      <div className="relative h-full flex flex-col">
+        {/* Toggle Button */}
+        <motion.button
+          whileHover={{ scale: 1.2, rotate: isCollapsed ? 180 : 0 }}
+          whileTap={{ scale: 0.9 }}
+          onClick={() => setIsCollapsed(!isCollapsed)}
+          className="absolute -right-3 top-8 bg-white/20 backdrop-blur-md text-white p-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 border border-white/30"
+        >
+          {isCollapsed ? <FaChevronRight size={12} /> : <FaChevronLeft size={12} />}
+        </motion.button>
 
-      {/* Main Menu */}
-      <nav className="px-2 py-4 h-[calc(100vh-180px)] overflow-y-auto scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
-        <ul className="space-y-2">
-          {menuItems.map((item) => {
-            const isActive = pathname === item.href;
-            return (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  className={`flex items-center px-4 py-3 rounded-lg transition-colors ${
-                    isActive 
-                      ? "bg-white/10 text-white" 
-                      : "text-white/70 hover:bg-white/5 hover:text-white"
-                  }`}
-                >
-                  <item.icon className={`text-lg ${isCollapsed ? "mr-0" : "mr-3"}`} />
-                  {!isCollapsed && (
-                    <span className="font-display text-sm">{item.label}</span>
-                  )}
-                  {isActive && !isCollapsed && (
-                    <motion.div
-                      className="absolute left-0 w-1 h-8 bg-white rounded-r-full"
-                      layoutId="activeTab"
-                      transition={{
-                        type: "spring",
-                        stiffness: 300,
-                        damping: 30,
-                      }}
-                    />
-                  )}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
-      </nav>
+        {/* Logo */}
+        <motion.div 
+          className="p-6"
+          animate={{ 
+            width: isCollapsed ? "40px" : "auto",
+            opacity: 1 
+          }}
+        >
+          <div className={`transition-all duration-300 ${isCollapsed ? "scale-75" : ""}`}>
+            <Logo variant="light" />
+          </div>
+        </motion.div>
 
-      {/* Bottom Menu */}
-      <div className="absolute bottom-0 left-0 right-0 p-4">
-        <div className="pt-4 border-t border-white/10">
-          <ul className="space-y-2">
-            {bottomMenuItems.map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  className="flex items-center px-4 py-3 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition-colors"
-                >
-                  <item.icon className={`text-lg ${isCollapsed ? "mr-0" : "mr-3"}`} />
-                  {!isCollapsed && (
-                    <span className="font-display text-sm">{item.label}</span>
-                  )}
-                </Link>
-              </li>
+        {/* Main Menu */}
+        <nav className="flex-1 px-3 py-4 overflow-y-auto scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent">
+          <div className="space-y-6">
+            {menuGroups.map((group) => (
+              <SidebarMenuGroup
+                key={group.title}
+                title={group.title}
+                items={group.items}
+                isCollapsed={isCollapsed}
+                hoveredItem={hoveredItem}
+                currentPath={pathname}
+                onHoverStart={(href) => setHoveredItem(href)}
+                onHoverEnd={() => setHoveredItem(null)}
+              />
             ))}
-          </ul>
+          </div>
+        </nav>
+
+        {/* Bottom Menu */}
+        <div className="p-4">
+          <div className="pt-4 border-t border-white/10">
+            <div className="space-y-2">
+              {bottomMenuItems.map((item) => (
+                <SidebarMenuItem
+                  key={item.href}
+                  href={item.href}
+                  icon={item.icon}
+                  label={item.label}
+                  isActive={pathname === item.href}
+                  isCollapsed={isCollapsed}
+                  hoveredItem={hoveredItem}
+                  onHoverStart={() => setHoveredItem(item.href)}
+                  onHoverEnd={() => setHoveredItem(null)}
+                />
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </div>
