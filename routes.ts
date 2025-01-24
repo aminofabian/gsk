@@ -3,7 +3,12 @@
 // @type {string[]}
 
 export const publicRoutes = ["/",
-  "/auth/new-verification"
+  "/auth/new-verification",
+  "/dashboard",
+  "/settings",
+  "/admin",
+  "/about",
+  "/contact",
 ];
 
 /*
@@ -17,9 +22,8 @@ export const authRoutes = [
   "/auth/register",
   "/auth/error",
   "/auth/reset",
-  "/auth/new-password",
-  "/about",
-  "/contact"
+  "/auth/new-password"
+ 
 ];
 
 // The prefix for the api routes
