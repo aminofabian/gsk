@@ -60,11 +60,11 @@ const Hero = () => {
                     <div className="h-0.5 w-12 bg-[#396390]"></div>
                     <span className="text-[#396390] font-medium tracking-wider text-sm uppercase">Membership</span>
                   </div>
-                  <h2 className="text-3xl md:text-4xl lg:text-5xl font-playfair text-white font-bold leading-tight drop-shadow-lg">
+                  <h1 className="text-3xl md:text-4xl lg:text-5xl text-white font-bold leading-tight drop-shadow-lg">
                     Join Kenya&apos;s Premier
-                    <span className="block mt-1 text-[#396390]">Gastroenterology Network</span>
-                  </h2>
-                  <p className="mt-4 text-white/90 text-lg md:text-xl font-light leading-relaxed">
+                    <span className="block mt-1 text-[#396390]">Gastroenterology Association</span>
+                  </h1>
+                  <p className="mt-4 text-white/90 text-xl md:text-2xl font-light leading-relaxed">
                     Access exclusive benefits including CME credits, research collaborations, and specialized training opportunities.
                   </p>
                 </div>
