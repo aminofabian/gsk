@@ -1,10 +1,18 @@
 import type { NextAuthConfig } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
-import bcryptjs from "bcryptjs";
 import { LoginSchema } from "./schemas";
 import { getUserByEmail } from "./data/user";
 import Github from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
+
+async function verifyPassword(password: string, hashedPassword: string) {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(password);
+  const hash = await crypto.subtle.digest('SHA-256', data);
+  const hashArray = Array.from(new Uint8Array(hash));
+  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  return hashHex === hashedPassword;
+}
 
 export default {
   providers: [
@@ -26,10 +34,7 @@ export default {
           const user = await getUserByEmail(email);
           if (!user || !user.password) return null;
 
-          const passwordsMatch = await bcryptjs.compare(
-            password,
-            user.password
-          );
+          const passwordsMatch = await verifyPassword(password, user.password);
           if (passwordsMatch) {
             return {
               ...user,
