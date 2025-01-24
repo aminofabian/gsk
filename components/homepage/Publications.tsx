@@ -81,10 +81,10 @@ const Publications = () => {
   ];
 
   return (
-    <section className="relative py-20 overflow-hidden bg-gradient-to-br from-gray-50 via-white to-gray-50">
+    <section className="relative py-20 overflow-hidden bg-white">
       {/* Medical Journal Background Pattern */}
       <div className="absolute inset-0 opacity-[0.01]" style={{ 
-        backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2340e0d0' fill-opacity='0.7'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+        backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2340e0d0' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
         backgroundSize: '30px 30px'
       }} />
 
@@ -108,11 +108,10 @@ const Publications = () => {
           viewport={{ once: true }}
         >
           <div className="relative inline-block mb-8">
-            <div className="absolute -inset-1 bg-gradient-to-r from-[#003366] via-[#40e0d0]/60 to-[#003366] rounded-lg blur opacity-20" />
-            <h2 className="relative font-merriweather text-6xl md:text-7xl font-bold bg-gradient-to-r from-[#003366] via-[#40e0d0]/70 to-[#003366] bg-clip-text text-transparent">
+            <h2 className="relative font-merriweather text-6xl md:text-7xl font-bold text-[#003366]">
               Medical Journal
             </h2>
-            <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-[#003366] via-[#40e0d0]/60 to-[#003366]" />
+            <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-[#40e0d0]/20" />
           </div>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto font-merriweather italic">
             Volume 24 • Issue 3 • March 2024
@@ -131,13 +130,13 @@ const Publications = () => {
               className="group relative"
             >
               {/* Paper Texture Background */}
-              <div className="absolute inset-0 bg-white rounded-[2rem] shadow-xl transform rotate-1 group-hover:rotate-0 transition-transform duration-300" 
+              <div className="absolute inset-0 bg-white rounded-[2rem] shadow-lg transform rotate-1 group-hover:rotate-0 transition-transform duration-300" 
                 style={{ 
-                  backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%2340e0d0' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E")`,
+                  backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%2340e0d0' fill-opacity='0.02' fill-rule='evenodd'/%3E%3C/svg%3E")`,
                 }}
               />
 
-              <div className="relative bg-white/95 backdrop-blur-sm rounded-[2rem] overflow-hidden border border-gray-100 shadow-lg group-hover:border-[#40e0d0]/20 transition-colors duration-300">
+              <div className="relative bg-white rounded-[2rem] overflow-hidden border border-gray-100 shadow-lg group-hover:border-[#40e0d0]/10 transition-colors duration-300">
                 {/* Journal Header */}
                 <div className="px-8 py-6 border-b border-gray-100">
                   <div className="flex items-center justify-between mb-4">
@@ -145,20 +144,20 @@ const Publications = () => {
                       {pub.category}
                     </span>
                     <span className="flex items-center gap-2 text-gray-500 text-sm">
-                      <FaRegCalendarAlt className="text-[#40e0d0]/70" />
+                      <FaRegCalendarAlt className="text-[#40e0d0]/50" />
                       {pub.date}
                     </span>
                   </div>
-                  <h3 className="text-2xl font-merriweather font-bold text-[#003366] mb-3 group-hover:text-[#003366]/90 transition-colors">
+                  <h3 className="text-2xl font-merriweather font-bold text-[#003366] mb-3">
                     {pub.title}
                   </h3>
                   <div className="flex items-center gap-4 text-sm text-gray-500">
                     <div className="flex items-center gap-2">
-                      <FaRegUser className="text-[#40e0d0]/70" />
+                      <FaRegUser className="text-[#40e0d0]/50" />
                       <span>{pub.author}</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <FaRegClock className="text-[#40e0d0]/70" />
+                      <FaRegClock className="text-[#40e0d0]/50" />
                       <span>{pub.readTime}</span>
                     </div>
                   </div>
@@ -174,10 +173,10 @@ const Publications = () => {
                       className="object-cover"
                     />
                   </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#003366]/80 to-transparent" />
+                  <div className="absolute inset-0 bg-[#003366]/60" />
                   <div className="absolute bottom-0 left-0 right-0 p-8">
                     <div className="text-white mb-4 line-clamp-2 font-merriweather">
-                      <FaQuoteRight className="float-left mr-4 text-3xl text-[#40e0d0]/30" />
+                      <FaQuoteRight className="float-left mr-4 text-3xl text-[#40e0d0]/20" />
                       {pub.preview}
                     </div>
                   </div>
@@ -197,7 +196,7 @@ const Publications = () => {
                   </div>
 
                   <motion.button 
-                    className="group w-full flex items-center justify-center gap-2 px-6 py-3 bg-[#003366] text-white rounded-full hover:bg-[#003366]/95 transition-all duration-700"
+                    className="group w-full flex items-center justify-center gap-2 px-6 py-3 bg-[#003366] text-white rounded-full hover:bg-[#003366]/90 transition-all duration-300"
                     whileHover={{ scale: 1.01 }}
                     transition={{ duration: 0.3 }}
                   >
@@ -219,8 +218,8 @@ const Publications = () => {
           viewport={{ once: true }}
         >
           <motion.button 
-            className="group relative inline-flex items-center gap-3 px-10 py-5 bg-[#003366] text-white rounded-full text-lg font-merriweather hover:bg-[#003366]/95 transition-all duration-700 shadow-lg"
-            whileHover={{ scale: 1.02 }}
+            className="group relative inline-flex items-center gap-3 px-10 py-5 bg-[#003366] text-white rounded-full text-lg font-merriweather hover:bg-[#003366]/90 transition-all duration-300"
+            whileHover={{ scale: 1.01 }}
             transition={{ duration: 0.3 }}
           >
             <span className="relative z-10">Browse Complete Journal Archive</span>
