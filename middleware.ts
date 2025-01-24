@@ -36,9 +36,6 @@ export default auth((req) => {
   return;
 });
 
-// Use experimental edge runtime
-export const runtime = "experimental-edge";
-
 export const config = {
   matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
 };

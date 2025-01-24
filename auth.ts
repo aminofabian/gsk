@@ -63,5 +63,3 @@ export const {
   },
   ...authConfig,
 });
-
-export const runtime = "experimental-edge";

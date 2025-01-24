@@ -52,5 +52,3 @@ export default {
     error: "/auth/error",
   },
 } satisfies NextAuthConfig;
-
-export const runtime = "experimental-edge";
