@@ -13,10 +13,6 @@ export const {
 } = NextAuth({
   adapter: PrismaAdapter(db),
   session: { strategy: "jwt" },
-  pages: {
-    signIn: "/auth/login",
-    error: "/auth/error",
-  },
   events: {
     async linkAccount({ user }) {
       await db.user.update({
@@ -67,3 +63,5 @@ export const {
   },
   ...authConfig,
 });
+
+export const runtime = "experimental-edge";

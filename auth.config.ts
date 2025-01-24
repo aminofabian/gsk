@@ -30,10 +30,22 @@ export default {
             password,
             user.password
           );
-          if (passwordsMatch) return user;
+          if (passwordsMatch) {
+            return {
+              ...user,
+              isTwoFactorEnabled: false
+            };
+          }
         }
         return null;
       },
     }),
   ],
+  trustHost: true,
+  pages: {
+    signIn: "/auth/login",
+    error: "/auth/error",
+  },
 } satisfies NextAuthConfig;
+
+export const runtime = "experimental-edge";
