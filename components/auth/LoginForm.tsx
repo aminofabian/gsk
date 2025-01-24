@@ -94,13 +94,13 @@ const LoginForm = () => {
               {/* Content Card */}
               <div className="relative bg-[#003366] rounded-2xl p-8 shadow-xl">
                 <div className="flex justify-center mb-8">
-                  <Logo />
+                  <Logo variant="light" />
                 </div>
                 <h1 className="text-3xl xl:text-4xl font-display font-bold text-white mb-6 text-center">
-                  Welcome to GSK Portal
+                  Gastroenterology Society of Kenya
                 </h1>
                 <p className="text-lg text-white/80 font-display leading-relaxed text-center">
-                  Access your account to manage your membership, view resources, and stay updated with the latest in gastroenterology.
+                  Advancing Digestive Health Care in Kenya through Research, Education, and Excellence
                 </p>
                 {/* Feature List */}
                 <div className="mt-8 space-y-4">
@@ -128,7 +128,7 @@ const LoginForm = () => {
               <div className="w-full max-w-md mx-auto">
                 {/* Logo - Show only on mobile */}
                 <div className="flex justify-center w-full mb-8 lg:hidden">
-                  <Logo />
+                  <Logo variant="dark" />
                 </div>
 
                 <CardWrapper

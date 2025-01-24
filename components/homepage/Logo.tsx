@@ -1,4 +1,8 @@
-function Logo() {
+interface LogoProps {
+  variant?: 'light' | 'dark';
+}
+
+function Logo({ variant = 'dark' }: LogoProps) {
     return (
     <div className="flex items-center gap-4 sm:gap-6">
       <div className="relative w-14 h-14 sm:w-16 sm:h-16 flex-shrink-0">
@@ -16,13 +20,13 @@ function Logo() {
         </div>
       </div>
       <div className="flex flex-col">
-        <span className="text-xs sm:text-sm font-serif font-bold text-[#003366] leading-tight tracking-tight">
+        <span className={`text-xs sm:text-sm font-serif font-bold leading-tight tracking-tight ${variant === 'light' ? 'text-white' : 'text-[#003366]'}`}>
           Gastroenterology Society
         </span>
-        <span className="text-xs sm:text-sm font-serif font-bold text-[#003366] leading-tight tracking-tight">
+        <span className={`text-xs sm:text-sm font-serif font-bold leading-tight tracking-tight ${variant === 'light' ? 'text-white' : 'text-[#003366]'}`}>
           of Kenya
         </span>
-        <span className="text-[8px] sm:text-[10px] font-serif text-[#003366]/80 mt-0.5">
+        <span className={`text-[8px] sm:text-[10px] font-serif mt-0.5 ${variant === 'light' ? 'text-white/80' : 'text-[#003366]/80'}`}>
           Advancing Digestive Health Care
         </span>
       </div>
