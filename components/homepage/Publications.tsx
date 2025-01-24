@@ -197,9 +197,9 @@ const Publications = () => {
                   </div>
 
                   <motion.button 
-                    className="group w-full flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-[#003366] via-[#004080] to-[#003366] text-white rounded-full hover:from-[#003366] hover:via-[#40e0d0]/60 hover:to-[#003366] transition-all duration-500"
-                    whileHover={{ scale: 1.02 }}
-                    transition={{ duration: 0.2 }}
+                    className="group w-full flex items-center justify-center gap-2 px-6 py-3 bg-[#003366] text-white rounded-full hover:bg-[#003366]/95 transition-all duration-700"
+                    whileHover={{ scale: 1.01 }}
+                    transition={{ duration: 0.3 }}
                   >
                     Read Full Article
                     <FaChevronRight className="group-hover:translate-x-1 transition-transform" />
@@ -219,9 +219,9 @@ const Publications = () => {
           viewport={{ once: true }}
         >
           <motion.button 
-            className="group relative inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-[#003366] via-[#004080] to-[#003366] text-white rounded-full text-lg font-merriweather hover:from-[#003366] hover:via-[#40e0d0]/60 hover:to-[#003366] transition-all duration-500 overflow-hidden shadow-lg"
-            whileHover={{ scale: 1.05 }}
-            transition={{ duration: 0.2 }}
+            className="group relative inline-flex items-center gap-3 px-10 py-5 bg-[#003366] text-white rounded-full text-lg font-merriweather hover:bg-[#003366]/95 transition-all duration-700 shadow-lg"
+            whileHover={{ scale: 1.02 }}
+            transition={{ duration: 0.3 }}
           >
             <span className="relative z-10">Browse Complete Journal Archive</span>
             <FaChevronRight className="relative z-10 group-hover:translate-x-1 transition-transform" />

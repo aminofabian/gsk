@@ -47,7 +47,7 @@ const Partners = () => {
   return (
     <section className="relative py-20 overflow-hidden">
       {/* Background decorative elements */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#40e0d0]/3 via-white to-[#003366]/3" />
+      <div className="absolute inset-0 bg-gradient-to-br from-[#40e0d0]/2 via-white to-[#003366]/2" />
       <div className="absolute inset-0 opacity-[0.03]" style={{
         backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 50h10v10H50V50zm-10 0h10v10H40V50zm-10 0h10v10H30V50zm30-10h10v10H60V40zm-10 0h10v10H50V40zm-10 0h10v10H40V40zm30-10h10v10H70V30zm-10 0h10v10H60V30zm-10 0h10v10H50V30z' fill='%2340e0d0' fill-opacity='1' fill-rule='evenodd'/%3E%3C/svg%3E")`,
         backgroundSize: '60px 60px'
@@ -55,10 +55,10 @@ const Partners = () => {
 
       <div className="max-w-7xl mx-auto px-4 relative">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-merriweather font-bold bg-gradient-to-r from-[#003366] via-[#40e0d0]/80 to-[#003366] bg-clip-text text-transparent inline-block">
+          <h2 className="text-4xl md:text-5xl font-merriweather font-bold bg-gradient-to-r from-[#003366] via-[#40e0d0]/40 to-[#003366] bg-clip-text text-transparent inline-block">
             GSK Network & Leadership
           </h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-[#003366] via-[#40e0d0]/70 to-[#003366] mx-auto mt-4 rounded-full" />
+          <div className="w-20 h-1 bg-gradient-to-r from-[#003366] via-[#40e0d0]/30 to-[#003366] mx-auto mt-4 rounded-full" />
         </div>
 
         <div className="grid lg:grid-cols-2 gap-16 items-stretch">
@@ -71,7 +71,7 @@ const Partners = () => {
               </p>
               
               {/* Enhanced Map Container */}
-              <div className="relative aspect-[4/3] bg-gradient-to-br from-[#003366] via-[#004080] to-[#40e0d0]/70 rounded-xl overflow-hidden shadow-lg group flex-shrink-0">
+              <div className="relative aspect-[4/3] bg-gradient-to-br from-[#003366] via-[#004080] to-[#40e0d0]/30 rounded-xl overflow-hidden shadow-lg group flex-shrink-0">
                 {/* Background Pattern */}
                 <div className="absolute inset-0 opacity-5">
                   <div className="absolute inset-0" style={{
@@ -154,7 +154,7 @@ const Partners = () => {
                 </div>
 
                 {/* Hover Overlay with Medical Icons */}
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-b from-[#003366]/80 via-[#004080]/70 to-[#40e0d0]/50">
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-b from-[#003366]/70 via-[#004080]/50 to-[#40e0d0]/20">
                   <div className="text-center space-y-3">
                     <div className="flex items-center justify-center space-x-2">
                       <div className="w-8 h-8 bg-[#40e0d0]/20 rounded-lg flex items-center justify-center">
@@ -174,10 +174,10 @@ const Partners = () => {
               {/* Enhanced Stats Section */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-6 mt-8">
                 <div className="relative group">
-                  <div className="absolute inset-0 bg-gradient-to-r from-[#003366] to-[#40e0d0]/60 rounded-xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#003366] to-[#40e0d0]/20 rounded-xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity" />
                   <div className="relative bg-white p-4 sm:p-6 rounded-xl border border-[#40e0d0]/10 hover:border-[#40e0d0]/20 transition-colors shadow-sm hover:shadow-md duration-300">
                     <div className="flex flex-col items-center sm:items-start">
-                      <div className="text-3xl sm:text-4xl font-merriweather font-bold bg-gradient-to-r from-[#003366] to-[#40e0d0]/80 bg-clip-text text-transparent mb-1">500+</div>
+                      <div className="text-3xl sm:text-4xl font-merriweather font-bold bg-gradient-to-r from-[#003366] to-[#40e0d0]/40 bg-clip-text text-transparent mb-1">500+</div>
                       <div className="text-sm font-merriweather font-medium text-[#003366]/80">Active Members</div>
                     </div>
                     <div className="absolute top-0 right-0 p-2 opacity-10">
@@ -189,10 +189,10 @@ const Partners = () => {
                 </div>
 
                 <div className="relative group">
-                  <div className="absolute inset-0 bg-gradient-to-r from-[#003366] to-[#40e0d0]/60 rounded-xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#003366] to-[#40e0d0]/20 rounded-xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity" />
                   <div className="relative bg-white p-4 sm:p-6 rounded-xl border border-[#40e0d0]/10 hover:border-[#40e0d0]/20 transition-colors shadow-sm hover:shadow-md duration-300">
                     <div className="flex flex-col items-center sm:items-start">
-                      <div className="text-3xl sm:text-4xl font-merriweather font-bold bg-gradient-to-r from-[#003366] to-[#40e0d0]/80 bg-clip-text text-transparent mb-1">47</div>
+                      <div className="text-3xl sm:text-4xl font-merriweather font-bold bg-gradient-to-r from-[#003366] to-[#40e0d0]/40 bg-clip-text text-transparent mb-1">47</div>
                       <div className="text-sm font-merriweather font-medium text-[#003366]/80">Counties Covered</div>
                     </div>
                     <div className="absolute top-0 right-0 p-2 opacity-10">
@@ -204,10 +204,10 @@ const Partners = () => {
                 </div>
 
                 <div className="relative group">
-                  <div className="absolute inset-0 bg-gradient-to-r from-[#003366] to-[#40e0d0]/60 rounded-xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#003366] to-[#40e0d0]/20 rounded-xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity" />
                   <div className="relative bg-white p-4 sm:p-6 rounded-xl border border-[#40e0d0]/10 hover:border-[#40e0d0]/20 transition-colors shadow-sm hover:shadow-md duration-300">
                     <div className="flex flex-col items-center sm:items-start">
-                      <div className="text-3xl sm:text-4xl font-merriweather font-bold bg-gradient-to-r from-[#003366] to-[#40e0d0]/80 bg-clip-text text-transparent mb-1">20+</div>
+                      <div className="text-3xl sm:text-4xl font-merriweather font-bold bg-gradient-to-r from-[#003366] to-[#40e0d0]/40 bg-clip-text text-transparent mb-1">20+</div>
                       <div className="text-sm font-merriweather font-medium text-[#003366]/80">Partners</div>
                     </div>
                     <div className="absolute top-0 right-0 p-2 opacity-10">
@@ -229,7 +229,7 @@ const Partners = () => {
               <div className="grid grid-cols-2 gap-6 flex-1">
                 {leaders.map((leader, index) => (
                   <div key={index} className="group relative">
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#003366] to-[#40e0d0]/60 rounded-xl blur-lg opacity-0 group-hover:opacity-20 transition-all duration-300" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#003366] to-[#40e0d0]/20 rounded-xl blur-lg opacity-0 group-hover:opacity-20 transition-all duration-300" />
                     <div className="relative overflow-hidden rounded-xl bg-white border border-[#40e0d0]/10 hover:border-[#40e0d0]/20 transition-all duration-300">
                       <div className="aspect-square overflow-hidden">
                         <img 
@@ -237,7 +237,7 @@ const Partners = () => {
                           alt={leader.name}
                           className="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#003366] via-[#004080]/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#003366] via-[#004080]/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300" />
                       </div>
                       <div className="p-4 relative bg-white transform transition-transform duration-300 group-hover:-translate-y-2">
                         <h4 className="font-merriweather font-semibold text-lg text-[#003366]">{leader.name}</h4>

@@ -40,7 +40,7 @@ const DNAStrand = () => {
 
 const Footer = () => {
   return (
-    <footer className="relative bg-gradient-to-br from-[#003366] via-[#004080] to-[#40e0d0] text-white overflow-hidden">
+    <footer className="relative bg-[#003366] text-white overflow-hidden">
       {/* DNA Animation Background */}
       <DNAStrand />
 
@@ -56,8 +56,8 @@ const Footer = () => {
             }}
             animate={{
               y: [0, -30, 0],
-              opacity: [0.1, 0.2, 0.1],
-              scale: [1, 1.2, 1],
+              opacity: [0.05, 0.1, 0.05],
+              scale: [1, 1.1, 1],
             }}
             transition={{
               duration: 5 + Math.random() * 2,
@@ -65,7 +65,7 @@ const Footer = () => {
               delay: index * 0.5,
             }}
           >
-            <Icon className="text-4xl text-[#40e0d0]/20" />
+            <Icon className="text-4xl text-[#40e0d0]/10" />
           </motion.div>
         ))}
       </div>
@@ -100,15 +100,14 @@ const Footer = () => {
                   The Gastroenterology Society of Kenya (GSK) is a professional organization dedicated to advancing digestive healthcare through education, research, and clinical excellence.
                 </p>
                 <motion.button
-                  whileHover={{ scale: 1.02 }}
+                  whileHover={{ scale: 1.01 }}
                   whileTap={{ scale: 0.98 }}
-                  className="mt-6 px-6 py-3 bg-[#40e0d0]/10 backdrop-blur-sm rounded-xl text-white hover:bg-[#40e0d0]/20 flex items-center gap-2 group transition-all duration-300"
+                  className="mt-6 px-6 py-3 bg-[#40e0d0]/5 rounded-xl text-white hover:bg-[#40e0d0]/10 flex items-center gap-2 group transition-all duration-300"
                 >
                   Learn more about our mission
                   <FaChevronRight className="text-sm transition-transform group-hover:translate-x-1" />
                 </motion.button>
               </div>
-              <div className="absolute inset-0 bg-[#40e0d0]/5 rounded-2xl filter blur-3xl" />
             </motion.div>
 
             {/* Quick Links */}
@@ -120,7 +119,7 @@ const Footer = () => {
               className="relative"
             >
               <div className="relative z-10">
-                <h3 className="text-xl font-merriweather font-bold mb-8 bg-gradient-to-r from-white via-[#40e0d0] to-white bg-clip-text text-transparent">Quick Links</h3>
+                <h3 className="text-xl font-merriweather font-bold mb-8 text-white">Quick Links</h3>
                 <ul className="space-y-4 text-white/90">
                   {[
                     "Who We Are",
@@ -143,16 +142,11 @@ const Footer = () => {
                           <FaChevronRight className="text-xs text-[#40e0d0] group-hover:text-[#40e0d0] transition-colors" />
                           {link}
                         </span>
-                        <motion.div
-                          className="absolute inset-0 bg-gradient-to-r from-[#40e0d0]/0 via-[#40e0d0]/5 to-[#40e0d0]/0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity"
-                          whileHover={{ scale: 1.02 }}
-                        />
                       </Link>
                     </motion.li>
                   ))}
                 </ul>
               </div>
-              <div className="absolute inset-0 bg-[#40e0d0]/5 rounded-2xl filter blur-3xl" />
             </motion.div>
 
             {/* Contact Information */}
@@ -164,7 +158,7 @@ const Footer = () => {
               className="relative"
             >
               <div className="relative z-10">
-                <h3 className="text-xl font-merriweather font-bold mb-8 bg-gradient-to-r from-white via-[#40e0d0] to-white bg-clip-text text-transparent">Contact GSK</h3>
+                <h3 className="text-xl font-merriweather font-bold mb-8 text-white">Contact GSK</h3>
                 <div className="space-y-6 text-white/90">
                   {[
                     { icon: FaMapMarkerAlt, title: "Visit Us", content: "KMA Centre, 4th Floor, Wing C\nMara Road, Upper Hill\nNairobi, Kenya" },
@@ -178,7 +172,7 @@ const Footer = () => {
                       whileHover={{ x: 4 }}
                     >
                       <div className="relative flex items-start gap-4 p-4 rounded-xl hover:bg-[#40e0d0]/5 transition-colors">
-                        <div className="p-2 bg-gradient-to-br from-[#40e0d0]/20 to-[#40e0d0]/10 rounded-lg group-hover:from-[#40e0d0]/30 group-hover:to-[#40e0d0]/20 transition-colors">
+                        <div className="p-2 bg-[#40e0d0]/10 rounded-lg group-hover:bg-[#40e0d0]/15 transition-colors">
                           <item.icon className="text-[#40e0d0] group-hover:text-white transition-colors" />
                         </div>
                         <div>
@@ -190,13 +184,12 @@ const Footer = () => {
                   ))}
                 </div>
               </div>
-              <div className="absolute inset-0 bg-[#40e0d0]/5 rounded-2xl filter blur-3xl" />
             </motion.div>
           </div>
 
           {/* Bottom Bar */}
           <div className="relative mt-16 pt-8">
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#40e0d0]/20 to-transparent h-px" />
+            <div className="absolute inset-0 bg-[#40e0d0]/10 h-px" />
             <div className="relative flex flex-col md:flex-row justify-between items-center gap-6">
               <motion.p 
                 className="text-white/80 text-sm"
@@ -222,7 +215,7 @@ const Footer = () => {
                   >
                     <span className="relative z-10">{item}</span>
                     <motion.div
-                      className="absolute bottom-0 left-0 w-0 h-px bg-gradient-to-r from-[#40e0d0] to-white group-hover:w-full transition-all duration-300"
+                      className="absolute bottom-0 left-0 w-0 h-px bg-[#40e0d0]/30 group-hover:w-full transition-all duration-300"
                       whileHover={{ width: "100%" }}
                     />
                   </Link>
