@@ -118,97 +118,139 @@ const Donation = () => {
           </p>
         </motion.div>
 
-        {/* Image Gallery Layout */}
-        <div className="relative w-full mb-8 sm:mb-12 md:mb-16 lg:mb-20">
-          <div className="relative h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] w-full">
-            {/* Center Image */}
-            <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[60%] sm:w-[45%] h-[80%] z-30">
-              <div className="relative w-full h-full group">
-                <div className="relative w-full h-full overflow-hidden rounded-2xl shadow-2xl transition-transform duration-500 group-hover:scale-[1.02]">
-                  <Image
-                    src={images[0]}
-                    alt="Main support"
-                    fill
-                    sizes="(max-width: 640px) 60vw, 45vw"
-                    className="object-cover transition-transform duration-700 group-hover:scale-110"
-                    priority
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
-                </div>
-              </div>
+        {/* Interactive Image Gallery */}
+        <motion.div 
+          className="relative w-full mb-8 sm:mb-12 md:mb-16 lg:mb-20 perspective-[2000px]"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="relative h-[400px] sm:h-[500px] md:h-[600px] lg:h-[700px] w-full">
+            {/* Main Showcase */}
+            <div className="absolute inset-0 flex items-center justify-center">
+              <motion.div 
+                className="relative w-[80%] h-[90%] transform-style-3d"
+                animate={{ rotateY: [0, 360] }}
+                transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+              >
+                {images.map((image, index) => (
+                  <motion.div
+                    key={index}
+                    className="absolute inset-0 group cursor-pointer"
+                    style={{
+                      transform: `rotateY(${index * (360 / images.length)}deg) translateZ(300px)`,
+                      transformStyle: "preserve-3d",
+                    }}
+                    whileHover={{ scale: 1.1, z: 50 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  >
+                    <div className="relative w-[300px] h-[400px] rounded-2xl overflow-hidden shadow-2xl transform-gpu">
+                      <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20 mix-blend-overlay z-10" />
+                      <Image
+                        src={image}
+                        alt={`Gallery image ${index + 1}`}
+                        fill
+                        className="object-cover transition-transform duration-700 group-hover:scale-110"
+                        sizes="(max-width: 640px) 80vw, (max-width: 1024px) 40vw, 300px"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      
+                      {/* Interactive Elements */}
+                      <motion.div 
+                        className="absolute inset-0 flex flex-col justify-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                        initial={{ y: 20 }}
+                        whileHover={{ y: 0 }}
+                      >
+                        <div className="transform-gpu">
+                          <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 shadow-lg">
+                            <h3 className="text-white font-serif text-lg font-bold mb-2">
+                              GSK Impact {index + 1}
+                            </h3>
+                            <p className="text-white/90 text-sm">
+                              Advancing healthcare through innovation and research
+                            </p>
+                          </div>
+                        </div>
+                      </motion.div>
+
+                      {/* Decorative Elements */}
+                      <div className="absolute inset-0 pointer-events-none">
+                        <div className="absolute top-0 left-0 w-full h-full bg-gradient-conic from-blue-500/20 via-purple-500/20 to-blue-500/20 mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                        <motion.div 
+                          className="absolute -top-20 -right-20 w-40 h-40 bg-blue-500/30 rounded-full blur-3xl"
+                          animate={{ 
+                            scale: [1, 1.2, 1],
+                            opacity: [0.3, 0.6, 0.3]
+                          }}
+                          transition={{
+                            duration: 4,
+                            repeat: Infinity,
+                            ease: "easeInOut"
+                          }}
+                        />
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </motion.div>
             </div>
 
-            {/* Left Floating Image */}
-            <div className="absolute left-[5%] sm:left-[15%] top-[15%] w-[40%] sm:w-[30%] h-[60%] z-20">
-              <div className="relative w-full h-full group">
-                <div className="relative w-full h-full overflow-hidden rounded-2xl shadow-xl transition-transform duration-500 group-hover:scale-[1.02] transform rotate-[-4deg]">
-                  <Image
-                    src={images[1]}
-                    alt="Support left"
-                    fill
-                    sizes="(max-width: 640px) 40vw, 30vw"
-                    className="object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-                </div>
-              </div>
-            </div>
-
-            {/* Right Floating Image */}
-            <div className="absolute right-[5%] sm:right-[15%] top-[25%] w-[40%] sm:w-[30%] h-[60%] z-20">
-              <div className="relative w-full h-full group">
-                <div className="relative w-full h-full overflow-hidden rounded-2xl shadow-xl transition-transform duration-500 group-hover:scale-[1.02] transform rotate-[4deg]">
-                  <Image
-                    src={images[2]}
-                    alt="Support right"
-                    fill
-                    sizes="(max-width: 640px) 40vw, 30vw"
-                    className="object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-                </div>
-              </div>
-            </div>
-
-            {/* Bottom Left Small Image */}
-            <div className="absolute left-[8%] sm:left-[22%] bottom-[10%] w-[25%] sm:w-[20%] h-[40%] z-10">
-              <div className="relative w-full h-full group">
-                <div className="relative w-full h-full overflow-hidden rounded-xl shadow-lg transition-transform duration-500 group-hover:scale-[1.02] transform rotate-[-8deg]">
-                  <Image
-                    src={images[3]}
-                    alt="Support bottom left"
-                    fill
-                    sizes="(max-width: 640px) 25vw, 20vw"
-                    className="object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-                </div>
-              </div>
-            </div>
-
-            {/* Bottom Right Small Image */}
-            <div className="absolute right-[8%] sm:right-[22%] bottom-[15%] w-[25%] sm:w-[20%] h-[40%] z-10">
-              <div className="relative w-full h-full group">
-                <div className="relative w-full h-full overflow-hidden rounded-xl shadow-lg transition-transform duration-500 group-hover:scale-[1.02] transform rotate-[8deg]">
-                  <Image
-                    src={images[4]}
-                    alt="Support bottom right"
-                    fill
-                    sizes="(max-width: 640px) 25vw, 20vw"
-                    className="object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-                </div>
-              </div>
-            </div>
-
-            {/* Decorative Elements */}
+            {/* Interactive Particles */}
             <div className="absolute inset-0 pointer-events-none">
-              <div className="absolute left-[10%] top-[20%] w-32 h-32 bg-blue-500/10 rounded-full blur-3xl" />
-              <div className="absolute right-[10%] bottom-[20%] w-32 h-32 bg-blue-500/10 rounded-full blur-3xl" />
+              {[...Array(20)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  className="absolute w-2 h-2 bg-blue-500/30 rounded-full"
+                  style={{
+                    left: `${Math.random() * 100}%`,
+                    top: `${Math.random() * 100}%`,
+                  }}
+                  animate={{
+                    y: [0, -20, 0],
+                    opacity: [0, 1, 0],
+                    scale: [0, 1, 0],
+                  }}
+                  transition={{
+                    duration: 2 + Math.random() * 2,
+                    repeat: Infinity,
+                    delay: i * 0.1,
+                  }}
+                />
+              ))}
             </div>
+
+            {/* Custom Mouse Follower */}
+            <motion.div
+              className="fixed w-20 h-20 pointer-events-none z-50 rounded-full mix-blend-screen hidden md:block"
+              style={{
+                background: "radial-gradient(circle, rgba(59,130,246,0.3) 0%, rgba(59,130,246,0) 70%)",
+              }}
+              animate={{
+                x: -10,
+                y: -10,
+                scale: [1, 1.2, 1],
+              }}
+              transition={{
+                type: "spring",
+                stiffness: 500,
+                damping: 30,
+                mass: 0.5,
+              }}
+            />
           </div>
-        </div>
+
+          {/* Navigation Dots */}
+          <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+            {images.map((_, index) => (
+              <motion.button
+                key={index}
+                className="w-2 h-2 rounded-full bg-white/50 hover:bg-white/80 transition-colors"
+                whileHover={{ scale: 1.5 }}
+                whileTap={{ scale: 0.9 }}
+              />
+            ))}
+          </div>
+        </motion.div>
 
         {/* Specialized Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
