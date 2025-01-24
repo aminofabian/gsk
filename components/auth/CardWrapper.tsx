@@ -6,11 +6,8 @@ import {
   CardHeader,
   CardContent,
   CardFooter,
-  CardTitle,
-  CardDescription,
 } from "../ui/card";
 import Header from "./Header";
-import { Jost } from "next/font/google";
 import Social from "./Social";
 import BackButton from "./BackButton";
 
@@ -21,10 +18,7 @@ interface CardWrapperProps {
   backButtonHref: string;
   showSocial?: boolean;
 }
-const font = Jost({
-  subsets: ["latin"],
-  weight: ["700"],
-});
+
 const CardWrapper = ({
   children,
   headerLabel,
@@ -33,24 +27,29 @@ const CardWrapper = ({
   showSocial,
 }: CardWrapperProps) => {
   return (
-    <Card
-    className={cn(
-      "container w-[400px] shadow-md border border-blue-500 mx-5",
-      font.className
-    )}
-    >
-    <CardHeader>
-    <Header label={headerLabel} />
-    </CardHeader>
-    <CardContent>{children}</CardContent>
-    {showSocial && (
+    <Card className="w-full border-none shadow-none bg-transparent">
+      <CardHeader className="pb-4">
+        <Header label={headerLabel} />
+      </CardHeader>
+      <CardContent>{children}</CardContent>
+      {showSocial && (
+        <CardFooter className="flex flex-col gap-4">
+          <div className="relative w-full">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t border-gray-200" />
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-white px-2 text-gray-500">
+                Or continue with
+              </span>
+            </div>
+          </div>
+          <Social />
+        </CardFooter>
+      )}
       <CardFooter>
-      <Social />
+        <BackButton href={backButtonHref} label={backButtonLabel} />
       </CardFooter>
-    )}
-    <CardFooter>
-    <BackButton href={backButtonHref} label={backButtonLabel} />
-    </CardFooter>
     </Card>
   );
 };
