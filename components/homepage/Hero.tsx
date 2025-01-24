@@ -32,6 +32,13 @@ const Hero = () => {
         </div>
       </div>
 
+      {/* Wave Separator */}
+      <div className="relative w-full">
+        <svg className="absolute -top-1 left-0 right-0 w-full transform rotate-180" viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+          <path d="M0 0L48 8.875C96 17.75 192 35.5 288 44.375C384 53.25 480 53.25 576 44.375C672 35.5 768 17.75 864 17.75C960 17.75 1056 35.5 1152 44.375C1248 53.25 1344 53.25 1392 53.25H1440V120H1392C1344 120 1248 120 1152 120C1056 120 960 120 864 120C768 120 672 120 576 120C480 120 384 120 288 120C192 120 96 120 48 120H0V0Z" fill="#003366"/>
+        </svg>
+      </div>
+
       {/* CTA Section - Now separate from banner */}
       <div className="relative bg-[#003366]">
         {/* Decorative background elements */}
@@ -90,6 +97,13 @@ const Hero = () => {
         </div>
       </div>
 
+      {/* Wave Separator */}
+      <div className="relative w-full">
+        <svg className="absolute -bottom-1 left-0 right-0 w-full" viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+          <path d="M0 0L48 8.875C96 17.75 192 35.5 288 44.375C384 53.25 480 53.25 576 44.375C672 35.5 768 17.75 864 17.75C960 17.75 1056 35.5 1152 44.375C1248 53.25 1344 53.25 1392 53.25H1440V120H1392C1344 120 1248 120 1152 120C1056 120 960 120 864 120C768 120 672 120 576 120C480 120 384 120 288 120C192 120 96 120 48 120H0V0Z" fill="#002347"/>
+        </svg>
+      </div>
+
       {/* Info Section */}
       <div className="relative bg-[#002347]">
         {/* Decorative background elements */}
@@ -109,7 +123,7 @@ const Hero = () => {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="text-2xl font-playfair font-bold mb-2 group-hover:text-[#083c74] transition-colors">Member Benefits</h3>
+                    <h3 className="text-2xl font-playfair font-bold mb-2 group-hover:text-blue-100 transition-colors">Member Benefits</h3>
                     <p className="text-white/70 group-hover:text-white/90 transition-colors">Access CME credits, research grants, and exclusive training opportunities.</p>
                   </div>
                 </div>
@@ -124,7 +138,7 @@ const Hero = () => {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="text-2xl font-playfair font-bold mb-2 group-hover:text-[#083c74] transition-colors">Professional Network</h3>
+                    <h3 className="text-2xl font-playfair font-bold mb-2 group-hover:text-blue-100 transition-colors">Professional Network</h3>
                     <p className="text-white/70 group-hover:text-white/90 transition-colors">Connect with leading gastroenterology experts across Kenya.</p>
                   </div>
                 </div>
@@ -139,7 +153,7 @@ const Hero = () => {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="text-2xl font-playfair font-bold mb-2 group-hover:text-[#083c74] transition-colors">Research & Innovation</h3>
+                    <h3 className="text-2xl font-playfair font-bold mb-2 group-hover:text-blue-100 transition-colors">Research & Innovation</h3>
                     <p className="text-white/70 group-hover:text-white/90 transition-colors">Participate in cutting-edge research and clinical trials.</p>
                   </div>
                 </div>
