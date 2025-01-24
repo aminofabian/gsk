@@ -49,7 +49,7 @@ const Hero = () => {
                     <span className="text-[#FF6B35] font-medium tracking-wide text-sm">MEMBERSHIP</span>
                   </div>
                   <h2 className="text-2xl md:text-3xl lg:text-4xl font-serif text-white font-bold leading-tight">
-                    Join Kenya's Premier Gastroenterology Network
+                    Join Kenya&apos;s Premier Gastroenterology Network
                   </h2>
                   <p className="mt-3 text-white/80 text-base md:text-lg font-light">
                     Access exclusive benefits including CME credits, research collaborations, and specialized training opportunities.
