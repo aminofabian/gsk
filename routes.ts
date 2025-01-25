@@ -11,7 +11,7 @@ export const publicRoutes = ["/",
   "/contact",
   "/membership",
   "/cpd",
-  "/admin/hero-banner"
+  "/admin/hero-banners"
 ];
 
 /*
