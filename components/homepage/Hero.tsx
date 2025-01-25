@@ -72,26 +72,43 @@ const Hero = () => {
                 <div className="flex flex-col sm:flex-row gap-4 min-w-[300px] relative z-10">
                   <a 
                     href="/membership"
-                    className="group relative inline-flex justify-center items-center px-8 py-4 bg-[#40e0d0] text-white rounded-lg font-merriweather font-semibold transition-all duration-300 text-base shadow-xl hover:shadow-2xl hover:-translate-y-0.5"
+                    className="group relative inline-flex justify-center items-center px-8 py-4 bg-[#40e0d0] text-white rounded-xl font-merriweather font-semibold transition-all duration-300 overflow-hidden hover:shadow-[0_0_20px_rgba(64,224,208,0.3)]"
                   >
                     <span className="relative z-10 flex items-center">
                       <span>Become a Member</span>
-                      <svg className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <svg 
+                        className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" 
+                        viewBox="0 0 24 24" 
+                        fill="none" 
+                        stroke="currentColor" 
+                        strokeWidth="2"
+                        strokeLinecap="round" 
+                        strokeLinejoin="round"
+                      >
                         <path d="M5 12h14M12 5l7 7-7 7"/>
                       </svg>
                     </span>
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#396390] to-[#ff8655] rounded-lg opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#003366] via-[#40e0d0] to-[#003366] opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-[length:200%_100%] animate-gradient"></div>
                   </a>
                   <a 
                     href="/about"
-                    className="group relative inline-flex justify-center items-center px-8 py-4 bg-white/5 hover:bg-white/10 text-white rounded-lg font-merriweather font-semibold transition-all duration-300 text-base border border-white/20 hover:border-white/40 backdrop-blur-sm hover:backdrop-blur-md shadow-lg hover:-translate-y-0.5"
+                    className="group relative inline-flex justify-center items-center px-8 py-4 bg-white/5 text-white rounded-xl font-merriweather font-semibold transition-all duration-300 overflow-hidden border border-white/10 hover:border-[#40e0d0]/20"
                   >
                     <span className="relative z-10 flex items-center">
                       <span>View Benefits</span>
-                      <svg className="w-5 h-5 ml-2 opacity-0 group-hover:opacity-100 translate-x-0 group-hover:translate-x-1 transition-all duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <svg 
+                        className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" 
+                        viewBox="0 0 24 24" 
+                        fill="none" 
+                        stroke="currentColor" 
+                        strokeWidth="2"
+                        strokeLinecap="round" 
+                        strokeLinejoin="round"
+                      >
                         <path d="M5 12h14M12 5l7 7-7 7"/>
                       </svg>
                     </span>
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#40e0d0]/0 via-[#40e0d0]/5 to-[#40e0d0]/0 opacity-0 group-hover:opacity-100 transition-all duration-500 bg-[length:200%_100%] animate-gradient"></div>
                   </a>
                 </div>
               </div>
