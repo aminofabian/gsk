@@ -13,7 +13,7 @@ const AuthLoader = ({ onAuthenticated }: AuthLoaderProps) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (password === '4487') {
+    if (password === '3209') {
       localStorage.setItem('gsk-auth', 'true');
       onAuthenticated();
     } else {
