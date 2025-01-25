@@ -2,7 +2,7 @@
 
 A modern, responsive web application for the Gastroenterology Society of Kenya built with Next.js 13+, featuring a professional design system and comprehensive functionality for medical professionals.
 
-![GSK Logo](public/icon-16x16.png)
+![GSK Logo](public/icon-192x192.png)
 
 ## 🌟 Features
 
