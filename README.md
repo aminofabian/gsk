@@ -2,7 +2,7 @@
 
 A modern, responsive web application for the Gastroenterology Society of Kenya built with Next.js 13+, featuring a professional design system and comprehensive functionality for medical professionals.
 
-![GSK Logo](public/images/logo.png)
+![GSK Logo](public/icon-16x16.png)
 
 ## 🌟 Features
 
@@ -39,7 +39,7 @@ A modern, responsive web application for the Gastroenterology Society of Kenya b
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/gsk.git
+   git clone https://github.com/aminofabian/gsk.git
    cd gsk
    ```
 
@@ -107,15 +107,15 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👥 Team
 
-- Project Lead: [Your Name]
-- UI/UX Design: [Designer Name]
-- Development: [Developer Names]
+- Project Lead: Fabian Amino
+- UI/UX Design: Eugene Keya
+- Development: Tobias Baraka
 
 ## 📞 Contact
 
 For any queries regarding the project, please reach out to:
-- Email: [contact@gsk.or.ke]
-- Website: [https://gsk.or.ke]
+- Email: [contact@gastro.or.ke]
+- Website: [https://gastro.or.ke]
 
 ---
 
