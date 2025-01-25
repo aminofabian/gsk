@@ -1,42 +1,122 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Gastroenterology Society of Kenya (GSK) Website
 
-## Getting Started
+A modern, responsive web application for the Gastroenterology Society of Kenya built with Next.js 13+, featuring a professional design system and comprehensive functionality for medical professionals.
 
-First, run the development server:
+![GSK Logo](public/images/logo.png)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🌟 Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Professional Membership Management**
+  - Member profiles and directories
+  - CPD points tracking
+  - Online membership registration
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Medical Resources**
+  - Research publications
+  - Clinical guidelines
+  - Educational materials
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- **Event Management**
+  - Conferences and workshops
+  - Training sessions
+  - Professional networking
 
-## Learn More
+- **Interactive Components**
+  - Dynamic navigation
+  - Responsive design
+  - Smooth animations
 
-To learn more about Next.js, take a look at the following resources:
+## 🚀 Tech Stack
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Framework**: Next.js 13+
+- **Styling**: Tailwind CSS
+- **Animation**: Framer Motion
+- **Icons**: React Icons
+- **UI Components**: Custom components with modern design system
+- **Authentication**: NextAuth.js
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## 🛠️ Getting Started
 
-## Deploy on Vercel
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/yourusername/gsk.git
+   cd gsk
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+2. **Install dependencies**
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-# next-auth
-# gsk
-# gsk
-# gsk
-# gsk
-# gsk
+3. **Set up environment variables**
+   ```bash
+   cp .env.example .env.local
+   ```
+   Fill in your environment variables in `.env.local`
+
+4. **Run the development server**
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
+
+5. **Open [http://localhost:3000](http://localhost:3000)**
+   View the application in your browser
+
+## 📱 Responsive Design
+
+The website is fully responsive and optimized for:
+- Desktop computers
+- Tablets
+- Mobile devices
+- Various screen sizes
+
+## 🎨 Design System
+
+- **Colors**:
+  - Primary: `#003366` (Navy Blue)
+  - Secondary: `#40e0d0` (Turquoise)
+  - Accents: Various opacity levels of primary/secondary colors
+
+- **Typography**:
+  - Headers: Merriweather
+  - Body: Outfit
+  - Special: Playfair Display (when specified)
+
+## 🔒 Security
+
+- Secure authentication system
+- Protected API routes
+- Data encryption
+- CSRF protection
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👥 Team
+
+- Project Lead: [Your Name]
+- UI/UX Design: [Designer Name]
+- Development: [Developer Names]
+
+## 📞 Contact
+
+For any queries regarding the project, please reach out to:
+- Email: [contact@gsk.or.ke]
+- Website: [https://gsk.or.ke]
+
+---
+
+Built with ❤️ for the Gastroenterology Society of Kenya
