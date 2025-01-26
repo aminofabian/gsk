@@ -81,6 +81,26 @@ const config = {
         gradient: {
           '0%, 100%': { backgroundPosition: '0% 50%' },
           '50%': { backgroundPosition: '100% 50%' },
+        },
+        "gradient-x": {
+          '0%, 100%': { backgroundPosition: '200% 0' },
+          '50%': { backgroundPosition: '0 0' },
+        },
+        float: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-20px)' },
+        },
+        shimmer: {
+          '0%': { backgroundPosition: '-200% 0' },
+          '100%': { backgroundPosition: '200% 0' },
+        },
+        "pulse-slow": {
+          '0%, 100%': { opacity: '0.4' },
+          '50%': { opacity: '0.6' }
+        },
+        beam: {
+          '0%, 100%': { backgroundPosition: '200% 200%' },
+          '50%': { backgroundPosition: '-200% -200%' }
         }
       },
       animation: {
@@ -88,6 +108,14 @@ const config = {
         "accordion-up": "accordion-up 0.2s ease-out",
         "spin-slow": "spin-slow 20s linear infinite",
         gradient: 'gradient 3s ease infinite',
+        "gradient-x": 'gradient-x 15s linear infinite',
+        "float": 'float 6s ease-in-out infinite',
+        "float-delayed": 'float 6s ease-in-out infinite 3s',
+        "shimmer": 'shimmer 8s linear infinite',
+        "pulse": 'pulse-slow 8s ease-in-out infinite',
+        "pulse-delay-1": 'pulse-slow 8s ease-in-out infinite 2s',
+        "pulse-delay-2": 'pulse-slow 8s ease-in-out infinite 4s',
+        "beam": 'beam 8s linear infinite'
       },
     },
   },

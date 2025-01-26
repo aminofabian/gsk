@@ -24,156 +24,88 @@ const TRANSITION_EASE = [0.32, 0.72, 0, 1];
 const Hero = () => {
   return (
     <>
-      {/* Banner Section */}
-      <div className="relative group h-[60vh] overflow-hidden bg-gradient-to-b from-[#002347] to-[#003366]">
-        <div className="absolute inset-0 w-full h-full">
-          <SwipeCarousel />
-        </div>
-      </div>
+      {/* Main Hero Section */}
+      <div className="relative min-h-screen bg-[#001a35]">
+        {/* Background image */}
+        <div 
+          className="absolute inset-0 transition-transform duration-1000"
+          style={{
+            backgroundImage: 'url("/banner/stethoscope-7664834_1920.jpg")',
+            backgroundPosition: 'center',
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            filter: 'brightness(0.6)'
+          }}
+        />
 
-      {/* Wave Separator */}
-      <div className="relative w-full">
-        <svg className="absolute -top-1 left-0 right-0 w-full transform rotate-180" viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-          <path d="M0 0L48 8.875C96 17.75 192 35.5 288 44.375C384 53.25 480 53.25 576 44.375C672 35.5 768 17.75 864 17.75C960 17.75 1056 35.5 1152 44.375C1248 53.25 1344 53.25 1392 53.25H1440V120H1392C1344 120 1248 120 1152 120C1056 120 960 120 864 120C768 120 672 120 576 120C480 120 384 120 288 120C192 120 96 120 48 120H0V0Z" fill="#003366"/>
-        </svg>
-      </div>
+        {/* Simple overlay */}
+        <div className="absolute inset-0 bg-[#001a35]/40 backdrop-blur-[2px]" />
 
-      {/* CTA Section - Now separate from banner */}
-      <div className="relative bg-[#003366]">
-        {/* Decorative background elements */}
-        <div className="absolute inset-0 bg-[url('/patterns/grid.svg')] opacity-5"></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-[#003366] via-[#003366] to-[#002347]"></div>
-        
-        {/* Content */}
-        <div className="relative">
-          {/* Decorative top border */}
-          <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
-          
-          {/* Main content */}
-          <div className="py-4">
-            <div className="max-w-7xl mx-auto px-6">
-              <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-                {/* Text Content */}
-                <div className="max-w-2xl relative z-10">
-                  <div className="flex items-center gap-2 mb-3">
-                    <div className="h-0.5 w-12 bg-[#396390]"></div>
-                    <span className="text-[#396390] font-merriweather font-medium tracking-wider text-sm uppercase">Membership</span>
-                  </div>
-                  <h1 className="text-3xl md:text-4xl lg:text-5xl text-white font-merriweather font-bold leading-tight drop-shadow-lg">
-                    Join Kenya&apos;s Premier
-                    <span className="block mt-1 text-[#40e0d0]">Gastroenterology Association</span>
-                  </h1>
-                  <p className="mt-4 text-white/90 text-xl md:text-2xl font-merriweather font-light leading-relaxed">
-                    Access exclusive benefits including CME credits, research collaborations, and specialized training opportunities.
-                  </p>
-                </div>
-                {/* CTAs */}
-                <div className="flex flex-col sm:flex-row gap-4 min-w-[300px] relative z-10">
-                  <a 
-                    href="/membership"
-                    className="group relative inline-flex justify-center items-center px-8 py-4 bg-[#40e0d0] text-white rounded-xl font-merriweather font-semibold transition-all duration-300 overflow-hidden hover:shadow-[0_0_20px_rgba(64,224,208,0.3)]"
-                  >
-                    <span className="relative z-10 flex items-center">
-                      <span>Become a Member</span>
-                      <svg 
-                        className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" 
-                        viewBox="0 0 24 24" 
-                        fill="none" 
-                        stroke="currentColor" 
-                        strokeWidth="2"
-                        strokeLinecap="round" 
-                        strokeLinejoin="round"
-                      >
-                        <path d="M5 12h14M12 5l7 7-7 7"/>
-                      </svg>
-                    </span>
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#003366] via-[#40e0d0] to-[#003366] opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-[length:200%_100%] animate-gradient"></div>
-                  </a>
-                  <a 
-                    href="/about"
-                    className="group relative inline-flex justify-center items-center px-8 py-4 bg-white/5 text-white rounded-xl font-merriweather font-semibold transition-all duration-300 overflow-hidden border border-white/10 hover:border-[#40e0d0]/20"
-                  >
-                    <span className="relative z-10 flex items-center">
-                      <span>View Benefits</span>
-                      <svg 
-                        className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" 
-                        viewBox="0 0 24 24" 
-                        fill="none" 
-                        stroke="currentColor" 
-                        strokeWidth="2"
-                        strokeLinecap="round" 
-                        strokeLinejoin="round"
-                      >
-                        <path d="M5 12h14M12 5l7 7-7 7"/>
-                      </svg>
-                    </span>
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#40e0d0]/0 via-[#40e0d0]/5 to-[#40e0d0]/0 opacity-0 group-hover:opacity-100 transition-all duration-500 bg-[length:200%_100%] animate-gradient"></div>
-                  </a>
-                </div>
-              </div>
+        {/* Main content area */}
+        <div className="relative w-full min-h-screen mx-auto flex flex-col">
+          {/* Banner content */}
+          <div className="flex-1 flex items-center justify-center pt-2 sm:pt-4">
+            <div className="w-full max-w-[1800px] px-2 sm:px-4">
+              <SwipeCarousel />
             </div>
           </div>
-        </div>
-      </div>
 
-      {/* Wave Separator */}
-      <div className="relative w-full">
-        <svg className="absolute -bottom-1 left-0 right-0 w-full" viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-          <path d="M0 0L48 8.875C96 17.75 192 35.5 288 44.375C384 53.25 480 53.25 576 44.375C672 35.5 768 17.75 864 17.75C960 17.75 1056 35.5 1152 44.375C1248 53.25 1344 53.25 1392 53.25H1440V120H1392C1344 120 1248 120 1152 120C1056 120 960 120 864 120C768 120 672 120 576 120C480 120 384 120 288 120C192 120 96 120 48 120H0V0Z" fill="#002347"/>
-        </svg>
-      </div>
+          {/* Premium CTA Section */}
+          <div className="relative z-20 px-3 sm:px-6 lg:px-8 -mt-12 sm:-mt-24 pb-8 sm:pb-16">
+            <div className="max-w-6xl mx-auto">
+              <div className="bg-black/30 backdrop-blur-md rounded-xl sm:rounded-2xl p-4 sm:p-8 md:p-10 border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.4)] relative overflow-hidden">
+                {/* Decorative elements */}
+                <div className="absolute top-0 left-0 w-32 h-32 bg-[#40e0d0]/5 rounded-full blur-3xl"></div>
+                <div className="absolute bottom-0 right-0 w-32 h-32 bg-[#40e0d0]/5 rounded-full blur-3xl"></div>
+                
+                <div className="flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-12 relative">
+                  {/* Left side content */}
+                  <div className="flex-1 text-center lg:text-left">
+                    <div className="inline-flex items-center gap-2 mb-4 text-[#40e0d0]/90 text-sm tracking-widest uppercase">
+                      <span className="h-px w-5 bg-[#40e0d0]/50"></span>
+                      Welcome to GSK
+                      <span className="h-px w-5 bg-[#40e0d0]/50"></span>
+                    </div>
+                    <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-extralight text-white mb-3 sm:mb-5 tracking-wide">
+                      Join the{' '}
+                      <span className="relative inline-block font-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#40e0d0] to-[#40e0d0]/90">
+                        Gastroenterology Society
+                        <span className="block mt-1">of Kenya</span>
+                        <div className="absolute -bottom-2 left-0 w-full h-px bg-gradient-to-r from-[#40e0d0]/0 via-[#40e0d0]/50 to-[#40e0d0]/0"></div>
+                      </span>
+                    </h2>
+                    <p className="text-white/90 text-base sm:text-lg xl:text-xl font-light tracking-wider leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                      Connect with leading specialists and advance your career 
+                      <span className="hidden sm:inline"> in the field of gastroenterology</span>
+                    </p>
+                  </div>
 
-      {/* Info Section */}
-      <div className="relative bg-[#002347]">
-        {/* Decorative background elements */}
-        <div className="absolute inset-0 bg-[url('/patterns/grid.svg')] opacity-5"></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-[#003366] to-[#002347]"></div>
-        
-        {/* Content */}
-        <div className="relative py-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {/* Member Benefits */}
-              <div className="group relative p-6 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 transition-all duration-300">
-                <div className="flex items-start space-x-4">
-                  <div className="bg-gradient-to-br from-[#083c74] to-[#0a4d91] p-4 rounded-xl shadow-lg transition-all duration-300 group-hover:scale-110">
-                    <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="text-2xl font-merriweather font-bold mb-2 group-hover:text-[#396390] transition-colors text-white">Member Benefits</h3>
-                    <p className="text-white/70 group-hover:text-white/90 transition-colors font-merriweather">Access CME credits, research grants, and exclusive training opportunities.</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Professional Network */}
-              <div className="group relative p-6 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 transition-all duration-300">
-                <div className="flex items-start space-x-4">
-                  <div className="bg-gradient-to-br from-[#083c74] to-[#0a4d91] p-4 rounded-xl shadow-lg transition-all duration-300 group-hover:scale-110">
-                    <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="text-2xl font-merriweather font-bold mb-2 group-hover:text-[#396390] transition-colors text-white">Professional Network</h3>
-                    <p className="text-white/70 group-hover:text-white/90 transition-colors font-merriweather">Connect with leading gastroenterology experts across Kenya.</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Research & Innovation */}
-              <div className="group relative p-6 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 transition-all duration-300">
-                <div className="flex items-start space-x-4">
-                  <div className="bg-gradient-to-br from-[#083c74] to-[#0a4d91] p-4 rounded-xl shadow-lg transition-all duration-300 group-hover:scale-110">
-                    <svg className="w-8 h-8 text-white" viewBox="0 0 24 24 text-white" fill="currentColor">
-                      <path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="text-2xl font-merriweather font-bold mb-2 group-hover:text-blue-100 transition-colors text-white">Research & Innovation</h3>
-                    <p className="text-white/70 group-hover:text-white/90 transition-colors font-merriweather">Participate in cutting-edge research and clinical trials.</p>
+                  {/* Right side CTAs */}
+                  <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-5 w-full lg:w-auto">
+                    <a 
+                      href="/membership/join"
+                      className="group relative w-full sm:w-auto px-10 sm:px-12 py-4 sm:py-5 text-base sm:text-lg font-medium bg-[#40e0d0] text-[#001a35] rounded-xl overflow-hidden transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-0.5 active:translate-y-0 text-center tracking-wide"
+                    >
+                      <span className="relative z-10 flex items-center justify-center gap-2">
+                        Become a Member
+                        <svg className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                        </svg>
+                      </span>
+                      <div className="absolute inset-0 bg-gradient-to-r from-[#40e0d0] to-[#40e0d0] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </a>
+                    <a 
+                      href="/membership/benefits"
+                      className="group relative w-full sm:w-auto px-10 sm:px-12 py-4 sm:py-5 text-base sm:text-lg font-medium text-white border-2 border-white/20 rounded-xl overflow-hidden transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0 text-center tracking-wide"
+                    >
+                      <span className="relative z-10 flex items-center justify-center gap-2">
+                        Learn More
+                        <svg className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                      </span>
+                      <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </a>
                   </div>
                 </div>
               </div>
@@ -209,33 +141,51 @@ const SwipeCarousel = () => {
   };
 
   return (
-    <div className="relative overflow-hidden h-full w-full">
-      <motion.div
-        drag="x"
-        dragConstraints={{ left: 0, right: 0 }}
-        style={{ x: dragX }}
-        animate={{ translateX: `-${imgIndex * 100}%` }}
-        transition={{
-          duration: 0.7,
-          ease: TRANSITION_EASE,
-          type: "tween"
-        }}
-        onDragEnd={onDragEnd}
-        className="flex cursor-grab items-center active:cursor-grabbing h-full w-full"
+    <div className="relative w-full overflow-hidden">
+      {/* Navigation arrows */}
+      <button 
+        onClick={() => imgIndex > 0 && setImgIndex(prev => prev - 1)}
+        className="absolute left-1 sm:left-4 top-1/2 -translate-y-1/2 z-10 p-2 text-white/50 hover:text-white transition-colors duration-300"
       >
-        <Images imgIndex={imgIndex} />
-      </motion.div>
+        <svg className="w-6 h-6 sm:w-8 sm:h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+      <button 
+        onClick={() => imgIndex < imgs.length - 1 && setImgIndex(prev => prev + 1)}
+        className="absolute right-1 sm:right-4 top-1/2 -translate-y-1/2 z-10 p-2 text-white/50 hover:text-white transition-colors duration-300"
+      >
+        <svg className="w-6 h-6 sm:w-8 sm:h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
 
-      {/* Dots moved up higher */}
-      <div className="absolute bottom-6 left-0 right-0 flex justify-center gap-1.5 z-10">
+      <div className="relative w-full">
+        <motion.div
+          drag="x"
+          dragConstraints={{ left: 0, right: 0 }}
+          style={{ x: dragX }}
+          animate={{ translateX: `-${imgIndex * 100}%` }}
+          transition={{
+            duration: 0.8,
+            ease: [0.32, 0.72, 0, 1],
+          }}
+          className="flex w-full cursor-grab active:cursor-grabbing"
+        >
+          <Images imgIndex={imgIndex} />
+        </motion.div>
+      </div>
+
+      {/* Minimalist dots navigation */}
+      <div className="absolute -bottom-4 sm:-bottom-6 left-0 right-0 flex justify-center gap-2 z-10">
         {imgs.map((_, idx) => (
           <button
             key={idx}
             onClick={() => setImgIndex(idx)}
-            className={`transition-all duration-500 ease-out rounded-full 
+            className={`w-1 sm:w-1.5 h-1 sm:h-1.5 rounded-full transition-all duration-300 
               ${idx === imgIndex 
-                ? "w-2.5 h-2.5 bg-white shadow-lg" 
-                : "w-2 h-2 bg-white/40 hover:bg-white/60"
+                ? "bg-white" 
+                : "bg-white/30 hover:bg-white/50"
               }`}
           />
         ))}
@@ -250,25 +200,20 @@ const Images = ({ imgIndex }: { imgIndex: number }) => {
       {imgs.map((imgSrc, idx) => (
         <motion.div
           key={idx}
-          className="relative h-full w-screen shrink-0 flex items-start sm:items-center justify-center"
+          className="relative w-full shrink-0 flex items-center justify-center py-2 sm:py-4"
         >
-          <motion.img
-            src={imgSrc}
-            alt={`Slide ${idx + 1}`}
-            animate={{ 
-              scale: imgIndex === idx ? 1 : 0.85,
-              opacity: imgIndex === idx ? 1 : 0.3,
-            }}
-            transition={{
-              duration: 0.7,
-              ease: TRANSITION_EASE,
-              opacity: { duration: 0.5 }
-            }}
-            className="w-full h-[60%] sm:h-full object-contain sm:object-cover"
-            style={{ 
-              willChange: 'transform'
-            }}
-          />
+          <div className="relative w-[95%] sm:w-[90%] md:w-[85%] mx-auto">
+            <img
+              src={imgSrc}
+              alt={`Slide ${idx + 1}`}
+              className="w-full h-auto object-contain rounded-lg shadow-2xl"
+              style={{
+                maxHeight: 'calc(70vh - 80px)',
+                width: 'auto',
+                margin: '0 auto'
+              }}
+            />
+          </div>
         </motion.div>
       ))}
     </>
