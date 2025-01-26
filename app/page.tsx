@@ -7,6 +7,7 @@ import Features from "@/components/homepage/Features";
 import Partners from "@/components/homepage/Partners";
 import Publications from "@/components/homepage/Publications";
 import Donation from "@/components/homepage/Donation";
+import Newsletter from "@/components/homepage/Newsletter";
 import Footer from '@/components/homepage/Footer';
 
 const font = Jost({
@@ -53,6 +54,11 @@ export default function Home() {
         <div className="relative">
           <Donation />
         </div>
+      </section>
+
+      {/* Newsletter Section */}
+      <section className="relative">
+        <Newsletter />
       </section>
 
       {/* Footer */}

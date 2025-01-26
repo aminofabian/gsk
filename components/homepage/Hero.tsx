@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { motion, useMotionValue } from "framer-motion";
 
 const imgs = [
-  "/banner/9569876.jpg",
+  "/banner/IBSDIAGNOSISCHECKLIST-WGOvisual2-VF.png",
   "/banner/SocialMediaWebBanner.png",
   "/banner/WGO-Banner-Guarnercourse.png",
   "/banner/WomeninGISubmissionForm1600600px.png"
