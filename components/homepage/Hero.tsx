@@ -30,7 +30,7 @@ const Hero = () => {
         <div 
           className="absolute inset-0 transition-transform duration-1000"
           style={{
-            backgroundImage: 'url("/banner/stethoscope-7664834_1920.jpg")',
+            backgroundImage: 'url("/banner/back.jpg")',
             backgroundPosition: 'center',
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',
