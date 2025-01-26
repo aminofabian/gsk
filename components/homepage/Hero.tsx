@@ -3,12 +3,11 @@ import React, { useEffect, useState } from "react";
 import { motion, useMotionValue } from "framer-motion";
 
 const imgs = [
-  "/banner/IBSDIAGNOSISCHECKLIST-WGOvisual2-VF.png",
+  "/banner/9569876.jpg",
   "/banner/SocialMediaWebBanner.png",
   "/banner/WGO-Banner-Guarnercourse.png",
   "/banner/WomeninGISubmissionForm1600600px.png"
 ];
-
 const ONE_SECOND = 1000;
 const AUTO_DELAY = ONE_SECOND * 8;
 const DRAG_BUFFER = 50;
