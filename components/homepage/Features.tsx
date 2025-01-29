@@ -75,8 +75,8 @@ const Features = () => {
       title: "Professional Recognition",
       description: "Get listed in our verified member directory",
       icon: (
-        <svg className="w-5 h-5 text-[#40e0d0]" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
       )
     },
@@ -84,8 +84,8 @@ const Features = () => {
       title: "Exclusive Resources",
       description: "Access member-only clinical resources",
       icon: (
-        <svg className="w-5 h-5 text-[#40e0d0]" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
       )
     },
@@ -93,8 +93,8 @@ const Features = () => {
       title: "CPD Tracking",
       description: "Automated CPD points tracking system",
       icon: (
-        <svg className="w-5 h-5 text-[#40e0d0]" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
       )
     }
@@ -102,226 +102,90 @@ const Features = () => {
 
   const upcomingEvents = [
     {
-      date: "23 FEB",
+      date: "23",
+      month: "FEB",
       title: "Advanced Endoscopy Workshop",
       location: "Nairobi International Convention Centre",
       type: "CME",
-      points: "6 CPD Points",
-      time: "9:00 AM - 5:00 PM"
+      points: "6 CPD Points"
     },
     {
-      date: "15 MAR",
+      date: "15",
+      month: "MAR",
       title: "GI Pathology Masterclass",
       location: "Virtual Event",
       type: "Workshop",
-      points: "4 CPD Points",
-      time: "2:00 PM - 4:00 PM"
+      points: "4 CPD Points"
     },
     {
-      date: "05 APR",
+      date: "05",
+      month: "APR",
       title: "GSK Annual Conference",
       location: "Kenyatta University",
       type: "Conference",
-      points: "12 CPD Points",
-      time: "10:00 AM - 3:00 PM"
+      points: "12 CPD Points"
     }
   ];
 
   return (
-    <section className="relative overflow-hidden">
-      {/* Hero Section with straight edges */}
-      <div className="relative bg-white pt-20">
-        {/* Background with straight edges */}
-        <div className="absolute inset-0 opacity-[0.03]">
-          <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-            <path d="M0,0 L100,0 L100,100 L0,100 Z" fill="#003366"/>
-          </svg>
+    <div className="flex justify-center gap-8 p-8 bg-white">
+      {/* Why Join GSK Card */}
+      <div className="w-[500px] bg-[#003366] rounded-lg p-8">
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-2xl text-white">Why Join GSK?</h2>
+          <span className="text-sm text-white bg-white/10 px-3 py-1 rounded">Premium Benefits</span>
         </div>
-
-        {/* Header Content */}
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-32">
-          <div className="text-center">
-            <span className="inline-block px-6 py-2 bg-[#003366]/5 text-sm tracking-[0.2em] text-[#003366] mb-6">
-              ADVANCING HEALTHCARE
-            </span>
-            <h2 className="text-5xl font-serif font-light text-[#003366] mb-6">
-              <span className="block mb-2">Transforming Gastroenterology</span>
-              <span className="relative inline-block">
-                in Kenya
-                <div className="absolute -bottom-3 left-0 w-full h-0.5 bg-[#003366]"></div>
-              </span>
-            </h2>
-            <p className="text-[#003366]/70 text-lg max-w-2xl mx-auto leading-relaxed mb-12 px-4">
-              Join a network of leading specialists and shape the future of 
-              <span className="block mt-1">gastroenterology care in Kenya.</span>
-            </p>
-
-            {/* Three Images Row */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto mt-16 mb-24 px-6">
-              <div className="relative h-72 overflow-hidden shadow-lg">
-                <img 
-                  src="/meeting/portrait-of-african-american-female-surgeon-wearin-2023-11-27-04-57-13-utc.jpg" 
-                  alt="Advanced Endoscopy"
-                  className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute bottom-0 left-0 right-0 bg-[#003366]/80 p-4">
-                  <p className="text-white text-base font-medium">Advanced Endoscopy</p>
-                </div>
+        <div className="space-y-6">
+          {memberBenefits.map((benefit, index) => (
+            <div key={index} className="flex items-center gap-4">
+              <div className="w-5 h-5">
+                {benefit.icon}
               </div>
-
-              <div className="relative h-72 overflow-hidden shadow-lg">
-                <img 
-                  src="/meeting/portrait-of-african-american-male-doctor-with-face-2023-11-27-05-08-00-utc.jpg" 
-                  alt="Clinical Research"
-                  className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute bottom-0 left-0 right-0 bg-[#003366]/80 p-4">
-                  <p className="text-white text-base font-medium">Clinical Research</p>
-                </div>
-              </div>
-
-              <div className="relative h-72 overflow-hidden shadow-lg">
-                <img 
-                  src="/meeting/scientist-microbiologists-with-uniforms-working-wi-2023-11-27-04-55-38-utc.jpg" 
-                  alt="Professional Training"
-                  className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute bottom-0 left-0 right-0 bg-[#003366]/80 p-4">
-                  <p className="text-white text-base font-medium">Professional Training</p>
-                </div>
+              <div>
+                <h3 className="text-white text-lg font-medium">{benefit.title}</h3>
+                <p className="text-white/70 text-sm">{benefit.description}</p>
               </div>
             </div>
-          </div>
+          ))}
         </div>
-
-        {/* Straight divider */}
-        <div className="absolute bottom-0 left-0 w-full h-24 sm:h-36 bg-[#003366]" />
+        <a href="/join" className="inline-block mt-8 px-6 py-2 bg-[#40e0d0]/20 text-white rounded hover:bg-[#40e0d0]/30 transition-colors">
+          Join Now →
+        </a>
       </div>
 
-      {/* Main Features Section */}
-      <div className="relative bg-[#003366] pt-20 pb-32">
-        {/* Features Grid */}
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {features.map((feature, index) => (
-              <div key={index} 
-                   className="group relative bg-white/10 p-8 border border-white/10 hover:border-white/20 transition-all duration-500"
-              >
-                <div className="relative z-10">
-                  <div className="w-16 h-16 mb-6 bg-white/10 p-3 group-hover:scale-110 transition-transform duration-500">
-                    {feature.icon}
-                  </div>
-                  <h3 className="text-2xl font-serif text-white/90 font-medium mb-4">{feature.title}</h3>
-                  <p className="text-blue-100/70 leading-relaxed mb-6">{feature.description}</p>
-                  <a
-                    href={feature.link}
-                    className="inline-flex items-center text-white group-hover:text-white/90 transition-colors"
-                  >
-                    <span className="relative">
-                      Learn More
-                      <div className="absolute bottom-0 left-0 w-0 h-px bg-white/40 group-hover:w-full transition-all duration-300"></div>
-                    </span>
-                    <svg className="w-5 h-5 ml-2 transform transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
-                  </a>
-                </div>
+      {/* Upcoming Events Card */}
+      <div className="w-[500px] bg-white rounded-lg p-8 shadow-lg">
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-2xl text-[#003366]">Upcoming CPD Events</h2>
+          <span className="text-sm text-[#003366] bg-[#003366]/10 px-3 py-1 rounded">Earn Points</span>
+        </div>
+        <div className="space-y-6">
+          {upcomingEvents.map((event, index) => (
+            <div key={index} className="flex items-start gap-4">
+              <div className="text-center w-16">
+                <div className="text-2xl font-bold text-[#003366]">{event.date}</div>
+                <div className="text-sm text-[#003366]/70">{event.month}</div>
               </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Straight divider to white section */}
-        <div className="absolute bottom-0 left-0 w-full h-24 sm:h-10 bg-white" />
-      </div>
-
-      {/* Benefits and Events Section */}
-      <div className="relative bg-white pt-20 pb-32">
-        {/* Straight shapes */}
-        <div className="absolute inset-0">
-          <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-[#003366]/5"></div>
-          <div className="absolute bottom-0 left-0 w-1/4 h-1/4 bg-[#003366]/5"></div>
-        </div>
-
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Benefits Card */}
-            <div className="relative group">
-              <div className="absolute inset-0 bg-[#003366] transform translate-x-1 translate-y-1 group-hover:translate-x-2 group-hover:translate-y-2 transition-transform"></div>
-              <div className="relative bg-[#003366] p-10">
-                <h2 className="text-3xl font-serif text-white/90 font-medium mb-10 flex items-center">
-                  Why Join GSK?
-                  <span className="ml-4 text-sm px-4 py-1.5 bg-white/10 text-white/70">
-                    Premium Benefits
+              <div>
+                <h3 className="text-lg font-medium text-[#003366]">{event.title}</h3>
+                <p className="text-[#003366]/70 text-sm mb-2">{event.location}</p>
+                <div className="flex gap-2">
+                  <span className="text-xs px-2 py-1 bg-[#003366]/10 text-[#003366]/70 rounded">
+                    {event.type}
                   </span>
-                </h2>
-                <div className="space-y-8">
-                  {memberBenefits.map((benefit, index) => (
-                    <div key={index} className="group/item flex items-start gap-6">
-                      <div className="relative">
-                        <div className="w-12 h-12 bg-white/20 flex items-center justify-center transform group-hover/item:scale-110 transition-transform">
-                          {benefit.icon}
-                        </div>
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-serif text-white/90 font-medium mb-2">{benefit.title}</h3>
-                        <p className="text-blue-100/70">{benefit.description}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Events Card */}
-            <div className="relative group">
-              <div className="absolute inset-0 bg-[#003366] transform -translate-x-1 -translate-y-1 group-hover:-translate-x-2 group-hover:-translate-y-2 transition-transform"></div>
-              <div className="relative bg-[#003366] p-10">
-                <h2 className="text-3xl font-serif text-white/90 font-medium mb-10 flex items-center">
-                  Upcoming Events
-                  <span className="ml-4 text-sm px-4 py-1.5 bg-white/10 text-white/70">
-                    Earn CPD Points
+                  <span className="text-xs px-2 py-1 bg-[#003366]/10 text-[#003366]/70 rounded">
+                    {event.points}
                   </span>
-                </h2>
-                <div className="space-y-6">
-                  {upcomingEvents.map((event, index) => (
-                    <div key={index} className="group/event relative">
-                      <div className="absolute inset-0 bg-white/5 transform group-hover/event:scale-[1.02] transition-transform"></div>
-                      <div className="relative p-6 flex gap-6">
-                        <div className="w-20">
-                          <div className="p-3 bg-white/10 text-center">
-                            <span className="block text-sm text-white/60">{event.date.split(' ')[0]}</span>
-                            <span className="block text-2xl text-white/90 font-medium">{event.date.split(' ')[1]}</span>
-                          </div>
-                        </div>
-                        <div>
-                          <h3 className="text-xl font-serif text-white/90 font-medium mb-2">{event.title}</h3>
-                          <p className="text-blue-100/70 mb-3">{event.location}</p>
-                          <div className="flex flex-wrap gap-3">
-                            <span className="px-3 py-1 bg-white/10 text-white/70 text-sm">
-                              {event.type}
-                            </span>
-                            <span className="px-3 py-1 bg-white/10 text-white/70 text-sm">
-                              {event.points}
-                            </span>
-                            <span className="px-3 py-1 bg-white/10 text-white/70 text-sm flex items-center">
-                              <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                              </svg>
-                              {event.time}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
                 </div>
               </div>
             </div>
-          </div>
+          ))}
         </div>
+        <a href="/events" className="inline-block mt-4 text-[#003366] hover:underline">
+          View All Events →
+        </a>
       </div>
-    </section>
+    </div>
   );
 };
 
