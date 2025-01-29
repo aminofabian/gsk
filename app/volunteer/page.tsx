@@ -122,7 +122,7 @@ export default function VolunteerPage() {
           <div className="text-center text-white max-w-4xl mx-auto px-4">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">Join Our Mission</h1>
             <p className="text-xl md:text-2xl mb-8">
-              Make a difference in Kenya's healthcare by volunteering with the Gastroenterology Society
+              Make a difference in Kenya&apos;s healthcare by volunteering with the Gastroenterology Society
             </p>
             <a
               href="#apply"
@@ -346,7 +346,7 @@ export default function VolunteerPage() {
               {submitStatus === 'success' && (
                 <div className="bg-green-50 border border-green-200 rounded-md p-4">
                   <p className="text-green-600 text-center">
-                    Thank you for your interest! We'll review your application and get back to you soon.
+                    Thank you for your interest! We&alsquo;ll review your application and get back to you soon.
                   </p>
                 </div>
               )}
