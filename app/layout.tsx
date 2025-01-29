@@ -1,4 +1,4 @@
-import { Outfit, Merriweather, Playfair_Display } from "next/font/google";
+import { Outfit, EB_Garamond, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { Metadata } from "next";
 import ClientLayout from "@/components/ClientLayout";
@@ -8,10 +8,10 @@ const outfit = Outfit({
   variable: "--font-outfit"
 });
 
-const merriweather = Merriweather({ 
-  weight: ['300', '400', '700', '900'],
+const garamond = EB_Garamond({ 
+  weight: ['400', '500', '600', '700', '800'],
   subsets: ["latin"],
-  variable: "--font-merriweather"
+  variable: "--font-garamond"
 });
 
 const playfair = Playfair_Display({ 
@@ -51,7 +51,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${outfit.variable} ${merriweather.variable} ${playfair.variable} font-merriweather antialiased`}>
+      <body className={`${outfit.variable} ${garamond.variable} ${playfair.variable} font-garamond antialiased`}>
         <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
