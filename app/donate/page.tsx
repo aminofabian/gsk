@@ -133,7 +133,7 @@ export default function DonatePage() {
                 : 'bg-[#003366] hover:bg-[#002244]'
             }`}
           >
-            {isProcessing ? "Processing..." : "Donate Now"}
+            {isProcessing ? 'Processing...' : 'Donate Now'}
           </button>
 
           {/* Security Notice */}
@@ -154,7 +154,7 @@ export default function DonatePage() {
               <h3 className="text-xl font-semibold mb-3">Education &amp; Training</h3>
               <p className="text-gray-600">
                 Your support helps us provide continuous medical education and training for healthcare
-                professionals across Kenya, ensuring they stay updated with the latest developments
+                professionals across Kenya, ensuring they&apos;re updated with the latest developments
                 in gastroenterology.
               </p>
             </div>

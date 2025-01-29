@@ -264,7 +264,7 @@ export default function HelpDeskPage() {
                 {submitStatus === 'success' && (
                   <div className="bg-green-50 border border-green-200 rounded-md p-4">
                     <p className="text-green-600 text-center">
-                      Your support ticket has been submitted successfully! We'll respond within 24 hours.
+                      Your support ticket has been submitted successfully! We&apos;ll respond within 24 hours.
                     </p>
                   </div>
                 )}
