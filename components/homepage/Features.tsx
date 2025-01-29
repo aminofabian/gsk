@@ -160,7 +160,7 @@ const Features = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto mt-16 mb-24 px-6">
               <div className="relative h-72 overflow-hidden shadow-lg">
                 <img 
-                  src="/images/hero/endoscopy.jpg" 
+                  src="/meeting/portrait-of-african-american-female-surgeon-wearin-2023-11-27-04-57-13-utc.jpg" 
                   alt="Advanced Endoscopy"
                   className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
                 />
@@ -171,7 +171,7 @@ const Features = () => {
 
               <div className="relative h-72 overflow-hidden shadow-lg">
                 <img 
-                  src="/images/hero/research.jpg" 
+                  src="/meeting/portrait-of-african-american-male-doctor-with-face-2023-11-27-05-08-00-utc.jpg" 
                   alt="Clinical Research"
                   className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
                 />
@@ -182,7 +182,7 @@ const Features = () => {
 
               <div className="relative h-72 overflow-hidden shadow-lg">
                 <img 
-                  src="/images/hero/training.jpg" 
+                  src="/meeting/scientist-microbiologists-with-uniforms-working-wi-2023-11-27-04-55-38-utc.jpg" 
                   alt="Professional Training"
                   className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
                 />
