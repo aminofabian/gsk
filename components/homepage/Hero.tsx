@@ -39,15 +39,15 @@ const Hero = () => {
         />
 
         {/* Animated gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#001a35]/80 via-[#001a35]/60 to-transparent opacity-90" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#001a35]/90 via-[#001a35]/70 to-transparent opacity-95" />
         
         {/* Decorative elements */}
         <div className="absolute inset-0 overflow-hidden">
           {/* Top right decorative corner */}
-          <div className="absolute -top-20 -right-20 w-40 h-40 bg-[#0f5a5e]/10 blur-3xl animate-pulse"></div>
+          <div className="absolute -top-20 -right-20 w-40 h-40 bg-[#001a35]/20 blur-3xl animate-pulse"></div>
           
           {/* Bottom left decorative corner */}
-          <div className="absolute -bottom-20 -left-20 w-40 h-40 bg-[#0f5a5e]/10 blur-3xl animate-pulse delay-1000"></div>
+          <div className="absolute -bottom-20 -left-20 w-40 h-40 bg-[#001a35]/20 blur-3xl animate-pulse delay-1000"></div>
           
           {/* Subtle grid pattern */}
           <div className="absolute inset-0 bg-[url('/patterns/grid.svg')] opacity-[0.02]"></div>
@@ -56,7 +56,7 @@ const Hero = () => {
         {/* Main content area */}
         <div className="relative w-full min-h-screen mx-auto flex flex-col">
           {/* Top accent bar */}
-          <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-[#0f5a5e]/30 to-transparent"></div>
+          <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-[#001a35]/30 to-transparent"></div>
 
           {/* Banner content */}
           <div className="flex-1 flex items-center justify-center pt-2 sm:pt-4">
@@ -70,24 +70,24 @@ const Hero = () => {
             <div className="max-w-6xl mx-auto">
               <div className="bg-black/30 backdrop-blur-xl p-4 sm:p-8 md:p-10 border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.4)] relative overflow-hidden">
                 {/* Glass effect elements */}
-                <div className="absolute top-0 left-0 w-32 h-32 bg-[#0f5a5e]/5 blur-3xl animate-pulse"></div>
-                <div className="absolute bottom-0 right-0 w-32 h-32 bg-[#0f5a5e]/5 blur-3xl animate-pulse delay-700"></div>
+                <div className="absolute top-0 left-0 w-32 h-32 bg-[#001a35]/5 blur-3xl animate-pulse"></div>
+                <div className="absolute bottom-0 right-0 w-32 h-32 bg-[#001a35]/5 blur-3xl animate-pulse delay-700"></div>
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2/3 h-32 bg-white/5 blur-3xl rotate-45"></div>
                 
                 <div className="flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-12 relative">
                   {/* Left side content */}
                   <div className="flex-1 text-center lg:text-left">
-                    <div className="inline-flex items-center gap-2 mb-4 text-[#0f5a5e]/90 text-sm tracking-widest uppercase text-white">
-                      <span className="h-px w-5 bg-gradient-to-r from-transparent via-[#0f5a5e]/50 to-transparent text-white"></span>
+                    <div className="inline-flex items-center gap-2 mb-4 text-white text-sm tracking-widest uppercase">
+                      <span className="h-px w-5 bg-gradient-to-r from-transparent via-white/50 to-transparent"></span>
                       Welcome to GSK
-                      <span className="h-px w-5 bg-gradient-to-r from-transparent via-[#0f5a5e]/50 to-transparent"></span>
+                      <span className="h-px w-5 bg-gradient-to-r from-transparent via-white/50 to-transparent"></span>
                     </div>
                     <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-extralight text-white mb-3 sm:mb-5 tracking-wide">
                       Join the{' '}
-                      <span className="relative inline-block font-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#0f5a5e] via-[#0f5a5e] to-[#0f5a5e]/80">
+                      <span className="relative inline-block font-semibold text-white">
                         Gastroenterology Society
                         <span className="block mt-1">of Kenya</span>
-                        <div className="absolute -bottom-2 left-0 w-full h-px bg-gradient-to-r from-[#0f5a5e]/0 via-[#0f5a5e]/50 to-[#0f5a5e]/0"></div>
+                        <div className="absolute -bottom-2 left-0 w-full h-px bg-gradient-to-r from-white/0 via-white/50 to-white/0"></div>
                       </span>
                     </h2>
                     <p className="text-white/90 text-base sm:text-lg xl:text-xl font-light tracking-wider leading-relaxed max-w-2xl mx-auto lg:mx-0">
@@ -100,19 +100,19 @@ const Hero = () => {
                   <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-5 w-full lg:w-auto">
                     <a 
                       href="/membership"
-                      className="group relative w-full sm:w-auto px-10 sm:px-12 py-4 sm:py-5 text-base sm:text-lg font-medium bg-[#0f5a5e] text-[#001a35] overflow-hidden transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-0.5 active:translate-y-0 text-center tracking-wide"
+                      className="group relative w-full sm:w-auto px-10 sm:px-12 py-4 sm:py-5 text-base sm:text-lg font-medium bg-white text-[#001a35] overflow-hidden transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-0.5 active:translate-y-0 text-center tracking-wide"
                     >
-                      <span className="relative z-10 flex items-center justify-center gap-2 text-white">
+                      <span className="relative z-10 flex items-center justify-center gap-2">
                         Become a Member
                         <svg className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                         </svg>
                       </span>
-                      <div className="absolute inset-0 bg-gradient-to-r from-[#0f5a5e] to-[#0f5a5e] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      <div className="absolute inset-0 bg-gradient-to-r from-white/80 to-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </a>
                     <a 
                       href="/membership/benefits"
-                      className="group relative w-full sm:w-auto px-10 sm:px-12 py-4 sm:py-5 text-base sm:text-lg font-medium text-white border-2 border-white/20 overflow-hidden transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0 text-center tracking-wide hover:border-[#0f5a5e]/30"
+                      className="group relative w-full sm:w-auto px-10 sm:px-12 py-4 sm:py-5 text-base sm:text-lg font-medium text-white border-2 border-white/30 overflow-hidden transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0 text-center tracking-wide hover:border-white/50 hover:bg-white/10"
                     >
                       <span className="relative z-10 flex items-center justify-center gap-2">
                         Learn More
@@ -120,7 +120,7 @@ const Hero = () => {
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                         </svg>
                       </span>
-                      <div className="absolute inset-0 bg-[#0f5a5e]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      <div className="absolute inset-0 bg-[#001a35]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </a>
                   </div>
                 </div>
@@ -202,12 +202,12 @@ const SwipeCarousel = () => {
               onClick={() => setImgIndex(idx)}
               className={`relative transition-all duration-300
                 ${idx === imgIndex 
-                  ? "w-6 h-1.5 bg-[#0f5a5e]" 
+                  ? "w-6 h-1.5 bg-white" 
                   : "w-1.5 h-1.5 bg-white/30 hover:bg-white/50"
                 }`}
             >
               {idx === imgIndex && (
-                <div className="absolute -inset-1 bg-[#0f5a5e]/20 animate-pulse"></div>
+                <div className="absolute -inset-1 bg-white/30 animate-pulse"></div>
               )}
             </button>
           ))}
@@ -230,20 +230,20 @@ const Images = ({ imgIndex }: { imgIndex: number }) => {
             <div className="relative overflow-hidden bg-gradient-to-b from-black/5 to-black/20 p-0.5">
               {/* Corner accents */}
               <div className="absolute top-0 left-0 w-16 h-16">
-                <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-[#0f5a5e]/50 to-transparent"></div>
-                <div className="absolute top-0 left-0 h-full w-px bg-gradient-to-b from-[#0f5a5e]/50 to-transparent"></div>
+                <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-white/50 to-transparent"></div>
+                <div className="absolute top-0 left-0 h-full w-px bg-gradient-to-b from-white/50 to-transparent"></div>
               </div>
               <div className="absolute top-0 right-0 w-16 h-16">
-                <div className="absolute top-0 right-0 w-full h-px bg-gradient-to-l from-[#0f5a5e]/50 to-transparent"></div>
-                <div className="absolute top-0 right-0 h-full w-px bg-gradient-to-b from-[#0f5a5e]/50 to-transparent"></div>
+                <div className="absolute top-0 right-0 w-full h-px bg-gradient-to-l from-white/50 to-transparent"></div>
+                <div className="absolute top-0 right-0 h-full w-px bg-gradient-to-b from-white/50 to-transparent"></div>
               </div>
               <div className="absolute bottom-0 left-0 w-16 h-16">
-                <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-[#0f5a5e]/50 to-transparent"></div>
-                <div className="absolute bottom-0 left-0 h-full w-px bg-gradient-to-t from-[#0f5a5e]/50 to-transparent"></div>
+                <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-white/50 to-transparent"></div>
+                <div className="absolute bottom-0 left-0 h-full w-px bg-gradient-to-t from-white/50 to-transparent"></div>
               </div>
               <div className="absolute bottom-0 right-0 w-16 h-16">
-                <div className="absolute bottom-0 right-0 w-full h-px bg-gradient-to-l from-[#0f5a5e]/50 to-transparent"></div>
-                <div className="absolute bottom-0 right-0 h-full w-px bg-gradient-to-t from-[#0f5a5e]/50 to-transparent"></div>
+                <div className="absolute bottom-0 right-0 w-full h-px bg-gradient-to-l from-white/50 to-transparent"></div>
+                <div className="absolute bottom-0 right-0 h-full w-px bg-gradient-to-t from-white/50 to-transparent"></div>
               </div>
 
               <img
