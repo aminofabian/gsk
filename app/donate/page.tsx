@@ -151,7 +151,7 @@ export default function DonatePage() {
           <h2 className="text-2xl font-bold mb-4">How Your Donation Helps</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
-              <h3 className="text-xl font-semibold mb-3">Education & Training</h3>
+              <h3 className="text-xl font-semibold mb-3">Education &amp; Training</h3>
               <p className="text-gray-600">
                 Your support helps us provide continuous medical education and training for healthcare
                 professionals across Kenya, ensuring they stay updated with the latest developments

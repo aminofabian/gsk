@@ -19,7 +19,7 @@ const supportCategories = [
   },
   { 
     id: 'events', 
-    label: 'Events & Training',
+    label: 'Events &amp; Training',
     icon: '📅',
     description: 'Information about upcoming events, workshops, and training sessions'
   },
