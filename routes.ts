@@ -12,7 +12,11 @@ export const publicRoutes = ["/",
   "/membership",
   "/cpd",
   "/admin/hero-banners",
-  "/test"
+  "/test",
+  "/publications",
+  "donate",
+  "volunteer",
+  "/about/leadership"
 ];
 
 /*
@@ -26,7 +30,8 @@ export const authRoutes = [
   "/auth/register",
   "/auth/error",
   "/auth/reset",
-  "/auth/new-password"
+  "/auth/new-password",
+
  
 ];
 
