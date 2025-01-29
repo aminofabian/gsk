@@ -3,7 +3,7 @@ import React from "react";
 
 const RegisterPage = () => {
   return (
-    <div className="flex w-4xl h-screen items-center justify-center text-center border rounded-lg">
+    <div className="flex w-4xl h-screen items-center justify-center text-center border ">
       <RegisterForm />
     </div>
   );

@@ -28,7 +28,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
           <div className="flex items-center justify-between px-6 py-3">
             {/* Left side */}
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full bg-[#003366]/5 flex items-center justify-center">
+              <div className="w-8 h-8  bg-[#003366]/5 flex items-center justify-center">
                 <FaUserMd className="text-[#003366]" />
               </div>
               <div>
@@ -52,7 +52,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                 className="relative text-gray-400 hover:text-gray-600 transition-colors"
               >
                 <FaBell className="text-xl" />
-                <span className="absolute -top-1 -right-1 w-4 h-4 bg-[#003366] rounded-full text-xs flex items-center justify-center text-white">2</span>
+                <span className="absolute -top-1 -right-1 w-4 h-4 bg-[#003366]  text-xs flex items-center justify-center text-white">2</span>
               </motion.button>
             </div>
           </div>

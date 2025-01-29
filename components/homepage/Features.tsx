@@ -129,62 +129,86 @@ const Features = () => {
 
   return (
     <section className="relative overflow-hidden">
-      {/* Hero Section with unique shape divider */}
+      {/* Hero Section with straight edges */}
       <div className="relative bg-white pt-20">
-        {/* Organic shape background */}
+        {/* Background with straight edges */}
         <div className="absolute inset-0 opacity-[0.03]">
           <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-            <path d="M0,0 C30,20 70,20 100,0 L100,100 L0,100 Z" fill="#003366"/>
+            <path d="M0,0 L100,0 L100,100 L0,100 Z" fill="#003366"/>
           </svg>
         </div>
 
         {/* Header Content */}
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-32">
           <div className="text-center">
-            <span className="inline-block px-6 py-2 bg-[#003366]/5 rounded-full text-sm tracking-[0.2em] text-[#003366] mb-6">
+            <span className="inline-block px-6 py-2 bg-[#003366]/5 text-sm tracking-[0.2em] text-[#003366] mb-6">
               ADVANCING HEALTHCARE
             </span>
             <h2 className="text-5xl font-serif font-light text-[#003366] mb-6">
               <span className="block mb-2">Transforming Gastroenterology</span>
               <span className="relative inline-block">
                 in Kenya
-                <div className="absolute -bottom-3 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-[#0f5a5e] to-transparent"></div>
+                <div className="absolute -bottom-3 left-0 w-full h-0.5 bg-[#003366]"></div>
               </span>
             </h2>
-            <p className="text-[#003366]/70 text-lg max-w-2xl mx-auto leading-relaxed mb-8 px-4">
+            <p className="text-[#003366]/70 text-lg max-w-2xl mx-auto leading-relaxed mb-12 px-4">
               Join a network of leading specialists and shape the future of 
               <span className="block mt-1">gastroenterology care in Kenya.</span>
             </p>
+
+            {/* Three Images Row */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto mt-16 mb-24 px-6">
+              <div className="relative h-72 overflow-hidden shadow-lg">
+                <img 
+                  src="/images/hero/endoscopy.jpg" 
+                  alt="Advanced Endoscopy"
+                  className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute bottom-0 left-0 right-0 bg-[#003366]/80 p-4">
+                  <p className="text-white text-base font-medium">Advanced Endoscopy</p>
+                </div>
+              </div>
+
+              <div className="relative h-72 overflow-hidden shadow-lg">
+                <img 
+                  src="/images/hero/research.jpg" 
+                  alt="Clinical Research"
+                  className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute bottom-0 left-0 right-0 bg-[#003366]/80 p-4">
+                  <p className="text-white text-base font-medium">Clinical Research</p>
+                </div>
+              </div>
+
+              <div className="relative h-72 overflow-hidden shadow-lg">
+                <img 
+                  src="/images/hero/training.jpg" 
+                  alt="Professional Training"
+                  className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute bottom-0 left-0 right-0 bg-[#003366]/80 p-4">
+                  <p className="text-white text-base font-medium">Professional Training</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* Creative wave divider */}
-        <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none transform translate-y-1">
-          <svg className="relative w-full h-24 sm:h-36" viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" 
-                  fill="#003366"/>
-          </svg>
-        </div>
+        {/* Straight divider */}
+        <div className="absolute bottom-0 left-0 w-full h-24 sm:h-36 bg-[#003366]" />
       </div>
 
       {/* Main Features Section */}
       <div className="relative bg-[#003366] pt-20 pb-32">
-        {/* Floating elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-white/5 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
-        </div>
-
         {/* Features Grid */}
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {features.map((feature, index) => (
               <div key={index} 
-                   className="group relative bg-gradient-to-br from-white/10 to-transparent backdrop-blur-sm rounded-[2rem] p-8 border border-white/10 hover:border-white/20 transition-all duration-500"
+                   className="group relative bg-white/10 p-8 border border-white/10 hover:border-white/20 transition-all duration-500"
               >
-                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-white/5 to-transparent rounded-tr-[2rem] -z-10"></div>
                 <div className="relative z-10">
-                  <div className="w-16 h-16 mb-6 rounded-2xl bg-white/10 p-3 group-hover:scale-110 transition-transform duration-500">
+                  <div className="w-16 h-16 mb-6 bg-white/10 p-3 group-hover:scale-110 transition-transform duration-500">
                     {feature.icon}
                   </div>
                   <h3 className="text-2xl font-serif text-white/90 font-medium mb-4">{feature.title}</h3>
@@ -207,32 +231,27 @@ const Features = () => {
           </div>
         </div>
 
-        {/* Curved divider to white section */}
-        <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
-          <svg className="relative w-full h-24 sm:h-36" viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path d="M600,112.77C268.63,112.77,0,65.52,0,7.23V120H1200V7.23C1200,65.52,931.37,112.77,600,112.77Z" 
-                  fill="white"/>
-          </svg>
-        </div>
+        {/* Straight divider to white section */}
+        <div className="absolute bottom-0 left-0 w-full h-24 sm:h-10 bg-white" />
       </div>
 
       {/* Benefits and Events Section */}
       <div className="relative bg-white pt-20 pb-32">
-        {/* Organic shapes */}
+        {/* Straight shapes */}
         <div className="absolute inset-0">
-          <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-[#003366]/5 rounded-bl-[100%]"></div>
-          <div className="absolute bottom-0 left-0 w-1/4 h-1/4 bg-[#003366]/5 rounded-tr-[100%]"></div>
+          <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-[#003366]/5"></div>
+          <div className="absolute bottom-0 left-0 w-1/4 h-1/4 bg-[#003366]/5"></div>
         </div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Benefits Card */}
             <div className="relative group">
-              <div className="absolute inset-0 bg-gradient-to-br from-[#003366] to-[#003366]/90 rounded-[2rem] transform rotate-1 group-hover:rotate-2 transition-transform"></div>
-              <div className="relative bg-gradient-to-br from-[#003366]/95 to-[#003366] p-10 rounded-[2rem] backdrop-blur-sm">
+              <div className="absolute inset-0 bg-[#003366] transform translate-x-1 translate-y-1 group-hover:translate-x-2 group-hover:translate-y-2 transition-transform"></div>
+              <div className="relative bg-[#003366] p-10">
                 <h2 className="text-3xl font-serif text-white/90 font-medium mb-10 flex items-center">
                   Why Join GSK?
-                  <span className="ml-4 text-sm px-4 py-1.5 bg-white/10 text-white/70 rounded-full">
+                  <span className="ml-4 text-sm px-4 py-1.5 bg-white/10 text-white/70">
                     Premium Benefits
                   </span>
                 </h2>
@@ -240,7 +259,7 @@ const Features = () => {
                   {memberBenefits.map((benefit, index) => (
                     <div key={index} className="group/item flex items-start gap-6">
                       <div className="relative">
-                        <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center transform group-hover/item:scale-110 transition-transform shadow-lg">
+                        <div className="w-12 h-12 bg-white/20 flex items-center justify-center transform group-hover/item:scale-110 transition-transform">
                           {benefit.icon}
                         </div>
                       </div>
@@ -256,21 +275,21 @@ const Features = () => {
 
             {/* Events Card */}
             <div className="relative group">
-              <div className="absolute inset-0 bg-gradient-to-br from-[#003366] to-[#003366]/90 rounded-[2rem] transform -rotate-1 group-hover:-rotate-2 transition-transform"></div>
-              <div className="relative bg-gradient-to-br from-[#003366]/95 to-[#003366] p-10 rounded-[2rem] backdrop-blur-sm">
+              <div className="absolute inset-0 bg-[#003366] transform -translate-x-1 -translate-y-1 group-hover:-translate-x-2 group-hover:-translate-y-2 transition-transform"></div>
+              <div className="relative bg-[#003366] p-10">
                 <h2 className="text-3xl font-serif text-white/90 font-medium mb-10 flex items-center">
                   Upcoming Events
-                  <span className="ml-4 text-sm px-4 py-1.5 bg-white/10 text-white/70 rounded-full">
+                  <span className="ml-4 text-sm px-4 py-1.5 bg-white/10 text-white/70">
                     Earn CPD Points
                   </span>
                 </h2>
                 <div className="space-y-6">
                   {upcomingEvents.map((event, index) => (
                     <div key={index} className="group/event relative">
-                      <div className="absolute inset-0 bg-white/5 rounded-xl transform group-hover/event:scale-[1.02] transition-transform"></div>
+                      <div className="absolute inset-0 bg-white/5 transform group-hover/event:scale-[1.02] transition-transform"></div>
                       <div className="relative p-6 flex gap-6">
                         <div className="w-20">
-                          <div className="p-3 bg-white/10 rounded-xl backdrop-blur-sm text-center">
+                          <div className="p-3 bg-white/10 text-center">
                             <span className="block text-sm text-white/60">{event.date.split(' ')[0]}</span>
                             <span className="block text-2xl text-white/90 font-medium">{event.date.split(' ')[1]}</span>
                           </div>
@@ -279,13 +298,13 @@ const Features = () => {
                           <h3 className="text-xl font-serif text-white/90 font-medium mb-2">{event.title}</h3>
                           <p className="text-blue-100/70 mb-3">{event.location}</p>
                           <div className="flex flex-wrap gap-3">
-                            <span className="px-3 py-1 bg-white/10 text-white/70 rounded-full text-sm">
+                            <span className="px-3 py-1 bg-white/10 text-white/70 text-sm">
                               {event.type}
                             </span>
-                            <span className="px-3 py-1 bg-white/10 text-white/70 rounded-full text-sm">
+                            <span className="px-3 py-1 bg-white/10 text-white/70 text-sm">
                               {event.points}
                             </span>
-                            <span className="px-3 py-1 bg-white/10 text-white/70 rounded-full text-sm flex items-center">
+                            <span className="px-3 py-1 bg-white/10 text-white/70 text-sm flex items-center">
                               <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                               </svg>

@@ -71,16 +71,16 @@ export default function QuickActions() {
               <motion.div
                 whileHover={{ rotate: [0, -10, 10, -10, 0] }}
                 transition={{ duration: 0.5 }}
-                className={`w-16 h-16 md:w-18 md:h-18 bg-gradient-to-br ${action.gradientFrom} ${action.gradientTo} rounded-[1.25rem] flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all transform-gpu relative`}
+                className={`w-16 h-16 md:w-18 md:h-18 bg-gradient-to-br ${action.gradientFrom} ${action.gradientTo} -[1.25rem] flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all transform-gpu relative`}
               >
                 {/* Glossy Overlay */}
-                <div className="absolute inset-0 rounded-[1.25rem] bg-gradient-to-br from-white/50 to-transparent opacity-50" />
+                <div className="absolute inset-0 -[1.25rem] bg-gradient-to-br from-white/50 to-transparent opacity-50" />
                 
                 {/* Icon */}
                 <action.icon className="text-2xl text-white relative z-10" />
                 
                 {/* Bottom Shadow */}
-                <div className="absolute -bottom-2 inset-x-4 h-2 bg-black/20 blur-sm rounded-full" />
+                <div className="absolute -bottom-2 inset-x-4 h-2 bg-black/20 blur-sm " />
               </motion.div>
 
               {/* Labels */}
@@ -97,7 +97,7 @@ export default function QuickActions() {
               <motion.div
                 initial={{ scale: 0 }}
                 whileHover={{ scale: 1 }}
-                className={`w-1 h-1 rounded-full bg-gradient-to-r ${action.gradientFrom} ${action.gradientTo} mt-1`}
+                className={`w-1 h-1  bg-gradient-to-r ${action.gradientFrom} ${action.gradientTo} mt-1`}
               />
             </motion.div>
           </Link>

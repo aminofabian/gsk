@@ -33,7 +33,7 @@ export default function SidebarMenuItem({
     >
       <Link href={href}>
         <div
-          className={`relative flex items-center px-4 py-3 rounded-xl transition-all duration-300 group overflow-hidden
+          className={`relative flex items-center px-4 py-3  transition-all duration-300 group overflow-hidden
             ${isActive 
               ? "bg-white/20 text-white shadow-lg" 
               : "text-white/70 hover:text-white"
@@ -52,7 +52,7 @@ export default function SidebarMenuItem({
           {isActive && (
             <motion.div
               layoutId="activeIndicator"
-              className="absolute left-0 top-0 bottom-0 w-1 bg-white rounded-full"
+              className="absolute left-0 top-0 bottom-0 w-1 bg-white "
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
             />
           )}
@@ -61,7 +61,7 @@ export default function SidebarMenuItem({
             <motion.div
               whileHover={{ rotate: 12 }}
               className={`relative transition-all duration-300
-                ${isCollapsed ? 'p-1' : 'p-2 rounded-lg'}
+                ${isCollapsed ? 'p-1' : 'p-2 '}
                 ${isActive ? 'bg-white/20 shadow-inner' : 'bg-white/10'}
                 group-hover:bg-white/20
               `}

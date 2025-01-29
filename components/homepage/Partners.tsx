@@ -1,47 +1,198 @@
+"use client";
+import { useState, useEffect } from 'react';
+
+interface AnimatedCounterProps {
+  end: number;
+  duration?: number;
+}
+
+const AnimatedCounter = ({ end, duration = 1000 }: AnimatedCounterProps) => {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    let startTime: number | null = null;
+    let animationFrame: number | null = null;
+
+    const animate = (currentTime: number) => {
+      if (!startTime) startTime = currentTime;
+      const progress = (currentTime - startTime) / duration;
+
+      if (progress < 1) {
+        setCount(Math.min(Math.floor(end * progress), end));
+        animationFrame = requestAnimationFrame(animate);
+      } else {
+        setCount(end);
+      }
+    };
+
+    animationFrame = requestAnimationFrame(animate);
+
+    return () => {
+      if (animationFrame) {
+        cancelAnimationFrame(animationFrame);
+      }
+    };
+  }, [end, duration]);
+
+  return (
+    <div>{count}+</div>
+  );
+};
+
+interface MapPointProps {
+  top: number;
+  left: number;
+  size?: 'sm' | 'md' | 'lg';
+  label?: string;
+  delay?: number;
+}
+
+interface MapConnectionProps {
+  x1: number;
+  y1: number;
+  x2: number;
+  y2: number;
+  delay?: number;
+}
+
+const sizeClasses = {
+  sm: 'w-3 h-3',
+  md: 'w-4 h-4',
+  lg: 'w-6 h-6'
+} as const;
+
+const MapPoint = ({ top, left, size = 'md', label = '', delay = 0 }: MapPointProps) => {
+  return (
+    <div className={`absolute transform -translate-x-1/2 -translate-y-1/2`} style={{ top: `${top}%`, left: `${left}%` }}>
+      <div className="relative">
+        <div className={`${sizeClasses[size]} rotate-45 bg-white/20 animate-pulse`} style={{ animationDelay: `${delay}ms` }}>
+          <div className="absolute inset-0 flex items-center justify-center -rotate-45">
+            <span className="text-white text-[10px] font-bold">+</span>
+          </div>
+        </div>
+        {label && (
+          <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 whitespace-nowrap">
+            <span className="text-white text-xs font-semibold bg-[#003366]/50 px-2 py-0.5">
+              {label}
+            </span>
+          </div>
+        )}
+        <div className="absolute inset-0 animate-ping" style={{ animationDelay: `${delay}ms` }}>
+          <div className={`${sizeClasses[size]} rotate-45 bg-white/10`} />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const MapConnection = ({ x1, y1, x2, y2, delay = 0 }: MapConnectionProps) => (
+  <line 
+    x1={`${x1}%`} 
+    y1={`${y1}%`} 
+    x2={`${x2}%`} 
+    y2={`${y2}%`} 
+    stroke="white" 
+    strokeOpacity="0.2" 
+    strokeWidth="1.5"
+    className="animate-drawLine"
+    style={{ 
+      animationDelay: `${delay}ms`,
+      strokeDasharray: '1000',
+      strokeDashoffset: '1000',
+      animation: 'drawLine 2s ease-out forwards',
+    }}
+  />
+);
+
+interface Leader {
+  name: string;
+  title: string;
+  image: string;
+  specialty: string;
+  experience: string;
+  hospital?: string;
+  email?: string;
+  linkedin?: string;
+}
+
 const Partners = () => {
-  const leaders = [
+  const leaders: Leader[] = [
     {
       name: "Dr. Eric Murunga",
       title: "Chairman",
       image: "/doctors/dr erick murunga.avif",
       specialty: "Gastroenterology",
-      experience: "15+ years"
+      experience: "15+ years",
+      hospital: "Aga Khan University Hospital",
+      email: "chairman@gsk.or.ke",
+      linkedin: "https://www.linkedin.com/in/dr-eric-murunga"
     },
     {
       name: "Dr. Wilson Kiraitu",
       title: "Vice Chair",
       image: "/doctors/dr wilson kiraitu.jpg",
       specialty: "Gastroenterology",
-      experience: "12+ years"
+      experience: "12+ years",
+      hospital: "Kenyatta National Hospital",
+      email: "vicechair@gsk.or.ke"
     },
     {
       name: "Dr. Linda Gathara",
       title: "Secretary",
       image: "/doctors/Linda-Gathara.jpg",
       specialty: "Gastroenterology",
-      experience: "10+ years"
+      experience: "10+ years",
+      hospital: "Nairobi Hospital",
+      email: "secretary@gsk.or.ke"
     },
     {
       name: "Dr. Mirriam Gatehi",
       title: "Vice Secretary",
       image: "/doctors/dr mirriam gatehi.jpg",
       specialty: "Gastroenterology",
-      experience: "13+ years"
+      experience: "13+ years",
+      hospital: "MP Shah Hospital",
+      email: "vicesecretary@gsk.or.ke"
     },
     {
       name: "Dr. Firoz Alimohammed",
       title: "Treasurer",
       image: "/doctors/dr firoz alimohammed.jpg",
       specialty: "Gastroenterology",
-      experience: "14+ years"
+      experience: "14+ years",
+      hospital: "Mombasa Hospital",
+      email: "treasurer@gsk.or.ke"
     },
     {
       name: "Dr. Rupal Maru",
       title: "Vice - Treasurer",
       image: "/doctors/dr rupal maru.jpg",
       specialty: "Gastroenterology",
-      experience: "11+ years"
+      experience: "11+ years",
+      hospital: "Kisumu Specialist Hospital",
+      email: "vicetreasurer@gsk.or.ke"
     }
+  ];
+
+  const mapPoints: MapPointProps[] = [
+    { top: 55, left: 48, size: 'lg' as const, label: 'Nairobi', delay: 0 },
+    { top: 65, left: 68, size: 'md' as const, label: 'Mombasa', delay: 200 },
+    { top: 45, left: 28, size: 'md' as const, label: 'Kisumu', delay: 400 },
+    { top: 35, left: 38, size: 'sm' as const, label: 'Nakuru', delay: 600 },
+    { top: 25, left: 45, size: 'sm' as const, label: 'Nyeri', delay: 800 },
+    { top: 75, left: 55, size: 'sm' as const, label: 'Malindi', delay: 1000 },
+    { top: 50, left: 65, size: 'sm' as const, label: 'Machakos', delay: 1200 },
+    { top: 40, left: 55, size: 'sm' as const, label: 'Thika', delay: 1400 },
+  ];
+
+  const connections = [
+    { x1: 48, y1: 55, x2: 68, y2: 65, delay: 200 }, // Nairobi to Mombasa
+    { x1: 48, y1: 55, x2: 28, y2: 45, delay: 400 }, // Nairobi to Kisumu
+    { x1: 48, y1: 55, x2: 38, y2: 35, delay: 600 }, // Nairobi to Nakuru
+    { x1: 48, y1: 55, x2: 45, y2: 25, delay: 800 }, // Nairobi to Nyeri
+    { x1: 68, y1: 65, x2: 55, y2: 75, delay: 1000 }, // Mombasa to Malindi
+    { x1: 48, y1: 55, x2: 65, y2: 50, delay: 1200 }, // Nairobi to Machakos
+    { x1: 48, y1: 55, x2: 55, y2: 40, delay: 1400 }, // Nairobi to Thika
   ];
 
   return (
@@ -55,41 +206,23 @@ const Partners = () => {
 
       <div className="max-w-7xl mx-auto px-4 relative">
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 mb-4 text-[#0f5a5e]/90 text-sm tracking-widest uppercase">
-            <span className="h-px w-12 bg-gradient-to-r from-[#0f5a5e]/10 via-[#40e0d0]/50 to-[#0f5a5e]/10"></span>
-            Our Leadership
-            <span className="h-px w-12 bg-gradient-to-r from-[#0f5a5e]/10 via-[#40e0d0]/50 to-[#0f5a5e]/10"></span>
-          </div>
-          <h2 className="text-4xl md:text-5xl font-merriweather font-bold mb-3">
-            <span className="bg-gradient-to-r from-[#003366] via-[#0f5a5e] to-[#003366] text-transparent bg-clip-text">
-              GSK Network & Leadership
-            </span>
+          <h2 className="text-4xl md:text-5xl font-merriweather font-bold text-[#003366]">
+            GSK Network & Leadership
           </h2>
-          <p className="text-[#0f5a5e]/80 text-lg font-light max-w-2xl mx-auto">
-            Meet the dedicated team leading the advancement of gastroenterology care in Kenya
-          </p>
-          <div className="w-32 h-0.5 bg-gradient-to-r from-[#0f5a5e]/10 via-[#40e0d0]/50 to-[#0f5a5e]/10 mx-auto mt-6" />
+          <div className="w-20 h-1 bg-[#0f5a5e]/20 mx-auto mt-4 " />
         </div>
 
-        {/* Main grid container - adjusted for balance */}
-        <div className="grid lg:grid-cols-5 gap-8 lg:gap-16 items-start">
-          {/* Left side - Enhanced Map Section - 2 columns */}
-          <div className="lg:col-span-2 flex flex-col">
-            <div className="bg-gradient-to-br from-white to-[#f8fffe] rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 border border-[#40e0d0]/10">
-              <div className="mb-6">
-                <h3 className="text-2xl font-merriweather font-bold mb-2">
-                  <span className="bg-gradient-to-r from-[#003366] via-[#0f5a5e] to-[#003366] text-transparent bg-clip-text">
-                    GSK Member Network
-                  </span>
-                </h3>
-                <div className="w-24 h-0.5 bg-gradient-to-r from-[#0f5a5e]/10 via-[#40e0d0]/50 to-[#0f5a5e]/10" />
-              </div>
-              <p className="font-merriweather text-[#003366]/70 leading-relaxed mb-8 text-lg">
+        <div className="grid lg:grid-cols-2 gap-16 items-stretch">
+          {/* Left side - Enhanced Map Section */}
+          <div className="flex flex-col h-full">
+            <div className="bg-white p-8 shadow-xl hover:shadow-2xl transition-all duration-300 flex-1 flex flex-col">
+              <h3 className="text-2xl font-merriweather font-bold text-[#003366] mb-4">GSK Member Network</h3>
+              <p className="font-merriweather text-gray-600 leading-relaxed mb-6">
                 GSK represents the largest network of gastroenterology professionals in East Africa, with over 500 dedicated practitioners across Kenya delivering exceptional healthcare services.
               </p>
               
               {/* Enhanced Map Container */}
-              <div className="relative aspect-[4/3] bg-gradient-to-br from-[#003366] to-[#0f5a5e] rounded-xl overflow-hidden shadow-lg group flex-shrink-0">
+              <div className="relative aspect-[4/3] bg-[#003366] overflow-hidden shadow-lg group flex-shrink-0">
                 {/* Background Pattern */}
                 <div className="absolute inset-0 opacity-5">
                   <div className="absolute inset-0" style={{
@@ -110,42 +243,15 @@ const Partners = () => {
 
                     {/* Medical Cross Markers */}
                     <div className="absolute inset-0">
-                      {/* Nairobi */}
-                      <div className="absolute top-[55%] left-[48%] transform -translate-x-1/2 -translate-y-1/2">
-                        <div className="relative">
-                          <div className="w-6 h-6 rotate-45 bg-[#0f5a5e]/30 rounded-sm">
-                            <div className="absolute inset-0 flex items-center justify-center -rotate-45">
-                              <span className="text-white text-xs font-bold">+</span>
-                            </div>
-                          </div>
-                          <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 whitespace-nowrap">
-                            <span className="text-white text-xs font-semibold bg-[#003366]/50 px-2 py-0.5 rounded">Nairobi</span>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Mombasa */}
-                      <div className="absolute top-[65%] left-[68%] transform -translate-x-1/2 -translate-y-1/2">
-                        <div className="w-4 h-4 rotate-45 bg-[#0f5a5e]/20 rounded-sm">
-                          <div className="absolute inset-0 flex items-center justify-center -rotate-45">
-                            <span className="text-white text-[10px] font-bold">+</span>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Kisumu */}
-                      <div className="absolute top-[45%] left-[28%] transform -translate-x-1/2 -translate-y-1/2">
-                        <div className="w-4 h-4 rotate-45 bg-[#0f5a5e]/20 rounded-sm">
-                          <div className="absolute inset-0 flex items-center justify-center -rotate-45">
-                            <span className="text-white text-[10px] font-bold">+</span>
-                          </div>
-                        </div>
-                      </div>
+                      {mapPoints.map((point, index) => (
+                        <MapPoint key={index} {...point} />
+                      ))}
 
                       {/* Connection Lines */}
                       <svg className="absolute inset-0 w-full h-full">
-                        <line x1="48%" y1="55%" x2="68%" y2="65%" stroke="#0f5a5e" strokeOpacity="0.2" strokeWidth="1.5" />
-                        <line x1="48%" y1="55%" x2="28%" y2="45%" stroke="#0f5a5e" strokeOpacity="0.2" strokeWidth="1.5" />
+                        {connections.map((connection, index) => (
+                          <MapConnection key={index} {...connection} />
+                        ))}
                       </svg>
                     </div>
                   </div>
@@ -155,73 +261,51 @@ const Partners = () => {
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[#003366]/50">
                   <div className="text-center space-y-3">
                     <div className="flex items-center justify-center space-x-2">
-                      <div className="w-8 h-8 bg-[#0f5a5e]/10 rounded-lg flex items-center justify-center">
+                      <div className="w-8 h-8 bg-[#0f5a5e]/10 flex items-center justify-center">
                         <span className="text-white text-xl font-bold">+</span>
                       </div>
                     </div>
                     <p className="text-white text-lg font-medium px-6">
                       Serving healthcare professionals across all 47 counties
                     </p>
-                    <p className="text-[#40e0d0] text-sm font-medium">
-                      Advancing Gastroenterology Care in Kenya
+                    <p className="text-[#0f5a5e]/60 text-sm">
+                      Building a stronger healthcare network
                     </p>
                   </div>
                 </div>
               </div>
 
-              {/* Enhanced Stats Section */}
+              {/* Stats Section */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-6 mt-8">
                 <div className="relative">
-                  <div className="bg-gradient-to-br from-white to-[#f8fffe] p-4 sm:p-6 rounded-xl border border-[#40e0d0]/10 hover:border-[#40e0d0]/30 transition-all duration-300 hover:shadow-[0_8px_16px_-6px_rgba(15,90,94,0.1)] group">
-                    <div className="flex flex-col items-center sm:items-start relative z-10">
-                      <div className="text-3xl sm:text-4xl font-merriweather font-bold mb-1">
-                        <span className="bg-gradient-to-r from-[#003366] via-[#0f5a5e] to-[#003366] text-transparent bg-clip-text">
-                          500+
-                        </span>
+                  <div className="bg-white p-4 sm:p-6 border border-[#003366]/10 hover:border-[#003366] transition-all duration-300">
+                    <div className="flex flex-col items-center sm:items-start">
+                      <div className="text-3xl sm:text-4xl font-merriweather font-bold text-[#003366] mb-1">
+                        <AnimatedCounter end={500} duration={2000} />
                       </div>
-                      <div className="text-sm font-merriweather font-medium text-[#0f5a5e]">Active Members</div>
-                    </div>
-                    <div className="absolute top-0 right-0 p-2 opacity-10 group-hover:opacity-20 transition-opacity">
-                      <svg className="w-8 h-8 text-[#40e0d0]" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
-                      </svg>
+                      <div className="text-sm font-merriweather font-medium text-[#003366]">Active Members</div>
                     </div>
                   </div>
                 </div>
 
                 <div className="relative">
-                  <div className="bg-gradient-to-br from-white to-[#f8fffe] p-4 sm:p-6 rounded-xl border border-[#40e0d0]/10 hover:border-[#40e0d0]/30 transition-all duration-300 hover:shadow-[0_8px_16px_-6px_rgba(15,90,94,0.1)] group">
-                    <div className="flex flex-col items-center sm:items-start relative z-10">
-                      <div className="text-3xl sm:text-4xl font-merriweather font-bold mb-1">
-                        <span className="bg-gradient-to-r from-[#003366] via-[#0f5a5e] to-[#003366] text-transparent bg-clip-text">
-                          47
-                        </span>
+                  <div className="bg-white p-4 sm:p-6 border border-[#003366]/10 hover:border-[#003366] transition-all duration-300">
+                    <div className="flex flex-col items-center sm:items-start">
+                      <div className="text-3xl sm:text-4xl font-merriweather font-bold text-[#003366] mb-1">
+                        <AnimatedCounter end={47} duration={1500} />
                       </div>
-                      <div className="text-sm font-merriweather font-medium text-[#0f5a5e]">Counties Covered</div>
-                    </div>
-                    <div className="absolute top-0 right-0 p-2 opacity-10 group-hover:opacity-20 transition-opacity">
-                      <svg className="w-8 h-8 text-[#40e0d0]" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-                      </svg>
+                      <div className="text-sm font-merriweather font-medium text-[#003366]">Counties Covered</div>
                     </div>
                   </div>
                 </div>
 
                 <div className="relative">
-                  <div className="bg-gradient-to-br from-white to-[#f8fffe] p-4 sm:p-6 rounded-xl border border-[#40e0d0]/10 hover:border-[#40e0d0]/30 transition-all duration-300 hover:shadow-[0_8px_16px_-6px_rgba(15,90,94,0.1)] group">
-                    <div className="flex flex-col items-center sm:items-start relative z-10">
-                      <div className="text-3xl sm:text-4xl font-merriweather font-bold mb-1">
-                        <span className="bg-gradient-to-r from-[#003366] via-[#0f5a5e] to-[#003366] text-transparent bg-clip-text">
-                          20+
-                        </span>
+                  <div className="bg-white p-4 sm:p-6 border border-[#003366]/10 hover:border-[#003366] transition-all duration-300">
+                    <div className="flex flex-col items-center sm:items-start">
+                      <div className="text-3xl sm:text-4xl font-merriweather font-bold text-[#003366] mb-1">
+                        <AnimatedCounter end={20} duration={1200} />
                       </div>
-                      <div className="text-sm font-merriweather font-medium text-[#0f5a5e]">Partners</div>
-                    </div>
-                    <div className="absolute top-0 right-0 p-2 opacity-10 group-hover:opacity-20 transition-opacity">
-                      <svg className="w-8 h-8 text-[#40e0d0]" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M13 7H7v6h6V7z" />
-                        <path fillRule="evenodd" d="M7 2a1 1 0 012 0v1h2V2a1 1 0 112 0v1h2a2 2 0 012 2v2h1a1 1 0 110 2h-1v2h1a1 1 0 110 2h-1v2a2 2 0 01-2 2h-2v1a1 1 0 11-2 0v-1H9v1a1 1 0 11-2 0v-1H5a2 2 0 01-2-2v-2H2a1 1 0 110-2h1V9H2a1 1 0 010-2h1V5a2 2 0 012-2h2V2zM5 5h10v10H5V5z" clipRule="evenodd" />
-                      </svg>
+                      <div className="text-sm font-merriweather font-medium text-[#003366]">Partners</div>
                     </div>
                   </div>
                 </div>
@@ -229,183 +313,114 @@ const Partners = () => {
             </div>
           </div>
 
-          {/* Right side - Enhanced Leadership Section - 3 columns */}
-          <div className="lg:col-span-3 flex flex-col">
-            <div className="bg-gradient-to-br from-white to-[#f8fffe] rounded-[2rem] p-8 shadow-xl hover:shadow-2xl transition-all duration-300 border border-[#40e0d0]/10">
-              {/* Creative section header */}
-              <div className="text-center lg:text-left mb-12 relative">
-                {/* Decorative background elements */}
-                <div className="absolute -top-4 -left-4 w-24 h-24 opacity-[0.07]">
-                  <svg viewBox="0 0 100 100" className="w-full h-full">
-                    <circle cx="50" cy="50" r="40" className="fill-[#003366]" />
-                    <circle cx="50" cy="50" r="35" className="fill-none stroke-[#0f5a5e] stroke-1" />
-                    <circle cx="50" cy="50" r="30" className="fill-none stroke-[#40e0d0] stroke-1" />
-                  </svg>
-                </div>
-                
-                <div className="relative">
-                  <h3 className="text-2xl font-merriweather font-bold mb-3 inline-flex flex-col items-center lg:items-start">
-                    <span className="relative px-6 py-2 rounded-full bg-gradient-to-r from-[#003366]/5 to-transparent mb-2">
-                      <span className="bg-gradient-to-r from-[#003366] via-[#0f5a5e] to-[#003366] text-transparent bg-clip-text">
-                        Meet GSK&apos;s Leadership Team
-                      </span>
-                      <div className="absolute inset-0 rounded-full border border-[#0f5a5e]/10"></div>
-                    </span>
-                    <div className="flex items-center gap-3 mt-2">
-                      <span className="h-px w-12 bg-gradient-to-r from-[#0f5a5e]/10 via-[#40e0d0]/50 to-[#0f5a5e]/10"></span>
-                      <span className="text-[#0f5a5e]/60 text-sm font-light">Guiding Excellence in Gastroenterology</span>
-                      <span className="h-px w-12 bg-gradient-to-r from-[#0f5a5e]/10 via-[#40e0d0]/50 to-[#0f5a5e]/10"></span>
-                    </div>
-                  </h3>
-                </div>
-              </div>
-
-              {/* Unique leadership grid layout - adjusted spacing */}
-              <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 xl:gap-6">
+          {/* Right side - Leadership Section */}
+          <div className="flex flex-col h-full">
+            <div className="bg-white p-8 shadow-xl hover:shadow-2xl transition-all duration-300 flex-1">
+              <h3 className="text-2xl font-merriweather font-bold text-[#003366] mb-8">Meet GSK&apos;s Leadership Team</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {leaders.map((leader, index) => (
-                  <div key={index} className="group h-[20rem] sm:h-[22rem]">
-                    {/* Card container with 3D effect */}
-                    <div className="relative h-full transition-transform duration-500 transform-style-3d group-hover:rotate-y-180">
+                  <div key={index} className="flip-card h-[300px] w-full">
+                    <div className="flip-card-inner">
                       {/* Front of card */}
-                      <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white to-[#f8fffe] border border-[#40e0d0]/10 shadow-lg backface-hidden">
-                        {/* Enhanced image container with creative frame */}
-                        <div className="h-[60%] overflow-hidden relative rounded-t-2xl">
-                          {/* Decorative background pattern */}
-                          <div className="absolute inset-0 bg-[#003366]/5">
-                            <svg className="w-full h-full opacity-30" viewBox="0 0 100 100">
-                              <defs>
-                                <pattern id="medicalPattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-                                  <path d="M10,0 L10,20 M0,10 L20,10" stroke="currentColor" strokeWidth="0.5" />
-                              </pattern>
-                              </defs>
-                              <rect x="0" y="0" width="100" height="100" fill="url(#medicalPattern)" />
-                            </svg>
+                      <div className="flip-card-front">
+                        <div className="relative h-full overflow-hidden bg-white border border-[#003366]/10">
+                          <div className="h-[70%] overflow-hidden">
+                            <img 
+                              src={leader.image} 
+                              alt={leader.name}
+                              className="w-full h-full object-cover"
+                            />
                           </div>
-
-                          {/* Image with gradient overlay */}
-                          <div className="absolute inset-0 p-2">
-                            <div className="relative w-full h-full rounded-xl overflow-hidden">
-                          <img 
-                            src={leader.image} 
-                            alt={leader.name}
-                                className="w-full h-full object-cover object-center transform transition-transform duration-500 group-hover:scale-105"
-                              />
-                              <div className="absolute inset-0 bg-gradient-to-t from-[#003366]/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                            </div>
-
-                            {/* Decorative frame corners */}
-                            <div className="absolute inset-0">
-                              {/* Top left */}
-                              <div className="absolute top-0 left-0 w-8 h-8">
-                                <svg viewBox="0 0 32 32" className="w-full h-full">
-                                  <path d="M0 0 L32 0 L32 2 L2 2 L2 32 L0 32 Z" className="fill-[#40e0d0]/30" />
-                                </svg>
-                              </div>
-                              {/* Top right */}
-                              <div className="absolute top-0 right-0 w-8 h-8 transform rotate-90">
-                                <svg viewBox="0 0 32 32" className="w-full h-full">
-                                  <path d="M0 0 L32 0 L32 2 L2 2 L2 32 L0 32 Z" className="fill-[#40e0d0]/30" />
-                                </svg>
-                              </div>
-                              {/* Bottom left */}
-                              <div className="absolute bottom-0 left-0 w-8 h-8 transform -rotate-90">
-                                <svg viewBox="0 0 32 32" className="w-full h-full">
-                                  <path d="M0 0 L32 0 L32 2 L2 2 L2 32 L0 32 Z" className="fill-[#40e0d0]/30" />
-                            </svg>
-                          </div>
-                              {/* Bottom right */}
-                              <div className="absolute bottom-0 right-0 w-8 h-8 transform rotate-180">
-                                <svg viewBox="0 0 32 32" className="w-full h-full">
-                                  <path d="M0 0 L32 0 L32 2 L2 2 L2 32 L0 32 Z" className="fill-[#40e0d0]/30" />
-                            </svg>
-                              </div>
-                            </div>
-                          </div>
-
-                          {/* Professional title badge */}
-                          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 px-4 py-1.5 bg-white/90 backdrop-blur-sm rounded-full shadow-lg transform transition-transform duration-300 group-hover:translate-y-2">
-                            <p className="text-[#003366] text-sm font-medium">{leader.title}</p>
-                          </div>
-                        </div>
-
-                        {/* Content section - adjusted height for three columns */}
-                        <div className="h-[40%] p-3 sm:p-4 relative flex flex-col justify-between">
-                          <div>
-                            <h4 className="font-merriweather font-bold text-sm sm:text-base leading-tight mb-2 text-center">
-                              <span className="bg-gradient-to-r from-[#003366] via-[#0f5a5e] to-[#003366] text-transparent bg-clip-text line-clamp-2">
-                              {leader.name}
-                            </span>
-                          </h4>
-                          
-                          {/* Experience badge */}
-                            <div className="flex justify-center">
-                              <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-[#0f5a5e]/5">
-                                <svg className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#0f5a5e]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                              </svg>
-                                <span className="text-[#0f5a5e] text-xs">{leader.experience}</span>
-                              </div>
-                            </div>
+                          <div className="h-[30%] p-4 flex flex-col justify-center items-center bg-white">
+                            <h4 className="font-merriweather font-semibold text-lg text-[#003366] text-center">
+                              {leader.title}
+                            </h4>
                           </div>
                         </div>
                       </div>
 
-                      {/* Back of card - adjusted for three columns */}
-                      <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#003366] to-[#0f5a5e] border border-[#40e0d0]/10 shadow-lg backface-hidden rotate-y-180 p-3 sm:p-4">
-                        {/* Circular image */}
-                        <div className="absolute -top-5 sm:-top-6 left-1/2 -translate-x-1/2 w-14 h-14 sm:w-16 sm:h-16 rounded-full overflow-hidden border-4 border-white/10 shadow-xl">
-                          <img 
-                            src={leader.image} 
-                            alt={leader.name}
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
-
-                        <div className="h-full flex flex-col justify-between pt-10 sm:pt-12">
-                          {/* Content */}
-                          <div>
-                            <h4 className="font-merriweather font-bold text-sm sm:text-base text-white text-center mb-2 sm:mb-3">
-                              <span className="line-clamp-2">{leader.name}</span>
-                              <div className="mt-1 text-xs font-normal text-[#40e0d0]/80">{leader.title}</div>
-                            </h4>
-
-                            <div className="space-y-2">
-                              <div className="flex items-start gap-2">
-                                <div className="w-6 h-6 rounded-lg bg-white/10 flex items-center justify-center shrink-0">
-                                  <svg className="w-3 h-3 text-[#40e0d0]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19.66 3.99c-.67-.38-1.5-.19-1.95.43l-3.17 4.41c-.48.67-1.15 1.02-1.86 1.02-.71 0-1.38-.35-1.86-1.02L7.65 4.42c-.45-.62-1.28-.81-1.95-.43-.67.38-.87 1.22-.49 1.89L8.38 10c.48.67.73 1.46.73 2.27v7.23c0 .83.67 1.5 1.5 1.5h2.77c.83 0 1.5-.67 1.5-1.5v-7.23c0-.81.25-1.6.73-2.27l3.17-4.41c.38-.67.18-1.51-.49-1.89z" />
-                                  </svg>
-                                </div>
-                                <div>
-                                  <p className="text-[#40e0d0] text-xs font-medium">Specialty</p>
-                                  <p className="text-white/90 text-xs sm:text-sm line-clamp-2">{leader.specialty}</p>
-                                </div>
-                              </div>
-                              <div className="flex items-start gap-2">
-                                <div className="w-6 h-6 rounded-lg bg-white/10 flex items-center justify-center shrink-0">
-                                  <svg className="w-3 h-3 text-[#40e0d0]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                  </svg>
-                                </div>
-                                <div>
-                                  <p className="text-[#40e0d0] text-xs font-medium">Experience</p>
-                                  <p className="text-white/90 text-xs sm:text-sm">{leader.experience}</p>
-                                </div>
-                              </div>
-                            </div>
+                      {/* Back of card */}
+                      <div className="flip-card-back">
+                        <div className="h-full bg-[#003366] p-6 flex flex-col">
+                          {/* Header Section */}
+                          <div className="pb-4 mb-4 border-b border-white/10">
+                            <h4 className="font-merriweather font-bold text-xl text-white">{leader.name}</h4>
+                            <p className="text-white/70 text-sm mt-1">{leader.title}</p>
                           </div>
 
-                          {/* Decorative bottom pattern */}
-                          <div className="mt-2 sm:mt-3 pt-2 sm:pt-3 border-t border-white/10">
-                            <div className="flex justify-center">
-                              <div className="inline-flex items-center gap-1.5 text-white/60 text-xs">
-                                <svg className="w-3 h-3 animate-spin-slow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                          {/* Info Section */}
+                          <div className="flex-1 space-y-6">
+                            {/* Specialty */}
+                            <div className="flex items-start gap-3">
+                              <div className="w-6 h-6 bg-white/10 flex items-center justify-center shrink-0">
+                                <svg className="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                                 </svg>
-                                <span className="font-light">Flip Back</span>
+                              </div>
+                              <div className="flex-1">
+                                <p className="text-white/50 text-xs uppercase tracking-wider">Specialty</p>
+                                <p className="text-white text-sm mt-0.5">{leader.specialty}</p>
                               </div>
                             </div>
+
+                            {/* Experience */}
+                            <div className="flex items-start gap-3">
+                              <div className="w-6 h-6 bg-white/10 flex items-center justify-center shrink-0">
+                                <svg className="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                              </div>
+                              <div className="flex-1">
+                                <p className="text-white/50 text-xs uppercase tracking-wider">Experience</p>
+                                <p className="text-white text-sm mt-0.5">{leader.experience}</p>
+                              </div>
+                            </div>
+
+                            {/* Hospital - Only show if exists */}
+                            {leader.hospital && (
+                              <div className="flex items-start gap-3">
+                                <div className="w-6 h-6 bg-white/10 flex items-center justify-center shrink-0">
+                                  <svg className="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                                  </svg>
+                                </div>
+                                <div className="flex-1">
+                                  <p className="text-white/50 text-xs uppercase tracking-wider">Hospital</p>
+                                  <p className="text-white text-sm mt-0.5">{leader.hospital}</p>
+                                </div>
+                              </div>
+                            )}
                           </div>
+
+                          {/* Contact Section - Only show if email or linkedin exists */}
+                          {(leader.email || leader.linkedin) && (
+                            <div className="pt-4 mt-4 border-t border-white/10">
+                              <div className="flex justify-center gap-3">
+                                {leader.email && (
+                                  <a 
+                                    href={`mailto:${leader.email}`}
+                                    className="w-7 h-7 bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"
+                                  >
+                                    <svg className="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                    </svg>
+                                  </a>
+                                )}
+                                {leader.linkedin && (
+                                  <a 
+                                    href={leader.linkedin}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="w-7 h-7 bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"
+                                  >
+                                    <svg className="w-3.5 h-3.5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                      <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                                    </svg>
+                                  </a>
+                                )}
+                              </div>
+                            </div>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -416,6 +431,49 @@ const Partners = () => {
           </div>
         </div>
       </div>
+
+      <style jsx>{`
+        @keyframes drawLine {
+          to {
+            stroke-dashoffset: 0;
+          }
+        }
+        
+        .animate-drawLine {
+          animation: drawLine 1.5s ease-out forwards;
+        }
+
+        .flip-card {
+          perspective: 1000px;
+          cursor: pointer;
+        }
+
+        .flip-card-inner {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          text-align: center;
+          transition: transform 0.6s;
+          transform-style: preserve-3d;
+        }
+
+        .flip-card:hover .flip-card-inner {
+          transform: rotateY(180deg);
+        }
+
+        .flip-card-front,
+        .flip-card-back {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          backface-visibility: hidden;
+          -webkit-backface-visibility: hidden;
+        }
+
+        .flip-card-back {
+          transform: rotateY(180deg);
+        }
+      `}</style>
     </section>
   );
 };

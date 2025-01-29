@@ -44,7 +44,7 @@ export default function PartnersManagement() {
         <h2 className="text-2xl font-display font-bold text-gray-900">Partners Management</h2>
         <button
           onClick={() => setShowAddForm(true)}
-          className="px-4 py-2 bg-[#003366] text-white rounded-lg hover:bg-[#004488] transition-colors"
+          className="px-4 py-2 bg-[#003366] text-white  hover:bg-[#004488] transition-colors"
         >
           Add New Partner
         </button>
@@ -52,7 +52,7 @@ export default function PartnersManagement() {
 
       {/* Add/Edit Form */}
       {showAddForm && (
-        <div className="mb-8 p-6 bg-gray-50 rounded-xl">
+        <div className="mb-8 p-6 bg-gray-50 ">
           <h3 className="text-lg font-display font-bold text-gray-900 mb-4">Add New Partner</h3>
           <form className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -60,14 +60,14 @@ export default function PartnersManagement() {
                 <label className="block text-sm font-medium text-gray-700 mb-1">Partner Name</label>
                 <input
                   type="text"
-                  className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-[#003366] focus:ring-1 focus:ring-[#003366]"
+                  className="w-full px-4 py-2  border border-gray-200 focus:border-[#003366] focus:ring-1 focus:ring-[#003366]"
                   placeholder="Enter partner name"
                 />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
                 <select
-                  className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-[#003366] focus:ring-1 focus:ring-[#003366]"
+                  className="w-full px-4 py-2  border border-gray-200 focus:border-[#003366] focus:ring-1 focus:ring-[#003366]"
                 >
                   <option value="">Select category</option>
                   {categories.map((category) => (
@@ -82,7 +82,7 @@ export default function PartnersManagement() {
               <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
               <textarea
                 rows={3}
-                className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-[#003366] focus:ring-1 focus:ring-[#003366]"
+                className="w-full px-4 py-2  border border-gray-200 focus:border-[#003366] focus:ring-1 focus:ring-[#003366]"
                 placeholder="Enter partner description"
               />
             </div>
@@ -95,7 +95,7 @@ export default function PartnersManagement() {
                   </div>
                   <input
                     type="url"
-                    className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-200 focus:border-[#003366] focus:ring-1 focus:ring-[#003366]"
+                    className="w-full pl-10 pr-4 py-2  border border-gray-200 focus:border-[#003366] focus:ring-1 focus:ring-[#003366]"
                     placeholder="https://example.com"
                   />
                 </div>
@@ -113,7 +113,7 @@ export default function PartnersManagement() {
                       />
                       <label
                         htmlFor="partner-logo"
-                        className="flex items-center justify-center w-full px-4 py-2 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-[#003366] transition-colors"
+                        className="flex items-center justify-center w-full px-4 py-2 border-2 border-dashed border-gray-300  cursor-pointer hover:border-[#003366] transition-colors"
                       >
                         <div className="flex items-center gap-2 text-gray-600">
                           <FaImage />
@@ -122,7 +122,7 @@ export default function PartnersManagement() {
                       </label>
                     </div>
                   </div>
-                  <div className="w-16 h-16 bg-gray-100 rounded-lg"></div>
+                  <div className="w-16 h-16 bg-gray-100 "></div>
                 </div>
               </div>
             </div>
@@ -136,7 +136,7 @@ export default function PartnersManagement() {
               </button>
               <button
                 type="submit"
-                className="px-4 py-2 bg-[#003366] text-white rounded-lg hover:bg-[#004488] transition-colors"
+                className="px-4 py-2 bg-[#003366] text-white  hover:bg-[#004488] transition-colors"
               >
                 Save Partner
               </button>
@@ -152,7 +152,7 @@ export default function PartnersManagement() {
           placeholder="Search partners..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full max-w-md px-4 py-2 rounded-lg border border-gray-200 focus:border-[#003366] focus:ring-1 focus:ring-[#003366]"
+          className="w-full max-w-md px-4 py-2  border border-gray-200 focus:border-[#003366] focus:ring-1 focus:ring-[#003366]"
         />
       </div>
 
@@ -161,12 +161,12 @@ export default function PartnersManagement() {
         {filteredPartners.map((partner) => (
           <div
             key={partner.id}
-            className="p-4 bg-white border rounded-xl hover:shadow-sm transition-shadow"
+            className="p-4 bg-white border  hover:shadow-sm transition-shadow"
           >
             <div className="flex items-start gap-4">
-              <div className="w-16 h-16 bg-gray-100 rounded-lg flex-shrink-0">
+              <div className="w-16 h-16 bg-gray-100  flex-shrink-0">
                 {/* Replace with actual image component */}
-                <div className="w-full h-full bg-gray-200 rounded-lg"></div>
+                <div className="w-full h-full bg-gray-200 "></div>
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-start justify-between gap-4">
@@ -184,7 +184,7 @@ export default function PartnersManagement() {
                   </div>
                 </div>
                 <div className="mt-2 flex items-center gap-3 text-sm">
-                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                  <span className="inline-flex items-center px-2.5 py-0.5  text-xs font-medium bg-blue-100 text-blue-800">
                     {partner.category}
                   </span>
                   <a

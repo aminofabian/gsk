@@ -126,12 +126,12 @@ export default function DashboardPage() {
   return (
     <div className="space-y-8">
       {/* Welcome Section */}
-      <div className="bg-[#003366] text-white rounded-2xl p-6 relative overflow-hidden">
+      <div className="bg-[#003366] text-white  p-6 relative overflow-hidden">
         <div className="relative z-10">
           <h1 className="text-2xl font-semibold mb-2">Welcome back, Dr. John! 👋</h1>
           <p className="text-white/80">Track your professional development and stay updated with the latest in gastroenterology.</p>
         </div>
-        <div className="absolute right-0 top-0 w-64 h-64 bg-[#004488] rounded-full blur-3xl opacity-50 transform translate-x-1/2 -translate-y-1/2"></div>
+        <div className="absolute right-0 top-0 w-64 h-64 bg-[#004488]  blur-3xl opacity-50 transform translate-x-1/2 -translate-y-1/2"></div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -144,11 +144,11 @@ export default function DashboardPage() {
                 <motion.a
                   key={index}
                   href={action.href}
-                  className="group relative p-4 bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-200"
+                  className="group relative p-4 bg-white  border border-gray-100 shadow-sm hover:shadow-md transition-all duration-200"
                   whileHover={{ y: -2 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  <div className="w-12 h-12 rounded-lg bg-[#003366] flex items-center justify-center text-white mb-3">
+                  <div className="w-12 h-12  bg-[#003366] flex items-center justify-center text-white mb-3">
                     <action.icon className="text-xl" />
                   </div>
                   <h3 className="font-medium text-[#003366]">{action.label}</h3>
@@ -165,10 +165,10 @@ export default function DashboardPage() {
               {stats.map((stat, index) => (
                 <div
                   key={index}
-                  className="bg-white rounded-xl border border-gray-100 p-4 shadow-sm"
+                  className="bg-white  border border-gray-100 p-4 shadow-sm"
                 >
                   <div className="flex items-center gap-3 mb-2">
-                    <div className="w-8 h-8 rounded-lg bg-[#003366]/5 flex items-center justify-center">
+                    <div className="w-8 h-8  bg-[#003366]/5 flex items-center justify-center">
                       <stat.icon className="text-[#003366]" />
                     </div>
                     <span className="text-sm font-medium text-[#003366]/70">{stat.label}</span>
@@ -185,10 +185,10 @@ export default function DashboardPage() {
           {/* Upcoming Events */}
           <section>
             <h2 className="text-xl font-semibold text-[#003366] mb-4">Upcoming Events</h2>
-            <div className="bg-white rounded-xl border border-gray-100 divide-y divide-gray-100">
+            <div className="bg-white  border border-gray-100 divide-y divide-gray-100">
               {upcomingEvents.map((event, index) => (
                 <div key={index} className="p-4 flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-lg bg-[#003366]/5 flex items-center justify-center flex-shrink-0">
+                  <div className="w-10 h-10  bg-[#003366]/5 flex items-center justify-center flex-shrink-0">
                     <event.icon className="text-[#003366]" />
                   </div>
                   <div className="flex-1 min-w-0">
@@ -216,11 +216,11 @@ export default function DashboardPage() {
                 View All
               </button>
             </div>
-            <div className="bg-white rounded-xl border border-gray-100 divide-y divide-gray-100">
+            <div className="bg-white  border border-gray-100 divide-y divide-gray-100">
               {recentUpdates.map((update, index) => (
                 <div key={index} className="p-4">
                   <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-[#003366]/5 flex items-center justify-center flex-shrink-0">
+                    <div className="w-8 h-8  bg-[#003366]/5 flex items-center justify-center flex-shrink-0">
                       <update.icon className="text-[#003366]" />
                     </div>
                     <div className="flex-1">
@@ -233,7 +233,7 @@ export default function DashboardPage() {
                             day: 'numeric'
                           })}
                         </span>
-                        <span className="w-1 h-1 rounded-full bg-[#003366]/30"></span>
+                        <span className="w-1 h-1  bg-[#003366]/30"></span>
                         <span className="text-xs font-medium text-[#003366]">
                           {update.type}
                         </span>

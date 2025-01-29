@@ -56,7 +56,7 @@ export default function RecentActivity() {
         </button>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-sm divide-y divide-gray-100">
+      <div className="bg-white  shadow-sm divide-y divide-gray-100">
         {recentActivities.map((activity, index) => (
           <motion.div
             key={index}
@@ -67,11 +67,11 @@ export default function RecentActivity() {
             <div className="flex items-start gap-4">
               <motion.div
                 whileHover={{ scale: 1.1, rotate: 10 }}
-                className={`relative p-3 rounded-xl bg-gradient-to-br ${activity.gradientFrom} ${activity.gradientTo} bg-opacity-10`}
+                className={`relative p-3  bg-gradient-to-br ${activity.gradientFrom} ${activity.gradientTo} bg-opacity-10`}
               >
                 <activity.icon className="text-xl text-white" />
                 {/* Glossy overlay */}
-                <div className="absolute inset-0 rounded-xl bg-white/20 backdrop-blur-sm" />
+                <div className="absolute inset-0  bg-white/20 backdrop-blur-sm" />
               </motion.div>
 
               <div className="flex-1 min-w-0">
@@ -86,12 +86,12 @@ export default function RecentActivity() {
                 </div>
                 
                 {/* Progress Bar (subtle) */}
-                <div className="mt-3 relative h-1 bg-gray-50 rounded-full overflow-hidden">
+                <div className="mt-3 relative h-1 bg-gray-50  overflow-hidden">
                   <motion.div
                     initial={{ width: 0 }}
                     animate={{ width: "100%" }}
                     transition={{ duration: 1.5, ease: "easeOut" }}
-                    className={`absolute h-full bg-gradient-to-r ${activity.gradientFrom} ${activity.gradientTo} opacity-20 group-hover:opacity-40 rounded-full`}
+                    className={`absolute h-full bg-gradient-to-r ${activity.gradientFrom} ${activity.gradientTo} opacity-20 group-hover:opacity-40 `}
                   />
                 </div>
               </div>

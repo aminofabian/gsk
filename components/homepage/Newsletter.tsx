@@ -11,7 +11,7 @@ const Newsletter = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.7 }}
-        className="relative h-[200px] bg-[#003366] overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-shadow duration-500"
+        className="relative h-[200px] bg-[#003366] overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-500"
       >
         {/* Decorative Elements */}
         <div className="absolute inset-0 bg-[url('/patterns/grid.svg')] opacity-[0.02]" />
@@ -25,7 +25,7 @@ const Newsletter = () => {
             repeat: Infinity,
             ease: "easeInOut" 
           }}
-          className="absolute -top-32 -right-32 w-96 h-96 bg-[#0f5a5e]/10 rounded-full blur-3xl"
+          className="absolute -top-32 -right-32 w-96 h-96 bg-[#0f5a5e]/10 blur-3xl"
         />
         <motion.div 
           animate={{ 
@@ -38,7 +38,7 @@ const Newsletter = () => {
             ease: "easeInOut",
             delay: 1
           }}
-          className="absolute -bottom-32 -left-32 w-96 h-96 bg-[#0f5a5e]/10 rounded-full blur-3xl"
+          className="absolute -bottom-32 -left-32 w-96 h-96 bg-[#0f5a5e]/10 blur-3xl"
         />
         
         {/* Content Container */}
@@ -75,11 +75,11 @@ const Newsletter = () => {
               <input
                 type="email"
                 placeholder="Your professional email"
-                className="h-11 px-4 rounded-lg bg-white/10 border border-white/20 text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-[#0f5a5e]/50 w-[300px] font-merriweather transition-all duration-300 hover:bg-white/[0.15]"
+                className="h-11 px-4  bg-white/10 border border-white/20 text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-[#0f5a5e]/50 w-[300px] font-merriweather transition-all duration-300 hover:bg-white/[0.15]"
               />
               <button
                 type="submit"
-                className="h-11 px-6 rounded-lg bg-[#0f5a5e] text-white font-merriweather font-medium hover:bg-[#0f5a5e]/90 transition-all duration-300 whitespace-nowrap group flex items-center gap-2 hover:gap-3 hover:px-7"
+                className="h-11 px-6 bg-[#0f5a5e] text-white font-merriweather font-medium hover:bg-[#0f5a5e]/90 transition-all duration-300 whitespace-nowrap group flex items-center gap-2 hover:gap-3 hover:px-7"
               >
                 Join Network
                 <svg 
@@ -126,7 +126,7 @@ const Newsletter = () => {
                 transition={{ duration: 0.3, delay: item.delay }}
               >
                 <div className="relative group">
-                  <div className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 transition-all duration-300 flex items-center justify-center cursor-pointer hover:scale-110">
+                  <div className="w-8 h-8 bg-white/10 hover:bg-white/20 transition-all duration-300 flex items-center justify-center cursor-pointer hover:scale-110">
                     <svg 
                       className="w-4 h-4 text-white/70 group-hover:text-white transition-colors" 
                       fill="none" 
@@ -136,7 +136,7 @@ const Newsletter = () => {
                       {item.icon}
                     </svg>
                   </div>
-                  <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-white px-2 py-1 rounded text-xs text-[#003366] opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+                  <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-white px-2 py-1  text-xs text-[#003366] opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
                     {item.tooltip}
                   </div>
                 </div>

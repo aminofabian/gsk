@@ -77,7 +77,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
 
       {/* Main Content */}
       <main className="max-w-[2000px] mx-auto px-4 sm:px-6 py-8">
-        <div className="bg-white rounded-xl shadow-sm p-6">
+        <div className="bg-white  shadow-sm p-6">
           {children}
         </div>
       </main>
@@ -103,7 +103,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                     {isActive && (
                       <motion.div
                         layoutId="mobileNavIndicator"
-                        className="absolute -bottom-1 left-1/2 w-1 h-1 bg-[#003366] rounded-full -translate-x-1/2"
+                        className="absolute -bottom-1 left-1/2 w-1 h-1 bg-[#003366]  -translate-x-1/2"
                         transition={{
                           type: "spring",
                           stiffness: 300,

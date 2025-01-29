@@ -8,7 +8,7 @@ export default function UserMenuDropdown() {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 10 }}
-      className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-100 py-2 z-50"
+      className="absolute right-0 mt-2 w-48 bg-white  shadow-lg border border-gray-100 py-2 z-50"
     >
       <button className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 transition-colors">
         View Profile

@@ -110,14 +110,14 @@ export default function BannerUpload() {
 
   return (
     <div className="space-y-6">
-      <div className="bg-white rounded-xl p-6 border border-gray-200">
+      <div className="bg-white  p-6 border border-gray-200">
         <h2 className="text-2xl font-merriweather font-bold text-[#003366] mb-6">Upload New Banner</h2>
         
         {/* Upload Area */}
         <div className="space-y-4">
           {/* Preview */}
           {preview && (
-            <div className="relative w-full aspect-[21/9] rounded-lg overflow-hidden bg-gray-100">
+            <div className="relative w-full aspect-[21/9]  overflow-hidden bg-gray-100">
               <Image
                 src={preview}
                 alt="Banner preview"
@@ -139,7 +139,7 @@ export default function BannerUpload() {
             />
             <label
               htmlFor="banner-upload"
-              className="block w-full p-4 border-2 border-dashed border-gray-300 rounded-lg text-center cursor-pointer hover:border-[#0f5a5e]/50 transition-colors"
+              className="block w-full p-4 border-2 border-dashed border-gray-300  text-center cursor-pointer hover:border-[#0f5a5e]/50 transition-colors"
             >
               <div className="space-y-2">
                 <div className="text-[#003366] font-medium">
@@ -178,7 +178,7 @@ export default function BannerUpload() {
           <button
             onClick={handleUpload}
             disabled={!selectedFile || uploading}
-            className={`w-full py-3 px-4 rounded-lg font-medium text-white transition-all duration-300 ${
+            className={`w-full py-3 px-4  font-medium text-white transition-all duration-300 ${
               !selectedFile || uploading
                 ? 'bg-gray-300 cursor-not-allowed'
                 : 'bg-[#003366] hover:bg-[#003366]/90'

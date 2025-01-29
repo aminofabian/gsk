@@ -67,7 +67,7 @@ const CPDPage = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Introduction Section */}
         <div className="mb-16">
-          <div className="bg-white rounded-2xl p-8 shadow-xl">
+          <div className="bg-white  p-8 shadow-xl">
             <h2 className="text-2xl font-merriweather font-bold text-[#003366] mb-6">
               Understanding CPD Points
             </h2>
@@ -85,12 +85,12 @@ const CPDPage = () => {
         {/* Categories Grid */}
         <div className="grid md:grid-cols-2 gap-8 mb-16">
           {cpdCategories.map((category, index) => (
-            <div key={index} className="bg-white rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-shadow">
+            <div key={index} className="bg-white  p-8 shadow-xl hover:shadow-2xl transition-shadow">
               <h3 className="text-xl font-merriweather font-bold text-[#003366] mb-4">
                 {category.title}
               </h3>
               <div className="mb-4">
-                <span className="inline-block bg-blue-100 text-blue-800 font-merriweather text-sm px-3 py-1 rounded-full">
+                <span className="inline-block bg-blue-100 text-blue-800 font-merriweather text-sm px-3 py-1 ">
                   {category.points}
                 </span>
               </div>
@@ -112,13 +112,13 @@ const CPDPage = () => {
         </div>
 
         {/* Why CPD Points Matter */}
-        <div className="bg-gradient-to-br from-[#003366] to-[#002244] rounded-2xl p-8 text-white mb-16">
+        <div className="bg-gradient-to-br from-[#003366] to-[#002244]  p-8 text-white mb-16">
           <h2 className="text-2xl font-merriweather font-bold mb-6">
             Why CPD Points Matter
           </h2>
           <div className="grid md:grid-cols-3 gap-8">
             <div>
-              <div className="bg-white/10 rounded-xl p-6">
+              <div className="bg-white/10  p-6">
                 <h3 className="font-merriweather font-semibold text-lg mb-3">Professional Growth</h3>
                 <p className="font-merriweather text-white/80">
                   Stay current with the latest medical advancements and best practices in gastroenterology.
@@ -126,7 +126,7 @@ const CPDPage = () => {
               </div>
             </div>
             <div>
-              <div className="bg-white/10 rounded-xl p-6">
+              <div className="bg-white/10  p-6">
                 <h3 className="font-merriweather font-semibold text-lg mb-3">License Renewal</h3>
                 <p className="font-merriweather text-white/80">
                   Meet regulatory requirements for maintaining your medical practice license in Kenya.
@@ -134,7 +134,7 @@ const CPDPage = () => {
               </div>
             </div>
             <div>
-              <div className="bg-white/10 rounded-xl p-6">
+              <div className="bg-white/10  p-6">
                 <h3 className="font-merriweather font-semibold text-lg mb-3">Quality Care</h3>
                 <p className="font-merriweather text-white/80">
                   Ensure you provide the highest standard of care to your patients through continuous learning.
@@ -145,7 +145,7 @@ const CPDPage = () => {
         </div>
 
         {/* How to Track Points */}
-        <div className="bg-white rounded-2xl p-8 shadow-xl">
+        <div className="bg-white  p-8 shadow-xl">
           <h2 className="text-2xl font-merriweather font-bold text-[#003366] mb-6">
             How to Track Your CPD Points
           </h2>
@@ -156,7 +156,7 @@ const CPDPage = () => {
             <div className="flex justify-center mt-8">
               <a 
                 href="/dashboard/cpd"
-                className="inline-flex items-center px-6 py-3 bg-[#003366] text-white rounded-lg font-merriweather font-semibold hover:bg-[#002244] transition-colors"
+                className="inline-flex items-center px-6 py-3 bg-[#003366] text-white  font-merriweather font-semibold hover:bg-[#002244] transition-colors"
               >
                 Track Your Points
                 <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

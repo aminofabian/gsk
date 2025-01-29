@@ -63,7 +63,7 @@ export default function NotFound() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
             <Link 
               href="/"
-              className="inline-flex items-center justify-center px-6 py-3 bg-white text-[#003366] rounded-xl font-serif font-semibold hover:bg-blue-50 transition-colors group"
+              className="inline-flex items-center justify-center px-6 py-3 bg-white text-[#003366]  font-serif font-semibold hover:bg-blue-50 transition-colors group"
             >
               Return Home
               <svg 
@@ -77,7 +77,7 @@ export default function NotFound() {
             </Link>
             <Link 
               href="/contact"
-              className="inline-flex items-center justify-center px-6 py-3 bg-[#003366] border border-white/20 text-white rounded-xl font-serif font-semibold hover:bg-[#004488] transition-colors"
+              className="inline-flex items-center justify-center px-6 py-3 bg-[#003366] border border-white/20 text-white  font-serif font-semibold hover:bg-[#004488] transition-colors"
             >
               Contact Support
             </Link>

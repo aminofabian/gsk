@@ -130,17 +130,17 @@ const Publications = () => {
               className="group relative"
             >
               {/* Paper Texture Background */}
-              <div className="absolute inset-0 bg-white rounded-[2rem] shadow-lg transform rotate-1 group-hover:rotate-0 transition-transform duration-300" 
+              <div className="absolute inset-0 bg-white shadow-lg transform rotate-1 group-hover:rotate-0 transition-transform duration-300" 
                 style={{ 
                   backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%2340e0d0' fill-opacity='0.02' fill-rule='evenodd'/%3E%3C/svg%3E")`,
                 }}
               />
 
-              <div className="relative bg-white rounded-[2rem] overflow-hidden border border-gray-100 shadow-lg group-hover:border-[#0f5a5e]/10 transition-colors duration-300">
+              <div className="relative bg-white overflow-hidden border border-gray-100 shadow-lg group-hover:border-[#0f5a5e]/10 transition-colors duration-300">
                 {/* Journal Header */}
                 <div className="px-8 py-6 border-b border-gray-100">
                   <div className="flex items-center justify-between mb-4">
-                    <span className="px-4 py-1.5 bg-[#0f5a5e]/3 text-[#003366] text-sm font-medium rounded-full">
+                    <span className="px-4 py-1.5 bg-[#0f5a5e]/3 text-[#003366] text-sm font-medium">
                       {pub.category}
                     </span>
                     <span className="flex items-center gap-2 text-gray-500 text-sm">
@@ -188,7 +188,7 @@ const Publications = () => {
                     {pub.tags.map((tag, tagIndex) => (
                       <span 
                         key={tagIndex}
-                        className="px-3 py-1 bg-[#0f5a5e]/3 text-[#003366] text-sm font-merriweather rounded-full hover:bg-[#0f5a5e]/5 transition-colors cursor-pointer"
+                        className="px-3 py-1 bg-[#0f5a5e]/3 text-[#003366] text-sm font-merriweather hover:bg-[#0f5a5e]/5 transition-colors cursor-pointer"
                       >
                         #{tag}
                       </span>
@@ -196,7 +196,7 @@ const Publications = () => {
                   </div>
 
                   <motion.button 
-                    className="group w-full flex items-center justify-center gap-2 px-6 py-3 bg-[#003366] text-white rounded-full hover:bg-[#003366]/90 transition-all duration-300"
+                    className="group w-full flex items-center justify-center gap-2 px-6 py-3 bg-[#003366] text-white hover:bg-[#003366]/90 transition-all duration-300"
                     whileHover={{ scale: 1.01 }}
                     transition={{ duration: 0.3 }}
                   >
@@ -218,7 +218,7 @@ const Publications = () => {
           viewport={{ once: true }}
         >
           <motion.button 
-            className="group relative inline-flex items-center gap-3 px-10 py-5 bg-[#003366] text-white rounded-full text-lg font-merriweather hover:bg-[#003366]/90 transition-all duration-300"
+            className="group relative inline-flex items-center gap-3 px-10 py-5 bg-[#003366] text-white text-lg font-merriweather hover:bg-[#003366]/90 transition-all duration-300"
             whileHover={{ scale: 1.01 }}
             transition={{ duration: 0.3 }}
           >

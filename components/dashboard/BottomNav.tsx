@@ -68,7 +68,7 @@ export default function BottomNav() {
               >
                 <motion.div
                   whileTap={{ scale: 0.95 }}
-                  className={`flex flex-col items-center justify-center w-16 h-16 rounded-full shadow-lg transition-all duration-200 ${
+                  className={`flex flex-col items-center justify-center w-16 h-16  shadow-lg transition-all duration-200 ${
                     isActive 
                       ? "bg-[#003366] text-white" 
                       : "bg-white text-[#003366] hover:bg-gray-50"
@@ -105,7 +105,7 @@ export default function BottomNav() {
                   {isActive && (
                     <motion.div
                       layoutId="bottomNavIconBackground"
-                      className="absolute inset-0 -m-1.5 rounded-full bg-blue-100/50"
+                      className="absolute inset-0 -m-1.5  bg-blue-100/50"
                       transition={{
                         type: "spring",
                         stiffness: 300,
@@ -123,7 +123,7 @@ export default function BottomNav() {
               {isActive && !isHome && (
                 <motion.div
                   layoutId="bottomNavIndicator"
-                  className="absolute -top-0.5 left-1/2 w-1 h-1 rounded-full bg-[#003366]"
+                  className="absolute -top-0.5 left-1/2 w-1 h-1  bg-[#003366]"
                   initial={{ x: "-50%" }}
                   animate={{ x: "-50%" }}
                   transition={{

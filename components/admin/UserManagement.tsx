@@ -31,7 +31,7 @@ export default function UserManagement() {
     <div>
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-2xl font-display font-bold text-gray-900">User Management</h2>
-        <button className="px-4 py-2 bg-[#003366] text-white rounded-lg hover:bg-[#004488] transition-colors">
+        <button className="px-4 py-2 bg-[#003366] text-white  hover:bg-[#004488] transition-colors">
           Add New User
         </button>
       </div>
@@ -43,7 +43,7 @@ export default function UserManagement() {
           placeholder="Search users..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full max-w-md px-4 py-2 rounded-lg border border-gray-200 focus:border-[#003366] focus:ring-1 focus:ring-[#003366]"
+          className="w-full max-w-md px-4 py-2  border border-gray-200 focus:border-[#003366] focus:ring-1 focus:ring-[#003366]"
         />
       </div>
 
@@ -71,13 +71,13 @@ export default function UserManagement() {
                 </td>
                 <td className="px-4 py-3 text-gray-600">{user.email}</td>
                 <td className="px-4 py-3">
-                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                  <span className="inline-flex items-center px-2.5 py-0.5  text-xs font-medium bg-blue-100 text-blue-800">
                     {user.role}
                   </span>
                 </td>
                 <td className="px-4 py-3">
                   <span
-                    className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                    className={`inline-flex items-center gap-1 px-2.5 py-0.5  text-xs font-medium ${
                       user.status === "active"
                         ? "bg-green-100 text-green-800"
                         : "bg-red-100 text-red-800"

@@ -18,8 +18,8 @@ export default function MembershipPage() {
       />
 
       {/* Decorative Elements */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-[#003366]/10 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2" />
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#003366]/10 rounded-full blur-3xl transform -translate-x-1/2 translate-y-1/2" />
+      <div className="absolute top-0 right-0 w-96 h-96 bg-[#003366]/10  blur-3xl transform translate-x-1/2 -translate-y-1/2" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#003366]/10  blur-3xl transform -translate-x-1/2 translate-y-1/2" />
 
       {/* Main Content */}
       <div className="relative min-h-screen flex items-center justify-center py-16 px-4 sm:px-6 lg:px-8">
@@ -29,11 +29,11 @@ export default function MembershipPage() {
             <div className="relative w-full max-w-md">
               {/* Background Card Effect */}
               <div className="absolute -inset-2">
-                <div className="w-full h-full mx-auto rotate-6 bg-gradient-to-r from-[#003366] to-[#004488] blur-xl opacity-30 rounded-3xl" />
+                <div className="w-full h-full mx-auto rotate-6 bg-gradient-to-r from-[#003366] to-[#004488] blur-xl opacity-30 -3xl" />
               </div>
               
               {/* Content Card */}
-              <div className="relative bg-[#003366] rounded-2xl p-8 shadow-xl">
+              <div className="relative bg-[#003366]  p-8 shadow-xl">
                 <div className="flex justify-center mb-8">
                   <Logo variant="light" />
                 </div>
@@ -67,7 +67,7 @@ export default function MembershipPage() {
 
           {/* Right Side - Form */}
           <div className="w-full lg:w-1/2">
-            <div className="bg-white rounded-3xl p-6 sm:p-8 md:p-12 shadow-xl backdrop-blur-lg border border-white/20">
+            <div className="bg-white -3xl p-6 sm:p-8 md:p-12 shadow-xl backdrop-blur-lg border border-white/20">
               <div className="w-full max-w-md mx-auto">
                 {/* Logo - Show only on mobile */}
                 <div className="flex justify-center w-full mb-8 lg:hidden">

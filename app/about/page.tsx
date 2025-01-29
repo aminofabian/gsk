@@ -55,7 +55,7 @@ const Overview = () => (
             </p>
           </div>
         </div>
-        <div className="relative h-[400px] rounded-3xl overflow-hidden shadow-2xl">
+        <div className="relative h-[400px] -3xl overflow-hidden shadow-2xl">
           <Image
             src="/meeting/75B_6035.jpg"
             alt="GSK Activities"
@@ -73,13 +73,13 @@ const VisionMission = () => (
   <section className="py-16 md:py-24 bg-gradient-to-br from-[#003366] to-[#002244]">
     <div className="max-w-7xl mx-auto px-4">
       <div className="grid md:grid-cols-2 gap-12">
-        <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 md:p-12">
+        <div className="bg-white/10 backdrop-blur-lg -3xl p-8 md:p-12">
           <h3 className="text-2xl md:text-3xl font-serif font-bold text-white mb-6">Our Vision</h3>
           <p className="text-white/90 font-serif">
             To be a leading force in improving gastrointestinal health in Kenya, ensuring individuals have access to high-quality, comprehensive care for gastrointestinal disorders.
           </p>
         </div>
-        <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 md:p-12">
+        <div className="bg-white/10 backdrop-blur-lg -3xl p-8 md:p-12">
           <h3 className="text-2xl md:text-3xl font-serif font-bold text-white mb-6">Our Mission</h3>
           <p className="text-white/90 font-serif">
             To advance the practice of gastroenterology through education, research, and the dissemination of knowledge, improving the prevention, diagnosis, treatment, and management of gastrointestinal diseases in Kenya.
@@ -130,7 +130,7 @@ const Objectives = () => (
             image: "/meeting/75B_6081.jpg"
           }
         ].map((objective, index) => (
-          <div key={index} className="bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+          <div key={index} className="bg-white -3xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
             <div className="relative h-48">
               <Image
                 src={objective.image}
@@ -155,7 +155,7 @@ const MembershipBenefits = () => (
   <section className="py-16 md:py-24 bg-white">
     <div className="max-w-7xl mx-auto px-4">
       <div className="grid md:grid-cols-2 gap-12 items-center">
-        <div className="relative h-[500px] rounded-3xl overflow-hidden shadow-2xl">
+        <div className="relative h-[500px] -3xl overflow-hidden shadow-2xl">
           <Image
             src="/meeting/75B_6092.jpg"
             alt="GSK Membership"

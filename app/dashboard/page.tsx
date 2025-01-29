@@ -88,7 +88,7 @@ export default function DashboardPage() {
   return (
     <DashboardLayout>
       {/* Welcome Section */}
-      <div className="relative rounded-2xl overflow-hidden mb-8 bg-gradient-to-r from-[#003366] to-[#004488]">
+      <div className="relative  overflow-hidden mb-8 bg-gradient-to-r from-[#003366] to-[#004488]">
         <div className="absolute inset-0 bg-grid-white/10" />
         <div className="relative p-8">
           <h1 className="text-3xl font-bold text-white mb-2">Welcome Back, Dr. John</h1>
@@ -106,7 +106,7 @@ export default function DashboardPage() {
             transition={{ delay: index * 0.1 }}
           >
             <Link href={link.href}>
-              <div className={`p-4 md:p-6 rounded-2xl bg-gradient-to-br ${link.gradient} hover:shadow-lg transition-all duration-300 h-full`}>
+              <div className={`p-4 md:p-6  bg-gradient-to-br ${link.gradient} hover:shadow-lg transition-all duration-300 h-full`}>
                 <link.icon className="text-white text-xl md:text-2xl mb-3 md:mb-4" />
                 <h3 className="text-white font-bold text-sm md:text-base mb-1 md:mb-2">{link.title}</h3>
                 <p className="text-white/80 text-xs md:text-sm">{link.description}</p>
@@ -117,10 +117,10 @@ export default function DashboardPage() {
       </div>
 
       {/* Recent Updates */}
-      <div className="bg-white rounded-2xl p-6 shadow-lg">
+      <div className="bg-white  p-6 shadow-lg">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
-            <div className="w-1 h-8 bg-[#083c74] rounded-full"></div>
+            <div className="w-1 h-8 bg-[#083c74] "></div>
             <div>
               <h2 className="text-xl font-bold text-[#083c74]">Recent Updates</h2>
               <p className="text-sm text-gray-500">Latest medical updates and announcements</p>
@@ -137,10 +137,10 @@ export default function DashboardPage() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
-              className="flex items-center justify-between p-3.5 rounded-xl bg-[#083c74]/5 hover:bg-[#083c74]/10 transition-all duration-200 border border-[#083c74]/10 hover:border-[#083c74]/20 group"
+              className="flex items-center justify-between p-3.5  bg-[#083c74]/5 hover:bg-[#083c74]/10 transition-all duration-200 border border-[#083c74]/10 hover:border-[#083c74]/20 group"
             >
               <div className="flex items-start gap-3">
-                <div className="p-2 rounded-lg bg-[#083c74]/10 text-[#083c74]">
+                <div className="p-2  bg-[#083c74]/10 text-[#083c74]">
                   {update.type === 'Publication' ? <FaFileAlt className="text-sm" /> :
                    update.type === 'Event' ? <FaCalendarAlt className="text-sm" /> :
                    <FaGraduationCap className="text-sm" />}
@@ -150,12 +150,12 @@ export default function DashboardPage() {
                     {update.title}
                   </h3>
                   <p className="text-gray-500 text-xs flex items-center gap-2">
-                    <span className="w-1 h-1 bg-[#083c74]/30 rounded-full"></span>
+                    <span className="w-1 h-1 bg-[#083c74]/30 "></span>
                     {update.date}
                   </p>
                 </div>
               </div>
-              <span className="px-2.5 py-1 rounded-full text-[10px] font-medium bg-[#083c74]/10 text-[#083c74]">
+              <span className="px-2.5 py-1  text-[10px] font-medium bg-[#083c74]/10 text-[#083c74]">
                 {update.type}
               </span>
             </motion.div>

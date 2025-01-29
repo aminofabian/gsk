@@ -44,7 +44,7 @@ const NavItem = ({ item }: { item: NavItem }) => {
       </a>
       
       {item.children && isOpen && (
-        <ul className="absolute left-0 top-[calc(100%-2px)] bg-white shadow-xl min-w-[240px] rounded-b-lg overflow-hidden border-t-2 border-[#0f5a5e]/30">
+        <ul className="absolute left-0 top-[calc(100%-2px)] bg-white shadow-xl min-w-[240px] overflow-hidden border-t-2 border-[#0f5a5e]/30">
           {item.children.map((child, idx) => (
             <li key={idx} className="border-b border-gray-100 last:border-none">
               {child.children ? (
@@ -58,7 +58,7 @@ const NavItem = ({ item }: { item: NavItem }) => {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
                   </a>
-                  <ul className="absolute left-full top-0 bg-white shadow-xl min-w-[240px] rounded-r-lg hidden group-hover/sub:block border border-gray-100">
+                  <ul className="absolute left-full top-0 bg-white shadow-xl min-w-[240px] hidden group-hover/sub:block border border-gray-100">
                     {child.children.map((subChild, subIdx) => (
                       <li key={subIdx} className="border-b border-gray-100 last:border-none">
                         <a 
@@ -109,7 +109,7 @@ const MobileMenu = ({ navItems, isOpen, setIsOpen }: {
               <div key={index} className="mb-2">
                 <a 
                   href="#" 
-                  className="block px-4 py-2 font-merriweather text-[#003366] hover:bg-[#0f5a5e]/5 rounded-lg transition-colors"
+                  className="block px-4 py-2 font-merriweather text-[#003366] hover:bg-[#0f5a5e]/5 transition-colors"
                 >
                   {item.title}
                 </a>
@@ -119,7 +119,7 @@ const MobileMenu = ({ navItems, isOpen, setIsOpen }: {
                       <div key={childIdx}>
                         <a 
                           href="#" 
-                          className="block px-4 py-2 font-merriweather text-[#003366] hover:bg-[#0f5a5e]/5 rounded-lg transition-colors"
+                          className="block px-4 py-2 font-merriweather text-[#003366] hover:bg-[#0f5a5e]/5 transition-colors"
                         >
                           {child.title}
                         </a>
@@ -129,7 +129,7 @@ const MobileMenu = ({ navItems, isOpen, setIsOpen }: {
                               <a
                                 key={subIdx}
                                 href="#" 
-                                className="block px-4 py-2 font-merriweather text-[#003366] hover:bg-[#0f5a5e]/5 rounded-lg transition-colors"
+                                className="block px-4 py-2 font-merriweather text-[#003366] hover:bg-[#0f5a5e]/5 transition-colors"
                               >
                                 {subChild.title}
                               </a>
@@ -146,10 +146,10 @@ const MobileMenu = ({ navItems, isOpen, setIsOpen }: {
         </div>
         <div className="p-4 border-t">
           <div className="flex flex-col space-y-2">
-            <a href="/login" className="w-full px-4 py-2 text-center text-[14px] font-merriweather font-semibold text-[#003366] border border-[#0f5a5e]/20 rounded-md hover:bg-[#0f5a5e]/5">
+            <a href="/login" className="w-full px-4 py-2 text-center text-[14px] font-merriweather font-semibold text-[#003366] border border-[#0f5a5e]/20 hover:bg-[#0f5a5e]/5">
               SIGN IN
             </a>
-            <a href="/membership" className="w-full px-4 py-2 text-center text-[14px] font-merriweather font-semibold text-white bg-gradient-to-r from-[#003366] via-[#004080] to-[#0f5a5e] rounded-md hover:opacity-90">
+            <a href="/membership" className="w-full px-4 py-2 text-center text-[14px] font-merriweather font-semibold text-white bg-gradient-to-r from-[#003366] via-[#004080] to-[#0f5a5e] hover:opacity-90">
               JOIN GSK
             </a>
           </div>
@@ -164,7 +164,7 @@ const HelloBar = () => (
     {/* Announcement Banner */}
     <div className="bg-gradient-to-r from-[#003366] via-[#004080] to-[#0f5a5e]/60 py-1.5 text-center relative overflow-hidden">
       <div className="flex items-center justify-center gap-2">
-        <div className="w-1.5 h-1.5 bg-[#0f5a5e]/60 rounded-full animate-pulse"></div>
+        <div className="w-1.5 h-1.5 bg-[#0f5a5e]/60 animate-pulse"></div>
         <div className="whitespace-nowrap animate-marquee">
           <span className="font-merriweather text-xs text-white/90">
             Contact Us: +254 704 373746 | secretarygsk@gmail.com | ACS Building, 2nd Floor. Lenana Road, Nairobi, Kenya
@@ -176,13 +176,13 @@ const HelloBar = () => (
     </div>
     <div className="max-w-7xl mx-auto px-4 py-1 flex flex-wrap items-center justify-between gap-4">
       <div className="flex items-center gap-6">
-        <a href="/donate" className="inline-flex items-center gap-2 px-4 py-1 bg-[#0f5a5e]/80 hover:bg-[#0f5a5e] rounded-full text-sm font-merriweather text-white transition-all">
+        <a href="/donate" className="inline-flex items-center gap-2 px-4 py-1 bg-[#0f5a5e]/80 hover:bg-[#0f5a5e] text-sm font-merriweather text-white transition-all">
           Donate
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
           </svg>
         </a>
-        <a href="/volunteer" className="inline-flex items-center gap-2 px-4 py-1 bg-[#003366] hover:bg-[#0f5a5e]/60 rounded-full text-sm font-merriweather text-white/90 hover:text-white transition-all">
+        <a href="/volunteer" className="inline-flex items-center gap-2 px-4 py-1 bg-[#003366] hover:bg-[#0f5a5e]/60 text-sm font-merriweather text-white/90 hover:text-white transition-all">
           Volunteer
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 00-3 0m-6-3V11m0-5.5v-1a1.5 1.5 0 013 0v1m0 0V11m0-5.5a1.5 1.5 0 013 0v3m0 0V11" />
@@ -256,7 +256,7 @@ const Navigation = () => {
                 </a>
                 <a 
                   href="/register" 
-                  className="px-5 py-2 text-sm font-semibold text-white bg-[#003366] hover:bg-gradient-to-r hover:from-[#003366] hover:to-[#0f5a5e]/80 rounded-md transition-all duration-200 uppercase tracking-wider"
+                  className="px-5 py-2 text-sm font-semibold text-white bg-[#003366] hover:bg-gradient-to-r hover:from-[#003366] hover:to-[#0f5a5e]/80 transition-all duration-200 uppercase tracking-wider"
                 >
                   Join GSK
                 </a>

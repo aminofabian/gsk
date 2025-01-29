@@ -67,7 +67,7 @@ export default function DonationsManagement() {
           >
             <FaFilter />
           </button>
-          <button className="px-4 py-2 bg-[#003366] text-white rounded-lg hover:bg-[#004488] transition-colors">
+          <button className="px-4 py-2 bg-[#003366] text-white  hover:bg-[#004488] transition-colors">
             <div className="flex items-center gap-2">
               <FaDownload />
               <span>Export</span>
@@ -78,14 +78,14 @@ export default function DonationsManagement() {
 
       {/* Filters */}
       {showFilters && (
-        <div className="mb-6 p-4 bg-gray-50 rounded-xl">
+        <div className="mb-6 p-4 bg-gray-50 ">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Status</label>
               <select
                 value={selectedStatus}
                 onChange={(e) => setSelectedStatus(e.target.value)}
-                className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-[#003366] focus:ring-1 focus:ring-[#003366]"
+                className="w-full px-4 py-2  border border-gray-200 focus:border-[#003366] focus:ring-1 focus:ring-[#003366]"
               >
                 {statuses.map((status) => (
                   <option key={status} value={status}>
@@ -99,7 +99,7 @@ export default function DonationsManagement() {
               <select
                 value={selectedCampaign}
                 onChange={(e) => setSelectedCampaign(e.target.value)}
-                className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-[#003366] focus:ring-1 focus:ring-[#003366]"
+                className="w-full px-4 py-2  border border-gray-200 focus:border-[#003366] focus:ring-1 focus:ring-[#003366]"
               >
                 <option value="all">All Campaigns</option>
                 {campaigns.map((campaign) => (
@@ -116,7 +116,7 @@ export default function DonationsManagement() {
                 placeholder="Search by donor or email..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-[#003366] focus:ring-1 focus:ring-[#003366]"
+                className="w-full px-4 py-2  border border-gray-200 focus:border-[#003366] focus:ring-1 focus:ring-[#003366]"
               />
             </div>
           </div>
@@ -152,13 +152,13 @@ export default function DonationsManagement() {
                   </div>
                 </td>
                 <td className="px-4 py-3">
-                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                  <span className="inline-flex items-center px-2.5 py-0.5  text-xs font-medium bg-blue-100 text-blue-800">
                     {donation.campaign}
                   </span>
                 </td>
                 <td className="px-4 py-3">
                   <span
-                    className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                    className={`inline-flex items-center px-2.5 py-0.5  text-xs font-medium ${
                       donation.status === "completed"
                         ? "bg-green-100 text-green-800"
                         : donation.status === "pending"

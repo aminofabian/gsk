@@ -67,7 +67,7 @@ export default function Statistics() {
           <motion.div
             key={stat.label}
             whileHover={{ scale: 1.02, y: -2 }}
-            className="bg-white p-6 rounded-2xl shadow-sm hover:shadow-lg transition-all group relative overflow-hidden"
+            className="bg-white p-6  shadow-sm hover:shadow-lg transition-all group relative overflow-hidden"
           >
             {/* Background Pattern */}
             <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(circle_at_1px_1px,_rgb(0,0,0)_1px,_transparent_0)] [background-size:16px_16px]" />
@@ -78,7 +78,7 @@ export default function Statistics() {
               <motion.div
                 whileHover={{ rotate: [0, -10, 10, -10, 0] }}
                 transition={{ duration: 0.5 }}
-                className={`p-3 bg-gradient-to-br ${stat.gradientFrom} ${stat.gradientTo} rounded-xl text-white shadow-lg`}
+                className={`p-3 bg-gradient-to-br ${stat.gradientFrom} ${stat.gradientTo}  text-white shadow-lg`}
               >
                 <stat.icon className="text-xl" />
               </motion.div>
@@ -96,7 +96,7 @@ export default function Statistics() {
             <div className="text-sm font-medium text-gray-900 mb-2">{stat.label}</div>
 
             {/* Progress Bar Container */}
-            <div className="relative h-2 bg-gray-100 rounded-full overflow-hidden">
+            <div className="relative h-2 bg-gray-100  overflow-hidden">
               {/* Progress Bar Background */}
               <div className="absolute inset-0 bg-gray-50" />
 
@@ -105,7 +105,7 @@ export default function Statistics() {
                 initial={{ width: 0 }}
                 animate={{ width: `${stat.progressValue}%` }}
                 transition={{ duration: 1, ease: "easeOut" }}
-                className={`absolute h-full bg-gradient-to-r ${stat.gradientFrom} ${stat.gradientTo} rounded-full`}
+                className={`absolute h-full bg-gradient-to-r ${stat.gradientFrom} ${stat.gradientTo} `}
               />
 
               {/* Shimmer Effect */}

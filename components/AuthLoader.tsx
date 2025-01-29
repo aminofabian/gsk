@@ -40,13 +40,13 @@ const AuthLoader = ({ onAuthenticated }: AuthLoaderProps) => {
               Gastroenterology Society of Kenya
             </h1>
             <div className="flex items-center justify-center gap-2">
-              <div className="w-3 h-3 bg-yellow-400 rounded-full animate-pulse" />
+              <div className="w-3 h-3 bg-yellow-400  animate-pulse" />
               <p className="text-yellow-400 font-serif">Website Under Development</p>
             </div>
           </div>
 
           <div className="w-full max-w-sm">
-            <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6 shadow-2xl border border-white/20">
+            <div className="bg-white/10 backdrop-blur-lg  p-6 shadow-2xl border border-white/20">
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="space-y-2">
                   <label className="block text-sm font-serif text-white/90">
@@ -63,7 +63,7 @@ const AuthLoader = ({ onAuthenticated }: AuthLoaderProps) => {
                         setPassword(e.target.value);
                         setError('');
                       }}
-                      className="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/30"
+                      className="w-full px-4 py-2 bg-white/10 border border-white/20  text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/30"
                       placeholder="Enter password"
                     />
                   </motion.div>
@@ -73,7 +73,7 @@ const AuthLoader = ({ onAuthenticated }: AuthLoaderProps) => {
                 </div>
                 <button
                   type="submit"
-                  className="w-full px-4 py-2 bg-white text-[#003366] rounded-lg font-serif font-semibold hover:bg-blue-50 transition-colors"
+                  className="w-full px-4 py-2 bg-white text-[#003366]  font-serif font-semibold hover:bg-blue-50 transition-colors"
                 >
                   Access Website
                 </button>

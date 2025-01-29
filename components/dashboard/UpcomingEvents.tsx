@@ -68,7 +68,7 @@ export default function UpcomingEvents() {
         </button>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
+      <div className="bg-white  shadow-sm overflow-hidden">
         {upcomingEvents.map((event, index) => (
           <motion.div
             key={index}
@@ -79,7 +79,7 @@ export default function UpcomingEvents() {
             {/* Time Status Badge */}
             {event.startDate && (
               <div className="flex items-center gap-2 mb-3">
-                <div className={`h-2 w-2 rounded-full ${getTimeStatus(event.startDate).color}`} />
+                <div className={`h-2 w-2  ${getTimeStatus(event.startDate).color}`} />
                 <span className="text-xs font-medium text-gray-500">
                   {getTimeStatus(event.startDate).text}
                 </span>
@@ -111,7 +111,7 @@ export default function UpcomingEvents() {
                 whileHover={{ scale: 1.05 }}
                 className="flex flex-col items-end gap-1"
               >
-                <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-blue-50 text-blue-600 font-medium">
+                <div className="flex items-center gap-1.5 px-3 py-1.5  bg-blue-50 text-blue-600 font-medium">
                   <FaMedal className="text-blue-500" />
                   <span className="text-sm">{event.points} Points</span>
                 </div>
@@ -127,12 +127,12 @@ export default function UpcomingEvents() {
             </div>
 
             {/* Progress Bar (more visible on hover) */}
-            <div className="mt-4 relative h-1 bg-gray-100 rounded-full overflow-hidden">
+            <div className="mt-4 relative h-1 bg-gray-100  overflow-hidden">
               <motion.div
                 initial={{ width: 0 }}
                 animate={{ width: "100%" }}
                 transition={{ duration: 1.5, ease: "easeOut" }}
-                className={`absolute h-full ${getTimeStatus(event.startDate || new Date()).color} opacity-20 group-hover:opacity-40 rounded-full`}
+                className={`absolute h-full ${getTimeStatus(event.startDate || new Date()).color} opacity-20 group-hover:opacity-40 `}
               />
             </div>
           </motion.div>

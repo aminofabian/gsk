@@ -17,7 +17,7 @@ export default function HeroBannersPage() {
           <BannerUpload />
           
           {/* Banner List - To be implemented */}
-          <div className="bg-white rounded-xl p-6 border border-gray-200">
+          <div className="bg-white  p-6 border border-gray-200">
             <h2 className="text-2xl font-merriweather font-bold text-[#003366] mb-6">
               Current Banners
             </h2>

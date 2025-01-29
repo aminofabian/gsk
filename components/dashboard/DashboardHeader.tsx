@@ -40,7 +40,7 @@ export default function DashboardHeader() {
                 isSearchFocused ? "scale-105" : "scale-100"
               }`}
             >
-              <div className={`absolute inset-0 bg-white rounded-2xl transition-all duration-200 ${
+              <div className={`absolute inset-0 bg-white  transition-all duration-200 ${
                 isSearchFocused 
                   ? "shadow-lg ring-2 ring-[#003366]/20" 
                   : "shadow-sm ring-1 ring-gray-200/70"
@@ -48,7 +48,7 @@ export default function DashboardHeader() {
               <input
                 type="text"
                 placeholder="Search resources, members, events..."
-                className="w-full pl-12 pr-4 py-3 rounded-2xl border-0 bg-transparent relative text-sm focus:ring-0 transition-colors"
+                className="w-full pl-12 pr-4 py-3  border-0 bg-transparent relative text-sm focus:ring-0 transition-colors"
                 onFocus={() => setIsSearchFocused(true)}
                 onBlur={() => setIsSearchFocused(false)}
               />
@@ -71,14 +71,14 @@ export default function DashboardHeader() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setShowNotifications(!showNotifications)}
-                className={`relative p-3 rounded-xl transition-all duration-200 ${
+                className={`relative p-3  transition-all duration-200 ${
                   showNotifications 
                     ? "bg-[#003366] text-white shadow-lg" 
                     : "text-gray-600 hover:bg-gray-100"
                 }`}
               >
                 <FaBell className="text-lg" />
-                <span className="absolute top-2 right-2 w-2.5 h-2.5 bg-red-500 rounded-full ring-2 ring-white" />
+                <span className="absolute top-2 right-2 w-2.5 h-2.5 bg-red-500  ring-2 ring-white" />
               </motion.button>
 
               {/* Notifications Dropdown */}
@@ -93,13 +93,13 @@ export default function DashboardHeader() {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => setShowUserMenu(!showUserMenu)}
-                className={`flex items-center gap-3 rounded-xl p-1.5 pr-3 transition-all duration-200 ${
+                className={`flex items-center gap-3  p-1.5 pr-3 transition-all duration-200 ${
                   showUserMenu 
                     ? "bg-gray-100 shadow-inner" 
                     : "hover:bg-gray-50"
                 }`}
               >
-                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#003366] to-[#004488] flex items-center justify-center text-white font-medium shadow-md">
+                <div className="w-10 h-10  bg-gradient-to-br from-[#003366] to-[#004488] flex items-center justify-center text-white font-medium shadow-md">
                   JM
                 </div>
                 <div className="hidden sm:block text-left">
@@ -129,7 +129,7 @@ export default function DashboardHeader() {
               isSearchFocused ? "scale-105" : "scale-100"
             }`}
           >
-            <div className={`absolute inset-0 bg-white rounded-xl transition-all duration-200 ${
+            <div className={`absolute inset-0 bg-white  transition-all duration-200 ${
               isSearchFocused 
                 ? "shadow-lg ring-2 ring-[#003366]/20" 
                 : "shadow-sm ring-1 ring-gray-200/70"
@@ -137,7 +137,7 @@ export default function DashboardHeader() {
             <input
               type="text"
               placeholder="Search..."
-              className="w-full pl-12 pr-4 py-3 rounded-xl border-0 bg-transparent relative text-sm focus:ring-0 transition-colors"
+              className="w-full pl-12 pr-4 py-3  border-0 bg-transparent relative text-sm focus:ring-0 transition-colors"
               onFocus={() => setIsSearchFocused(true)}
               onBlur={() => setIsSearchFocused(false)}
             />

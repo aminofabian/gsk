@@ -73,7 +73,7 @@ export default function AdminDashboard() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
-              className="p-6 bg-white rounded-xl border hover:shadow-md transition-shadow"
+              className="p-6 bg-white  border hover:shadow-md transition-shadow"
             >
               <div className="flex items-center justify-between">
                 <div>
@@ -84,7 +84,7 @@ export default function AdminDashboard() {
                   </p>
                 </div>
                 <div
-                  className={`p-3 rounded-lg ${
+                  className={`p-3  ${
                     stat.color === "blue"
                       ? "bg-blue-100 text-blue-600"
                       : stat.color === "green"
@@ -103,25 +103,25 @@ export default function AdminDashboard() {
 
         {/* Quick Actions */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <button className="p-4 bg-[#003366] text-white rounded-xl hover:bg-[#004488] transition-colors">
+          <button className="p-4 bg-[#003366] text-white  hover:bg-[#004488] transition-colors">
             <div className="flex items-center gap-3">
               <FaUsers className="text-xl" />
               <span>Add New Member</span>
             </div>
           </button>
-          <button className="p-4 bg-[#003366] text-white rounded-xl hover:bg-[#004488] transition-colors">
+          <button className="p-4 bg-[#003366] text-white  hover:bg-[#004488] transition-colors">
             <div className="flex items-center gap-3">
               <FaHandshake className="text-xl" />
               <span>Add Partner</span>
             </div>
           </button>
-          <button className="p-4 bg-[#003366] text-white rounded-xl hover:bg-[#004488] transition-colors">
+          <button className="p-4 bg-[#003366] text-white  hover:bg-[#004488] transition-colors">
             <div className="flex items-center gap-3">
               <FaNewspaper className="text-xl" />
               <span>Post Update</span>
             </div>
           </button>
-          <button className="p-4 bg-[#003366] text-white rounded-xl hover:bg-[#004488] transition-colors">
+          <button className="p-4 bg-[#003366] text-white  hover:bg-[#004488] transition-colors">
             <div className="flex items-center gap-3">
               <FaDonate className="text-xl" />
               <span>Record Donation</span>
@@ -136,10 +136,10 @@ export default function AdminDashboard() {
             {recentActivities.map((activity) => (
               <div
                 key={activity.id}
-                className="flex items-center gap-4 p-4 bg-white rounded-xl border hover:shadow-sm transition-shadow"
+                className="flex items-center gap-4 p-4 bg-white  border hover:shadow-sm transition-shadow"
               >
                 <div
-                  className={`p-2 rounded-lg ${
+                  className={`p-2  ${
                     activity.type === "user"
                       ? "bg-blue-100 text-blue-600"
                       : activity.type === "donation"

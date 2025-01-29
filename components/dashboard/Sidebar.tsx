@@ -82,7 +82,7 @@ export default function Sidebar() {
 
   return (
     <div 
-      className={`h-[98vh] my-2 ml-2 bg-[#004488] rounded-2xl border border-white/10 transition-all duration-300 overflow-hidden ${
+      className={`h-[98vh] my-2 ml-2 bg-[#004488]  border border-white/10 transition-all duration-300 overflow-hidden ${
         isCollapsed ? "w-20" : "w-72"
       }`}
     >
@@ -104,7 +104,7 @@ export default function Sidebar() {
               {statsItems.map((stat, index) => (
                 <div 
                   key={index} 
-                  className="bg-[#003366]/50 hover:bg-[#003366] transition-all duration-200 rounded-lg p-2.5 group cursor-default"
+                  className="bg-[#003366]/50 hover:bg-[#003366] transition-all duration-200  p-2.5 group cursor-default"
                 >
                   <div className="flex items-center gap-1.5 text-white/60 mb-1">
                     <span className="text-base">{stat.icon}</span>
@@ -130,7 +130,7 @@ export default function Sidebar() {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className={`flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all duration-200 ${
+                    className={`flex items-center gap-3 px-4 py-2.5  transition-all duration-200 ${
                       pathname === item.href
                         ? "bg-[#003366] text-white shadow-sm"
                         : "text-white/60 hover:text-white hover:bg-[#003366]/50"
@@ -155,7 +155,7 @@ export default function Sidebar() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-white/60 hover:text-white hover:bg-[#003366]/50 transition-all duration-200"
+                className="flex items-center gap-3 px-4 py-2.5  text-white/60 hover:text-white hover:bg-[#003366]/50 transition-all duration-200"
               >
                 <item.icon className="text-xl" />
                 <span className="font-medium text-sm">{item.label}</span>
