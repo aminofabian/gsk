@@ -1,75 +1,14 @@
 'use client';
 
 import React from 'react';
-import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaGlobe, FaChevronRight, FaDna, FaMicroscope, FaFlask } from 'react-icons/fa';
-import { GiStomach, GiDna2, GiMedicines } from 'react-icons/gi';
+import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaGlobe, FaChevronRight } from 'react-icons/fa';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import Logo from './Logo';
 
-const DNAStrand = () => {
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {[...Array(20)].map((_, i) => (
-        <motion.div
-          key={i}
-          className="absolute"
-          style={{
-            left: `${(i % 4) * 25}%`,
-            top: `${Math.floor(i / 4) * 20}%`,
-          }}
-          animate={{
-            y: [0, 20, 0],
-            x: [0, 10, 0],
-            rotate: [0, 360, 0],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            delay: i * 0.2,
-          }}
-        >
-          <div className="relative">
-            <FaDna className="text-white/5 text-6xl transform rotate-45" />
-          </div>
-        </motion.div>
-      ))}
-    </div>
-  );
-};
-
 const Footer = () => {
   return (
-    <footer className="relative bg-[#003366] text-white overflow-hidden">
-      {/* DNA Animation Background */}
-      <DNAStrand />
-
-      {/* Medical Icons Float */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[GiStomach, FaMicroscope, GiMedicines, FaFlask, GiDna2].map((Icon, index) => (
-          <motion.div
-            key={index}
-            className="absolute"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, -30, 0],
-              opacity: [0.05, 0.1, 0.05],
-              scale: [1, 1.1, 1],
-            }}
-            transition={{
-              duration: 5 + Math.random() * 2,
-              repeat: Infinity,
-              delay: index * 0.5,
-            }}
-          >
-            <Icon className="text-4xl text-[#0f5a5e]/10" />
-          </motion.div>
-        ))}
-      </div>
-
+    <footer className="relative bg-[#001a35] text-white">
       {/* Main Content */}
       <div className="relative">
         {/* Content Container */}
@@ -91,7 +30,7 @@ const Footer = () => {
                 <motion.button
                   whileHover={{ scale: 1.01 }}
                   whileTap={{ scale: 0.98 }}
-                  className="mt-4 px-6 py-2 bg-[#0f5a5e]/5 text-white hover:bg-[#0f5a5e]/10 flex items-center gap-2 group transition-all duration-300"
+                  className="mt-4 px-6 py-2 bg-white/10 text-white hover:bg-white/20 flex items-center gap-2 group transition-all duration-300"
                 >
                   Learn more about our mission
                   <FaChevronRight className="text-sm transition-transform group-hover:translate-x-1" />
@@ -125,10 +64,10 @@ const Footer = () => {
                     >
                       <Link 
                         href="#" 
-                        className="group relative px-4 py-1.5 block hover:text-[#0f5a5e] transition-colors hover:bg-white/5"
+                        className="group relative px-4 py-1.5 block hover:text-white transition-colors hover:bg-white/10"
                       >
                         <span className="relative z-10 flex items-center gap-2">
-                          <FaChevronRight className="text-xs text-[#0f5a5e] group-hover:text-[#0f5a5e] transition-colors" />
+                          <FaChevronRight className="text-xs text-white group-hover:text-white transition-colors" />
                           {link}
                         </span>
                       </Link>
@@ -160,9 +99,9 @@ const Footer = () => {
                       className="group relative"
                       whileHover={{ x: 4 }}
                     >
-                      <div className="relative flex items-start gap-4 p-2 hover:bg-[#0f5a5e]/5 transition-colors">
-                        <div className="p-2 bg-[#0f5a5e]/10 group-hover:bg-[#0f5a5e]/15 transition-colors">
-                          <item.icon className="text-[#0f5a5e] group-hover:text-white transition-colors" />
+                      <div className="relative flex items-start gap-4 p-2 hover:bg-white/10 transition-colors">
+                        <div className="p-2 bg-white/10 group-hover:bg-white/20 transition-colors">
+                          <item.icon className="text-white group-hover:text-white transition-colors" />
                         </div>
                         <div>
                           <p className="font-merriweather font-medium text-white mb-1">{item.title}</p>
@@ -178,7 +117,7 @@ const Footer = () => {
 
           {/* Bottom Bar */}
           <div className="relative mt-12 pt-6">
-            <div className="absolute inset-0 bg-[#0f5a5e]/10 h-px" />
+            <div className="absolute inset-0 bg-white/10 h-px" />
             <div className="relative flex flex-col md:flex-row justify-between items-center gap-4">
               <motion.p 
                 className="text-white/80 text-sm"
@@ -200,11 +139,11 @@ const Footer = () => {
                   <Link 
                     key={item}
                     href="#" 
-                    className="relative group px-2 py-1 hover:text-[#0f5a5e] transition-colors"
+                    className="relative group px-2 py-1 hover:text-white transition-colors"
                   >
                     <span className="relative z-10">{item}</span>
                     <motion.div
-                      className="absolute bottom-0 left-0 w-0 h-px bg-[#0f5a5e]/30 group-hover:w-full transition-all duration-300"
+                      className="absolute bottom-0 left-0 w-0 h-px bg-white/30 group-hover:w-full transition-all duration-300"
                       whileHover={{ width: "100%" }}
                     />
                   </Link>
