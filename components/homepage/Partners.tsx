@@ -1,47 +1,47 @@
 const Partners = () => {
   const leaders = [
     {
-      name: "Dr. John Doe",
-      title: "President",
-      image: "/images/leaders/leader1.jpg",
+      name: "Dr. Eric Murunga",
+      title: "Chairman",
+      image: "/doctors/dr erick murunga.avif",
       specialty: "Gastroenterology",
       experience: "15+ years"
     },
     {
-      name: "Dr. Jane Smith",
-      title: "Secretary General",
-      image: "/images/leaders/leader2.jpg",
-      specialty: "Hepatology",
+      name: "Dr. Wilson Kiraitu",
+      title: "Vice Chair",
+      image: "/doctors/dr wilson kiraitu.jpg",
+      specialty: "Gastroenterology",
       experience: "12+ years"
     },
     {
-      name: "Dr. James Mwangi",
-      title: "Treasurer",
-      image: "/images/leaders/leader3.jpg",
-      specialty: "Endoscopy",
+      name: "Dr. Linda Gathara",
+      title: "Secretary",
+      image: "/doctors/Linda-Gathara.jpg",
+      specialty: "Gastroenterology",
       experience: "10+ years"
     },
     {
-      name: "Dr. Sarah Kimani",
-      title: "Research Director",
-      image: "/images/leaders/leader4.jpg",
-      specialty: "Clinical Research",
+      name: "Dr. Mirriam Gatehi",
+      title: "Vice Secretary",
+      image: "/doctors/dr mirriam gatehi.jpg",
+      specialty: "Gastroenterology",
       experience: "13+ years"
     },
-    // {
-    //   name: "Dr. Peter Odhiambo",
-    //   title: "Education Director",
-    //   image: "/leaders/leader5.jpg",
-    //   specialty: "Medical Education",
-    //   experience: "14+ years"
-    // },
-    // {
-    //   name: "Dr. Mary Wangari",
-    //   title: "Clinical Practice Director",
-    //   image: "/leaders/leader6.jpg",
-    //   specialty: "Clinical Practice",
-    //   experience: "11+ years"
-    // }
+    {
+      name: "Dr. Firoz Alimohammed",
+      title: "Treasurer",
+      image: "/doctors/dr firoz alimohammed.jpg",
+      specialty: "Gastroenterology",
+      experience: "14+ years"
+    },
+    {
+      name: "Dr. Rupal Maru",
+      title: "Vice - Treasurer",
+      image: "/doctors/dr rupal maru.jpg",
+      specialty: "Gastroenterology",
+      experience: "11+ years"
+    }
   ];
 
   return (
@@ -203,7 +203,7 @@ const Partners = () => {
           <div className="flex flex-col h-full">
             <div className="bg-white rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 flex-1 flex flex-col">
               <h3 className="text-2xl font-merriweather font-bold text-[#003366] mb-8">Meet GSK&apos;s Partners</h3>
-              <div className="grid grid-cols-2 gap-6 flex-1">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 flex-1">
                 {leaders.map((leader, index) => (
                   <div key={index} className="group relative">
                     <div className="relative overflow-hidden rounded-xl bg-white border border-[#40e0d0]/10 hover:border-[#40e0d0]/20 transition-all duration-300">
