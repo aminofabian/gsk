@@ -207,7 +207,7 @@ const Navigation = () => {
       title: 'About Us',
       link: '/about',
       children: [
-        { title: 'Mission & Vision', link: '/about/mission' },
+        { title: 'Mission & Vision', link: '/about' },
         { title: 'Leadership', link: '/about/leadership' }
       ]
     },
