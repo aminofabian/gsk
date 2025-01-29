@@ -118,6 +118,36 @@ const Publications = () => {
           </p>
         </motion.div>
 
+        {/* Featured Image */}
+        <motion.div 
+          className="relative w-full mb-16 overflow-hidden rounded-lg shadow-2xl"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
+          viewport={{ once: true }}
+        >
+          <div className="relative aspect-[21/9] w-full">
+            <Image
+              src="/publication/ambitious-and-ready-to-prove-it-2024-05-14-00-48-15-utc.jpg"
+              alt="Featured medical publication"
+              fill
+              className="object-cover"
+              priority
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#003366]/80 via-[#003366]/20 to-transparent" />
+            <div className="absolute bottom-0 left-0 right-0 p-8 sm:p-12">
+              <div className="max-w-3xl">
+                <h3 className="text-2xl sm:text-3xl md:text-4xl font-merriweather font-bold text-white mb-4">
+                  Advancing Gastroenterology in Kenya
+                </h3>
+                <p className="text-white/90 text-base sm:text-lg font-merriweather">
+                  Leading the way in digestive health research and clinical excellence
+                </p>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
         {/* Journal Grid Layout */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 relative">
           {publications.map((pub, index) => (
