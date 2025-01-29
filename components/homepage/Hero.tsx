@@ -41,18 +41,6 @@ const Hero = () => {
         {/* Animated gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#001a35]/90 via-[#001a35]/70 to-transparent opacity-95" />
         
-        {/* Decorative elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          {/* Top right decorative corner */}
-          <div className="absolute -top-20 -right-20 w-40 h-40 bg-[#001a35]/20 blur-3xl animate-pulse"></div>
-          
-          {/* Bottom left decorative corner */}
-          <div className="absolute -bottom-20 -left-20 w-40 h-40 bg-[#001a35]/20 blur-3xl animate-pulse delay-1000"></div>
-          
-          {/* Subtle grid pattern */}
-          <div className="absolute inset-0 bg-[url('/patterns/grid.svg')] opacity-[0.02]"></div>
-        </div>
-
         {/* Main content area */}
         <div className="relative w-full min-h-screen mx-auto flex flex-col">
           {/* Top accent bar */}

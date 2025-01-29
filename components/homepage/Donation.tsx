@@ -16,7 +16,7 @@ const Donation = () => {
   ];
 
   return (
-    <section className="relative bg-gradient-to-br from-[#003366] via-[#004080] to-[#0f5a5e] py-20 overflow-hidden">
+    <section className="relative bg-[#001a35] py-20 overflow-hidden">
       {/* Header */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
         <h2 className="text-4xl sm:text-5xl font-merriweather font-bold text-white text-center mb-4">
@@ -29,7 +29,7 @@ const Donation = () => {
 
       {/* Support Banner */}
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white/10 backdrop-blur-lg p-8 sm:p-12 border border-[#0f5a5e]/20">
+        <div className="bg-white/10 backdrop-blur-lg p-8 sm:p-12 border border-white/20">
           <div className="text-center mb-8">
             <h3 className="text-2xl sm:text-3xl font-merriweather font-bold text-white mb-4">
               Support Our Global Mission
@@ -42,7 +42,7 @@ const Donation = () => {
             <motion.a
               href="/donate"
               whileHover={{ scale: 1.02 }}
-              className="inline-flex items-center px-8 py-3 bg-white text-[#003366] font-merriweather font-semibold hover:bg-[#0f5a5e]/10 hover:text-white transition-all duration-300"
+              className="inline-flex items-center px-8 py-3 bg-white text-[#001a35] font-merriweather font-semibold hover:bg-white/90 transition-all duration-300"
             >
               Make a Donation
               <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -52,7 +52,7 @@ const Donation = () => {
             <motion.a
               href="/impact"
               whileHover={{ scale: 1.02 }}
-              className="inline-flex items-center px-8 py-3 bg-[#0f5a5e]/10 text-white border border-[#0f5a5e]/20 font-merriweather font-semibold hover:bg-[#0f5a5e]/20 transition-all duration-300"
+              className="inline-flex items-center px-8 py-3 bg-white/10 text-white border border-white/20 font-merriweather font-semibold hover:bg-white/20 transition-all duration-300"
             >
               View Our Impact
               <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -60,41 +60,6 @@ const Donation = () => {
               </svg>
             </motion.a>
           </div>
-        </div>
-      </div>
-
-      {/* Gastroenterology-themed Background Pattern */}
-      <div className="absolute inset-0 opacity-[0.03]" style={{
-        backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M15 35c5.5 0 10-4.5 10-10s-4.5-10-10-10S5 19.5 5 25s4.5 10 10 10zm30 0c5.5 0 10-4.5 10-10s-4.5-10-10-10-10 4.5-10 10 4.5 10 10 10zM30 50c5.5 0 10-4.5 10-10s-4.5-10-10-10-10 4.5-10 10 4.5 10 10 10z' fill='%2340e0d0' fill-opacity='1' fill-rule='evenodd'/%3E%3C/svg%3E")`,
-        backgroundSize: '120px 120px'
-      }} />
-
-      {/* Floating Medical Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-full opacity-5">
-          {[...Array(12)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute text-[#003366]"
-              style={{
-                left: `${(i % 4) * 25}%`,
-                top: `${Math.floor(i / 4) * 30}%`,
-                fontSize: '24px'
-              }}
-              animate={{
-                y: [0, -20, 0],
-                opacity: [0.5, 1, 0.5],
-                scale: [1, 1.2, 1],
-              }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                delay: i * 0.3,
-              }}
-            >
-              {i % 3 === 0 ? "🔬" : i % 3 === 1 ? "⚕️" : "💊"}
-            </motion.div>
-          ))}
         </div>
       </div>
 
@@ -108,8 +73,8 @@ const Donation = () => {
           transition={{ duration: 0.7 }}
           viewport={{ once: true }}
         >
-          <div className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#0f5a5e]/10 via-[#0f5a5e]/20 to-[#0f5a5e]/10 text-white px-6 py-3 shadow-sm backdrop-blur-sm">
-            <GiStomach className="text-xl text-[#0f5a5e]" />
+          <div className="inline-flex items-center justify-center gap-2 bg-white/10 text-white px-6 py-3 shadow-sm backdrop-blur-sm">
+            <GiStomach className="text-xl text-white" />
             <span className="text-base font-merriweather font-semibold">Advancing Digestive Healthcare</span>
           </div>
           <h2 className="text-5xl md:text-6xl font-merriweather font-bold text-white mb-4">
@@ -214,25 +179,25 @@ const Donation = () => {
             { 
               number: "500+", 
               label: "Gastroenterologists", 
-              icon: <FaUserMd className="text-[#0f5a5e]" />,
+              icon: <FaUserMd className="text-[#001a35]" />,
               description: "Specialized Practitioners"
             },
             { 
               number: "50+", 
               label: "Endoscopy Centers", 
-              icon: <FaHospital className="text-[#0f5a5e]" />,
+              icon: <FaHospital className="text-[#001a35]" />,
               description: "Advanced Facilities"
             },
             { 
               number: "1000+", 
               label: "Research Papers", 
-              icon: <FaBookMedical className="text-[#0f5a5e]" />,
+              icon: <FaBookMedical className="text-[#001a35]" />,
               description: "Published Studies"
             },
             { 
               number: "20+", 
               label: "Clinical Trials", 
-              icon: <FaMicroscope className="text-[#0f5a5e]" />,
+              icon: <FaMicroscope className="text-[#001a35]" />,
               description: "Ongoing Research"
             }
           ].map((stat, index) => (
@@ -244,10 +209,9 @@ const Donation = () => {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-[#0f5a5e]/5 to-white transform rotate-1" />
-              <div className="relative bg-white p-6 transform -rotate-1 transition-all duration-300 group-hover:rotate-0 group-hover:-translate-y-1 border border-[#0f5a5e]/20">
+              <div className="bg-white p-6 transition-all duration-300 group-hover:-translate-y-1 border border-white/20">
                 <div className="text-4xl mb-3">{stat.icon}</div>
-                <div className="text-2xl font-bold text-[#003366] mb-1">{stat.number}</div>
+                <div className="text-2xl font-bold text-[#001a35] mb-1">{stat.number}</div>
                 <div className="text-gray-900 font-merriweather font-semibold mb-1">{stat.label}</div>
                 <div className="text-gray-500 font-merriweather text-sm">{stat.description}</div>
               </div>
@@ -263,7 +227,7 @@ const Donation = () => {
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
         >
-          <div className="bg-gradient-to-br from-[#003366] via-[#004080] to-[#0f5a5e] p-8 md:p-12 shadow-xl relative overflow-hidden">
+          <div className="bg-[#001a35] p-8 md:p-12 shadow-xl relative overflow-hidden border border-white/20">
             <div className="max-w-4xl mx-auto text-center relative">
               <h3 className="text-3xl md:text-4xl font-merriweather font-bold text-white mb-6">
                 Transform Digestive Healthcare
@@ -275,7 +239,7 @@ const Donation = () => {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="bg-white text-[#003366] px-8 py-4 font-merriweather font-semibold flex items-center justify-center gap-2 hover:bg-[#0f5a5e]/10 hover:text-white transition-all duration-300 shadow-lg"
+                  className="bg-white text-[#001a35] px-8 py-4 font-merriweather font-semibold flex items-center justify-center gap-2 hover:bg-white/90 transition-all duration-300 shadow-lg"
                 >
                   <FaHandHoldingHeart className="text-xl" />
                   Support Research
@@ -283,7 +247,7 @@ const Donation = () => {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="bg-[#0f5a5e]/10 border border-[#0f5a5e]/20 px-8 py-4 font-merriweather font-semibold flex items-center justify-center gap-2 hover:bg-[#0f5a5e]/20 transition-all duration-300 text-white shadow-lg"
+                  className="bg-white/10 border border-white/20 px-8 py-4 font-merriweather font-semibold flex items-center justify-center gap-2 hover:bg-white/20 transition-all duration-300 text-white shadow-lg"
                 >
                   <FaChartLine className="text-xl" />
                   View Research Impact
