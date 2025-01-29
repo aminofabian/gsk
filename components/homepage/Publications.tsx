@@ -111,7 +111,7 @@ const Publications = () => {
             <h2 className="relative font-merriweather text-6xl md:text-7xl font-bold text-[#003366]">
               Medical Journal
             </h2>
-            <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-[#40e0d0]/20" />
+            <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-[#0f5a5e]/20" />
           </div>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto font-merriweather italic">
             Volume 24 • Issue 3 • March 2024
@@ -136,15 +136,15 @@ const Publications = () => {
                 }}
               />
 
-              <div className="relative bg-white rounded-[2rem] overflow-hidden border border-gray-100 shadow-lg group-hover:border-[#40e0d0]/10 transition-colors duration-300">
+              <div className="relative bg-white rounded-[2rem] overflow-hidden border border-gray-100 shadow-lg group-hover:border-[#0f5a5e]/10 transition-colors duration-300">
                 {/* Journal Header */}
                 <div className="px-8 py-6 border-b border-gray-100">
                   <div className="flex items-center justify-between mb-4">
-                    <span className="px-4 py-1.5 bg-[#40e0d0]/3 text-[#003366] text-sm font-medium rounded-full">
+                    <span className="px-4 py-1.5 bg-[#0f5a5e]/3 text-[#003366] text-sm font-medium rounded-full">
                       {pub.category}
                     </span>
                     <span className="flex items-center gap-2 text-gray-500 text-sm">
-                      <FaRegCalendarAlt className="text-[#40e0d0]/50" />
+                      <FaRegCalendarAlt className="text-[#0f5a5e]/50" />
                       {pub.date}
                     </span>
                   </div>
@@ -153,11 +153,11 @@ const Publications = () => {
                   </h3>
                   <div className="flex items-center gap-4 text-sm text-gray-500">
                     <div className="flex items-center gap-2">
-                      <FaRegUser className="text-[#40e0d0]/50" />
+                      <FaRegUser className="text-[#0f5a5e]/50" />
                       <span>{pub.author}</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <FaRegClock className="text-[#40e0d0]/50" />
+                      <FaRegClock className="text-[#0f5a5e]/50" />
                       <span>{pub.readTime}</span>
                     </div>
                   </div>
@@ -176,7 +176,7 @@ const Publications = () => {
                   <div className="absolute inset-0 bg-[#003366]/60" />
                   <div className="absolute bottom-0 left-0 right-0 p-8">
                     <div className="text-white mb-4 line-clamp-2 font-merriweather">
-                      <FaQuoteRight className="float-left mr-4 text-3xl text-[#40e0d0]/20" />
+                      <FaQuoteRight className="float-left mr-4 text-3xl text-[#0f5a5e]/20" />
                       {pub.preview}
                     </div>
                   </div>
@@ -188,7 +188,7 @@ const Publications = () => {
                     {pub.tags.map((tag, tagIndex) => (
                       <span 
                         key={tagIndex}
-                        className="px-3 py-1 bg-[#40e0d0]/3 text-[#003366] text-sm font-merriweather rounded-full hover:bg-[#40e0d0]/5 transition-colors cursor-pointer"
+                        className="px-3 py-1 bg-[#0f5a5e]/3 text-[#003366] text-sm font-merriweather rounded-full hover:bg-[#0f5a5e]/5 transition-colors cursor-pointer"
                       >
                         #{tag}
                       </span>

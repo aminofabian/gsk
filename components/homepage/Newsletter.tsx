@@ -25,7 +25,7 @@ const Newsletter = () => {
             repeat: Infinity,
             ease: "easeInOut" 
           }}
-          className="absolute -top-32 -right-32 w-96 h-96 bg-[#40e0d0]/10 rounded-full blur-3xl"
+          className="absolute -top-32 -right-32 w-96 h-96 bg-[#0f5a5e]/10 rounded-full blur-3xl"
         />
         <motion.div 
           animate={{ 
@@ -38,7 +38,7 @@ const Newsletter = () => {
             ease: "easeInOut",
             delay: 1
           }}
-          className="absolute -bottom-32 -left-32 w-96 h-96 bg-[#40e0d0]/10 rounded-full blur-3xl"
+          className="absolute -bottom-32 -left-32 w-96 h-96 bg-[#0f5a5e]/10 rounded-full blur-3xl"
         />
         
         {/* Content Container */}
@@ -51,7 +51,7 @@ const Newsletter = () => {
               transition={{ duration: 0.5 }}
               className="space-y-1"
             >
-              <p className="text-sm font-merriweather text-[#40e0d0] tracking-wider">MEMBER UPDATES</p>
+              <p className="text-sm font-merriweather text-[#0f5a5e] tracking-wider">MEMBER UPDATES</p>
               <h2 className="text-2xl font-merriweather font-bold tracking-wider">STAY INFORMED</h2>
             </motion.div>
             <motion.p 
@@ -75,11 +75,11 @@ const Newsletter = () => {
               <input
                 type="email"
                 placeholder="Your professional email"
-                className="h-11 px-4 rounded-lg bg-white/10 border border-white/20 text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-[#40e0d0]/50 w-[300px] font-merriweather transition-all duration-300 hover:bg-white/[0.15]"
+                className="h-11 px-4 rounded-lg bg-white/10 border border-white/20 text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-[#0f5a5e]/50 w-[300px] font-merriweather transition-all duration-300 hover:bg-white/[0.15]"
               />
               <button
                 type="submit"
-                className="h-11 px-6 rounded-lg bg-[#40e0d0] text-white font-merriweather font-medium hover:bg-[#40e0d0]/90 transition-all duration-300 whitespace-nowrap group flex items-center gap-2 hover:gap-3 hover:px-7"
+                className="h-11 px-6 rounded-lg bg-[#0f5a5e] text-white font-merriweather font-medium hover:bg-[#0f5a5e]/90 transition-all duration-300 whitespace-nowrap group flex items-center gap-2 hover:gap-3 hover:px-7"
               >
                 Join Network
                 <svg 

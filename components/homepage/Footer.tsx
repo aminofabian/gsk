@@ -65,7 +65,7 @@ const Footer = () => {
               delay: index * 0.5,
             }}
           >
-            <Icon className="text-4xl text-[#40e0d0]/10" />
+            <Icon className="text-4xl text-[#0f5a5e]/10" />
           </motion.div>
         ))}
       </div>
@@ -102,7 +102,7 @@ const Footer = () => {
                 <motion.button
                   whileHover={{ scale: 1.01 }}
                   whileTap={{ scale: 0.98 }}
-                  className="mt-6 px-6 py-3 bg-[#40e0d0]/5 rounded-xl text-white hover:bg-[#40e0d0]/10 flex items-center gap-2 group transition-all duration-300"
+                  className="mt-6 px-6 py-3 bg-[#0f5a5e]/5 rounded-xl text-white hover:bg-[#0f5a5e]/10 flex items-center gap-2 group transition-all duration-300"
                 >
                   Learn more about our mission
                   <FaChevronRight className="text-sm transition-transform group-hover:translate-x-1" />
@@ -136,10 +136,10 @@ const Footer = () => {
                     >
                       <Link 
                         href="#" 
-                        className="group relative px-4 py-2 block hover:text-[#40e0d0] transition-colors rounded-lg hover:bg-white/5"
+                        className="group relative px-4 py-2 block hover:text-[#0f5a5e] transition-colors rounded-lg hover:bg-white/5"
                       >
                         <span className="relative z-10 flex items-center gap-2">
-                          <FaChevronRight className="text-xs text-[#40e0d0] group-hover:text-[#40e0d0] transition-colors" />
+                          <FaChevronRight className="text-xs text-[#0f5a5e] group-hover:text-[#0f5a5e] transition-colors" />
                           {link}
                         </span>
                       </Link>
@@ -171,9 +171,9 @@ const Footer = () => {
                       className="group relative"
                       whileHover={{ x: 4 }}
                     >
-                      <div className="relative flex items-start gap-4 p-4 rounded-xl hover:bg-[#40e0d0]/5 transition-colors">
-                        <div className="p-2 bg-[#40e0d0]/10 rounded-lg group-hover:bg-[#40e0d0]/15 transition-colors">
-                          <item.icon className="text-[#40e0d0] group-hover:text-white transition-colors" />
+                      <div className="relative flex items-start gap-4 p-4 rounded-xl hover:bg-[#0f5a5e]/5 transition-colors">
+                        <div className="p-2 bg-[#0f5a5e]/10 rounded-lg group-hover:bg-[#0f5a5e]/15 transition-colors">
+                          <item.icon className="text-[#0f5a5e] group-hover:text-white transition-colors" />
                         </div>
                         <div>
                           <p className="font-merriweather font-medium text-white mb-1">{item.title}</p>
@@ -189,7 +189,7 @@ const Footer = () => {
 
           {/* Bottom Bar */}
           <div className="relative mt-16 pt-8">
-            <div className="absolute inset-0 bg-[#40e0d0]/10 h-px" />
+            <div className="absolute inset-0 bg-[#0f5a5e]/10 h-px" />
             <div className="relative flex flex-col md:flex-row justify-between items-center gap-6">
               <motion.p 
                 className="text-white/80 text-sm"
@@ -211,11 +211,11 @@ const Footer = () => {
                   <Link 
                     key={item}
                     href="#" 
-                    className="relative group px-2 py-1 hover:text-[#40e0d0] transition-colors"
+                    className="relative group px-2 py-1 hover:text-[#0f5a5e] transition-colors"
                   >
                     <span className="relative z-10">{item}</span>
                     <motion.div
-                      className="absolute bottom-0 left-0 w-0 h-px bg-[#40e0d0]/30 group-hover:w-full transition-all duration-300"
+                      className="absolute bottom-0 left-0 w-0 h-px bg-[#0f5a5e]/30 group-hover:w-full transition-all duration-300"
                       whileHover={{ width: "100%" }}
                     />
                   </Link>

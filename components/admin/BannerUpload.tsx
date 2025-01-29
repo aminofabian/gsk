@@ -139,7 +139,7 @@ export default function BannerUpload() {
             />
             <label
               htmlFor="banner-upload"
-              className="block w-full p-4 border-2 border-dashed border-gray-300 rounded-lg text-center cursor-pointer hover:border-[#40e0d0]/50 transition-colors"
+              className="block w-full p-4 border-2 border-dashed border-gray-300 rounded-lg text-center cursor-pointer hover:border-[#0f5a5e]/50 transition-colors"
             >
               <div className="space-y-2">
                 <div className="text-[#003366] font-medium">

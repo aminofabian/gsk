@@ -78,7 +78,7 @@ The website is fully responsive and optimized for:
 
 - **Colors**:
   - Primary: `#003366` (Navy Blue)
-  - Secondary: `#40e0d0` (Turquoise)
+  - Secondary: `#0f5a5e` (Turquoise)
   - Accents: Various opacity levels of primary/secondary colors
 
 - **Typography**:
