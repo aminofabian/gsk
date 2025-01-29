@@ -130,10 +130,10 @@ const Features = () => {
   return (
     <div className="flex justify-center gap-8 p-8 bg-white">
       {/* Why Join GSK Card */}
-      <div className="w-[500px] bg-[#003366] rounded-lg p-8">
+      <div className="w-[500px] bg-[#003366] -lg p-8">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl text-white">Why Join GSK?</h2>
-          <span className="text-sm text-white bg-white/10 px-3 py-1 rounded">Premium Benefits</span>
+          <span className="text-sm text-white bg-white/10 px-3 py-1 ">Premium Benefits</span>
         </div>
         <div className="space-y-6">
           {memberBenefits.map((benefit, index) => (
@@ -148,16 +148,16 @@ const Features = () => {
             </div>
           ))}
         </div>
-        <a href="/join" className="inline-block mt-8 px-6 py-2 bg-[#40e0d0]/20 text-white rounded hover:bg-[#40e0d0]/30 transition-colors">
+        <a href="/join" className="inline-block mt-8 px-6 py-2 bg-[#40e0d0]/20 text-white  hover:bg-[#40e0d0]/30 transition-colors">
           Join Now →
         </a>
       </div>
 
       {/* Upcoming Events Card */}
-      <div className="w-[500px] bg-white rounded-lg p-8 shadow-lg">
+      <div className="w-[500px] bg-white -lg p-8 shadow-lg">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl text-[#003366]">Upcoming CPD Events</h2>
-          <span className="text-sm text-[#003366] bg-[#003366]/10 px-3 py-1 rounded">Earn Points</span>
+          <span className="text-sm text-[#003366] bg-[#003366]/10 px-3 py-1 ">Earn Points</span>
         </div>
         <div className="space-y-6">
           {upcomingEvents.map((event, index) => (
@@ -170,10 +170,10 @@ const Features = () => {
                 <h3 className="text-lg font-medium text-[#003366]">{event.title}</h3>
                 <p className="text-[#003366]/70 text-sm mb-2">{event.location}</p>
                 <div className="flex gap-2">
-                  <span className="text-xs px-2 py-1 bg-[#003366]/10 text-[#003366]/70 rounded">
+                  <span className="text-xs px-2 py-1 bg-[#003366]/10 text-[#003366]/70 ">
                     {event.type}
                   </span>
-                  <span className="text-xs px-2 py-1 bg-[#003366]/10 text-[#003366]/70 rounded">
+                  <span className="text-xs px-2 py-1 bg-[#003366]/10 text-[#003366]/70 ">
                     {event.points}
                   </span>
                 </div>

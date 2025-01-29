@@ -6,6 +6,7 @@ import { FaRegCalendarAlt, FaRegClock, FaRegUser, FaChevronRight, FaDna, FaMicro
 import { GiMedicalDrip, GiMedicines, GiStomach, GiDna2 } from 'react-icons/gi';
 import { IconType } from 'react-icons';
 import Image from 'next/image';
+import { ArrowRightIcon } from "@radix-ui/react-icons";
 
 interface FloatingIconProps {
   icon: IconType;
@@ -120,7 +121,7 @@ const Publications = () => {
 
         {/* Featured Image */}
         <motion.div 
-          className="relative w-full mb-16 overflow-hidden rounded-lg shadow-2xl"
+          className="relative w-full mb-16 overflow-hidden -lg shadow-2xl"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
@@ -253,7 +254,7 @@ const Publications = () => {
             transition={{ duration: 0.3 }}
           >
             <span className="relative z-10">Browse Complete Journal Archive</span>
-            <FaChevronRight className="relative z-10 group-hover:translate-x-1 transition-transform" />
+            <ArrowRightIcon className="relative z-10 group-hover:translate-x-1 transition-transform" />
           </motion.button>
         </motion.div>
       </div>
