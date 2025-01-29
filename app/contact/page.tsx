@@ -34,7 +34,7 @@ const supportCategories = [
 const faqs = [
   {
     question: 'How do I become a member?',
-    answer: 'To become a member, submit an application through our membership portal. You\'ll need to provide your medical credentials and professional references.'
+    answer: 'To become a member, submit an application through our membership portal. You&apos;ll need to provide your medical credentials and professional references.'
   },
   {
     question: 'When are the annual conferences?',

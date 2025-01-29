@@ -140,7 +140,7 @@ export default function DonatePage() {
           <div className="mt-4 text-center text-sm text-gray-600">
             <p>🔒 Secure payment processing</p>
             <p className="mt-2">
-              Your donation will support GSK's mission to advance digestive healthcare in Kenya.
+              Your donation will support GSK&apos;s mission to advance digestive healthcare in Kenya.
               All donations are tax-deductible.
             </p>
           </div>
