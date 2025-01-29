@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 const leaders = [
   {
@@ -22,7 +23,7 @@ const leaders = [
     experience: "12+ years",
     hospital: "Kenyatta National Hospital",
     email: "vicechair@gsk.or.ke",
-    bio: "Dr. Wilson Kiraitu brings extensive experience in public healthcare and has been instrumental in developing GSK's community outreach programs."
+    bio: "Dr. Wilson Kiraitu brings extensive experience in public healthcare and has been instrumental in developing GSK&apos;s community outreach programs."
   },
   {
     name: "Dr. Linda Gathara",
@@ -32,7 +33,7 @@ const leaders = [
     experience: "10+ years",
     hospital: "Nairobi Hospital",
     email: "secretary@gsk.or.ke",
-    bio: "Dr. Linda Gathara specializes in advanced endoscopic procedures and plays a key role in GSK's educational initiatives."
+    bio: "Dr. Linda Gathara specializes in advanced endoscopic procedures and plays a key role in GSK&apos;s educational initiatives."
   },
   {
     name: "Dr. Mirriam Gatehi",
@@ -52,7 +53,7 @@ const leaders = [
     experience: "14+ years",
     hospital: "Mombasa Hospital",
     email: "treasurer@gsk.or.ke",
-    bio: "Dr. Firoz Alimohammed has extensive experience in both clinical practice and healthcare management, ensuring GSK's financial stability and growth."
+    bio: "Dr. Firoz Alimohammed has extensive experience in both clinical practice and healthcare management, ensuring GSK&apos;s financial stability and growth."
   },
   {
     name: "Dr. Rupal Maru",
@@ -62,7 +63,7 @@ const leaders = [
     experience: "11+ years",
     hospital: "Kisumu Specialist Hospital",
     email: "vicetreasurer@gsk.or.ke",
-    bio: "Dr. Rupal Maru specializes in pediatric gastroenterology and has been vital in expanding GSK's services to younger patients."
+    bio: "Dr. Rupal Maru specializes in pediatric gastroenterology and has been vital in expanding GSK&apos;s services to younger patients."
   }
 ];
 
@@ -76,7 +77,7 @@ export default function LeadershipPage() {
           <div className="text-center text-white max-w-4xl mx-auto px-4">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">Our Leadership</h1>
             <p className="text-xl md:text-2xl">
-              Meet the dedicated team guiding GSK's mission in advancing gastroenterology care
+              Meet the dedicated team guiding GSK&apos;s mission in advancing gastroenterology care
             </p>
           </div>
         </div>
@@ -89,7 +90,7 @@ export default function LeadershipPage() {
             Committed to Excellence in Gastroenterology
           </h2>
           <p className="text-gray-600 leading-relaxed">
-            Our leadership team brings together some of Kenya's most experienced gastroenterology
+            Our leadership team brings together some of Kenya&apos;s most experienced gastroenterology
             professionals. With diverse expertise and a shared vision, they work tirelessly to
             advance digestive healthcare and medical education across the country.
           </p>
@@ -107,10 +108,12 @@ export default function LeadershipPage() {
             >
               {/* Image Section */}
               <div className="relative h-64 overflow-hidden">
-                <img
+                <Image
                   src={leader.image}
                   alt={leader.name}
-                  className="w-full h-full object-cover"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                 <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
@@ -187,7 +190,7 @@ export default function LeadershipPage() {
           <p className="text-gray-600 leading-relaxed">
             Under the guidance of our leadership team, GSK continues to work towards improving
             gastroenterological care across Kenya. Through research, education, and community
-            outreach, we're building a stronger healthcare system for all Kenyans.
+            outreach, we&apos;re building a stronger healthcare system for all Kenyans.
           </p>
         </div>
       </div>
