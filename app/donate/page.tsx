@@ -133,7 +133,7 @@ export default function DonatePage() {
                 : 'bg-[#003366] hover:bg-[#002244]'
             }`}
           >
-            {isProcessing ? 'Processing...' : 'Donate Now'}
+            {isProcessing ? "Processing..." : "Donate Now"}
           </button>
 
           {/* Security Notice */}
