@@ -134,7 +134,7 @@ const Hero = () => {
                 <div className="flex items-center gap-4 text-white/90">
                   <span className="text-2xl">🏆</span>
                   <div>
-                    <p className="text-lg font-medium mb-2">Join Kenya's Premier Gastroenterology Network</p>
+                    <p className="text-lg font-medium mb-2">Join Kenya&apos;s Premier Gastroenterology Network</p>
                     <p className="text-base text-white/80">Access exclusive CME programs, research collaborations, and clinical resources. Connect with leading specialists across East Africa.</p>
                   </div>
                 </div>
