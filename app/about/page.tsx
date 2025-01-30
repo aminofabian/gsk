@@ -5,33 +5,58 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 
 // Hero Section Component
-const AboutHero = () => (
-  <div className="relative h-screen min-h-[600px] bg-[#003366]">
-    <div className="absolute inset-0">
-      <Image
-        src="/meeting/75B_6033.jpg"
-        alt="GSK Team"
-        fill
-        className="object-cover opacity-30"
-      />
+const AboutHero = () => {
+  const [currentImage, setCurrentImage] = React.useState(0);
+  const images = [
+    '/ban/19195.jpg',
+    '/ban/Business-Facebook-Cover-01.jpg',
+    '/ban/SL-122519-26430-01.jpg'
+  ];
+
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentImage((prev) => (prev + 1) % images.length);
+    }, 5000); // Change image every 5 seconds
+
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <div className="relative h-screen min-h-[600px] bg-[#003366]">
+      {images.map((image, index) => (
+        <div
+          key={image}
+          className={`absolute inset-0 transition-opacity duration-1000 ${
+            currentImage === index ? 'opacity-30' : 'opacity-0'
+          }`}
+        >
+          <Image
+            src={image}
+            alt={`GSK Banner ${index + 1}`}
+            fill
+            className="object-cover"
+            priority={index === 0}
+          />
+        </div>
+      ))}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#003366]/80 to-[#003366]/95" />
+      <div className="relative h-full max-w-7xl mx-auto px-4 flex items-center">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="max-w-3xl"
+        >
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-white mb-6">
+            Let Me Tell Your Story
+          </h1>
+          <p className="text-lg md:text-xl text-white/90 font-serif leading-relaxed">
+            The Gastroenterology Society of Kenya (GSK) is more than just a medical organization - it&apos;s a community of dedicated professionals united by a passion for advancing digestive health care through education, research, and advocacy.
+          </p>
+        </motion.div>
+      </div>
     </div>
-    <div className="absolute inset-0 bg-gradient-to-b from-[#003366]/80 to-[#003366]/95" />
-    <div className="relative h-full max-w-7xl mx-auto px-4 flex items-center">
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="max-w-3xl"
-      >
-        <h1 className="text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-white mb-6">
-          Let Me Tell Your Story
-        </h1>
-        <p className="text-lg md:text-xl text-white/90 font-serif leading-relaxed">
-          The Gastroenterology Society of Kenya (GSK) is more than just a medical organization - it&apos;s a community of dedicated professionals united by a passion for advancing digestive health care through education, research, and advocacy.
-        </p>
-      </motion.div>
-    </div>
-  </div>
-);
+  );
+};
 
 // Gallery Section Component
 const Gallery = () => (
