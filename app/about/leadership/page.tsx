@@ -104,7 +104,7 @@ export default function LeadershipPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
-              className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
+              className="bg-white GSK shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
             >
               {/* Image Section */}
               <div className="relative h-64 overflow-hidden">

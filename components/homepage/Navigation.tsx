@@ -114,7 +114,7 @@ const NavItem = ({ item }: { item: NavItem }) => {
                     <img 
                       src={item.image} 
                       alt="Membership Feature"
-                      className="object-cover rounded-lg"
+                      className="object-cover GSK"
                     />
                   </div>
                   <p className="text-sm text-gray-600 font-merriweather">
@@ -127,7 +127,7 @@ const NavItem = ({ item }: { item: NavItem }) => {
                     <a 
                       key={itemIdx}
                       href={menuItem.link}
-                      className="group/item block p-3 hover:bg-[#0f5a5e]/5 rounded-lg transition-colors"
+                      className="group/item block p-3 hover:bg-[#0f5a5e]/5 GSK transition-colors"
                     >
                       <h4 className="font-merriweather text-[#003366] font-semibold mb-1 group-hover/item:text-[#0f5a5e]">
                         {menuItem.title}

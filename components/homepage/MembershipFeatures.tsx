@@ -45,7 +45,7 @@ const MembershipFeatures = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Member Directory */}
-            <div className="bg-gradient-to-br from-[#003366]/60 to-[#003366]/40 backdrop-blur-sm p-8 rounded-xl border border-white/10 hover:border-white/30 transition-all duration-300 group hover:transform hover:-translate-y-1 hover:shadow-2xl hover:shadow-[#002347]/20">
+            <div className="bg-gradient-to-br from-[#003366]/60 to-[#003366]/40 backdrop-blur-sm p-8  border border-white/10 hover:border-white/30 transition-all duration-300 group hover:transform hover:-translate-y-1 hover:shadow-2xl hover:shadow-[#002347]/20">
               <div className="text-white mb-6 transform transition-transform duration-300 group-hover:scale-110">
                 <FaUsers className="w-12 h-12" />
               </div>
@@ -65,7 +65,7 @@ const MembershipFeatures = () => {
             </div>
 
             {/* Certification */}
-            <div className="bg-gradient-to-br from-[#003366]/60 to-[#003366]/40 backdrop-blur-sm p-8 rounded-xl border border-white/10 hover:border-white/30 transition-all duration-300 group hover:transform hover:-translate-y-1 hover:shadow-2xl hover:shadow-[#002347]/20">
+            <div className="bg-gradient-to-br from-[#003366]/60 to-[#003366]/40 backdrop-blur-sm p-8  border border-white/10 hover:border-white/30 transition-all duration-300 group hover:transform hover:-translate-y-1 hover:shadow-2xl hover:shadow-[#002347]/20">
               <div className="text-white mb-6 transform transition-transform duration-300 group-hover:scale-110">
                 <HiDocumentText className="w-12 h-12" />
               </div>
@@ -85,7 +85,7 @@ const MembershipFeatures = () => {
             </div>
 
             {/* Clinical Guidelines */}
-            <div className="bg-gradient-to-br from-[#003366]/60 to-[#003366]/40 backdrop-blur-sm p-8 rounded-xl border border-white/10 hover:border-white/30 transition-all duration-300 group hover:transform hover:-translate-y-1 hover:shadow-2xl hover:shadow-[#002347]/20">
+            <div className="bg-gradient-to-br from-[#003366]/60 to-[#003366]/40 backdrop-blur-sm p-8  border border-white/10 hover:border-white/30 transition-all duration-300 group hover:transform hover:-translate-y-1 hover:shadow-2xl hover:shadow-[#002347]/20">
               <div className="text-white mb-6 transform transition-transform duration-300 group-hover:scale-110">
                 <FaBook className="w-12 h-12" />
               </div>
@@ -105,7 +105,7 @@ const MembershipFeatures = () => {
             </div>
 
             {/* Research Access */}
-            <div className="bg-gradient-to-br from-[#003366]/60 to-[#003366]/40 backdrop-blur-sm p-8 rounded-xl border border-white/10 hover:border-white/30 transition-all duration-300 group hover:transform hover:-translate-y-1 hover:shadow-2xl hover:shadow-[#002347]/20">
+            <div className="bg-gradient-to-br from-[#003366]/60 to-[#003366]/40 backdrop-blur-sm p-8  border border-white/10 hover:border-white/30 transition-all duration-300 group hover:transform hover:-translate-y-1 hover:shadow-2xl hover:shadow-[#002347]/20">
               <div className="text-white mb-6 transform transition-transform duration-300 group-hover:scale-110">
                 <FaFlask className="w-12 h-12" />
               </div>
@@ -125,7 +125,7 @@ const MembershipFeatures = () => {
             </div>
 
             {/* CPD Points */}
-            <div className="bg-gradient-to-br from-[#003366]/60 to-[#003366]/40 backdrop-blur-sm p-8 rounded-xl border border-white/10 hover:border-white/30 transition-all duration-300 group hover:transform hover:-translate-y-1 hover:shadow-2xl hover:shadow-[#002347]/20">
+            <div className="bg-gradient-to-br from-[#003366]/60 to-[#003366]/40 backdrop-blur-sm p-8  border border-white/10 hover:border-white/30 transition-all duration-300 group hover:transform hover:-translate-y-1 hover:shadow-2xl hover:shadow-[#002347]/20">
               <div className="text-white mb-6 transform transition-transform duration-300 group-hover:scale-110">
                 <FaStar className="w-12 h-12" />
               </div>
@@ -145,7 +145,7 @@ const MembershipFeatures = () => {
             </div>
 
             {/* Join GSK */}
-            <div className="bg-gradient-to-br from-[#003366]/60 to-[#003366]/40 backdrop-blur-sm p-8 rounded-xl border border-white/10 hover:border-white/30 transition-all duration-300 group hover:transform hover:-translate-y-1 hover:shadow-2xl hover:shadow-[#002347]/20">
+            <div className="bg-gradient-to-br from-[#003366]/60 to-[#003366]/40 backdrop-blur-sm p-8  border border-white/10 hover:border-white/30 transition-all duration-300 group hover:transform hover:-translate-y-1 hover:shadow-2xl hover:shadow-[#002347]/20">
               <div className="text-white mb-6 transform transition-transform duration-300 group-hover:scale-110">
                 <FaDollarSign className="w-12 h-12" />
               </div>

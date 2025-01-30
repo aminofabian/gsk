@@ -145,7 +145,7 @@ export default function VolunteerPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-all"
+                className="bg-white GSK p-6 shadow-md hover:shadow-lg transition-all"
               >
                 <span className="text-4xl mb-4 block">{role.icon}</span>
                 <h3 className="text-xl font-bold mb-3">{role.title}</h3>
@@ -173,7 +173,7 @@ export default function VolunteerPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-white rounded-lg p-6 shadow-md text-center"
+                className="bg-white GSK p-6 shadow-md text-center"
               >
                 <span className="text-4xl mb-4 block">{benefit.icon}</span>
                 <h3 className="text-xl font-bold mb-2">{benefit.title}</h3>
@@ -188,7 +188,7 @@ export default function VolunteerPage() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-white rounded-lg shadow-md p-8"
+            className="bg-white GSK shadow-md p-8"
           >
             <h2 className="text-3xl font-bold text-center mb-8">Volunteer Application</h2>
             <form onSubmit={handleSubmit} className="space-y-6">

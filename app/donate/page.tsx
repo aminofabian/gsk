@@ -71,7 +71,7 @@ export default function DonatePage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.2 }}
-              className="bg-white rounded-lg p-6 shadow-md text-center"
+              className="bg-white GSK p-6 shadow-md text-center"
             >
               <h3 className="text-3xl font-bold text-[#003366] mb-2">{item.metric}</h3>
               <h4 className="text-xl font-semibold mb-2">{item.label}</h4>
@@ -92,7 +92,7 @@ export default function DonatePage() {
                   setSelectedAmount(option.amount);
                   setCustomAmount('');
                 }}
-                className={`p-6 rounded-lg border-2 transition-all ${
+                className={`p-6 GSK border-2 transition-all ${
                   selectedAmount === option.amount
                     ? 'border-[#003366] bg-[#003366] text-white'
                     : 'border-gray-200 hover:border-[#003366]'
@@ -147,7 +147,7 @@ export default function DonatePage() {
         </div>
 
         {/* Additional Information */}
-        <div className="mt-16 bg-white rounded-lg p-8 shadow-md">
+        <div className="mt-16 bg-white GSK p-8 shadow-md">
           <h2 className="text-2xl font-bold mb-4">How Your Donation Helps</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>

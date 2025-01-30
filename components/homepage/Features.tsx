@@ -130,7 +130,7 @@ const Features = () => {
   return (
     <div className="flex flex-col lg:flex-row justify-center gap-8 p-4 sm:p-8 bg-white">
       {/* Why Join GSK Card */}
-      <div className="w-full lg:w-[500px] bg-[#003366] rounded-lg p-6 sm:p-8">
+      <div className="w-full lg:w-[500px] bg-[#003366] GSK p-6 sm:p-8">
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6 gap-4">
           <h2 className="text-xl sm:text-2xl text-white">Why Join GSK?</h2>
           <span className="text-sm text-white bg-white/10 px-3 py-1 rounded inline-block">Premium Benefits</span>
@@ -154,7 +154,7 @@ const Features = () => {
       </div>
 
       {/* Upcoming Events Card */}
-      <div className="w-full lg:w-[500px] bg-white rounded-lg p-6 sm:p-8 shadow-lg">
+      <div className="w-full lg:w-[500px] bg-white GSK p-6 sm:p-8 shadow-lg">
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6 gap-4">
           <h2 className="text-xl sm:text-2xl text-[#003366]">Upcoming CPD Events</h2>
           <span className="text-sm text-[#003366] bg-[#003366]/10 px-3 py-1 rounded inline-block">Earn Points</span>

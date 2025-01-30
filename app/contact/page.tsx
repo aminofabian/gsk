@@ -130,7 +130,7 @@ export default function HelpDeskPage() {
               }}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className={`p-6 rounded-lg text-left transition-all ${
+              className={`p-6 GSK text-left transition-all ${
                 selectedCategory === category.id
                   ? 'bg-[#003366] text-white shadow-lg scale-105'
                   : 'bg-white hover:bg-gray-50 shadow-md'
@@ -152,7 +152,7 @@ export default function HelpDeskPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
           >
-            <div className="bg-white rounded-lg shadow-md p-6">
+            <div className="bg-white GSK shadow-md p-6">
               <h2 className="text-2xl font-bold mb-6">Submit a Support Ticket</h2>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -285,7 +285,7 @@ export default function HelpDeskPage() {
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
-              className="bg-white rounded-lg shadow-md p-6"
+              className="bg-white GSK shadow-md p-6"
             >
               <h2 className="text-2xl font-bold mb-6">Support Information</h2>
               <div className="space-y-6">
@@ -308,7 +308,7 @@ export default function HelpDeskPage() {
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-white rounded-lg shadow-md p-6"
+                className="bg-white GSK shadow-md p-6"
               >
                 <h2 className="text-2xl font-bold mb-6">Frequently Asked Questions</h2>
                 <div className="space-y-6">
@@ -327,10 +327,10 @@ export default function HelpDeskPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="bg-white rounded-lg shadow-md p-6"
+              className="bg-white GSK shadow-md p-6"
             >
               <h2 className="text-2xl font-bold mb-6">Our Location</h2>
-              <div className="relative h-[300px] w-full rounded-lg overflow-hidden">
+              <div className="relative h-[300px] w-full GSK overflow-hidden">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.8177!2d36.7855!3d-1.2923!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f10d62d4fccdd%3A0x71471f13cf792996!2sACS%20Plaza%2C%20Lenana%20Rd%2C%20Nairobi!5e0!3m2!1sen!2ske!4v1647856732345!5m2!1sen!2ske"
                   width="100%"

@@ -58,7 +58,7 @@ export default function MissionPage() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-white rounded-lg shadow-lg p-8 mb-12"
+          className="bg-white GSK shadow-lg p-8 mb-12"
         >
           <h2 className="text-3xl font-bold text-[#003366] mb-6">Our Mission</h2>
           <p className="text-gray-700 leading-relaxed text-lg">
@@ -75,7 +75,7 @@ export default function MissionPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="bg-white rounded-lg shadow-lg p-8 mb-12"
+          className="bg-white GSK shadow-lg p-8 mb-12"
         >
           <h2 className="text-3xl font-bold text-[#003366] mb-6">Our Vision</h2>
           <p className="text-gray-700 leading-relaxed text-lg">
@@ -98,7 +98,7 @@ export default function MissionPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow"
+                className="bg-white GSK shadow-lg p-6 hover:shadow-xl transition-shadow"
               >
                 <span className="text-4xl mb-4 block">{value.icon}</span>
                 <h3 className="text-xl font-bold text-[#003366] mb-3">{value.title}</h3>
