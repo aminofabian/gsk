@@ -16,6 +16,12 @@ const styles = {
   shimmerGradient: {
     background: 'linear-gradient(90deg, transparent, rgba(155, 155, 155, 0.1), transparent)',
     backgroundSize: '200% 100%'
+  },
+  gradientText: {
+    background: 'linear-gradient(-45deg, #ffffff, #a8a8a8)',
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
+    backgroundSize: '200% 200%'
   }
 } as const;
 
@@ -88,8 +94,27 @@ const Hero = () => {
                 transition={{ delay: 0.2 }}
                 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white mb-6"
               >
-                <span className="block">ADVANCE YOUR</span>
-                <span className="block text-white/90">GASTROENTEROLOGY</span>
+                <motion.span 
+                  className="block"
+                  animate={{ 
+                    backgroundPosition: ['0% 50%', '100% 50%', '0% 50%']
+                  }}
+                  transition={{ 
+                    duration: 5,
+                    repeat: Infinity,
+                    ease: "linear"
+                  }}
+                  style={styles.gradientText}
+                >
+                  ADVANCE YOUR
+                </motion.span>
+                <motion.span 
+                  className="block text-white/90"
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  GASTROENTEROLOGY
+                </motion.span>
                 <span className="block">PRACTICE</span>
               </motion.h1>
 
@@ -97,8 +122,15 @@ const Hero = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
-                className="bg-[#0a1547] p-6 rounded-sm max-w-xl mt-12"
+                whileHover={{ scale: 1.02 }}
+                className="bg-[#0a1547] p-6 rounded-sm max-w-xl mt-12 relative overflow-hidden group"
               >
+                <motion.div 
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent"
+                  initial={{ x: '-100%' }}
+                  whileHover={{ x: '100%' }}
+                  transition={{ duration: 0.8 }}
+                />
                 <div className="flex items-center gap-4 text-white/90">
                   <span className="text-2xl">🏆</span>
                   <div>
@@ -127,25 +159,39 @@ const Hero = () => {
                 </div>
               </motion.div>
 
-              {/* Professional highlights */}
+              {/* Professional highlights with floating animation */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6 }}
                 className="mt-12 flex gap-8"
               >
-                <div className="flex items-center gap-3 text-white/70">
-                  <span className="text-xl">🔬</span>
-                  <span className="text-sm">Clinical Excellence</span>
-                </div>
-                <div className="flex items-center gap-3 text-white/70">
-                  <span className="text-xl">🎯</span>
-                  <span className="text-sm">Specialized Training</span>
-                </div>
-                <div className="flex items-center gap-3 text-white/70">
-                  <span className="text-xl">🤝</span>
-                  <span className="text-sm">Peer Collaboration</span>
-                </div>
+                {[
+                  { icon: '🔬', text: 'Clinical Excellence' },
+                  { icon: '🎯', text: 'Specialized Training' },
+                  { icon: '🤝', text: 'Peer Collaboration' }
+                ].map((item, index) => (
+                  <motion.div
+                    key={index}
+                    className="flex items-center gap-3 text-white/70"
+                    animate={{ 
+                      y: [0, -5, 0],
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      delay: index * 0.2,
+                      ease: "easeInOut"
+                    }}
+                    whileHover={{ 
+                      scale: 1.05,
+                      color: "rgba(255, 255, 255, 0.9)"
+                    }}
+                  >
+                    <span className="text-xl">{item.icon}</span>
+                    <span className="text-sm">{item.text}</span>
+                  </motion.div>
+                ))}
               </motion.div>
             </div>
           </div>
@@ -161,14 +207,28 @@ const Hero = () => {
               <div className="absolute -left-12 top-0 h-full w-24 bg-gradient-to-r from-[#001a35] via-[#001a35]/80 to-transparent z-20" />
               <SwipeCarousel />
               
-              {/* Stats overlay */}
+              {/* Stats overlay with enhanced animation */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.8 }}
+                whileHover={{ scale: 1.05 }}
                 className="absolute -bottom-6 right-0 bg-white/10 backdrop-blur-sm p-4 rounded-sm"
               >
-                <div className="flex items-center gap-4">
+                <motion.div 
+                  className="flex items-center gap-4"
+                  animate={{ 
+                    boxShadow: [
+                      "0 0 0 0px rgba(255, 255, 255, 0.2)",
+                      "0 0 0 4px rgba(255, 255, 255, 0)",
+                    ]
+                  }}
+                  transition={{
+                    duration: 1.5,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                >
                   <div>
                     <span className="text-3xl text-white font-bold">15+</span>
                     <span className="text-white/70 text-sm ml-1">Years</span>
@@ -183,7 +243,7 @@ const Hero = () => {
                   >
                     →
                   </motion.span>
-                </div>
+                </motion.div>
               </motion.div>
             </motion.div>
           </div>

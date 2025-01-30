@@ -1,173 +1,149 @@
+"use client"
+
 import React from 'react';
 import { FaUsers, FaBook, FaFlask, FaStar, FaDollarSign } from 'react-icons/fa';
 import { HiDocumentText } from 'react-icons/hi';
+import { motion } from 'framer-motion';
 
 const MembershipFeatures = () => {
   return (
-    <section className="relative mt-60">
-      {/* Wave separator */}
-      <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-white to-[#003366] overflow-hidden">
-        <svg
-          className="absolute bottom-0 w-full h-40 transform translate-y-1/2"
-          viewBox="0 0 1440 320"
-          preserveAspectRatio="none"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,213.3C672,192,768,128,864,128C960,128,1056,192,1152,208C1248,224,1344,192,1392,176L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
-            fill="#003366"
-          />
-        </svg>
+    <section className="relative mt-40">
+      {/* Modern gradient transition */}
+      <div className="absolute top-0 left-0 right-0 h-40">
+        <div className="absolute inset-0 bg-gradient-to-b from-white via-white/50 to-transparent" />
       </div>
 
       {/* Main content */}
-      <div className="bg-[#003366] pt-32 pb-24 relative">
-        {/* Background gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#002347] via-[#003366] to-[#003366] opacity-50" />
-        
-        {/* Background pattern */}
-        <div className="absolute inset-0 opacity-[0.03]" 
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-          }}
-        />
-        
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 relative">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-merriweather text-white mb-6 font-bold">
-              Empowering Gastroenterology Excellence
-            </h2>
-            <p className="text-xl text-white/90 max-w-3xl mx-auto">
-              Access resources, connect with peers, and advance your professional development
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Member Directory */}
-            <div className="bg-gradient-to-br from-[#003366]/60 to-[#003366]/40 backdrop-blur-sm p-8  border border-white/10 hover:border-white/30 transition-all duration-300 group hover:transform hover:-translate-y-1 hover:shadow-2xl hover:shadow-[#002347]/20">
-              <div className="text-white mb-6 transform transition-transform duration-300 group-hover:scale-110">
-                <FaUsers className="w-12 h-12" />
-              </div>
-              <h3 className="text-2xl font-merriweather text-white mb-4 font-semibold">
-                Member Directory
-              </h3>
-              <p className="text-white/80 mb-8 text-lg">
-                Access our network of gastroenterology professionals
-              </p>
-              <a 
-                href="/membership/directory" 
-                className="inline-flex items-center text-white group-hover:text-white/90 transition-all duration-300 text-lg font-medium"
-              >
-                Learn More 
-                <span className="ml-2 transform transition-transform duration-300 group-hover:translate-x-2">→</span>
-              </a>
-            </div>
-
-            {/* Certification */}
-            <div className="bg-gradient-to-br from-[#003366]/60 to-[#003366]/40 backdrop-blur-sm p-8  border border-white/10 hover:border-white/30 transition-all duration-300 group hover:transform hover:-translate-y-1 hover:shadow-2xl hover:shadow-[#002347]/20">
-              <div className="text-white mb-6 transform transition-transform duration-300 group-hover:scale-110">
-                <HiDocumentText className="w-12 h-12" />
-              </div>
-              <h3 className="text-2xl font-merriweather text-white mb-4 font-semibold">
-                Certification
-              </h3>
-              <p className="text-white/80 mb-8 text-lg">
-                Professional certification and accreditation
-              </p>
-              <a 
-                href="/education/certification" 
-                className="inline-flex items-center text-white group-hover:text-white/90 transition-all duration-300 text-lg font-medium"
-              >
-                Learn More 
-                <span className="ml-2 transform transition-transform duration-300 group-hover:translate-x-2">→</span>
-              </a>
-            </div>
-
-            {/* Clinical Guidelines */}
-            <div className="bg-gradient-to-br from-[#003366]/60 to-[#003366]/40 backdrop-blur-sm p-8  border border-white/10 hover:border-white/30 transition-all duration-300 group hover:transform hover:-translate-y-1 hover:shadow-2xl hover:shadow-[#002347]/20">
-              <div className="text-white mb-6 transform transition-transform duration-300 group-hover:scale-110">
-                <FaBook className="w-12 h-12" />
-              </div>
-              <h3 className="text-2xl font-merriweather text-white mb-4 font-semibold">
-                Clinical Guidelines
-              </h3>
-              <p className="text-white/80 mb-8 text-lg">
-                Latest gastroenterology practice guidelines
-              </p>
-              <a 
-                href="/guidelines" 
-                className="inline-flex items-center text-white group-hover:text-white/90 transition-all duration-300 text-lg font-medium"
-              >
-                Learn More 
-                <span className="ml-2 transform transition-transform duration-300 group-hover:translate-x-2">→</span>
-              </a>
-            </div>
-
-            {/* Research Access */}
-            <div className="bg-gradient-to-br from-[#003366]/60 to-[#003366]/40 backdrop-blur-sm p-8  border border-white/10 hover:border-white/30 transition-all duration-300 group hover:transform hover:-translate-y-1 hover:shadow-2xl hover:shadow-[#002347]/20">
-              <div className="text-white mb-6 transform transition-transform duration-300 group-hover:scale-110">
-                <FaFlask className="w-12 h-12" />
-              </div>
-              <h3 className="text-2xl font-merriweather text-white mb-4 font-semibold">
-                Research Access
-              </h3>
-              <p className="text-white/80 mb-8 text-lg">
-                Member-exclusive research database
-              </p>
-              <a 
-                href="/research" 
-                className="inline-flex items-center text-white group-hover:text-white/90 transition-all duration-300 text-lg font-medium"
-              >
-                Learn More 
-                <span className="ml-2 transform transition-transform duration-300 group-hover:translate-x-2">→</span>
-              </a>
-            </div>
-
-            {/* CPD Points */}
-            <div className="bg-gradient-to-br from-[#003366]/60 to-[#003366]/40 backdrop-blur-sm p-8  border border-white/10 hover:border-white/30 transition-all duration-300 group hover:transform hover:-translate-y-1 hover:shadow-2xl hover:shadow-[#002347]/20">
-              <div className="text-white mb-6 transform transition-transform duration-300 group-hover:scale-110">
-                <FaStar className="w-12 h-12" />
-              </div>
-              <h3 className="text-2xl font-merriweather text-white mb-4 font-semibold">
-                CPD Points
-              </h3>
-              <p className="text-white/80 mb-8 text-lg">
-                Track your continuing professional development
-              </p>
-              <a 
-                href="/cpd" 
-                className="inline-flex items-center text-white group-hover:text-white/90 transition-all duration-300 text-lg font-medium"
-              >
-                Learn More 
-                <span className="ml-2 transform transition-transform duration-300 group-hover:translate-x-2">→</span>
-              </a>
-            </div>
-
-            {/* Join GSK */}
-            <div className="bg-gradient-to-br from-[#003366]/60 to-[#003366]/40 backdrop-blur-sm p-8  border border-white/10 hover:border-white/30 transition-all duration-300 group hover:transform hover:-translate-y-1 hover:shadow-2xl hover:shadow-[#002347]/20">
-              <div className="text-white mb-6 transform transition-transform duration-300 group-hover:scale-110">
-                <FaDollarSign className="w-12 h-12" />
-              </div>
-              <h3 className="text-2xl font-merriweather text-white mb-4 font-semibold">
-                Join GSK
-              </h3>
-              <p className="text-white/80 mb-8 text-lg">
-                Become a member today
-              </p>
-              <a 
-                href="/membership/join" 
-                className="inline-flex items-center text-white group-hover:text-white/90 transition-all duration-300 text-lg font-medium"
-              >
-                Learn More 
-                <span className="ml-2 transform transition-transform duration-300 group-hover:translate-x-2">→</span>
-              </a>
-            </div>
+      <div className="bg-gradient-to-b from-[#003366] to-[#002347] pt-40 pb-32 relative">
+        {/* Animated background glow */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 opacity-30">
+            <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/20 rounded-full filter blur-[128px] animate-pulse" />
+            <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-indigo-500/20 rounded-full filter blur-[128px] animate-pulse delay-1000" />
           </div>
         </div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 relative">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-20"
+          >
+            <h2 className="text-5xl md:text-6xl font-merriweather font-bold mb-8">
+              <span className="inline-block bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
+                Empowering Gastroenterology
+              </span>
+              <br />
+              <span className="inline-block bg-gradient-to-r from-blue-200 to-white bg-clip-text text-transparent">
+                Excellence
+              </span>
+            </h2>
+            <p className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto font-light leading-relaxed">
+              Access resources, connect with peers, and advance your professional development
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {features.map((feature, index) => (
+              <motion.div
+                key={feature.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                whileHover={{ y: -5 }}
+                className="group relative"
+              >
+                <div className="h-full bg-gradient-to-br from-white/[0.05] to-transparent p-1">
+                  <div className="relative h-full bg-gradient-to-br from-[#003366]/40 to-[#002347]/40 backdrop-blur-sm p-8">
+                    {/* Animated highlight line */}
+                    <div className="absolute top-0 left-0 w-0 h-[2px] bg-gradient-to-r from-blue-400 to-indigo-400 group-hover:w-full transition-all duration-700" />
+                    
+                    <div className="relative">
+                      <motion.div 
+                        className="text-white mb-6 relative"
+                        whileHover={{ scale: 1.1, rotate: 5 }}
+                        transition={{ type: "spring", stiffness: 300 }}
+                      >
+                        <div className="absolute inset-0 bg-blue-500/20 filter blur-lg" />
+                        {feature.icon}
+                      </motion.div>
+                      
+                      <h3 className="text-2xl font-merriweather text-white mb-4 font-semibold group-hover:text-blue-200 transition-colors duration-300">
+                        {feature.title}
+                      </h3>
+                      <p className="text-white/80 mb-8 text-lg">
+                        {feature.description}
+                      </p>
+                      <motion.a 
+                        href={feature.link}
+                        className="inline-flex items-center text-white group-hover:text-blue-200 transition-all duration-300 text-lg font-medium"
+                        whileHover={{ x: 5 }}
+                      >
+                        Learn More 
+                        <motion.span 
+                          className="ml-2"
+                          animate={{ x: [0, 5, 0] }}
+                          transition={{ duration: 1.5, repeat: Infinity }}
+                        >
+                          →
+                        </motion.span>
+                      </motion.a>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        {/* Bottom decorative elements */}
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-96 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
       </div>
     </section>
   );
 };
+
+const features = [
+  {
+    icon: <FaUsers className="w-12 h-12" />,
+    title: "Member Directory",
+    description: "Access our network of gastroenterology professionals",
+    link: "/membership/directory"
+  },
+  {
+    icon: <HiDocumentText className="w-12 h-12" />,
+    title: "Certification",
+    description: "Professional certification and accreditation",
+    link: "/education/certification"
+  },
+  {
+    icon: <FaBook className="w-12 h-12" />,
+    title: "Clinical Guidelines",
+    description: "Latest gastroenterology practice guidelines",
+    link: "/guidelines"
+  },
+  {
+    icon: <FaFlask className="w-12 h-12" />,
+    title: "Research Access",
+    description: "Member-exclusive research database",
+    link: "/research"
+  },
+  {
+    icon: <FaStar className="w-12 h-12" />,
+    title: "CPD Points",
+    description: "Track your continuing professional development",
+    link: "/cpd"
+  },
+  {
+    icon: <FaDollarSign className="w-12 h-12" />,
+    title: "Join GSK",
+    description: "Become a member today",
+    link: "/membership/join"
+  }
+];
 
 export default MembershipFeatures; 
