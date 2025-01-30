@@ -24,7 +24,7 @@ export default function Home() {
       </section>
 
       {/* Features Section with top wave separator */}
-      <section className="relative bg-slate-100 pt-20 pb-20">
+      <section className="relative bg-white pt-20 pb-20">
         <div className="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-[#002347] to-transparent pointer-events-none" />
         <div className="relative">
           <Features />
@@ -32,7 +32,7 @@ export default function Home() {
       </section>
 
       {/* Partners Section with gradient background */}
-      <section className="relative bg-gradient-to-b from-gray-50 to-slate-100 py-10">
+      <section className="relative bg-gradient-to-b from-gray-50 to-white py-10">
         <div className="absolute inset-0 bg-[url('/patterns/grid.svg')] opacity-[0.02]" />
         <div className="relative">
           <Partners />
@@ -40,7 +40,7 @@ export default function Home() {
       </section>
 
       {/* Publications Section with subtle separator */}
-      <section className="relative bg-slate-100 pt-5">
+      <section className="relative bg-white pt-5">
         <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent" />
         <div className="absolute bottom-0 inset-x-0 h-40 bg-gradient-to-b from-transparent to-[#003366]" />
         <div className="relative">
