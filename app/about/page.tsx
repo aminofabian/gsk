@@ -6,61 +6,60 @@ import { motion } from 'framer-motion';
 
 // Hero Section Component
 const AboutHero = () => (
-  <div className="relative h-[60vh] min-h-[400px] bg-[#003366] overflow-hidden">
+  <div className="relative h-screen min-h-[600px] bg-[#003366]">
     <div className="absolute inset-0">
       <Image
         src="/meeting/75B_6033.jpg"
         alt="GSK Team"
         fill
-        className="object-cover opacity-20"
+        className="object-cover opacity-30"
       />
     </div>
+    <div className="absolute inset-0 bg-gradient-to-b from-[#003366]/80 to-[#003366]/95" />
     <div className="relative h-full max-w-7xl mx-auto px-4 flex items-center">
-      <div className="max-w-3xl">
-        <motion.h1 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-white mb-6"
-        >
-          About GSK
-        </motion.h1>
-        <motion.p 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="text-lg md:text-xl text-white/90 font-serif"
-        >
-          The Gastroenterology Society of Kenya (GSK) is a professional medical organization dedicated to advancing digestive health care through education, research, and advocacy.
-        </motion.p>
-      </div>
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="max-w-3xl"
+      >
+        <h1 className="text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-white mb-6">
+          Let Me Tell Your Story
+        </h1>
+        <p className="text-lg md:text-xl text-white/90 font-serif leading-relaxed">
+          The Gastroenterology Society of Kenya (GSK) is more than just a medical organization - it's a community of dedicated professionals united by a passion for advancing digestive health care through education, research, and advocacy.
+        </p>
+      </motion.div>
     </div>
   </div>
 );
 
-// Overview Section Component
-const Overview = () => (
-  <section className="py-16 md:py-24 bg-white">
+// Gallery Section Component
+const Gallery = () => (
+  <section className="py-16 bg-white">
     <div className="max-w-7xl mx-auto px-4">
-      <div className="grid md:grid-cols-2 gap-12 items-center">
-        <div>
-          <h2 className="text-3xl md:text-4xl font-serif font-bold text-[#003366] mb-6">
-            Who We Are
-          </h2>
-          <div className="prose prose-lg">
-            <p className="text-gray-600 font-serif">
-              The Gastroenterology Society of Kenya (GSK) provides a platform for gastroenterologists and healthcare professionals in the field of digestive health to collaborate, share knowledge, and promote the prevention, diagnosis, and treatment of gastrointestinal diseases.
-            </p>
-            <p className="text-gray-600 font-serif mt-4">
-              Our organization is committed to supporting healthcare professionals through education, training, and research, while also raising awareness about gastrointestinal health issues both within the medical community and among the public.
-            </p>
-          </div>
-        </div>
-        <div className="relative h-[400px] -3xl overflow-hidden shadow-2xl">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="relative h-80 overflow-hidden ">
           <Image
             src="/meeting/75B_6035.jpg"
-            alt="GSK Activities"
+            alt="GSK Activities 1"
             fill
-            className="object-cover"
+            className="object-cover hover:scale-105 transition-transform duration-300"
+          />
+        </div>
+        <div className="relative h-80 overflow-hidden ">
+          <Image
+            src="/meeting/75B_6038.jpg"
+            alt="GSK Activities 2"
+            fill
+            className="object-cover hover:scale-105 transition-transform duration-300"
+          />
+        </div>
+        <div className="relative h-80 overflow-hidden ">
+          <Image
+            src="/meeting/75B_6043.jpg"
+            alt="GSK Activities 3"
+            fill
+            className="object-cover hover:scale-105 transition-transform duration-300"
           />
         </div>
       </div>
@@ -68,81 +67,74 @@ const Overview = () => (
   </section>
 );
 
-// Vision & Mission Component
-const VisionMission = () => (
-  <section className="py-16 md:py-24 bg-gradient-to-br from-[#003366] to-[#002244]">
+// Mission Section Component
+const Mission = () => (
+  <section className="py-24 bg-white">
     <div className="max-w-7xl mx-auto px-4">
-      <div className="grid md:grid-cols-2 gap-12">
-        <div className="bg-white/10 backdrop-blur-lg -3xl p-8 md:p-12">
-          <h3 className="text-2xl md:text-3xl font-serif font-bold text-white mb-6">Our Vision</h3>
-          <p className="text-white/90 font-serif">
-            To be a leading force in improving gastrointestinal health in Kenya, ensuring individuals have access to high-quality, comprehensive care for gastrointestinal disorders.
-          </p>
+      <div className="grid md:grid-cols-2 gap-16 items-center">
+        <div className="relative">
+          <div className="relative h-[600px]  overflow-hidden">
+            <Image
+              src="/meeting/75B_6055.jpg"
+              alt="GSK Mission"
+              fill
+              className="object-cover"
+            />
+          </div>
+          <div className="absolute -bottom-8 -right-8 w-48 h-48">
+            <svg viewBox="0 0 100 100" className="w-full h-full text-[#003366]/10">
+              <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" fill="none" stroke="currentColor" strokeWidth="2" />
+            </svg>
+          </div>
         </div>
-        <div className="bg-white/10 backdrop-blur-lg -3xl p-8 md:p-12">
-          <h3 className="text-2xl md:text-3xl font-serif font-bold text-white mb-6">Our Mission</h3>
-          <p className="text-white/90 font-serif">
-            To advance the practice of gastroenterology through education, research, and the dissemination of knowledge, improving the prevention, diagnosis, treatment, and management of gastrointestinal diseases in Kenya.
+        <div>
+          <h2 className="text-4xl font-serif font-bold text-[#003366] mb-8">
+            Photography for Every Equestrian
+          </h2>
+          <p className="text-gray-600 text-lg mb-8 font-serif leading-relaxed">
+            Our mission is to advance the practice of gastroenterology through education, research, and the dissemination of knowledge, improving the prevention, diagnosis, treatment, and management of gastrointestinal diseases in Kenya.
           </p>
+          <button className="bg-[#003366] text-white px-8 py-3 rounded-full hover:bg-[#004488] transition-colors duration-300">
+            Learn More
+          </button>
         </div>
       </div>
     </div>
   </section>
 );
 
-// Objectives Component
-const Objectives = () => (
-  <section className="py-16 md:py-24 bg-gray-50">
+// Work With Me Section Component
+const WorkWithMe = () => (
+  <section className="py-24 bg-[#003366]">
     <div className="max-w-7xl mx-auto px-4">
-      <h2 className="text-3xl md:text-4xl font-serif font-bold text-[#003366] text-center mb-16">
-        Our Primary Objectives
+      <h2 className="text-4xl font-serif font-bold text-white text-center mb-16">
+        Work with Me
       </h2>
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid md:grid-cols-3 gap-8">
         {[
           {
-            title: "Education & Training",
-            description: "Organizing workshops, conferences, and seminars for healthcare professionals to improve their knowledge and skills.",
-            image: "/meeting/75B_6038.jpg"
+            title: "Education",
+            description: "Supporting continuous medical education and professional development for healthcare providers."
           },
           {
-            title: "Research Support",
-            description: "Supporting and promoting research on gastrointestinal diseases to improve understanding and management of digestive health.",
-            image: "/meeting/75B_6043.jpg"
+            title: "Research",
+            description: "Promoting and facilitating research in gastroenterology and digestive health."
           },
           {
-            title: "Health Advocacy",
-            description: "Raising awareness about digestive health and engaging in public health campaigns to reduce preventable diseases.",
-            image: "/meeting/75B_6055.jpg"
-          },
-          {
-            title: "Clinical Excellence",
-            description: "Promoting high standards in clinical practice and supporting healthcare infrastructure development.",
-            image: "/meeting/75B_6081.jpg"
-          },
-          {
-            title: "Professional Networking",
-            description: "Providing platforms for professionals to connect, collaborate, and share experiences.",
-            image: "/meeting/75B_6092.jpg"
-          },
-          {
-            title: "Policy Advocacy",
-            description: "Engaging with policymakers to ensure gastrointestinal health receives adequate attention in healthcare plans.",
-            image: "/meeting/75B_6081.jpg"
+            title: "Advocacy",
+            description: "Advocating for better digestive health policies and improved healthcare access."
           }
-        ].map((objective, index) => (
-          <div key={index} className="bg-white -3xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
-            <div className="relative h-48">
-              <Image
-                src={objective.image}
-                alt={objective.title}
-                fill
-                className="object-cover"
-              />
-            </div>
-            <div className="p-6">
-              <h3 className="text-xl font-serif font-bold text-[#003366] mb-4">{objective.title}</h3>
-              <p className="text-gray-600 font-serif">{objective.description}</p>
-            </div>
+        ].map((item, index) => (
+          <div key={index} className="bg-white/10 backdrop-blur-lg p-8 ">
+            <h3 className="text-2xl font-serif font-bold text-white mb-4">
+              {item.title}
+            </h3>
+            <p className="text-white/80 leading-relaxed">
+              {item.description}
+            </p>
+            <button className="mt-6 text-white border border-white/30 px-6 py-2 rounded-full hover:bg-white hover:text-[#003366] transition-colors duration-300">
+              Learn More
+            </button>
           </div>
         ))}
       </div>
@@ -150,40 +142,36 @@ const Objectives = () => (
   </section>
 );
 
-// Membership Benefits Component
-const MembershipBenefits = () => (
-  <section className="py-16 md:py-24 bg-white">
+// Ready to Shoot Section Component
+const ReadyToShoot = () => (
+  <section className="py-24 bg-white">
     <div className="max-w-7xl mx-auto px-4">
-      <div className="grid md:grid-cols-2 gap-12 items-center">
-        <div className="relative h-[500px] -3xl overflow-hidden shadow-2xl">
-          <Image
-            src="/meeting/75B_6092.jpg"
-            alt="GSK Membership"
-            fill
-            className="object-cover"
-          />
-        </div>
+      <div className="grid md:grid-cols-2 gap-16 items-center">
         <div>
-          <h2 className="text-3xl md:text-4xl font-serif font-bold text-[#003366] mb-8">
-            Membership Benefits
+          <h2 className="text-4xl font-serif font-bold text-[#003366] mb-8">
+            Ready to Join?
           </h2>
-          <ul className="space-y-4">
-            {[
-              "Access to continuous education and professional development",
-              "Participation in conferences and workshops",
-              "Networking opportunities with fellow professionals",
-              "Access to latest research and resources",
-              "Influence on policy and advocacy initiatives",
-              "Part of a supportive community of gastroenterologists"
-            ].map((benefit, index) => (
-              <li key={index} className="flex items-start gap-4">
-                <svg className="w-6 h-6 text-green-500 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-                <span className="text-gray-600 font-serif">{benefit}</span>
-              </li>
-            ))}
-          </ul>
+          <p className="text-gray-600 text-lg mb-8 font-serif leading-relaxed">
+            Join the Gastroenterology Society of Kenya and become part of a community dedicated to advancing digestive health care in Kenya. Together, we can make a difference.
+          </p>
+          <button className="bg-[#003366] text-white px-8 py-3 rounded-full hover:bg-[#004488] transition-colors duration-300">
+            Become a Member
+          </button>
+        </div>
+        <div className="relative">
+          <div className="relative h-[500px]  overflow-hidden">
+            <Image
+              src="/meeting/75B_6092.jpg"
+              alt="Join GSK"
+              fill
+              className="object-cover"
+            />
+          </div>
+          <div className="absolute -bottom-8 -left-8 w-48 h-48">
+            <svg viewBox="0 0 100 100" className="w-full h-full text-[#003366]/10">
+              <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" fill="none" stroke="currentColor" strokeWidth="2" />
+            </svg>
+          </div>
         </div>
       </div>
     </div>
@@ -193,12 +181,12 @@ const MembershipBenefits = () => (
 // Main About Page Component
 export default function AboutPage() {
   return (
-    <main>
+    <main className="bg-white">
       <AboutHero />
-      <Overview />
-      <VisionMission />
-      <Objectives />
-      <MembershipBenefits />
+      <Gallery />
+      <Mission />
+      <WorkWithMe />
+      <ReadyToShoot />
     </main>
   );
 } 
