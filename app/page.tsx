@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import LoginButton from "@/components/auth/LoginButton";
 import Hero from "@/components/homepage/Hero";
 import Features from "@/components/homepage/Features";
+import MembershipFeatures from "@/components/homepage/MembershipFeatures";
 import Partners from "@/components/homepage/Partners";
 import Publications from "@/components/homepage/Publications";
 import Donation from "@/components/homepage/Donation";
@@ -21,6 +22,7 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative">
         <Hero />
+        <MembershipFeatures />
       </section>
 
       {/* Features Section with top wave separator */}
