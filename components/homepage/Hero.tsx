@@ -1,19 +1,30 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { motion, useMotionValue } from "framer-motion";
+import { motion, useMotionValue, AnimatePresence } from "framer-motion";
 
-// Enhanced global styles
+// Enhanced global styles with unique effects
 const styles = {
   radialGradient: {
-    background: 'radial-gradient(circle at center, transparent 0%, rgba(0, 26, 53, 0.3) 100%)'
+    background: 'radial-gradient(circle at center, transparent 0%, rgba(0, 26, 53, 0.4) 100%)'
   },
   meshGradient: {
-    background: 'linear-gradient(45deg, rgba(0, 26, 53, 0.3) 0%, transparent 100%), radial-gradient(circle at top right, rgba(255, 255, 255, 0.1), transparent 70%)'
+    background: 'linear-gradient(45deg, rgba(0, 26, 53, 0.4) 0%, transparent 100%), radial-gradient(circle at top right, rgba(255, 255, 255, 0.15), transparent 70%)'
   },
   glowEffect: {
-    filter: 'drop-shadow(0 0 20px rgba(255, 255, 255, 0.1))'
+    filter: 'drop-shadow(0 0 20px rgba(255, 255, 255, 0.15))'
+  },
+  shimmerGradient: {
+    background: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent)',
+    backgroundSize: '200% 100%'
   }
 } as const;
+
+// Unique statistics with animations
+const impactStats = [
+  { number: '500+', label: 'Specialists', icon: '👨‍⚕️' },
+  { number: '30+', label: 'CME Events', icon: '🎓' },
+  { number: '15+', label: 'Research Papers', icon: '📚' }
+];
 
 const imgs = [
   "/ban/19195.jpg",
@@ -36,123 +47,169 @@ const SPRING_OPTIONS = {
 const TRANSITION_EASE = [0.32, 0.72, 0, 1];
 
 const Hero = () => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
+
   return (
-    <>
-      {/* Main Hero Section */}
       <div className="relative min-h-screen bg-[#001a35] overflow-hidden">
-        {/* Enhanced background with dynamic effects */}
-        <div 
-          className="absolute inset-0 transition-transform duration-1000 scale-105"
-          style={{
-            backgroundImage: 'url("/banner/back.jpg")',
-            backgroundPosition: 'center',
-            backgroundSize: 'cover',
-            backgroundRepeat: 'no-repeat',
-            filter: 'brightness(0.5) contrast(1.1)'
-          }}
-        />
-
-        {/* Creative gradient overlays */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#001a35]/95 via-[#001a35]/80 to-transparent opacity-95" />
+      {/* Background effects */}
         <div className="absolute inset-0" style={styles.meshGradient} />
-        
-        {/* Animated particles or light effects */}
-        <div className="absolute inset-0 bg-[url('/effects/noise.png')] opacity-[0.02] mix-blend-overlay" />
-        
-        {/* Main content area */}
-        <div className="relative w-full min-h-screen mx-auto flex flex-col">
-          {/* Enhanced top accent bar */}
-          <div className="absolute top-0 inset-x-0 h-1.5">
-            <div className="h-full bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
-            <div className="h-8 w-full bg-gradient-to-b from-white/5 to-transparent"></div>
-          </div>
+      <div className="absolute inset-0 bg-[url('/effects/noise.png')] opacity-[0.02] mix-blend-overlay" />
+      
+      {/* Main content */}
+      <div className="relative w-full min-h-screen mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1600px] mx-auto pt-20 sm:pt-24 flex flex-col h-full">
+          {/* Grid background */}
+          <div className="absolute inset-0 bg-grid-white/[0.02] bg-[length:30px_30px]" />
+          
+          {/* Main text section */}
+          <div className="relative z-20 flex-1">
+            <div className="max-w-4xl">
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="flex items-center gap-2 mb-6"
+              >
+                <motion.div 
+                  initial={{ width: 0 }}
+                  animate={{ width: 24 }}
+                  transition={{ delay: 0.5 }}
+                  className="h-[2px] bg-white/30"
+                />
+                <span className="text-white/70 text-sm tracking-wider">PROFESSIONAL NETWORK</span>
+              </motion.div>
 
-          {/* Banner content */}
-          <div className="flex-1 flex items-center justify-center pt-2 sm:pt-4">
-            <div className="w-full max-w-[1800px] px-2 sm:px-4">
-              <SwipeCarousel />
-            </div>
-          </div>
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white mb-6"
+              >
+                <span className="block">ADVANCE YOUR</span>
+                <span className="block text-white/90">GASTROENTEROLOGY</span>
+                <span className="block">PRACTICE</span>
+              </motion.h1>
 
-          {/* Enhanced Premium CTA Section */}
-          <div className="relative z-20 px-3 sm:px-6 lg:px-8 -mt-12 sm:-mt-24 pb-8 sm:pb-16">
-            <div className="max-w-[1600px] mx-auto">
-              <div className="bg-gradient-to-br from-black/40 via-black/30 to-black/20 backdrop-blur-xl p-6 sm:p-10 md:p-12 border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.4)] relative overflow-hidden rounded-sm">
-                {/* Enhanced glass effect elements */}
-                <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-white/5 to-transparent blur-3xl animate-pulse"></div>
-                <div className="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-tl from-white/5 to-transparent blur-3xl animate-pulse delay-700"></div>
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-32 bg-white/5 blur-3xl rotate-45"></div>
-                
-                {/* Creative corner decorations */}
-                <div className="absolute top-0 left-0 w-32 h-32 border-l-2 border-t-2 border-white/10 rounded-tl-lg"></div>
-                <div className="absolute top-0 right-0 w-32 h-32 border-r-2 border-t-2 border-white/10 rounded-tr-lg"></div>
-                <div className="absolute bottom-0 left-0 w-32 h-32 border-l-2 border-b-2 border-white/10 rounded-bl-lg"></div>
-                <div className="absolute bottom-0 right-0 w-32 h-32 border-r-2 border-b-2 border-white/10 rounded-br-lg"></div>
-                
-                <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-20 relative max-w-[1400px] mx-auto">
-                  {/* Enhanced left side content */}
-                  <div className="flex-1 text-center lg:text-left relative">
-                    <div className="inline-flex items-center gap-4 mb-8 text-white text-sm tracking-widest uppercase relative">
-                      <span className="h-px w-16 bg-gradient-to-r from-transparent via-white/50 to-transparent"></span>
-                      <span className="relative">
-                        Welcome to GSK
-                        <div className="absolute -bottom-1 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
-                      </span>
-                      <span className="h-px w-16 bg-gradient-to-r from-transparent via-white/50 to-transparent"></span>
-                    </div>
-                    <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-extralight text-white mb-8 sm:mb-10 tracking-wide max-w-4xl mx-auto lg:mx-0 relative">
-                      <span className="relative inline-block">
-                        Join the{' '}
-                        <div className="absolute -left-4 top-1/2 -translate-y-1/2 w-1 h-12 bg-gradient-to-b from-transparent via-white/30 to-transparent"></div>
-                      </span>
-                      <span className="relative block mt-2 font-semibold bg-clip-text text-transparent bg-gradient-to-r from-white via-white/95 to-white/90">
-                        Gastroenterology Society
-                        <span className="block mt-2">of Kenya</span>
-                        <div className="absolute -bottom-4 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
-                      </span>
-                    </h2>
-                    <p className="text-white/90 text-lg sm:text-xl xl:text-2xl font-light tracking-wider leading-relaxed max-w-3xl mx-auto lg:mx-0">
-                      Connect with leading specialists and advance your career 
-                      <span className="hidden sm:inline"> in the field of gastroenterology</span>
-                    </p>
-                  </div>
-
-                  {/* Enhanced right side CTAs */}
-                  <div className="flex flex-col sm:flex-row lg:flex-col items-stretch sm:items-center lg:items-stretch gap-4 w-full lg:w-auto lg:min-w-[300px]">
-                    <a 
-                      href="/membership"
-                      className="group relative w-full sm:w-auto px-12 py-5 text-base sm:text-lg font-medium bg-gradient-to-r from-white to-white/95 text-[#001a35] overflow-hidden transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-0.5 active:translate-y-0 text-center tracking-wide rounded-sm"
-                    >
-                      <span className="relative z-10 flex items-center justify-center gap-3">
-                        Become a Member
-                        <svg className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                        </svg>
-                      </span>
-                      <div className="absolute inset-0 bg-gradient-to-r from-white/80 to-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[url('/effects/noise.png')] mix-blend-overlay"></div>
-                    </a>
-                    <a 
-                      href="/membership/benefits"
-                      className="group relative w-full sm:w-auto px-12 py-5 text-base sm:text-lg font-medium text-white border-2 border-white/20 overflow-hidden transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0 text-center tracking-wide hover:border-white/40 hover:bg-white/5 rounded-sm"
-                    >
-                      <span className="relative z-10 flex items-center justify-center gap-3">
-                        Learn More
-                        <svg className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                        </svg>
-                      </span>
-                      <div className="absolute inset-0 bg-gradient-to-r from-white/5 to-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[url('/effects/noise.png')] mix-blend-overlay"></div>
-                    </a>
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+                className="bg-[#0a2547] p-6 rounded-sm max-w-xl mt-12"
+              >
+                <div className="flex items-center gap-4 text-white/90">
+                  <span className="text-2xl">🏆</span>
+                  <div>
+                    <p className="text-lg font-medium mb-2">Join Kenya's Premier Gastroenterology Network</p>
+                    <p className="text-base text-white/80">Access exclusive CME programs, research collaborations, and clinical resources. Connect with leading specialists across East Africa.</p>
                   </div>
                 </div>
-              </div>
+                <div className="mt-8 flex items-center gap-6">
+                  <motion.a 
+                    href="/membership"
+                    className="inline-flex items-center gap-2 text-white bg-white/10 hover:bg-white/20 px-8 py-3 rounded-sm transition-all font-medium"
+                    whileHover={{ x: 5 }}
+                  >
+                    Join as Specialist
+                    <span className="text-lg">→</span>
+                  </motion.a>
+                  <motion.a
+                    href="/membership/benefits"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.8 }}
+                    className="text-white/60 hover:text-white/90 transition-colors"
+                  >
+                    View Member Benefits
+                  </motion.a>
+                </div>
+              </motion.div>
+
+              {/* Professional highlights */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6 }}
+                className="mt-12 flex gap-8"
+              >
+                <div className="flex items-center gap-3 text-white/70">
+                  <span className="text-xl">🔬</span>
+                  <span className="text-sm">Clinical Excellence</span>
+                </div>
+                <div className="flex items-center gap-3 text-white/70">
+                  <span className="text-xl">🎯</span>
+                  <span className="text-sm">Specialized Training</span>
+                </div>
+                <div className="flex items-center gap-3 text-white/70">
+                  <span className="text-xl">🤝</span>
+                  <span className="text-sm">Peer Collaboration</span>
+                </div>
+              </motion.div>
             </div>
           </div>
+
+          {/* Stats and image section */}
+          <div className="relative mt-12 lg:mt-0 lg:absolute lg:right-8 lg:top-1/2 lg:-translate-y-1/2 lg:w-[45%]">
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.6 }}
+              className="relative"
+            >
+              <div className="absolute -left-12 top-0 h-full w-24 bg-gradient-to-r from-[#001a35] via-[#001a35]/80 to-transparent z-20" />
+              <SwipeCarousel />
+              
+              {/* Stats overlay */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.8 }}
+                className="absolute -bottom-6 right-0 bg-white/10 backdrop-blur-sm p-4 rounded-sm"
+              >
+                <div className="flex items-center gap-4">
+                  <div>
+                    <span className="text-3xl text-white font-bold">25+</span>
+                    <span className="text-white/70 text-sm ml-1">Years</span>
+                  </div>
+                  <div className="text-white/70 text-sm border-l border-white/20 pl-4">
+                    Leading<br />Gastroenterology<br />in East Africa
+                  </div>
+                  <motion.span
+                    animate={{ x: [0, 5, 0] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                    className="text-white ml-2"
+                  >
+                    →
+                  </motion.span>
+                </div>
+              </motion.div>
+            </motion.div>
+          </div>
+
+          {/* Bottom scroll indicator */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1 }}
+            className="absolute bottom-8 right-8 text-white/30"
+          >
+            <div className="flex flex-col items-center gap-2">
+              <span className="text-sm">Scroll to</span>
+              <span className="text-sm">explore</span>
+              <motion.div
+                animate={{ y: [0, 5, 0] }}
+                transition={{ duration: 2, repeat: Infinity }}
+                className="w-6 h-6 border-2 border-current rounded-full flex items-center justify-center"
+              >
+                ↓
+              </motion.div>
+            </div>
+          </motion.div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
@@ -246,53 +303,22 @@ const Images = ({ imgIndex }: { imgIndex: number }) => {
       {imgs.map((imgSrc, idx) => (
         <motion.div
           key={idx}
-          className="relative w-full shrink-0 flex items-center justify-center py-2 sm:py-4"
+          className="relative w-full shrink-0 flex items-center justify-center"
         >
-          <div className="relative w-[95%] sm:w-[90%] md:w-[85%] mx-auto group">
-            {/* Premium image container with enhanced styling */}
-            <div className="relative overflow-hidden bg-gradient-to-b from-black/5 to-black/20 p-0.5 rounded-sm">
-              {/* Ambient glow effect */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#001a35]/30 to-transparent mix-blend-overlay"></div>
-              <div className="absolute inset-0 bg-gradient-to-b from-[#001a35]/20 via-transparent to-[#001a35]/20"></div>
-              
-              {/* Enhanced corner accents */}
-              <div className="absolute top-0 left-0 w-24 h-24">
-                <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-white/60 to-transparent"></div>
-                <div className="absolute top-0 left-0 h-full w-px bg-gradient-to-b from-white/60 to-transparent"></div>
-              </div>
-              <div className="absolute top-0 right-0 w-24 h-24">
-                <div className="absolute top-0 right-0 w-full h-px bg-gradient-to-l from-white/60 to-transparent"></div>
-                <div className="absolute top-0 right-0 h-full w-px bg-gradient-to-b from-white/60 to-transparent"></div>
-              </div>
-              <div className="absolute bottom-0 left-0 w-24 h-24">
-                <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-white/60 to-transparent"></div>
-                <div className="absolute bottom-0 left-0 h-full w-px bg-gradient-to-t from-white/60 to-transparent"></div>
-              </div>
-              <div className="absolute bottom-0 right-0 w-24 h-24">
-                <div className="absolute bottom-0 right-0 w-full h-px bg-gradient-to-l from-white/60 to-transparent"></div>
-                <div className="absolute bottom-0 right-0 h-full w-px bg-gradient-to-t from-white/60 to-transparent"></div>
-              </div>
-
-              {/* Enhanced image with blend effects */}
-              <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-[#001a35]/10 via-transparent to-[#001a35]/10"></div>
-                <img
-                  src={imgSrc}
-                  alt={`Slide ${idx + 1}`}
-                  className="w-full h-auto object-contain shadow-2xl transition-all duration-500 group-hover:scale-[1.01] group-hover:brightness-110"
-                  style={{ 
-                    maxHeight: 'calc(70vh - 80px)',
-                    width: 'auto',
-                    margin: '0 auto',
-                    filter: 'contrast(1.05) brightness(0.95)'
-                  }}
-                />
-                {/* Subtle vignette effect */}
-                <div 
-                  className="absolute inset-0 pointer-events-none opacity-80"
-                  style={styles.radialGradient}
-                ></div>
-              </div>
+          <div className="relative w-full mx-auto">
+            <div className="relative overflow-visible">
+              <motion.img
+                src={imgSrc}
+                alt={`Slide ${idx + 1}`}
+                className="w-full h-auto object-contain"
+                style={{ 
+                  maxHeight: 'calc(32vh - 20px)',
+                  width: 'auto',
+                  margin: '0 auto'
+                }}
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.3 }}
+              />
             </div>
           </div>
         </motion.div>
