@@ -26,7 +26,7 @@ const AboutHero = () => (
           Let Me Tell Your Story
         </h1>
         <p className="text-lg md:text-xl text-white/90 font-serif leading-relaxed">
-          The Gastroenterology Society of Kenya (GSK) is more than just a medical organization - it's a community of dedicated professionals united by a passion for advancing digestive health care through education, research, and advocacy.
+          The Gastroenterology Society of Kenya (GSK) is more than just a medical organization - it&apos;s a community of dedicated professionals united by a passion for advancing digestive health care through education, research, and advocacy.
         </p>
       </motion.div>
     </div>
