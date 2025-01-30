@@ -8,13 +8,13 @@ const styles = {
     background: 'radial-gradient(circle at center, transparent 0%, rgba(0, 26, 53, 0.4) 100%)'
   },
   meshGradient: {
-    background: 'linear-gradient(45deg, rgba(0, 26, 53, 0.4) 0%, transparent 100%), radial-gradient(circle at top right, rgba(255, 255, 255, 0.15), transparent 70%)'
+    background: 'linear-gradient(45deg, rgba(0, 26, 53, 0.4) 0%, transparent 100%), radial-gradient(circle at top right, rgba(155, 155, 155, 0.15), transparent 70%)'
   },
   glowEffect: {
-    filter: 'drop-shadow(0 0 20px rgba(255, 255, 255, 0.15))'
+    filter: 'drop-shadow(0 0 20px rgba(155, 155, 155, 0.15))'
   },
   shimmerGradient: {
-    background: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent)',
+    background: 'linear-gradient(90deg, transparent, rgba(155, 155, 155, 0.1), transparent)',
     backgroundSize: '200% 100%'
   }
 } as const;
@@ -97,7 +97,7 @@ const Hero = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
-                className="bg-[#0a2547] p-6 rounded-sm max-w-xl mt-12"
+                className="bg-[#0a1547] p-6 rounded-sm max-w-xl mt-12"
               >
                 <div className="flex items-center gap-4 text-white/90">
                   <span className="text-2xl">🏆</span>
@@ -170,7 +170,7 @@ const Hero = () => {
               >
                 <div className="flex items-center gap-4">
                   <div>
-                    <span className="text-3xl text-white font-bold">25+</span>
+                    <span className="text-3xl text-white font-bold">15+</span>
                     <span className="text-white/70 text-sm ml-1">Years</span>
                   </div>
                   <div className="text-white/70 text-sm border-l border-white/20 pl-4">
