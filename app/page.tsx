@@ -18,10 +18,14 @@ const font = Jost({
 
 export default function Home() {
   return (
-    <div className="flex flex-col w-full">
+    <main className="relative">
       {/* Hero Section */}
-      <section className="relative">
+      <section className="relative bg-white">
         <Hero />
+      </section>
+
+      {/* Membership Features with smooth transition */}
+      <section className="relative -mt-20">
         <MembershipFeatures />
       </section>
 
@@ -66,6 +70,6 @@ export default function Home() {
       <section className="relative bg-[#003366]">
         <Footer />
       </section>
-    </div>
+    </main>
   );
 }
