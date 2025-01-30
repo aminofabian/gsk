@@ -4,7 +4,7 @@ import { HiDocumentText } from 'react-icons/hi';
 
 const MembershipFeatures = () => {
   return (
-    <section className="relative mt-50">
+    <section className="relative mt-60">
       {/* Wave separator */}
       <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-white to-[#003366] overflow-hidden">
         <svg
