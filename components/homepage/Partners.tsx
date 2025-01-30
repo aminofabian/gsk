@@ -123,7 +123,7 @@ const Partners = () => {
       image: "/doctors/dr erick murunga.avif",
       specialty: "Gastroenterology",
       experience: "15+ years",
-      hospital: "Aga Khan University Hospital",
+      hospital: "GSK Khan University Hospital",
       email: "chairman@gsk.or.ke",
       linkedin: "https://www.linkedin.com/in/dr-eric-murunga"
     },

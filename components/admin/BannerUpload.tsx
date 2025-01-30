@@ -100,8 +100,8 @@ export default function BannerUpload() {
       
       setError(
         err.message === 'Failed to parse server response'
-          ? 'Server error: Please try again later'
-          : err.message || 'Failed to upload banner. Please try again.'
+          ? 'Server error: Please try GSKin later'
+          : err.message || 'Failed to upload banner. Please try GSKin.'
       );
     } finally {
       setUploading(false);

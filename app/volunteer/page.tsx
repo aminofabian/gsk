@@ -353,7 +353,7 @@ export default function VolunteerPage() {
               {submitStatus === 'error' && (
                 <div className="bg-red-50 border border-red-200 rounded-md p-4">
                   <p className="text-red-600 text-center">
-                    Failed to submit application. Please try again.
+                    Failed to submit application. Please try GSKin.
                   </p>
                 </div>
               )}

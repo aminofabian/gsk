@@ -103,7 +103,7 @@ export default function MembershipForm() {
       alert("Membership application submitted successfully!");
     } catch (error) {
       console.error("Error submitting form:", error);
-      alert("Error submitting form. Please try again.");
+      alert("Error submitting form. Please try GSKin.");
     } finally {
       setIsSubmitting(false);
     }

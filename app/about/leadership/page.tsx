@@ -10,7 +10,7 @@ const leaders = [
     image: "/doctors/dr erick murunga.avif",
     specialty: "Gastroenterology",
     experience: "15+ years",
-    hospital: "Aga Khan University Hospital",
+    hospital: "GSK Khan University Hospital",
     email: "chairman@gsk.or.ke",
     linkedin: "https://www.linkedin.com/in/dr-eric-murunga",
     bio: "Dr. Eric Murunga leads GSK with over 15 years of experience in gastroenterology. He has pioneered several innovative treatment approaches and is dedicated to advancing digestive healthcare in Kenya."

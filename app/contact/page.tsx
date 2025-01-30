@@ -271,7 +271,7 @@ export default function HelpDeskPage() {
                 {submitStatus === 'error' && (
                   <div className="bg-red-50 border border-red-200 rounded-md p-4">
                     <p className="text-red-600 text-center">
-                      Failed to submit ticket. Please try again or contact us directly.
+                      Failed to submit ticket. Please try GSKin or contact us directly.
                     </p>
                   </div>
                 )}
