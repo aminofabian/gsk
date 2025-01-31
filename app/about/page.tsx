@@ -62,32 +62,36 @@ const AboutHero = () => {
 const Gallery = () => (
   <section className="py-16 bg-white">
     <div className="max-w-7xl mx-auto px-4">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="relative h-80 overflow-hidden ">
-          <Image
-            src="/meeting/75B_6035.jpg"
-            alt="GSK Activities 1"
-            fill
-            className="object-cover hover:scale-105 transition-transform duration-300"
-          />
-        </div>
-        <div className="relative h-80 overflow-hidden ">
-          <Image
-            src="/meeting/75B_6038.jpg"
-            alt="GSK Activities 2"
-            fill
-            className="object-cover hover:scale-105 transition-transform duration-300"
-          />
-        </div>
-        <div className="relative h-80 overflow-hidden ">
-          <Image
-            src="/meeting/75B_6043.jpg"
-            alt="GSK Activities 3"
-            fill
-            className="object-cover hover:scale-105 transition-transform duration-300"
-          />
-        </div>
-      </div>
+      <motion.div 
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: true }}
+        className="grid grid-cols-1 md:grid-cols-3 gap-6"
+      >
+        {[
+          { src: "/meeting/75B_6035.jpg", alt: "GSK Activities 1" },
+          { src: "/meeting/75B_6038.jpg", alt: "GSK Activities 2" },
+          { src: "/meeting/75B_6043.jpg", alt: "GSK Activities 3" }
+        ].map((img, index) => (
+          <motion.div
+            key={img.src}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: index * 0.2 }}
+            viewport={{ once: true }}
+            className="relative h-80 overflow-hidden rounded-lg shadow-lg group"
+          >
+            <Image
+              src={img.src}
+              alt={img.alt}
+              fill
+              className="object-cover transition-transform duration-500 group-hover:scale-110"
+            />
+            <div className="absolute inset-0 bg-[#003366]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          </motion.div>
+        ))}
+      </motion.div>
     </div>
   </section>
 );
@@ -97,32 +101,48 @@ const Mission = () => (
   <section className="py-24 bg-white">
     <div className="max-w-7xl mx-auto px-4">
       <div className="grid md:grid-cols-2 gap-16 items-center">
-        <div className="relative">
-          <div className="relative h-[600px]  overflow-hidden">
+        <motion.div 
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="relative"
+        >
+          <div className="relative h-[600px] overflow-hidden rounded-lg shadow-xl">
             <Image
               src="/meeting/75B_6055.jpg"
               alt="GSK Mission"
               fill
-              className="object-cover"
+              className="object-cover transition-transform duration-700 hover:scale-105"
             />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#003366]/30 to-transparent" />
           </div>
-          <div className="absolute -bottom-8 -right-8 w-48 h-48">
+          <div className="absolute -bottom-8 -right-8 w-48 h-48 animate-spin-slow">
             <svg viewBox="0 0 100 100" className="w-full h-full text-[#003366]/10">
               <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" fill="none" stroke="currentColor" strokeWidth="2" />
             </svg>
           </div>
-        </div>
-        <div>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          viewport={{ once: true }}
+        >
           <h2 className="text-4xl font-serif font-bold text-[#003366] mb-8">
             Our Mission
           </h2>
           <p className="text-gray-600 text-lg mb-8 font-serif leading-relaxed">
             Our mission is to advance the practice of gastroenterology through education, research, and the dissemination of knowledge, improving the prevention, diagnosis, treatment, and management of gastrointestinal diseases in Kenya.
           </p>
-          <button className="bg-[#003366] text-white px-8 py-3  hover:bg-[#004488] transition-colors duration-300">
+          <motion.button 
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="bg-[#003366] text-white px-8 py-3 rounded-md hover:bg-[#004488] transition-colors duration-300 shadow-lg"
+          >
             Learn More
-          </button>
-        </div>
+          </motion.button>
+        </motion.div>
       </div>
     </div>
   </section>
@@ -132,9 +152,15 @@ const Mission = () => (
 const WorkWithMe = () => (
   <section className="py-24 bg-[#003366]">
     <div className="max-w-7xl mx-auto px-4">
-      <h2 className="text-4xl font-serif font-bold text-white text-center mb-16">
+      <motion.h2 
+        initial={{ opacity: 0, y: -20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: true }}
+        className="text-4xl font-serif font-bold text-white text-center mb-16"
+      >
         Partner With Us
-      </h2>
+      </motion.h2>
       <div className="grid md:grid-cols-3 gap-8">
         {[
           {
@@ -150,17 +176,28 @@ const WorkWithMe = () => (
             description: "Advocating for better digestive health policies and improved healthcare access."
           }
         ].map((item, index) => (
-          <div key={index} className="bg-white/10 backdrop-blur-lg p-8 ">
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: index * 0.2 }}
+            viewport={{ once: true }}
+            className="bg-white/10 backdrop-blur-lg p-8 rounded-lg hover:bg-white/15 transition-colors duration-300"
+          >
             <h3 className="text-2xl font-serif font-bold text-white mb-4">
               {item.title}
             </h3>
             <p className="text-white/80 leading-relaxed">
               {item.description}
             </p>
-            <button className="mt-6 text-white border border-white/30 px-6 py-2  hover:bg-white hover:text-[#003366] transition-colors duration-300">
+            <motion.button 
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="mt-6 text-white border border-white/30 px-6 py-2 rounded-md hover:bg-white hover:text-[#003366] transition-colors duration-300"
+            >
               Learn More
-            </button>
-          </div>
+            </motion.button>
+          </motion.div>
         ))}
       </div>
     </div>
@@ -172,32 +209,48 @@ const ReadyToShoot = () => (
   <section className="py-24 bg-white">
     <div className="max-w-7xl mx-auto px-4">
       <div className="grid md:grid-cols-2 gap-16 items-center">
-        <div>
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+        >
           <h2 className="text-4xl font-serif font-bold text-[#003366] mb-8">
             Ready to Join?
           </h2>
           <p className="text-gray-600 text-lg mb-8 font-serif leading-relaxed">
             Join the Gastroenterology Society of Kenya and become part of a community dedicated to advancing digestive health care in Kenya. Together, we can make a difference.
           </p>
-          <button className="bg-[#003366] text-white px-8 py-3  hover:bg-[#004488] transition-colors duration-300">
+          <motion.button 
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="bg-[#003366] text-white px-8 py-3 rounded-md hover:bg-[#004488] transition-colors duration-300 shadow-lg"
+          >
             Become a Member
-          </button>
-        </div>
-        <div className="relative">
-          <div className="relative h-[500px]  overflow-hidden">
+          </motion.button>
+        </motion.div>
+        <motion.div 
+          initial={{ opacity: 0, x: 20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          viewport={{ once: true }}
+          className="relative"
+        >
+          <div className="relative h-[500px] overflow-hidden rounded-lg shadow-xl">
             <Image
               src="/meeting/75B_6092.jpg"
               alt="Join GSK"
               fill
-              className="object-cover"
+              className="object-cover transition-transform duration-700 hover:scale-105"
             />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#003366]/30 to-transparent" />
           </div>
-          <div className="absolute -bottom-8 -left-8 w-48 h-48">
+          <div className="absolute -bottom-8 -left-8 w-48 h-48 animate-spin-slow">
             <svg viewBox="0 0 100 100" className="w-full h-full text-[#003366]/10">
               <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" fill="none" stroke="currentColor" strokeWidth="2" />
             </svg>
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   </section>
