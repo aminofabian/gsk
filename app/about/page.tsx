@@ -47,7 +47,7 @@ const AboutHero = () => {
           className="max-w-3xl"
         >
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-white mb-6">
-            Let Me Tell Your Story
+            Our Story
           </h1>
           <p className="text-lg md:text-xl text-white/90 font-serif leading-relaxed">
             The Gastroenterology Society of Kenya (GSK) is more than just a medical organization - it&apos;s a community of dedicated professionals united by a passion for advancing digestive health care through education, research, and advocacy.
@@ -114,12 +114,12 @@ const Mission = () => (
         </div>
         <div>
           <h2 className="text-4xl font-serif font-bold text-[#003366] mb-8">
-            Photography for Every Equestrian
+            Our Mission
           </h2>
           <p className="text-gray-600 text-lg mb-8 font-serif leading-relaxed">
             Our mission is to advance the practice of gastroenterology through education, research, and the dissemination of knowledge, improving the prevention, diagnosis, treatment, and management of gastrointestinal diseases in Kenya.
           </p>
-          <button className="bg-[#003366] text-white px-8 py-3 rounded-full hover:bg-[#004488] transition-colors duration-300">
+          <button className="bg-[#003366] text-white px-8 py-3  hover:bg-[#004488] transition-colors duration-300">
             Learn More
           </button>
         </div>
@@ -133,7 +133,7 @@ const WorkWithMe = () => (
   <section className="py-24 bg-[#003366]">
     <div className="max-w-7xl mx-auto px-4">
       <h2 className="text-4xl font-serif font-bold text-white text-center mb-16">
-        Work with Me
+        Partner With Us
       </h2>
       <div className="grid md:grid-cols-3 gap-8">
         {[
@@ -157,7 +157,7 @@ const WorkWithMe = () => (
             <p className="text-white/80 leading-relaxed">
               {item.description}
             </p>
-            <button className="mt-6 text-white border border-white/30 px-6 py-2 rounded-full hover:bg-white hover:text-[#003366] transition-colors duration-300">
+            <button className="mt-6 text-white border border-white/30 px-6 py-2  hover:bg-white hover:text-[#003366] transition-colors duration-300">
               Learn More
             </button>
           </div>
@@ -179,7 +179,7 @@ const ReadyToShoot = () => (
           <p className="text-gray-600 text-lg mb-8 font-serif leading-relaxed">
             Join the Gastroenterology Society of Kenya and become part of a community dedicated to advancing digestive health care in Kenya. Together, we can make a difference.
           </p>
-          <button className="bg-[#003366] text-white px-8 py-3 rounded-full hover:bg-[#004488] transition-colors duration-300">
+          <button className="bg-[#003366] text-white px-8 py-3  hover:bg-[#004488] transition-colors duration-300">
             Become a Member
           </button>
         </div>

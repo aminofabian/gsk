@@ -25,14 +25,16 @@ export default function Home() {
         <Hero />
       </section>
 
-      {/* Membership Features with smooth transition */}
-      <section className="relative -mt-20">
-        <MembershipFeatures />
-      </section>
+     
 
       {/* About GSK Section */}
       <section className="relative">
         <AboutGSK />
+      </section>
+
+       {/* Membership Features with smooth transition */}
+       <section className="relative -mt-20">
+        <MembershipFeatures />
       </section>
 
       {/* Features Section with top wave separator */}

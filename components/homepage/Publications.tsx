@@ -68,16 +68,6 @@ const Publications = () => {
       readTime: "10 min read",
       tags: ["Hepatitis", "Treatment", "East Africa"],
       image: "/publication/istockphoto-2181115231-2048x2048.jpg"
-    },
-    {
-      category: "Case Study",
-      title: "Novel Approaches in Digestive Health Management",
-      preview: "Exploring innovative treatment methods and their outcomes in managing complex digestive disorders.",
-      date: "March 1, 2024",
-      author: "Dr. Alice Wanjiku",
-      readTime: "8 min read",
-      tags: ["Innovation", "Treatment", "Case Study"],
-      image: "/publication/stomach-7111043_1280.jpg"
     }
   ];
 
@@ -150,7 +140,7 @@ const Publications = () => {
         </motion.div>
 
         {/* Journal Grid Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 relative">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 relative">
           {publications.map((pub, index) => (
             <motion.article
               key={index}
