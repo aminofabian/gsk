@@ -80,7 +80,7 @@ const Gallery = () => (
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: index * 0.2 }}
             viewport={{ once: true }}
-            className="relative h-80 overflow-hidden rounded-lg shadow-lg group"
+            className="relative h-80 overflow-hidden  shadow-lg group"
           >
             <Image
               src={img.src}
@@ -108,7 +108,7 @@ const Mission = () => (
           viewport={{ once: true }}
           className="relative"
         >
-          <div className="relative h-[600px] overflow-hidden rounded-lg shadow-xl">
+          <div className="relative h-[600px] overflow-hidden  shadow-xl">
             <Image
               src="/meeting/75B_6055.jpg"
               alt="GSK Mission"
@@ -182,7 +182,7 @@ const WorkWithMe = () => (
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: index * 0.2 }}
             viewport={{ once: true }}
-            className="bg-white/10 backdrop-blur-lg p-8 rounded-lg hover:bg-white/15 transition-colors duration-300"
+            className="bg-white/10 backdrop-blur-lg p-8  hover:bg-white/15 transition-colors duration-300"
           >
             <h3 className="text-2xl font-serif font-bold text-white mb-4">
               {item.title}
@@ -236,7 +236,7 @@ const ReadyToShoot = () => (
           viewport={{ once: true }}
           className="relative"
         >
-          <div className="relative h-[500px] overflow-hidden rounded-lg shadow-xl">
+          <div className="relative h-[500px] overflow-hidden  shadow-xl">
             <Image
               src="/meeting/75B_6092.jpg"
               alt="Join GSK"
