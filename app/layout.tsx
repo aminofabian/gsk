@@ -8,8 +8,8 @@ const outfit = Outfit({
   variable: "--font-outfit"
 });
 
-const garamond = Merriweather({ 
-  weight: ['400', '700'],
+const garamond = EB_Garamond({ 
+  weight: ['400', '500', '600', '700', '800'],
   subsets: ["latin"],
   variable: "--font-garamond"
 });
