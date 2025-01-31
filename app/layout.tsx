@@ -1,4 +1,4 @@
-import { Outfit, EB_Garamond, Playfair_Display } from "next/font/google";
+import { Outfit, EB_Garamond, Playfair_Display, Merriweather } from "next/font/google";
 import "./globals.css";
 import { Metadata } from "next";
 import ClientLayout from "@/components/ClientLayout";
@@ -8,8 +8,8 @@ const outfit = Outfit({
   variable: "--font-outfit"
 });
 
-const garamond = EB_Garamond({ 
-  weight: ['400', '500', '600', '700', '800'],
+const garamond = Merriweather({ 
+  weight: ['400', '700'],
   subsets: ["latin"],
   variable: "--font-garamond"
 });
