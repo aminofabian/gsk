@@ -1,11 +1,12 @@
 "use client";
 
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import Sidebar from "./Sidebar";
 import BottomNav from "./BottomNav";
 import { FaBell, FaUserMd } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { Outfit } from "next/font/google";
+import { useUserStore } from "@/store/user-store";
 
 const outfit = Outfit({ subsets: ["latin"] });
 
@@ -14,6 +15,16 @@ interface DashboardLayoutProps {
 }
 
 export default function DashboardLayout({ children }: DashboardLayoutProps) {
+  const { user, notifications, fetchUserData } = useUserStore();
+
+  useEffect(() => {
+    fetchUserData();
+  }, [fetchUserData]);
+
+  const fullName = user
+    ? `${user.firstName || ''} ${user.lastName || ''}`.trim()
+    : 'Loading...';
+
   return (
     <div className={`flex h-screen bg-gray-50 ${outfit.className}`}>
       {/* Sidebar - Hidden on mobile */}
@@ -32,8 +43,8 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                 <FaUserMd className="text-[#003366]" />
               </div>
               <div>
-                <div className="text-gray-900 font-medium">Dr. John Mwangi</div>
-                <div className="text-gray-500 text-xs">Gastroenterologist</div>
+                <div className="text-gray-900 font-medium">{fullName}</div>
+                <div className="text-gray-500 text-xs">{user?.role || 'Loading...'}</div>
               </div>
             </div>
 
@@ -52,7 +63,11 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                 className="relative text-gray-400 hover:text-gray-600 transition-colors"
               >
                 <FaBell className="text-xl" />
-                <span className="absolute -top-1 -right-1 w-4 h-4 bg-[#003366]  text-xs flex items-center justify-center text-white">2</span>
+                {notifications.length > 0 && (
+                  <span className="absolute -top-1 -right-1 w-4 h-4 bg-[#003366] text-xs flex items-center justify-center text-white">
+                    {notifications.length}
+                  </span>
+                )}
               </motion.button>
             </div>
           </div>

@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 
 interface Notification {
-  id: number;
+  id: string;
   title: string;
   message: string;
   time: string;
@@ -19,27 +19,24 @@ export default function NotificationsDropdown({ notifications }: NotificationsDr
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 10 }}
-      className="absolute right-0 mt-2 w-80 bg-white  shadow-lg border border-gray-100 py-2 z-50"
+      className="absolute right-0 mt-2 w-80 bg-white  shadow-xl"
     >
-      <div className="px-4 py-2 border-b border-gray-100">
-        <h3 className="font-display font-bold text-gray-900">Notifications</h3>
-      </div>
-      <div className="max-h-[300px] overflow-y-auto">
-        {notifications.map((notification) => (
-          <div
-            key={notification.id}
-            className="px-4 py-3 hover:bg-gray-50 transition-colors cursor-pointer"
-          >
-            <div className="font-medium text-sm text-gray-900">{notification.title}</div>
-            <div className="text-sm text-gray-500 mt-0.5">{notification.message}</div>
-            <div className="text-xs text-gray-400 mt-1">{notification.time}</div>
-          </div>
-        ))}
-      </div>
-      <div className="px-4 py-2 border-t border-gray-100">
-        <button className="text-sm text-[#003366] hover:text-[#004488] font-medium">
-          View All Notifications
-        </button>
+      <div className="p-4">
+        <h3 className="text-lg font-display font-bold text-gray-900">Notifications</h3>
+        <div className="mt-4 space-y-3">
+          {notifications.map((notification) => (
+            <div key={notification.id} className="flex items-start gap-3 p-3 hover:bg-gray-50 transition-colors">
+              <div className="flex-1 space-y-1">
+                <p className="text-sm font-medium text-gray-900">{notification.title}</p>
+                <p className="text-sm text-gray-500">{notification.message}</p>
+                <p className="text-xs text-gray-400">{notification.time}</p>
+              </div>
+            </div>
+          ))}
+          {notifications.length === 0 && (
+            <p className="text-sm text-gray-500 text-center py-4">No new notifications</p>
+          )}
+        </div>
       </div>
     </motion.div>
   );

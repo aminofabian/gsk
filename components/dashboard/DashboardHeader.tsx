@@ -1,21 +1,52 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaBell, FaSearch, FaChevronDown } from "react-icons/fa";
 import NotificationsDropdown from "./NotificationsDropdown";
 import UserMenuDropdown from "./UserMenuDropdown";
+import { getDashboardData } from "@/actions/get-dashboard-data";
 
-const notifications = [
-  { id: 1, title: "New Event Registration", message: "Annual Conference registration is now open", time: "2 mins ago" },
-  { id: 2, title: "Payment Reminder", message: "Your membership renewal is due in 5 days", time: "1 hour ago" },
-  { id: 3, title: "New Resource Available", message: "Latest guidelines have been published", time: "2 hours ago" },
-];
+interface DashboardData {
+  user: {
+    id: string;
+    firstName: string | null;
+    lastName: string | null;
+    email: string | null;
+    role: string;
+    image: string | null;
+  };
+  notifications: {
+    id: string;
+    title: string;
+    message: string;
+    time: string;
+  }[];
+}
 
 export default function DashboardHeader() {
   const [showNotifications, setShowNotifications] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
+  const [dashboardData, setDashboardData] = useState<DashboardData | null>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getDashboardData();
+      if (!data.error) {
+        setDashboardData(data as DashboardData);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const userInitials = dashboardData?.user 
+    ? `${dashboardData.user.firstName?.[0] || ''}${dashboardData.user.lastName?.[0] || ''}`
+    : '';
+
+  const fullName = dashboardData?.user
+    ? `${dashboardData.user.firstName || ''} ${dashboardData.user.lastName || ''}`.trim()
+    : 'Loading...';
 
   return (
     <header className="bg-gradient-to-b from-white to-gray-50/50 backdrop-blur-xl border-b border-gray-100 sticky top-0 z-40">
@@ -28,7 +59,7 @@ export default function DashboardHeader() {
                 Welcome back,
               </h1>
               <p className="text-sm sm:text-base text-gray-600 font-medium">
-                Dr. John Mwangi
+                {fullName}
               </p>
             </div>
           </div>
@@ -78,12 +109,18 @@ export default function DashboardHeader() {
                 }`}
               >
                 <FaBell className="text-lg" />
-                <span className="absolute top-2 right-2 w-2.5 h-2.5 bg-red-500  ring-2 ring-white" />
+                {(dashboardData?.notifications ?? []).length > 0 && (
+                  <span className="absolute top-2 right-2 w-2.5 h-2.5 bg-red-500  ring-2 ring-white" />
+                )}
               </motion.button>
 
               {/* Notifications Dropdown */}
               <AnimatePresence>
-                {showNotifications && <NotificationsDropdown notifications={notifications} />}
+                {showNotifications && (
+                  <NotificationsDropdown 
+                    notifications={dashboardData?.notifications || []} 
+                  />
+                )}
               </AnimatePresence>
             </div>
 
@@ -100,11 +137,11 @@ export default function DashboardHeader() {
                 }`}
               >
                 <div className="w-10 h-10  bg-gradient-to-br from-[#003366] to-[#004488] flex items-center justify-center text-white font-medium shadow-md">
-                  JM
+                  {userInitials}
                 </div>
                 <div className="hidden sm:block text-left">
-                  <div className="text-sm font-medium text-gray-900">Dr. John Mwangi</div>
-                  <div className="text-xs text-gray-500">Gastroenterologist</div>
+                  <div className="text-sm font-medium text-gray-900">{fullName}</div>
+                  <div className="text-xs text-gray-500">{dashboardData?.user?.role || 'Loading...'}</div>
                 </div>
                 <motion.div
                   animate={{ rotate: showUserMenu ? 180 : 0 }}
@@ -116,7 +153,7 @@ export default function DashboardHeader() {
 
               {/* User Dropdown */}
               <AnimatePresence>
-                {showUserMenu && <UserMenuDropdown />}
+                {showUserMenu && <UserMenuDropdown user={dashboardData?.user} />}
               </AnimatePresence>
             </div>
           </div>

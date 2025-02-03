@@ -20,17 +20,32 @@ enum UserRole {
   VERIFIED_USER
 }
 
+enum MembershipStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum Designation {
+  MD
+  PhD
+  OTHER
+}
+
 model User {
-  id                 String    @id @default(cuid())
-  firstName          String?
-  lastName           String?
-  email              String?   @unique
-  emailVerified      DateTime? @map("email_verified")
-  image              String?
-  password           String?
-  role               UserRole  @default(USER)
-  accounts           Account[]
-  isTwoFactorEnabled Boolean   @default(false)
+  id                    String                 @id @default(cuid())
+  firstName             String?
+  lastName              String?
+  email                 String?                @unique
+  emailVerified         DateTime?              @map("email_verified")
+  image                 String?
+  password              String?
+  role                  UserRole               @default(USER)
+  accounts              Account[]
+  isTwoFactorEnabled    Boolean                @default(false)
+  membershipApplication MembershipApplication[]
+  eventsAttending        Event[]                @relation("EventAttendees")
+  eventsOrganizing       Event[]                @relation("EventOrganizers")
   
   @@map("users")
 }
@@ -73,5 +88,49 @@ model PasswordResetToken {
 
   @@unique([email, token])
   @@map("password_reset_tokens")
+}
+
+model MembershipApplication {
+  id            String           @id @default(cuid())
+  userId        String
+  status        MembershipStatus @default(PENDING)
+  designation   Designation
+  speciality    String
+  licenseNumber String?
+  hospital      String
+  address       String
+  city          String
+  county        String
+  postalCode    String?
+  phone         String
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+  user          User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("membership_applications")
+  @@index([userId])
+}
+
+enum EventType {
+  CONFERENCE
+  WORKSHOP
+  SEMINAR
+  MEETING
+}
+
+model Event {
+  id          String    @id @default(cuid())
+  title       String
+  description String
+  type        EventType
+  startDate   DateTime
+  endDate     DateTime
+  venue       String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  attendees   User[]    @relation("EventAttendees")
+  organizers  User[]    @relation("EventOrganizers")
+
+  @@map("events")
 }
 

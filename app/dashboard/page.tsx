@@ -1,11 +1,14 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import DashboardLayout from "@/components/dashboard/DashboardLayout";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { FaCalendarAlt, FaFileAlt, FaGraduationCap, FaStethoscope, FaCertificate, FaFile, FaBuilding } from "react-icons/fa";
 import { MdPayments } from "react-icons/md";
+import { getDashboardData } from "@/actions/get-dashboard-data";
+import { useUserStore } from "@/store/user-store";
 
 const quickLinks = [
   {
@@ -85,13 +88,16 @@ const recentUpdates = [
 ];
 
 export default function DashboardPage() {
+  const { user } = useUserStore();
+  const firstName = user?.firstName || 'there';
+
   return (
     <DashboardLayout>
       {/* Welcome Section */}
       <div className="relative  overflow-hidden mb-8 bg-gradient-to-r from-[#003366] to-[#004488]">
         <div className="absolute inset-0 bg-grid-white/10" />
         <div className="relative p-8">
-          <h1 className="text-3xl font-bold text-white mb-2">Welcome Back, Dr. John</h1>
+          <h1 className="text-3xl font-bold text-white mb-2">Welcome Back, {firstName}</h1>
           <p className="text-white/80 mb-4">Stay updated with the latest in gastroenterology</p>
         </div>
       </div>
