@@ -7,7 +7,7 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
     {/* <div className="h-32  bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-sky-400 to-blue-800 text-center">
     <LoginSide />
   </div> */}
-  <div className="h-screen  bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-sky-400 to-blue-800 text-center order-first lg:order-last p-5 mx-auto">
+  <div className="h-screen text-center order-first lg:order-last p-5 mx-auto">
   {children}
   </div>
   </div>
