@@ -29,12 +29,14 @@ interface User {
 
 interface UserStore {
   user: User | null;
+  notifications: any[];
   setUser: (user: User | null) => void;
   fetchUserData: () => Promise<void>;
 }
 
 export const useUserStore = create<UserStore>((set) => ({
   user: null,
+  notifications: [],
   setUser: (user) => set({ user }),
   fetchUserData: async () => {
     try {

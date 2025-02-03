@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -14,49 +8,40 @@ datasource db {
   relationMode = "prisma"
 }
 
-enum UserRole {
-  ADMIN
-  USER
-  VERIFIED_USER
-}
-
-enum MembershipStatus {
-  PENDING
-  APPROVED
-  REJECTED
-}
-
-enum Designation {
-  MD
-  PhD
-  OTHER
-}
-
 model User {
-  id                    String                 @id @default(cuid())
+  id                    String                  @id @default(cuid())
   firstName             String?
   lastName              String?
-  email                 String?                @unique
-  emailVerified         DateTime?              @map("email_verified")
+  email                 String?                 @unique
+  phone                 String?
+  emailVerified         DateTime?               @map("email_verified")
   image                 String?
   password              String?
-  role                  UserRole               @default(USER)
+  role                  UserRole                @default(USER)
+  isTwoFactorEnabled    Boolean                 @default(false)
+  bio                   String?                 @db.Text
+  hospital              String?
+  profileSlug           String?                 @unique
+  specialization        String?
+  title                 String?
+  yearsOfExperience    Int?
+  languages            String[]
+  certifications       String[]
+  researchInterests    String[]
+  publicationCount     Int?                    @default(0)
+  lastActive           DateTime?
+  profileCompleteness  Int?                    @default(0)
+  isProfilePublic      Boolean                 @default(true)
   accounts              Account[]
-  isTwoFactorEnabled    Boolean                @default(false)
   membershipApplication MembershipApplication[]
-  eventsAttending        Event[]                @relation("EventAttendees")
-  eventsOrganizing       Event[]                @relation("EventOrganizers")
-  
-  // Profile fields
-  bio                  String?                @db.Text
-  title                String?
-  specialization       String?
-  hospital             String?
-  profileSlug          String?                @unique
-  socialLinks          SocialLink[]
-  achievements         Achievement[]
-  education            Education[]
-  
+  eventsAttending       Event[]                 @relation("EventAttendees")
+  eventsOrganizing      Event[]                 @relation("EventOrganizers")
+  socialLinks           SocialLink[]
+  achievements          Achievement[]
+  education             Education[]
+  publications          Publication[]
+  researchProjects     ResearchProject[]
+
   @@map("users")
 }
 
@@ -66,15 +51,14 @@ model Account {
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
+  refresh_token     String?
+  access_token      String?
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String? @db.Text
+  id_token          String?
   session_state     String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
   @@map("accounts")
@@ -101,31 +85,23 @@ model PasswordResetToken {
 }
 
 model MembershipApplication {
-  id            String           @id @default(cuid())
+  id            String   @id @default(cuid())
   userId        String
-  status        MembershipStatus @default(PENDING)
-  designation   Designation
-  speciality    String
+  phone         String
+  designation   String
+  specialization String
   licenseNumber String?
   hospital      String
   address       String
   city          String
   county        String
   postalCode    String?
-  phone         String
-  createdAt     DateTime         @default(now())
-  updatedAt     DateTime         @updatedAt
-  user          User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  status        String   @default("PENDING")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("membership_applications")
-  @@index([userId])
-}
-
-enum EventType {
-  CONFERENCE
-  WORKSHOP
-  SEMINAR
-  MEETING
 }
 
 model Event {
@@ -145,13 +121,14 @@ model Event {
 }
 
 model SocialLink {
-  id        String   @id @default(cuid())
-  platform  String
+  id        String      @id @default(cuid())
+  platform  SocialPlatform
   url       String
   userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  isVerified Boolean   @default(false)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
   @@map("social_links")
@@ -162,10 +139,13 @@ model Achievement {
   title       String
   description String?  @db.Text
   year        Int?
+  type        AchievementType
+  issuer      String?
+  url         String?
   userId      String
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
   @@map("achievements")
@@ -176,14 +156,138 @@ model Education {
   institution String
   degree      String
   field       String
+  specialization String?
   startYear   Int
   endYear     Int?
+  grade       String?
+  honors      String?
+  thesis      String? @db.Text
+  supervisor  String?
+  isVerified  Boolean @default(false)
   userId      String
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
   @@map("education")
 }
 
+model Publication {
+  id          String    @id @default(cuid())
+  title       String
+  abstract    String?   @db.Text
+  authors     String[]
+  journal     String?
+  year        Int
+  doi         String?   @unique
+  url         String?
+  citations   Int       @default(0)
+  type        PublicationType
+  userId      String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("publications")
+}
+
+model ResearchProject {
+  id          String    @id @default(cuid())
+  title       String
+  description String?   @db.Text
+  startDate   DateTime
+  endDate     DateTime?
+  status      ProjectStatus
+  fundingSource String?
+  collaborators String[]
+  userId      String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("research_projects")
+}
+
+model EventAttendees {
+  A String
+  B String
+
+  @@unique([A, B], map: "_EventAttendees_AB_unique")
+  @@index([B], map: "_EventAttendees_B_index")
+  @@map("_EventAttendees")
+}
+
+model EventOrganizers {
+  A String
+  B String
+
+  @@unique([A, B], map: "_EventOrganizers_AB_unique")
+  @@index([B], map: "_EventOrganizers_B_index")
+  @@map("_EventOrganizers")
+}
+
+enum UserRole {
+  ADMIN
+  USER
+  VERIFIED_USER
+}
+
+enum MembershipStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum Designation {
+  MD
+  PhD
+  OTHER
+}
+
+enum EventType {
+  CONFERENCE
+  WORKSHOP
+  SEMINAR
+  MEETING
+}
+
+enum SocialPlatform {
+  LINKEDIN
+  TWITTER
+  RESEARCHGATE
+  GOOGLESCHOLAR
+  ORCID
+  WEBSITE
+  OTHER
+}
+
+enum AchievementType {
+  AWARD
+  CERTIFICATION
+  FELLOWSHIP
+  GRANT
+  PATENT
+  RECOGNITION
+  OTHER
+}
+
+enum PublicationType {
+  JOURNAL_ARTICLE
+  CONFERENCE_PAPER
+  BOOK_CHAPTER
+  BOOK
+  THESIS
+  PATENT
+  OTHER
+}
+
+enum ProjectStatus {
+  PLANNED
+  ONGOING
+  COMPLETED
+  SUSPENDED
+  CANCELLED
+}

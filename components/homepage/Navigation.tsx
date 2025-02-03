@@ -1,6 +1,17 @@
 "use client";
 import React, { useState } from 'react';
 import Logo from './Logo';
+import { useSession } from "next-auth/react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { LogOut, User, Settings, Bell } from 'lucide-react';
 
 // Add keyframe animation for marquee
 const marqueeStyles = `
@@ -244,6 +255,58 @@ const MobileMenu = ({ navItems, isOpen, setIsOpen }: {
 );
 };
 
+const UserNav = () => {
+  const { data: session } = useSession();
+  
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <button className="flex items-center gap-2 p-2 rounded-full hover:bg-gray-100 transition-colors">
+          <Avatar className="h-8 w-8">
+            <AvatarImage src={session?.user?.image || ''} />
+            <AvatarFallback>{session?.user?.name?.[0] || 'U'}</AvatarFallback>
+          </Avatar>
+          <div className="hidden lg:block text-left">
+            <p className="text-sm font-medium">{session?.user?.name}</p>
+            <p className="text-xs text-gray-500">{session?.user?.email}</p>
+          </div>
+        </button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="w-56" align="end">
+        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem asChild>
+          <a href="/profile" className="flex items-center cursor-pointer">
+            <User className="mr-2 h-4 w-4" />
+            Profile
+          </a>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <a href="/settings" className="flex items-center cursor-pointer">
+            <Settings className="mr-2 h-4 w-4" />
+            Settings
+          </a>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <a href="/notifications" className="flex items-center cursor-pointer">
+            <Bell className="mr-2 h-4 w-4" />
+            Notifications
+          </a>
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem asChild>
+          <form action="/api/auth/signout" method="POST" className="w-full">
+            <button type="submit" className="flex items-center w-full cursor-pointer">
+              <LogOut className="mr-2 h-4 w-4" />
+              Sign out
+            </button>
+          </form>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+};
+
 const HelloBar = () => (
   <div className="bg-[#003366] text-white">
     {/* Announcement Banner */}
@@ -287,6 +350,7 @@ const HelloBar = () => (
 
 const Navigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { data: session } = useSession();
   const navItems: NavItem[] = [
     {
       title: 'About Us',
@@ -348,20 +412,24 @@ const Navigation = () => {
           <div className="flex justify-between items-center h-16 sm:h-20 border-b border-gray-100">
             <Logo />
             <div className="flex items-center space-x-6">
-              <div className="hidden lg:flex items-center space-x-6">
-                <a 
-                  href="/login" 
-                  className="text-sm font-semibold text-[#003366]/80 hover:text-[#0f5a5e]/70 transition-colors duration-200 uppercase"
-                >
-                  Sign In
-                </a>
-                <a 
-                  href="/register" 
-                  className="px-5 py-2 text-sm font-semibold text-white bg-[#003366] hover:bg-gradient-to-r hover:from-[#003366] hover:to-[#0f5a5e]/80 transition-all duration-200 uppercase tracking-wider"
-                >
-                  Join GSK
-                </a>
-              </div>
+              {session ? (
+                <UserNav />
+              ) : (
+                <div className="hidden lg:flex items-center space-x-6">
+                  <a 
+                    href="/login" 
+                    className="text-sm font-semibold text-[#003366]/80 hover:text-[#0f5a5e]/70 transition-colors duration-200 uppercase"
+                  >
+                    Sign In
+                  </a>
+                  <a 
+                    href="/register" 
+                    className="px-5 py-2 text-sm font-semibold text-white bg-[#003366] hover:bg-gradient-to-r hover:from-[#003366] hover:to-[#0f5a5e]/80 transition-all duration-200 uppercase tracking-wider"
+                  >
+                    Join GSK
+                  </a>
+                </div>
+              )}
               <button 
                 onClick={() => setIsMobileMenuOpen(true)}
                 className="lg:hidden p-2 text-[#003366]/80 hover:text-[#0f5a5e]/70 transition-colors"

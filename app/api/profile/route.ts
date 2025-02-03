@@ -1,45 +1,67 @@
 import { NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
+import { Prisma } from "@prisma/client";
 import { auth } from "@/auth";
-import db from "@/lib/db";
 
-export async function PUT(req: Request) {
+export async function PUT(request: Request) {
   try {
     const session = await auth();
-    if (!session?.user?.id) {
+    if (!session?.user?.email) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    const values = await req.json();
+    const data = await request.json();
+    const {
+      image,
+      title,
+      bio,
+      specialization,
+      hospital,
+      profileSlug,
+      socialLinks,
+      education,
+      achievements
+    } = data;
 
-    // Update user profile in database
-    const updatedUser = await db.user.update({
-      where: { id: session.user.id },
+    // Update user profile
+    const updatedUser = await prisma.user.update({
+      where: { email: session.user.email },
       data: {
-        title: values.title,
-        bio: values.bio,
-        specialization: values.specialization,
-        hospital: values.hospital,
-        profileSlug: values.profileSlug,
-        // Handle arrays separately to avoid potential issues
+        image,
+        title,
+        bio,
+        specialization,
+        hospital,
+        profileSlug,
+        // Handle social links
         socialLinks: {
           deleteMany: {},
-          create: values.socialLinks
+          create: socialLinks
         },
+        // Handle education
         education: {
           deleteMany: {},
-          create: values.education
+          create: education
         },
+        // Handle achievements
         achievements: {
           deleteMany: {},
-          create: values.achievements
+          create: achievements
         }
+      },
+      include: {
+        socialLinks: true,
+        education: true,
+        achievements: true
       }
     });
 
-    return NextResponse.json(updatedUser);
+    // Remove sensitive information
+    const { password, ...safeUser } = updatedUser;
+    return NextResponse.json(safeUser);
   } catch (error) {
-    console.error("[PROFILE_UPDATE]", error);
-    return new NextResponse("Internal Error", { status: 500 });
+    console.error("Error updating profile:", error);
+    return new NextResponse("Error updating profile", { status: 500 });
   }
 }
 
@@ -52,24 +74,52 @@ export async function GET(req: Request) {
       return new NextResponse("Slug is required", { status: 400 });
     }
 
-    const user = await db.user.findUnique({
-      where: { profileSlug: slug },
+    const user = await prisma.user.findFirst({
+      where: {
+        profileSlug: slug,
+        isProfilePublic: true
+      },
       select: {
         firstName: true,
         lastName: true,
+        image: true,
         title: true,
         bio: true,
         specialization: true,
         hospital: true,
-        profileSlug: true,
-        socialLinks: true,
-        education: true,
-        achievements: true,
+        socialLinks: {
+          select: {
+            platform: true,
+            url: true,
+          }
+        },
+        education: {
+          select: {
+            institution: true,
+            degree: true,
+            field: true,
+            startYear: true,
+            endYear: true,
+          },
+          orderBy: {
+            startYear: 'desc'
+          }
+        },
+        achievements: {
+          select: {
+            title: true,
+            description: true,
+            year: true,
+          },
+          orderBy: {
+            year: 'desc'
+          }
+        }
       }
     });
 
     if (!user) {
-      return new NextResponse("User not found", { status: 404 });
+      return new NextResponse("Profile not found", { status: 404 });
     }
 
     return NextResponse.json(user);

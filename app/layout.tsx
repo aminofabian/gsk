@@ -1,7 +1,8 @@
-import { Outfit, EB_Garamond, Playfair_Display, Merriweather } from "next/font/google";
+import { Outfit, EB_Garamond, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { Metadata } from "next";
 import ClientLayout from "@/components/ClientLayout";
+import Providers from "@/components/Providers";
 
 const outfit = Outfit({ 
   subsets: ["latin"], 
@@ -52,7 +53,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${outfit.variable} ${garamond.variable} ${playfair.variable} font-garamond antialiased`}>
-        <ClientLayout>{children}</ClientLayout>
+        <Providers>
+          <ClientLayout>{children}</ClientLayout>
+        </Providers>
       </body>
     </html>
   );

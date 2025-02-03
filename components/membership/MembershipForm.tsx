@@ -9,6 +9,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { toast } from "sonner";
 
 // Form Schema
 const membershipSchema = z.object({
@@ -96,14 +97,32 @@ export default function MembershipForm() {
   const onSubmit = async (values: z.infer<typeof membershipSchema>) => {
     setIsSubmitting(true);
     try {
-      // TODO: Implement API call to submit membership application
-      console.log(values);
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      alert("Membership application submitted successfully!");
+      const response = await fetch("/api/membership", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      });
+
+      if (!response.ok) {
+        const error = await response.text();
+        throw new Error(error || "Failed to submit membership application");
+      }
+
+      const data = await response.json();
+      toast.success("Membership application submitted successfully!", {
+        description: "Please check your email for further instructions.",
+        duration: 5000,
+      });
+      
+      // Redirect after a short delay
+      setTimeout(() => {
+        window.location.href = "/login";
+      }, 2000);
     } catch (error) {
       console.error("Error submitting form:", error);
-      alert("Error submitting form. Please try GSKin.");
+      toast.error(error instanceof Error ? error.message : "Failed to submit membership application. Please try again.");
     } finally {
       setIsSubmitting(false);
     }

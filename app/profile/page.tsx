@@ -1,0 +1,651 @@
+"use client";
+
+import { useState } from "react";
+import { useUserStore } from "@/store/user-store";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Card, CardContent } from "@/components/ui/card";
+import { toast } from "sonner";
+import { CameraIcon, Trash2Icon, PlusCircleIcon, XCircleIcon } from "lucide-react";
+import { Spinner } from "@/components/ui/spinner";
+
+const profileSchema = z.object({
+  image: z.string().optional(),
+  title: z.string().optional(),
+  bio: z.string().optional(),
+  specialization: z.string().optional(),
+  hospital: z.string().optional(),
+  profileSlug: z.string().min(3, "Slug must be at least 3 characters").optional(),
+  socialLinks: z.array(z.object({
+    platform: z.string(),
+    url: z.string().url("Must be a valid URL")
+  })),
+  education: z.array(z.object({
+    institution: z.string(),
+    degree: z.string(),
+    field: z.string(),
+    startYear: z.number().min(1900).max(new Date().getFullYear()),
+    endYear: z.number().min(1900).max(new Date().getFullYear()).optional()
+  })),
+  achievements: z.array(z.object({
+    title: z.string(),
+    description: z.string().optional(),
+    year: z.number().min(1900).max(new Date().getFullYear()).optional()
+  }))
+});
+
+export default function EditProfilePage() {
+  const { user } = useUserStore();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(user?.image || null);
+
+  const form = useForm<z.infer<typeof profileSchema>>({
+    resolver: zodResolver(profileSchema),
+    defaultValues: async () => {
+      try {
+        setIsLoading(true);
+        const response = await fetch("/api/profile/current");
+        if (!response.ok) throw new Error("Failed to fetch profile");
+        const userData = await response.json();
+        
+        return {
+          image: userData.image || "",
+          title: userData.title || "",
+          bio: userData.bio || "",
+          specialization: userData.specialization || "",
+          hospital: userData.hospital || "",
+          profileSlug: userData.profileSlug || "",
+          socialLinks: userData.socialLinks || [],
+          education: userData.education?.map((edu: any) => ({
+            institution: edu.institution,
+            degree: edu.degree,
+            field: edu.field,
+            startYear: edu.startYear,
+            endYear: edu.endYear
+          })) || [],
+          achievements: userData.achievements?.map((achievement: any) => ({
+            title: achievement.title,
+            description: achievement.description,
+            year: achievement.year
+          })) || []
+        };
+      } catch (error) {
+        console.error("Error fetching profile:", error);
+        toast.error("Failed to load profile data");
+        // Fallback to user store data
+        return {
+          image: user?.image || "",
+          title: user?.title || "",
+          bio: user?.bio || "",
+          specialization: user?.specialization || "",
+          hospital: user?.hospital || "",
+          profileSlug: user?.profileSlug || "",
+          socialLinks: user?.socialLinks || [],
+          education: user?.education || [],
+          achievements: user?.achievements || []
+        };
+      } finally {
+        setIsLoading(false);
+      }
+    }
+  });
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <Spinner size="lg" className="mb-4" />
+          <p className="text-gray-500">Loading profile data...</p>
+        </div>
+      </div>
+    );
+  }
+
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) { // 5MB limit
+        toast.error("Image size should be less than 5MB");
+        return;
+      }
+      setImageFile(file);
+      const url = URL.createObjectURL(file);
+      setPreviewUrl(url);
+      form.setValue("image", url);
+    }
+  };
+
+  const removeImage = () => {
+    setImageFile(null);
+    setPreviewUrl(null);
+    form.setValue("image", "");
+  };
+
+  const onSubmit = async (values: z.infer<typeof profileSchema>) => {
+    setIsSubmitting(true);
+    try {
+      // Handle image upload first if there's a new image
+      if (imageFile) {
+        const formData = new FormData();
+        formData.append("file", imageFile);
+        const uploadResponse = await fetch("/api/upload", {
+          method: "POST",
+          body: formData,
+        });
+        if (!uploadResponse.ok) throw new Error("Failed to upload image");
+        const { url } = await uploadResponse.json();
+        values.image = url;
+      }
+
+      const response = await fetch("/api/profile", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values)
+      });
+
+      if (!response.ok) throw new Error("Failed to update profile");
+
+      // Refresh user data in store
+      await useUserStore.getState().fetchUserData();
+      toast.success("Profile updated successfully");
+    } catch (error) {
+      console.error("Error updating profile:", error);
+      toast.error("Failed to update profile");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-5xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+        <div className="space-y-6">
+          {/* Header */}
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900">Edit Profile</h1>
+            <p className="mt-1 text-sm text-gray-500">
+              Update your profile information and manage your professional presence.
+            </p>
+          </div>
+
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+              {/* Profile Image Section */}
+              <Card>
+                <CardContent className="p-6">
+                  <div className="flex items-center space-x-6">
+                    <div className="relative">
+                      <Avatar className="h-24 w-24">
+                        <AvatarImage src={previewUrl || ""} />
+                        <AvatarFallback>
+                          {user?.firstName?.[0]}{user?.lastName?.[0]}
+                        </AvatarFallback>
+                      </Avatar>
+                      <label
+                        htmlFor="image-upload"
+                        className="absolute bottom-0 right-0 -mb-2 -mr-2 bg-white rounded-full p-1 shadow-lg cursor-pointer hover:bg-gray-100"
+                      >
+                        <CameraIcon className="h-5 w-5 text-gray-600" />
+                        <input
+                          id="image-upload"
+                          type="file"
+                          accept="image/*"
+                          className="hidden"
+                          onChange={handleImageChange}
+                        />
+                      </label>
+                    </div>
+                    <div className="space-y-1">
+                      <h3 className="text-lg font-medium">Profile Photo</h3>
+                      <p className="text-sm text-gray-500">
+                        Upload a professional photo for your profile.
+                      </p>
+                      <div className="flex space-x-2">
+                        <label
+                          htmlFor="image-upload-btn"
+                          className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 cursor-pointer"
+                        >
+                          Change
+                          <input
+                            id="image-upload-btn"
+                            type="file"
+                            accept="image/*"
+                            className="hidden"
+                            onChange={handleImageChange}
+                          />
+                        </label>
+                        {previewUrl && (
+                          <Button
+                            type="button"
+                            variant="outline"
+                            onClick={removeImage}
+                            className="inline-flex items-center text-red-600 hover:text-red-700"
+                          >
+                            <Trash2Icon className="h-4 w-4 mr-1" />
+                            Remove
+                          </Button>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Basic Information */}
+              <Card>
+                <CardContent className="p-6">
+                  <h2 className="text-xl font-semibold text-gray-900 mb-6">Basic Information</h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <FormField
+                      control={form.control}
+                      name="title"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Professional Title</FormLabel>
+                          <FormControl>
+                            <Input placeholder="e.g. Senior Gastroenterologist" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="specialization"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Specialization</FormLabel>
+                          <FormControl>
+                            <Input placeholder="e.g. Gastroenterology" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="hospital"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Hospital/Institution</FormLabel>
+                          <FormControl>
+                            <Input placeholder="Where do you practice?" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="profileSlug"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Profile URL</FormLabel>
+                          <FormControl>
+                            <div className="flex items-center">
+                              <span className="text-gray-500 mr-2">gastro.or.ke/</span>
+                              <Input placeholder="your-name" {...field} />
+                            </div>
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <div className="col-span-2">
+                      <FormField
+                        control={form.control}
+                        name="bio"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Bio</FormLabel>
+                            <FormControl>
+                              <Textarea
+                                placeholder="Tell us about yourself..."
+                                className="resize-none h-32"
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Social Links Section */}
+              <Card>
+                <CardContent className="p-6">
+                  <div className="flex justify-between items-center mb-6">
+                    <h2 className="text-xl font-semibold text-gray-900">Social Links</h2>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => {
+                        const currentLinks = form.getValues("socialLinks");
+                        form.setValue("socialLinks", [...currentLinks, { platform: "", url: "" }]);
+                      }}
+                      className="inline-flex items-center"
+                    >
+                      <PlusCircleIcon className="h-4 w-4 mr-2" />
+                      Add Link
+                    </Button>
+                  </div>
+                  <div className="space-y-4">
+                    {(form.watch("socialLinks") || []).map((_, index) => (
+                      <div key={index} className="flex items-start space-x-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 flex-grow">
+                          <FormField
+                            control={form.control}
+                            name={`socialLinks.${index}.platform`}
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Platform</FormLabel>
+                                <FormControl>
+                                  <Input placeholder="e.g. LinkedIn, Twitter" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={form.control}
+                            name={`socialLinks.${index}.url`}
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>URL</FormLabel>
+                                <FormControl>
+                                  <Input placeholder="https://" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          className="mt-8"
+                          onClick={() => {
+                            const currentLinks = form.getValues("socialLinks");
+                            form.setValue(
+                              "socialLinks",
+                              currentLinks.filter((_, i) => i !== index)
+                            );
+                          }}
+                        >
+                          <XCircleIcon className="h-5 w-5 text-gray-400 hover:text-red-500" />
+                        </Button>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Education Section */}
+              <Card>
+                <CardContent className="p-6">
+                  <div className="flex justify-between items-center mb-6">
+                    <h2 className="text-xl font-semibold text-gray-900">Education</h2>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => {
+                        const currentEducation = form.getValues("education");
+                        form.setValue("education", [...currentEducation, {
+                          institution: "",
+                          degree: "",
+                          field: "",
+                          startYear: new Date().getFullYear(),
+                          endYear: undefined
+                        }]);
+                      }}
+                      className="inline-flex items-center"
+                    >
+                      <PlusCircleIcon className="h-4 w-4 mr-2" />
+                      Add Education
+                    </Button>
+                  </div>
+                  <div className="space-y-6">
+                    {(form.watch("education") || []).map((_, index) => (
+                      <div key={index} className="p-4 border rounded-lg space-y-4">
+                        <div className="flex justify-between">
+                          <h3 className="text-lg font-medium">Education #{index + 1}</h3>
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            onClick={() => {
+                              const currentEducation = form.getValues("education");
+                              form.setValue(
+                                "education",
+                                currentEducation.filter((_, i) => i !== index)
+                              );
+                            }}
+                          >
+                            <XCircleIcon className="h-5 w-5 text-gray-400 hover:text-red-500" />
+                          </Button>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <FormField
+                            control={form.control}
+                            name={`education.${index}.institution`}
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Institution</FormLabel>
+                                <FormControl>
+                                  <Input placeholder="Institution name" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={form.control}
+                            name={`education.${index}.degree`}
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Degree</FormLabel>
+                                <FormControl>
+                                  <Input placeholder="e.g. MD, PhD" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={form.control}
+                            name={`education.${index}.field`}
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Field of Study</FormLabel>
+                                <FormControl>
+                                  <Input placeholder="e.g. Medicine" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          <div className="grid grid-cols-2 gap-4">
+                            <FormField
+                              control={form.control}
+                              name={`education.${index}.startYear`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>Start Year</FormLabel>
+                                  <FormControl>
+                                    <Input
+                                      type="number"
+                                      {...field}
+                                      onChange={e => field.onChange(parseInt(e.target.value))}
+                                    />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            <FormField
+                              control={form.control}
+                              name={`education.${index}.endYear`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>End Year</FormLabel>
+                                  <FormControl>
+                                    <Input
+                                      type="number"
+                                      placeholder="Present"
+                                      {...field}
+                                      onChange={e => field.onChange(e.target.value ? parseInt(e.target.value) : undefined)}
+                                    />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Achievements Section */}
+              <Card>
+                <CardContent className="p-6">
+                  <div className="flex justify-between items-center mb-6">
+                    <h2 className="text-xl font-semibold text-gray-900">Achievements</h2>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => {
+                        const currentAchievements = form.getValues("achievements");
+                        form.setValue("achievements", [...currentAchievements, {
+                          title: "",
+                          description: "",
+                          year: new Date().getFullYear()
+                        }]);
+                      }}
+                      className="inline-flex items-center"
+                    >
+                      <PlusCircleIcon className="h-4 w-4 mr-2" />
+                      Add Achievement
+                    </Button>
+                  </div>
+                  <div className="space-y-6">
+                    {(form.watch("achievements") || []).map((_, index) => (
+                      <div key={index} className="p-4 border rounded-lg space-y-4">
+                        <div className="flex justify-between">
+                          <h3 className="text-lg font-medium">Achievement #{index + 1}</h3>
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            onClick={() => {
+                              const currentAchievements = form.getValues("achievements");
+                              form.setValue(
+                                "achievements",
+                                currentAchievements.filter((_, i) => i !== index)
+                              );
+                            }}
+                          >
+                            <XCircleIcon className="h-5 w-5 text-gray-400 hover:text-red-500" />
+                          </Button>
+                        </div>
+                        <div className="space-y-4">
+                          <FormField
+                            control={form.control}
+                            name={`achievements.${index}.title`}
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Title</FormLabel>
+                                <FormControl>
+                                  <Input placeholder="Achievement title" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={form.control}
+                            name={`achievements.${index}.description`}
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Description</FormLabel>
+                                <FormControl>
+                                  <Textarea
+                                    placeholder="Describe your achievement..."
+                                    className="resize-none"
+                                    {...field}
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={form.control}
+                            name={`achievements.${index}.year`}
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Year</FormLabel>
+                                <FormControl>
+                                  <Input
+                                    type="number"
+                                    {...field}
+                                    onChange={e => field.onChange(e.target.value ? parseInt(e.target.value) : undefined)}
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Submit Button */}
+              <div className="flex justify-end">
+                <Button
+                  type="submit"
+                  className="bg-[#003366] hover:bg-[#004488] text-white px-8 min-w-[150px]"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? (
+                    <div className="flex items-center space-x-2">
+                      <Spinner size="sm" className="border-white" />
+                      <span>Saving...</span>
+                    </div>
+                  ) : (
+                    "Save Profile"
+                  )}
+                </Button>
+              </div>
+            </form>
+          </Form>
+        </div>
+      </div>
+    </div>
+  );
+} 
