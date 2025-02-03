@@ -34,8 +34,8 @@ export const {
       }
       if (session.user) {
         session.user.name = token.name as string;
-        session.user.firstName = token.firstName;
-        session.user.lastName = token.lastName;
+        session.user.firstName = token.firstName as string | null;
+        session.user.lastName = token.lastName as string | null;
         session.user.email = token.email as string;
         session.user.role = token.role as UserRole;
         session.user.image = token.picture;
