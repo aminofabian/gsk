@@ -47,6 +47,16 @@ model User {
   eventsAttending        Event[]                @relation("EventAttendees")
   eventsOrganizing       Event[]                @relation("EventOrganizers")
   
+  // Profile fields
+  bio                  String?                @db.Text
+  title                String?
+  specialization       String?
+  hospital             String?
+  profileSlug          String?                @unique
+  socialLinks          SocialLink[]
+  achievements         Achievement[]
+  education            Education[]
+  
   @@map("users")
 }
 
@@ -132,5 +142,48 @@ model Event {
   organizers  User[]    @relation("EventOrganizers")
 
   @@map("events")
+}
+
+model SocialLink {
+  id        String   @id @default(cuid())
+  platform  String
+  url       String
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@map("social_links")
+}
+
+model Achievement {
+  id          String   @id @default(cuid())
+  title       String
+  description String?  @db.Text
+  year        Int?
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([userId])
+  @@map("achievements")
+}
+
+model Education {
+  id          String   @id @default(cuid())
+  institution String
+  degree      String
+  field       String
+  startYear   Int
+  endYear     Int?
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([userId])
+  @@map("education")
 }
 

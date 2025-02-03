@@ -1,50 +1,56 @@
 import { create } from 'zustand';
-import { getDashboardData } from '@/actions/get-dashboard-data';
 
-interface UserState {
-  user: {
-    id: string;
-    firstName: string | null;
-    lastName: string | null;
-    email: string | null;
-    role: string;
-    image: string | null;
-  } | null;
-  notifications: {
-    id: string;
+interface User {
+  id: string;
+  firstName: string | null;
+  lastName: string | null;
+  email: string | null;
+  role: string;
+  image: string | null;
+  title: string | null;
+  bio: string | null;
+  specialization: string | null;
+  hospital: string | null;
+  profileSlug: string | null;
+  socialLinks: Array<{ platform: string; url: string; }>;
+  education: Array<{
+    institution: string;
+    degree: string;
+    field: string;
+    startYear: number;
+    endYear?: number;
+  }>;
+  achievements: Array<{
     title: string;
-    message: string;
-    time: string;
-  }[];
-  isLoading: boolean;
-  error: string | null;
+    description?: string;
+    year?: number;
+  }>;
+}
+
+interface UserStore {
+  user: User | null;
+  setUser: (user: User | null) => void;
   fetchUserData: () => Promise<void>;
 }
 
-export const useUserStore = create<UserState>((set) => ({
+export const useUserStore = create<UserStore>((set) => ({
   user: null,
-  notifications: [],
-  isLoading: false,
-  error: null,
+  setUser: (user) => set({ user }),
   fetchUserData: async () => {
-    set({ isLoading: true });
     try {
-      const data = await getDashboardData();
-      if (data.error) {
-        set({ error: data.error, isLoading: false });
-      } else {
-        set({ 
-          user: data.user, 
-          notifications: data.notifications,
-          isLoading: false,
-          error: null 
-        });
-      }
+      const response = await fetch("/api/user");
+      if (!response.ok) throw new Error("Failed to fetch user data");
+      const userData = await response.json();
+      // Initialize arrays if they don't exist
+      const user: User = {
+        ...userData,
+        socialLinks: userData.socialLinks || [],
+        education: userData.education || [],
+        achievements: userData.achievements || []
+      };
+      set({ user });
     } catch (error) {
-      set({ 
-        error: 'Failed to fetch user data', 
-        isLoading: false 
-      });
+      console.error("Error fetching user data:", error);
     }
-  }
+  },
 })); 
