@@ -347,8 +347,12 @@ export default function EventManagement() {
                   name="objectives"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Objectives</FormLabel>
+                      <FormLabel>Objectives (one per line)</FormLabel>
                       <FormControl>
+                        <Textarea 
+                          {...field} 
+                          value={field.value?.join('\n')}
+                          onChange={(e) => {
                         <Textarea {...field} />
                       </FormControl>
                       <FormMessage />
