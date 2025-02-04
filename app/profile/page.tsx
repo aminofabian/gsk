@@ -44,7 +44,9 @@ const profileSchema = z.object({
     title: z.string(),
     description: z.string().optional(),
     year: z.number().min(1900).max(new Date().getFullYear()).optional()
-  }))
+  })),
+  namePrefix: z.string().optional(),
+  fullName: z.string().optional(),
 });
 
 export default function EditProfilePage() {
@@ -82,7 +84,9 @@ export default function EditProfilePage() {
             title: achievement.title,
             description: achievement.description,
             year: achievement.year
-          })) || []
+          })) || [],
+          namePrefix: userData.namePrefix || "",
+          fullName: userData.fullName || "",
         };
       } catch (error) {
         console.error("Error fetching profile:", error);
@@ -97,7 +101,9 @@ export default function EditProfilePage() {
           profileSlug: user?.profileSlug || "",
           socialLinks: user?.socialLinks || [],
           education: user?.education || [],
-          achievements: user?.achievements || []
+          achievements: user?.achievements || [],
+          namePrefix: user?.namePrefix || "",
+          fullName: user?.fullName || "",
         };
       } finally {
         setIsLoading(false);
@@ -253,12 +259,71 @@ export default function EditProfilePage() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <FormField
                       control={form.control}
-                      name="title"
+                      name="namePrefix"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Professional Title</FormLabel>
+                          <FormLabel>Title</FormLabel>
                           <FormControl>
-                            <Input placeholder="e.g. Senior Gastroenterologist" {...field} />
+                            <select
+                              className="w-full px-3 py-2 border rounded-md"
+                              {...field}
+                              onChange={(e) => {
+                                field.onChange(e);
+                                // Get current name and update slug
+                                const currentName = form.getValues("fullName") || "";
+                                const prefix = e.target.value;
+                                const slug = prefix 
+                                  ? `${prefix}-${currentName}`.toLowerCase()
+                                      .replace(/\s+/g, '-')
+                                      .replace(/[^a-z0-9-]/g, '')
+                                      .replace(/-+/g, '-')
+                                      .replace(/^-+|-+$/g, '')
+                                  : currentName.toLowerCase()
+                                      .replace(/\s+/g, '-')
+                                      .replace(/[^a-z0-9-]/g, '')
+                                      .replace(/-+/g, '-')
+                                      .replace(/^-+|-+$/g, '');
+                                form.setValue("profileSlug", slug);
+                              }}
+                            >
+                              <option value="">None</option>
+                              <option value="dr">Dr</option>
+                              <option value="prof">Prof</option>
+                            </select>
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="fullName"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Full Name</FormLabel>
+                          <FormControl>
+                            <Input 
+                              placeholder="Enter your full name" 
+                              {...field}
+                              onChange={(e) => {
+                                field.onChange(e);
+                                // Update slug when name changes
+                                const prefix = form.getValues("namePrefix");
+                                const slug = prefix 
+                                  ? `${prefix}-${e.target.value}`.toLowerCase()
+                                      .replace(/\s+/g, '-')
+                                      .replace(/[^a-z0-9-]/g, '')
+                                      .replace(/-+/g, '-')
+                                      .replace(/^-+|-+$/g, '')
+                                  : e.target.value.toLowerCase()
+                                      .replace(/\s+/g, '-')
+                                      .replace(/[^a-z0-9-]/g, '')
+                                      .replace(/-+/g, '-')
+                                      .replace(/^-+|-+$/g, '');
+                                form.setValue("profileSlug", slug);
+                              }}
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -301,10 +366,50 @@ export default function EditProfilePage() {
                           <FormLabel>Profile URL</FormLabel>
                           <FormControl>
                             <div className="flex items-center">
-                              <span className="text-gray-500 mr-2">gastro.or.ke/</span>
-                              <Input placeholder="your-name" {...field} />
+                              <span className="text-gray-500 mr-2">gastro.or.ke/profile/</span>
+                              <Input 
+                                placeholder="your-name" 
+                                {...field}
+                                readOnly
+                                className="bg-gray-50"
+                              />
                             </div>
                           </FormControl>
+                          <div className="mt-2">
+                            <div className="flex items-center space-x-2 p-2 bg-gray-50 rounded-md">
+                              <span className="text-sm text-gray-600 truncate flex-1">
+                                {`https://gastro.or.ke/profile/${field.value || ''}`}
+                              </span>
+                              <Button
+                                type="button"
+                                variant="ghost"
+                                className="h-8 px-2 text-gray-600 hover:text-gray-900"
+                                onClick={() => {
+                                  navigator.clipboard.writeText(`https://gastro.or.ke/profile/${field.value || ''}`);
+                                  toast.success("Profile link copied to clipboard!");
+                                }}
+                              >
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="16"
+                                  height="16"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  strokeWidth="2"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  className="h-4 w-4"
+                                >
+                                  <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+                                  <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+                                </svg>
+                              </Button>
+                            </div>
+                            <p className="text-sm text-gray-500 mt-1">
+                              This is your public profile link that you can share with others
+                            </p>
+                          </div>
                           <FormMessage />
                         </FormItem>
                       )}
