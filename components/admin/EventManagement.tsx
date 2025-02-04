@@ -56,9 +56,9 @@ interface Event {
   cpdPoints: number;
   speakers: string[];
   moderators: string[];
-  capacity?: number;
-  registrationDeadline?: string;
-  materials?: Record<string, any>;
+  capacity?: number | null;
+  registrationDeadline?: string | null;
+  materials?: Record<string, any> | null;
   attendees: Array<{
     id: string;
     firstName: string;
@@ -66,6 +66,22 @@ interface Event {
     email: string;
   }>;
 }
+
+type FormValues = {
+  title: string;
+  description: string;
+  type: EventType;
+  startDate: string;
+  endDate: string;
+  venue: string;
+  objectives: string[];
+  cpdPoints: number;
+  speakers: string[];
+  moderators: string[];
+  capacity?: number | null;
+  registrationDeadline?: string | null;
+  materials?: Record<string, any> | null;
+};
 
 const formSchema = z.object({
   title: z.string().min(1, "Title is required"),
@@ -78,9 +94,9 @@ const formSchema = z.object({
   cpdPoints: z.number().min(0, "CPD points must be non-negative"),
   speakers: z.array(z.string()),
   moderators: z.array(z.string()),
-  capacity: z.number().optional(),
-  registrationDeadline: z.string().optional(),
-  materials: z.record(z.string(), z.any()).optional(),
+  capacity: z.number().nullable().optional(),
+  registrationDeadline: z.string().nullable().optional(),
+  materials: z.record(z.any()).nullable().optional(),
 });
 
 export default function EventManagement() {
@@ -91,7 +107,7 @@ export default function EventManagement() {
   const router = useRouter();
   const { toast } = useToast();
 
-  const form = useForm({
+  const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: "",
@@ -104,9 +120,9 @@ export default function EventManagement() {
       cpdPoints: 0,
       speakers: [],
       moderators: [],
-      capacity: undefined,
-      registrationDeadline: undefined,
-      materials: undefined,
+      capacity: null,
+      registrationDeadline: null,
+      materials: null,
     },
   });
 
@@ -143,9 +159,9 @@ export default function EventManagement() {
         cpdPoints: 0,
         speakers: [],
         moderators: [],
-        capacity: undefined,
-        registrationDeadline: undefined,
-        materials: undefined,
+        capacity: null,
+        registrationDeadline: null,
+        materials: null,
       });
     }
   }, [selectedEvent, form]);
@@ -350,10 +366,12 @@ export default function EventManagement() {
                       <FormLabel>Objectives (one per line)</FormLabel>
                       <FormControl>
                         <Textarea 
-                          {...field} 
-                          value={field.value?.join('\n')}
+                          value={field.value.join('\n')}
                           onChange={(e) => {
-                        <Textarea {...field} />
+                            const value = e.target.value.split('\n').filter(Boolean);
+                            field.onChange(value);
+                          }}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -366,7 +384,12 @@ export default function EventManagement() {
                     <FormItem>
                       <FormLabel>CPD Points</FormLabel>
                       <FormControl>
-                        <Input type="number" {...field} />
+                        <Input 
+                          type="number" 
+                          {...field} 
+                          onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
+                          value={field.value}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -377,9 +400,15 @@ export default function EventManagement() {
                   name="speakers"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Speakers</FormLabel>
+                      <FormLabel>Speakers (one per line)</FormLabel>
                       <FormControl>
-                        <Textarea {...field} />
+                        <Textarea 
+                          value={field.value.join('\n')}
+                          onChange={(e) => {
+                            const value = e.target.value.split('\n').filter(Boolean);
+                            field.onChange(value);
+                          }}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -390,9 +419,15 @@ export default function EventManagement() {
                   name="moderators"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Moderators</FormLabel>
+                      <FormLabel>Moderators (one per line)</FormLabel>
                       <FormControl>
-                        <Textarea {...field} />
+                        <Textarea 
+                          value={field.value.join('\n')}
+                          onChange={(e) => {
+                            const value = e.target.value.split('\n').filter(Boolean);
+                            field.onChange(value);
+                          }}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -403,9 +438,16 @@ export default function EventManagement() {
                   name="capacity"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Capacity</FormLabel>
+                      <FormLabel>Capacity (optional)</FormLabel>
                       <FormControl>
-                        <Input type="number" {...field} />
+                        <Input 
+                          type="number" 
+                          value={field.value || ''}
+                          onChange={(e) => {
+                            const value = e.target.value ? parseInt(e.target.value) : null;
+                            field.onChange(value);
+                          }}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -416,9 +458,13 @@ export default function EventManagement() {
                   name="registrationDeadline"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Registration Deadline</FormLabel>
+                      <FormLabel>Registration Deadline (optional)</FormLabel>
                       <FormControl>
-                        <Input type="datetime-local" {...field} />
+                        <Input 
+                          type="datetime-local" 
+                          value={field.value || ''}
+                          onChange={(e) => field.onChange(e.target.value || null)}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -429,8 +475,9 @@ export default function EventManagement() {
                   name="materials"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Materials</FormLabel>
+                      <FormLabel>Materials (JSON format)</FormLabel>
                       <FormControl>
+                        <Textarea 
                         <Textarea {...field} />
                       </FormControl>
                       <FormMessage />
