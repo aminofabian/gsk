@@ -1,7 +1,10 @@
+"use client";
+
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { EventType } from "@prisma/client";
 import { format } from "date-fns";
+
 import {
   Table,
   TableBody,
