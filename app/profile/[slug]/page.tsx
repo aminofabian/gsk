@@ -27,7 +27,7 @@ interface ProfileData {
   subspecialties?: string[]; // ["Digestive Disorders", "Liver Diseases", "Endoscopic Procedures", etc.]
   hospital: string | null;   // "Kenyatta National Hospital"
   bio: string | null;
-  socialLinks: Array<{ platform: string; url: string; }>;
+  socialLinks: Array<{ platform: "LINKEDIN" | "TWITTER" | "RESEARCHGATE" | "GOOGLESCHOLAR" | "ORCID" | "WEBSITE" | "OTHER"; url: string; }>;
   education: Array<{
     institution: string;
     degree: string;

@@ -22,6 +22,13 @@ import { Card, CardContent } from "@/components/ui/card";
 import { toast } from "sonner";
 import { CameraIcon, Trash2Icon, PlusCircleIcon, XCircleIcon } from "lucide-react";
 import { Spinner } from "@/components/ui/spinner";
+import { 
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const profileSchema = z.object({
   image: z.string().optional(),
@@ -50,6 +57,16 @@ const profileSchema = z.object({
     year: z.number().min(1900).max(new Date().getFullYear()).optional()
   }))
 });
+
+const SOCIAL_PLATFORMS = {
+  LINKEDIN: "LinkedIn",
+  TWITTER: "Twitter",
+  RESEARCHGATE: "ResearchGate",
+  GOOGLESCHOLAR: "Google Scholar",
+  ORCID: "ORCID",
+  WEBSITE: "Website",
+  OTHER: "Other"
+} as const;
 
 export default function EditProfilePage() {
   const { user } = useUserStore();
@@ -470,7 +487,7 @@ export default function EditProfilePage() {
                       variant="outline"
                       onClick={() => {
                         const currentLinks = form.getValues("socialLinks");
-                        form.setValue("socialLinks", [...currentLinks, { platform: "", url: "" }]);
+                        form.setValue("socialLinks", [...currentLinks, { platform: "LINKEDIN", url: "" }]);
                       }}
                       className="inline-flex items-center"
                     >
@@ -481,34 +498,46 @@ export default function EditProfilePage() {
                   <div className="space-y-4">
                     {(form.watch("socialLinks") || []).map((_, index) => (
                       <div key={index} className="flex items-start space-x-4">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 flex-grow">
-                          <FormField
-                            control={form.control}
-                            name={`socialLinks.${index}.platform`}
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormLabel>Platform</FormLabel>
+                        <FormField
+                          control={form.control}
+                          name={`socialLinks.${index}.platform`}
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Platform</FormLabel>
+                              <Select
+                                onValueChange={field.onChange}
+                                defaultValue={field.value}
+                              >
                                 <FormControl>
-                                  <Input placeholder="e.g. LinkedIn, Twitter" {...field} />
+                                  <SelectTrigger>
+                                    <SelectValue placeholder="Select platform" />
+                                  </SelectTrigger>
                                 </FormControl>
-                                <FormMessage />
-                              </FormItem>
-                            )}
-                          />
-                          <FormField
-                            control={form.control}
-                            name={`socialLinks.${index}.url`}
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormLabel>URL</FormLabel>
-                                <FormControl>
-                                  <Input placeholder="https://" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                              </FormItem>
-                            )}
-                          />
-                        </div>
+                                <SelectContent>
+                                  {Object.entries(SOCIAL_PLATFORMS).map(([value, label]) => (
+                                    <SelectItem key={value} value={value}>
+                                      {label}
+                                    </SelectItem>
+                                  ))}
+                                </SelectContent>
+                              </Select>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name={`socialLinks.${index}.url`}
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>URL</FormLabel>
+                              <FormControl>
+                                <Input placeholder="https://" {...field} />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
                         <Button
                           type="button"
                           variant="ghost"
