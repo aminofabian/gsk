@@ -54,7 +54,7 @@ export default function DashboardHeader() {
     : '';
 
   const fullName = dashboardData?.user
-    ? `${dashboardData.user.namePrefix || ''} ${dashboardData.user.firstName || ''} ${dashboardData.user.lastName || ''}`.trim()
+    ? `${dashboardData.user.namePrefix ? dashboardData.user.namePrefix.charAt(0).toUpperCase() + dashboardData.user.namePrefix.slice(1).toLowerCase() + '.' : ''} ${dashboardData.user.firstName || ''} ${dashboardData.user.lastName || ''}`.trim()
     : 'Loading...';
 
   const designation = dashboardData?.user?.designation || dashboardData?.user?.title || '';
