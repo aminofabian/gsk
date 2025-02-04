@@ -194,10 +194,6 @@ export default function EditProfilePage() {
       slug = `${prefix}-${slug}`;
     }
 
-    if (designation) {
-      slug = `${slug}-${designation}`;
-    }
-
     form.setValue("profileSlug", slug);
   };
 
