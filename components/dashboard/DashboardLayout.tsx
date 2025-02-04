@@ -23,9 +23,11 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
 
   const fullName = user
     ? user.firstName || user.lastName 
-      ? `${user.firstName || ''} ${user.lastName || ''}`.trim()
+      ? `${user.namePrefix || ''} ${user.firstName || ''} ${user.lastName || ''}`.trim()
       : 'No name provided'
     : 'Loading...';
+
+  const designation = user?.designation || user?.title || '';
 
   return (
     <div className={`flex h-screen bg-gray-50 ${outfit.className}`}>
@@ -46,6 +48,9 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
               </div>
               <div>
                 <div className="text-gray-900 font-medium">{fullName}</div>
+                {designation && (
+                  <div className="text-gray-500 text-xs">{designation}</div>
+                )}
                 <div className="text-gray-500 text-xs">{user?.role || 'Loading...'}</div>
               </div>
             </div>

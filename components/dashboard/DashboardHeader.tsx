@@ -15,6 +15,9 @@ interface DashboardData {
     email: string | null;
     role: string;
     image: string | null;
+    namePrefix: string | null;
+    designation: string | null;
+    title: string | null;
   };
   notifications: {
     id: string;
@@ -45,8 +48,10 @@ export default function DashboardHeader() {
     : '';
 
   const fullName = dashboardData?.user
-    ? `${dashboardData.user.firstName || ''} ${dashboardData.user.lastName || ''}`.trim()
+    ? `${dashboardData.user.namePrefix || ''} ${dashboardData.user.firstName || ''} ${dashboardData.user.lastName || ''}`.trim()
     : 'Loading...';
+
+  const designation = dashboardData?.user?.designation || dashboardData?.user?.title || '';
 
   return (
     <header className="bg-gradient-to-b from-white to-gray-50/50 backdrop-blur-xl border-b border-gray-100 sticky top-0 z-40">
@@ -61,6 +66,11 @@ export default function DashboardHeader() {
               <p className="text-sm sm:text-base text-gray-600 font-medium">
                 {fullName}
               </p>
+              {designation && (
+                <p className="text-xs text-gray-500">
+                  {designation}
+                </p>
+              )}
             </div>
           </div>
 
@@ -141,6 +151,9 @@ export default function DashboardHeader() {
                 </div>
                 <div className="hidden sm:block text-left">
                   <div className="text-sm font-medium text-gray-900">{fullName}</div>
+                  {designation && (
+                    <div className="text-xs text-gray-500">{designation}</div>
+                  )}
                   <div className="text-xs text-gray-500">{dashboardData?.user?.role || 'Loading...'}</div>
                 </div>
                 <motion.div
