@@ -61,8 +61,7 @@ export async function GET() {
     }
 
     // Remove sensitive information
-    const { password, ...safeUser } = user;
-    return NextResponse.json(safeUser);
+    return NextResponse.json(user);
   } catch (error) {
     console.error("Error fetching profile:", error);
     return new NextResponse("Error fetching profile", { status: 500 });
