@@ -21,7 +21,7 @@ const membershipSchema = z.object({
   
   // Professional Information
   designation: z.enum(["MD", "PhD", "Other"]),
-  speciality: z.string().min(2, "Specialty must be at least 2 characters"),
+  specialization: z.string().min(2, "Specialization must be at least 2 characters"),
   licenseNumber: z.string().optional(),
   hospital: z.string().min(2, "Hospital/Institution name must be at least 2 characters"),
   
@@ -54,7 +54,7 @@ const steps = [
     id: "professional",
     title: "Professional Details",
     description: "Tell us about your medical practice",
-    fields: ["designation", "speciality", "licenseNumber", "hospital"],
+    fields: ["designation", "specialization", "licenseNumber", "hospital"],
   },
   {
     id: "contact",
@@ -82,7 +82,7 @@ export default function MembershipForm() {
       email: "",
       phone: "",
       designation: "MD",
-      speciality: "",
+      specialization: "",
       licenseNumber: "",
       hospital: "",
       address: "",
@@ -276,13 +276,13 @@ export default function MembershipForm() {
               />
             )}
 
-            {currentFields.includes("speciality") && (
+            {currentFields.includes("specialization") && (
               <FormField
                 control={form.control}
-                name="speciality"
+                name="specialization"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Specialty/Primary Professional Activity</FormLabel>
+                    <FormLabel>Specialization/Primary Professional Activity</FormLabel>
                     <FormControl>
                       <Input {...field} className="h-12" />
                     </FormControl>

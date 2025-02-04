@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { hash } from "bcrypt";
-import { UserRole } from "@prisma/client";
 
 export async function POST(req: Request) {
   try {
@@ -12,7 +11,7 @@ export async function POST(req: Request) {
       email,
       phone,
       designation,
-      speciality,
+      specialization,
       licenseNumber,
       hospital,
       address,
@@ -34,38 +33,38 @@ export async function POST(req: Request) {
     // Hash password
     const hashedPassword = await hash(password, 10);
 
-    // Create user with membership application
-    const user = await prisma.user.create({
+    // Create membership application with user
+    const application = await prisma.membershipApplication.create({
       data: {
-        email,
-        password: hashedPassword,
-        firstName,
-        lastName,
-        role: UserRole.USER,
-        membershipApplication: {
+        phone,
+        designation,
+        specialization,
+        licenseNumber,
+        hospital,
+        address,
+        city,
+        county,
+        postalCode,
+        status: "PENDING",
+        user: {
           create: {
-            phone,
-            designation,
-            speciality,
-            licenseNumber,
-            hospital,
-            address,
-            city,
-            county,
-            postalCode,
-            status: "PENDING"
+            email,
+            password: hashedPassword,
+            firstName,
+            lastName,
+            role: "USER",
           }
         }
       },
       include: {
-        membershipApplication: true
+        user: true
       }
     });
 
     // Remove password from response
-    const { password: _, ...userWithoutPassword } = user;
+    const { password: _, ...userWithoutPassword } = application.user;
     
-    return NextResponse.json(userWithoutPassword);
+    return NextResponse.json({ ...application, user: userWithoutPassword });
   } catch (error) {
     console.error("Error creating membership:", error);
     return new NextResponse("Internal Error", { status: 500 });
