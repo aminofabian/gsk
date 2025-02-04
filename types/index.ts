@@ -13,6 +13,7 @@ export interface User {
   specialization?: string;
   title?: string;
   namePrefix?: string;
+  fullName?: string;
   designation?: string;
   yearsOfExperience?: number;
   languages?: string[];

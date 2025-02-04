@@ -25,6 +25,7 @@ model User {
   specialization        String?
   title                 String?
   namePrefix            String?
+  fullName              String?
   designation           String?
   yearsOfExperience    Int?
   languages            String[]
