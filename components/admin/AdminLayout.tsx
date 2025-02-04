@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactNode } from "react";
-import { FaUsers, FaImages, FaNewspaper, FaHandshake, FaDonate, FaChartBar } from "react-icons/fa";
+import { FaUsers, FaImages, FaNewspaper, FaHandshake, FaDonate, FaChartBar, FaCalendarAlt } from "react-icons/fa";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
@@ -10,6 +10,7 @@ const adminMenuItems = [
   { icon: FaChartBar, label: "Dashboard", href: "/admin" },
   { icon: FaUsers, label: "User Management", href: "/admin/users" },
   { icon: FaImages, label: "Hero Banners", href: "/admin/hero-banners" },
+  { icon: FaCalendarAlt, label: "Events", href: "/admin/events" },
   { icon: FaNewspaper, label: "News & Updates", href: "/admin/news" },
   { icon: FaHandshake, label: "Partners", href: "/admin/partners" },
   { icon: FaDonate, label: "Donations", href: "/admin/donations" },
