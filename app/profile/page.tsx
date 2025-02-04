@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { Button } from "@/components/ui/button";
+import { User } from "@/types";
 import {
   Form,
   FormControl,
@@ -29,6 +30,9 @@ const profileSchema = z.object({
   specialization: z.string().optional(),
   hospital: z.string().optional(),
   profileSlug: z.string().min(3, "Slug must be at least 3 characters").optional(),
+  namePrefix: z.string().optional(),
+  fullName: z.string().optional(),
+  designation: z.string().optional(),
   socialLinks: z.array(z.object({
     platform: z.string(),
     url: z.string().url("Must be a valid URL")
@@ -44,9 +48,7 @@ const profileSchema = z.object({
     title: z.string(),
     description: z.string().optional(),
     year: z.number().min(1900).max(new Date().getFullYear()).optional()
-  })),
-  namePrefix: z.string().optional(),
-  fullName: z.string().optional(),
+  }))
 });
 
 export default function EditProfilePage() {
@@ -72,6 +74,9 @@ export default function EditProfilePage() {
           specialization: userData.specialization || "",
           hospital: userData.hospital || "",
           profileSlug: userData.profileSlug || "",
+          namePrefix: userData.namePrefix || "",
+          fullName: userData.fullName || "",
+          designation: userData.designation || "",
           socialLinks: userData.socialLinks || [],
           education: userData.education?.map((edu: any) => ({
             institution: edu.institution,
@@ -85,8 +90,6 @@ export default function EditProfilePage() {
             description: achievement.description,
             year: achievement.year
           })) || [],
-          namePrefix: userData.namePrefix || "",
-          fullName: userData.fullName || "",
         };
       } catch (error) {
         console.error("Error fetching profile:", error);
@@ -99,11 +102,12 @@ export default function EditProfilePage() {
           specialization: user?.specialization || "",
           hospital: user?.hospital || "",
           profileSlug: user?.profileSlug || "",
+          namePrefix: user?.namePrefix || "",
+          fullName: user?.fullName || "",
+          designation: user?.designation || "",
           socialLinks: user?.socialLinks || [],
           education: user?.education || [],
           achievements: user?.achievements || [],
-          namePrefix: user?.namePrefix || "",
-          fullName: user?.fullName || "",
         };
       } finally {
         setIsLoading(false);
@@ -175,6 +179,26 @@ export default function EditProfilePage() {
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const updateProfileSlug = (prefix: string | undefined, name: string | undefined, designation: string | undefined) => {
+    if (!name) return;
+    
+    let slug = name.toLowerCase()
+      .replace(/\s+/g, '-')
+      .replace(/[^a-z0-9-]/g, '')
+      .replace(/-+/g, '-')
+      .replace(/^-+|-+$/g, '');
+
+    if (prefix) {
+      slug = `${prefix}-${slug}`;
+    }
+
+    if (designation) {
+      slug = `${slug}-${designation}`;
+    }
+
+    form.setValue("profileSlug", slug);
   };
 
   return (
@@ -269,21 +293,7 @@ export default function EditProfilePage() {
                               {...field}
                               onChange={(e) => {
                                 field.onChange(e);
-                                // Get current name and update slug
-                                const currentName = form.getValues("fullName") || "";
-                                const prefix = e.target.value;
-                                const slug = prefix 
-                                  ? `${prefix}-${currentName}`.toLowerCase()
-                                      .replace(/\s+/g, '-')
-                                      .replace(/[^a-z0-9-]/g, '')
-                                      .replace(/-+/g, '-')
-                                      .replace(/^-+|-+$/g, '')
-                                  : currentName.toLowerCase()
-                                      .replace(/\s+/g, '-')
-                                      .replace(/[^a-z0-9-]/g, '')
-                                      .replace(/-+/g, '-')
-                                      .replace(/^-+|-+$/g, '');
-                                form.setValue("profileSlug", slug);
+                                updateProfileSlug(e.target.value, form.getValues("fullName"), form.getValues("designation"));
                               }}
                             >
                               <option value="">None</option>
@@ -308,22 +318,38 @@ export default function EditProfilePage() {
                               {...field}
                               onChange={(e) => {
                                 field.onChange(e);
-                                // Update slug when name changes
-                                const prefix = form.getValues("namePrefix");
-                                const slug = prefix 
-                                  ? `${prefix}-${e.target.value}`.toLowerCase()
-                                      .replace(/\s+/g, '-')
-                                      .replace(/[^a-z0-9-]/g, '')
-                                      .replace(/-+/g, '-')
-                                      .replace(/^-+|-+$/g, '')
-                                  : e.target.value.toLowerCase()
-                                      .replace(/\s+/g, '-')
-                                      .replace(/[^a-z0-9-]/g, '')
-                                      .replace(/-+/g, '-')
-                                      .replace(/^-+|-+$/g, '');
-                                form.setValue("profileSlug", slug);
+                                updateProfileSlug(form.getValues("namePrefix"), e.target.value, form.getValues("designation"));
                               }}
                             />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="designation"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Designation</FormLabel>
+                          <FormControl>
+                            <select
+                              className="w-full px-3 py-2 border rounded-md"
+                              {...field}
+                              onChange={(e) => {
+                                field.onChange(e);
+                                updateProfileSlug(form.getValues("namePrefix"), form.getValues("fullName"), e.target.value);
+                              }}
+                            >
+                              <option value="">None</option>
+                              <option value="md">MD</option>
+                              <option value="mbbs">MBBS</option>
+                              <option value="phd">PhD</option>
+                              <option value="mph">MPH</option>
+                              <option value="mrcp">MRCP</option>
+                              <option value="frcp">FRCP</option>
+                            </select>
                           </FormControl>
                           <FormMessage />
                         </FormItem>

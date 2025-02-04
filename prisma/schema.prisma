@@ -24,6 +24,8 @@ model User {
   profileSlug           String?                 @unique
   specialization        String?
   title                 String?
+  namePrefix            String?
+  designation           String?
   yearsOfExperience    Int?
   languages            String[]
   certifications       String[]
