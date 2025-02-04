@@ -1,17 +1,43 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { Banner } from "@/types";
 import { DragDropContext, Droppable, Draggable, DropResult, DroppableProvided, DraggableProvided } from "@hello-pangea/dnd";
 import { Loader2, Upload, Trash2, GripVertical } from "lucide-react";
 import { toast } from "sonner";
+import debounce from "lodash/debounce";
 
 export default function HeroBannersPage() {
   const router = useRouter();
   const [banners, setBanners] = useState<Banner[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [uploadingIndex, setUploadingIndex] = useState<number | null>(null);
+
+  // Debounced update function
+  const debouncedUpdate = useCallback(
+    debounce(async (banner: Banner) => {
+      try {
+        const response = await fetch("/api/banners", {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(banner),
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to update banner");
+        }
+
+        const updatedBanner = await response.json();
+        setBanners(prev => prev.map(b => b.id === banner.id ? updatedBanner : b));
+        toast.success("Banner updated successfully");
+      } catch (error) {
+        console.error("Error updating banner:", error);
+        toast.error("Failed to update banner");
+      }
+    }, 500),
+    []
+  );
 
   // Fetch banners on load
   useEffect(() => {
@@ -63,21 +89,11 @@ export default function HeroBannersPage() {
     }
   };
 
-  const handleBannerUpdate = async (banner: Banner) => {
-    try {
-      setIsLoading(true);
-      await fetch("/api/banners", {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(banner),
-      });
-      toast.success("Banner updated successfully");
-      router.refresh();
-    } catch (error) {
-      toast.error("Failed to update banner");
-    } finally {
-      setIsLoading(false);
-    }
+  const handleBannerUpdate = (banner: Banner) => {
+    // Update local state immediately
+    setBanners(prev => prev.map(b => b.id === banner.id ? banner : b));
+    // Debounce the API call
+    debouncedUpdate(banner);
   };
 
   const handleBannerDelete = async (id: string) => {
