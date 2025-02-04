@@ -43,6 +43,12 @@ export default function DashboardHeader() {
     fetchData();
   }, []);
 
+  const capitalizeWords = (str: string) => {
+    return str.split(' ')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(' ');
+  };
+
   const userInitials = dashboardData?.user 
     ? `${dashboardData.user.firstName?.[0] || ''}${dashboardData.user.lastName?.[0] || ''}`
     : '';
@@ -52,6 +58,7 @@ export default function DashboardHeader() {
     : 'Loading...';
 
   const designation = dashboardData?.user?.designation || dashboardData?.user?.title || '';
+  const formattedDesignation = designation ? capitalizeWords(designation) : '';
 
   return (
     <header className="bg-gradient-to-b from-white to-gray-50/50 backdrop-blur-xl border-b border-gray-100 sticky top-0 z-40">
@@ -59,16 +66,16 @@ export default function DashboardHeader() {
         <div className="flex items-center justify-between px-4 sm:px-6 py-4">
           {/* Left Section */}
           <div className="flex items-center gap-6">
-            <div className="space-y-1">
+            <div className="space-y-0.5">
               <h1 className="text-xl sm:text-2xl font-display font-bold bg-gradient-to-r from-[#003366] to-[#004488] bg-clip-text text-transparent">
                 Welcome back,
               </h1>
-              <p className="text-sm sm:text-base text-gray-600 font-medium">
+              <p className="text-sm sm:text-base text-gray-800 font-semibold tracking-wide">
                 {fullName}
               </p>
-              {designation && (
-                <p className="text-xs text-gray-500">
-                  {designation}
+              {formattedDesignation && (
+                <p className="text-xs font-medium text-[#003366]/70">
+                  {formattedDesignation}
                 </p>
               )}
             </div>
@@ -151,8 +158,8 @@ export default function DashboardHeader() {
                 </div>
                 <div className="hidden sm:block text-left">
                   <div className="text-sm font-medium text-gray-900">{fullName}</div>
-                  {designation && (
-                    <div className="text-xs text-gray-500">{designation}</div>
+                  {formattedDesignation && (
+                    <div className="text-xs font-medium text-[#003366]/70">{formattedDesignation}</div>
                   )}
                   <div className="text-xs text-gray-500">{dashboardData?.user?.role || 'Loading...'}</div>
                 </div>
