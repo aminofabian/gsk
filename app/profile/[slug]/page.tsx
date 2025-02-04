@@ -95,44 +95,47 @@ export default function PublicProfile({ params }: { params: { slug: string } }) 
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto space-y-8">
         {/* Profile Header */}
-        <Card>
-          <CardContent className="p-8">
+        <Card className="border-none shadow-lg">
+          <CardContent className="p-8 sm:p-12">
             <div className="flex flex-col items-center text-center">
-              <Avatar className="h-32 w-32 mb-4">
-                <AvatarImage src={profile.image || ""} />
-                <AvatarFallback className="bg-[#003366] text-white text-2xl">
-                  {profile.firstName?.[0]}{profile.lastName?.[0]}
-                </AvatarFallback>
-              </Avatar>
-              <div className="space-y-3">
+              <div className="relative">
+                <Avatar className="h-40 w-40 ring-4 ring-white shadow-xl">
+                  <AvatarImage src={profile.image || ""} className="object-cover" />
+                  <AvatarFallback className="bg-gradient-to-br from-[#003366] to-[#004488] text-3xl text-white">
+                    {profile.firstName?.[0]}{profile.lastName?.[0]}
+                  </AvatarFallback>
+                </Avatar>
+              </div>
+              <div className="space-y-4 mt-6">
                 {/* Extract title from bio if not available directly */}
                 {(profile.title || (profile.bio && profile.bio.includes("Consultant"))) && (
-                  <p className="text-xl text-gray-700 font-medium mb-2">
+                  <p className="text-xl text-blue-600 font-medium tracking-wide">
                     {profile.title || profile.bio?.split('\n')[1]}
                   </p>
                 )}
-                <h1 className="text-3xl font-bold text-gray-900">
+                <h1 className="text-4xl font-bold text-gray-900 tracking-tight">
                   {profile.namePrefix && (
-                    <span className="font-medium">{profile.namePrefix.charAt(0).toUpperCase() + profile.namePrefix.slice(1)}. </span>                  )}
+                    <span className="font-medium">{profile.namePrefix.charAt(0).toUpperCase() + profile.namePrefix.slice(1)}. </span>
+                  )}
                   {profile.fullName || `${profile.firstName} ${profile.lastName}`}
                 </h1>
                 {/* Extract designation from bio if not available directly */}
                 {(profile.designation || (profile.bio && profile.bio.includes("MBChB"))) && (
-                  <p className="text-xl text-gray-700 font-medium mt-2">
+                  <p className="text-lg text-gray-600 font-medium leading-relaxed max-w-2xl mx-auto">
                     {profile.designation || profile.bio?.split('\n')[0]}
                   </p>
                 )}
                 
                 {/* Subspecialties */}
                 {profile.subspecialties && profile.subspecialties.length > 0 && (
-                  <div className="flex flex-wrap gap-2 justify-center">
+                  <div className="flex flex-wrap gap-2 justify-center mt-6">
                     {profile.subspecialties.map((specialty, index) => (
                       <span 
                         key={index}
-                        className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm"
+                        className="px-4 py-1.5 bg-blue-50 text-blue-700 rounded-full text-sm font-medium shadow-sm transition-all hover:shadow-md"
                       >
                         {specialty}
                       </span>
@@ -142,15 +145,15 @@ export default function PublicProfile({ params }: { params: { slug: string } }) 
 
                 {/* Specialization Badge */}
                 {profile.specialization && (
-                  <div className="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-blue-50 text-blue-700">
+                  <div className="inline-flex items-center px-6 py-2.5 rounded-full text-sm font-semibold bg-gradient-to-r from-blue-50 to-indigo-50 text-blue-700 shadow-sm">
                     {profile.specialization}
                   </div>
                 )}
 
                 {/* Hospital/Institution */}
                 {profile.hospital && (
-                  <p className="text-gray-700 font-medium flex items-center justify-center">
-                    <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <p className="text-gray-700 font-medium flex items-center justify-center mt-4 text-lg">
+                    <svg className="w-6 h-6 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" 
                         d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
                     </svg>
@@ -160,57 +163,57 @@ export default function PublicProfile({ params }: { params: { slug: string } }) 
 
                 {/* Bio */}
                 {profile.bio && (
-                  <div className="mt-4">
-                    <p className="text-gray-600 max-w-3xl leading-relaxed whitespace-pre-line">
+                  <div className="mt-8 bg-gray-50 rounded-2xl p-6 max-w-3xl mx-auto">
+                    <p className="text-gray-600 leading-relaxed whitespace-pre-line">
                       {profile.bio}
                     </p>
                   </div>
                 )}
-              </div>
-              
-              {/* Social Links */}
-              {profile.socialLinks && profile.socialLinks.length > 0 && (
-                <div className="flex gap-4 mt-6">
-                  {profile.socialLinks.map((link, index) => (
-                    <Button
-                      key={index}
-                      variant="outline"
-                      size="icon"
-                      asChild
-                      className="hover:bg-gray-50 transition-colors"
-                    >
-                      <a 
-                        href={link.url} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="hover:text-[#003366]"
-                        title={link.platform}
+
+                {/* Social Links */}
+                {profile.socialLinks && profile.socialLinks.length > 0 && (
+                  <div className="flex gap-4 mt-8 justify-center">
+                    {profile.socialLinks.map((link, index) => (
+                      <Button
+                        key={index}
+                        variant="outline"
+                        size="icon"
+                        asChild
+                        className="hover:bg-blue-50 hover:text-blue-600 transition-all duration-200 border-gray-200"
                       >
-                        {platformIcons[link.platform] || platformIcons.OTHER}
-                      </a>
-                    </Button>
-                  ))}
-                </div>
-              )}
+                        <a 
+                          href={link.url} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="hover:text-blue-600"
+                          title={link.platform}
+                        >
+                          {platformIcons[link.platform] || platformIcons.OTHER}
+                        </a>
+                      </Button>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
           </CardContent>
         </Card>
 
         {/* Education */}
         {profile.education && profile.education.length > 0 && (
-          <Card>
-            <CardContent className="p-8">
-              <div className="flex items-center gap-2 mb-6">
-                <GraduationCapIcon className="h-6 w-6 text-[#003366]" />
-                <h2 className="text-2xl font-semibold text-gray-900">Education</h2>
+          <Card className="border-none shadow-lg overflow-hidden">
+            <CardContent className="p-8 sm:p-12">
+              <div className="flex items-center gap-3 mb-8">
+                <GraduationCapIcon className="h-7 w-7 text-blue-600" />
+                <h2 className="text-2xl font-bold text-gray-900">Education</h2>
               </div>
-              <div className="space-y-6">
+              <div className="space-y-8">
                 {profile.education.map((edu, index) => (
-                  <div key={index} className="border-b last:border-0 pb-4 last:pb-0">
-                    <h3 className="font-medium text-gray-900 text-lg">{edu.degree} in {edu.field}</h3>
-                    <p className="text-gray-600 mt-1">{edu.institution}</p>
-                    <p className="text-sm text-gray-500 mt-1 flex items-center">
-                      <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div key={index} className="border-b border-gray-100 last:border-0 pb-6 last:pb-0">
+                    <h3 className="font-semibold text-gray-900 text-lg">{edu.degree} in {edu.field}</h3>
+                    <p className="text-blue-600 mt-1 font-medium">{edu.institution}</p>
+                    <p className="text-sm text-gray-500 mt-2 flex items-center">
+                      <svg className="w-4 h-4 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" 
                           d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                       </svg>
@@ -225,22 +228,22 @@ export default function PublicProfile({ params }: { params: { slug: string } }) 
 
         {/* Achievements */}
         {profile.achievements && profile.achievements.length > 0 && (
-          <Card>
-            <CardContent className="p-8">
-              <div className="flex items-center gap-2 mb-6">
-                <AwardIcon className="h-6 w-6 text-[#003366]" />
-                <h2 className="text-2xl font-semibold text-gray-900">Achievements</h2>
+          <Card className="border-none shadow-lg overflow-hidden">
+            <CardContent className="p-8 sm:p-12">
+              <div className="flex items-center gap-3 mb-8">
+                <AwardIcon className="h-7 w-7 text-blue-600" />
+                <h2 className="text-2xl font-bold text-gray-900">Achievements</h2>
               </div>
-              <div className="space-y-6">
+              <div className="space-y-8">
                 {profile.achievements.map((achievement, index) => (
-                  <div key={index} className="border-b last:border-0 pb-4 last:pb-0">
-                    <h3 className="font-medium text-gray-900 text-lg">{achievement.title}</h3>
+                  <div key={index} className="border-b border-gray-100 last:border-0 pb-6 last:pb-0">
+                    <h3 className="font-semibold text-gray-900 text-lg">{achievement.title}</h3>
                     {achievement.description && (
                       <p className="text-gray-600 mt-2 leading-relaxed">{achievement.description}</p>
                     )}
                     {achievement.year && (
                       <p className="text-sm text-gray-500 mt-2 flex items-center">
-                        <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-4 h-4 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" 
                             d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                         </svg>
