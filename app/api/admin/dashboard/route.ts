@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { auth } from "@/auth";
 import { UserRole } from "@prisma/client";
 import { formatDistanceToNow } from "date-fns";
+import { isAllowedAdmin } from "@/lib/admin";
 
 interface Activity {
   id: string;
@@ -18,13 +19,8 @@ export async function GET() {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    // Check if user has admin role
-    const currentUser = await prisma.user.findUnique({
-      where: { email: session.user.email },
-      select: { role: true }
-    });
-
-    if (currentUser?.role !== UserRole.ADMIN) {
+    // Check if user is an allowed admin
+    if (!isAllowedAdmin(session.user.email)) {
       return new NextResponse("Forbidden", { status: 403 });
     }
 
