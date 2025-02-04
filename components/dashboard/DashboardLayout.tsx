@@ -21,13 +21,20 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
     fetchUserData();
   }, [fetchUserData]);
 
-  const fullName = user
-    ? user.firstName || user.lastName 
-      ? `${user.namePrefix || ''} ${user.firstName || ''} ${user.lastName || ''}`.trim()
-      : 'No name provided'
-    : 'Loading...';
+  const capitalizeWords = (str: string) => {
+    return str.split(' ')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(' ');
+  };
 
+  const fullName = user
+  ? user.firstName || user.lastName 
+    ? `${user.namePrefix ? user.namePrefix.charAt(0).toUpperCase() + user.namePrefix.slice(1).toLowerCase() + '.' : ''} ${user.firstName || ''} ${user.lastName || ''}`.trim()
+    : 'No name provided'
+  : 'Loading...';
+  
   const designation = user?.designation || user?.title || '';
+  const formattedDesignation = designation ? capitalizeWords(designation) : '';
 
   return (
     <div className={`flex h-screen bg-gray-50 ${outfit.className}`}>
@@ -46,12 +53,12 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
               <div className="w-8 h-8  bg-[#003366]/5 flex items-center justify-center">
                 <FaUserMd className="text-[#003366]" />
               </div>
-              <div>
-                <div className="text-gray-900 font-medium">{fullName}</div>
-                {designation && (
-                  <div className="text-gray-500 text-xs">{designation}</div>
+              <div className="space-y-0.5">
+                <div className="text-gray-800 font-semibold tracking-wide">{fullName}</div>
+                {formattedDesignation && (
+                  <div className="text-xs font-medium text-[#003366]/70">{formattedDesignation}</div>
                 )}
-                <div className="text-gray-500 text-xs">{user?.role || 'Loading...'}</div>
+                <div className="text-xs text-gray-500">{user?.role || 'Loading...'}</div>
               </div>
             </div>
 
