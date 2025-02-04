@@ -15,9 +15,23 @@ export async function PATCH(
     }
 
     const body = await req.json();
-    const { title, description, type, startDate, endDate, venue } = body;
+    const { 
+      title, 
+      description, 
+      type, 
+      startDate, 
+      endDate, 
+      venue,
+      objectives,
+      cpdPoints,
+      speakers,
+      moderators,
+      capacity,
+      registrationDeadline,
+      materials 
+    } = body;
 
-    if (!title || !description || !type || !startDate || !endDate || !venue) {
+    if (!title || !description || !type || !startDate || !endDate || !venue || !objectives) {
       return new NextResponse("Missing required fields", { status: 400 });
     }
 
@@ -32,6 +46,13 @@ export async function PATCH(
         startDate: new Date(startDate),
         endDate: new Date(endDate),
         venue,
+        objectives,
+        cpdPoints: cpdPoints || 0,
+        speakers: speakers || [],
+        moderators: moderators || [],
+        capacity,
+        registrationDeadline: registrationDeadline ? new Date(registrationDeadline) : null,
+        materials: materials || {},
       },
     });
 

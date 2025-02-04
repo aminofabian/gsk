@@ -52,6 +52,13 @@ interface Event {
   startDate: string;
   endDate: string;
   venue: string;
+  objectives: string[];
+  cpdPoints: number;
+  speakers: string[];
+  moderators: string[];
+  capacity?: number;
+  registrationDeadline?: string;
+  materials?: Record<string, any>;
   attendees: Array<{
     id: string;
     firstName: string;
@@ -67,6 +74,13 @@ const formSchema = z.object({
   startDate: z.string().min(1, "Start date is required"),
   endDate: z.string().min(1, "End date is required"),
   venue: z.string().min(1, "Venue is required"),
+  objectives: z.array(z.string()).min(1, "At least one objective is required"),
+  cpdPoints: z.number().min(0, "CPD points must be non-negative"),
+  speakers: z.array(z.string()),
+  moderators: z.array(z.string()),
+  capacity: z.number().optional(),
+  registrationDeadline: z.string().optional(),
+  materials: z.record(z.string(), z.any()).optional(),
 });
 
 export default function EventManagement() {
@@ -86,6 +100,13 @@ export default function EventManagement() {
       startDate: "",
       endDate: "",
       venue: "",
+      objectives: [],
+      cpdPoints: 0,
+      speakers: [],
+      moderators: [],
+      capacity: undefined,
+      registrationDeadline: undefined,
+      materials: undefined,
     },
   });
 
@@ -102,6 +123,13 @@ export default function EventManagement() {
         startDate: format(new Date(selectedEvent.startDate), "yyyy-MM-dd'T'HH:mm"),
         endDate: format(new Date(selectedEvent.endDate), "yyyy-MM-dd'T'HH:mm"),
         venue: selectedEvent.venue,
+        objectives: selectedEvent.objectives,
+        cpdPoints: selectedEvent.cpdPoints,
+        speakers: selectedEvent.speakers,
+        moderators: selectedEvent.moderators,
+        capacity: selectedEvent.capacity,
+        registrationDeadline: selectedEvent.registrationDeadline,
+        materials: selectedEvent.materials,
       });
     } else {
       form.reset({
@@ -111,6 +139,13 @@ export default function EventManagement() {
         startDate: "",
         endDate: "",
         venue: "",
+        objectives: [],
+        cpdPoints: 0,
+        speakers: [],
+        moderators: [],
+        capacity: undefined,
+        registrationDeadline: undefined,
+        materials: undefined,
       });
     }
   }, [selectedEvent, form]);
@@ -307,6 +342,97 @@ export default function EventManagement() {
                     </FormItem>
                   )}
                 />
+                <FormField
+                  control={form.control}
+                  name="objectives"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Objectives</FormLabel>
+                      <FormControl>
+                        <Textarea {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="cpdPoints"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>CPD Points</FormLabel>
+                      <FormControl>
+                        <Input type="number" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="speakers"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Speakers</FormLabel>
+                      <FormControl>
+                        <Textarea {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="moderators"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Moderators</FormLabel>
+                      <FormControl>
+                        <Textarea {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="capacity"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Capacity</FormLabel>
+                      <FormControl>
+                        <Input type="number" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="registrationDeadline"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Registration Deadline</FormLabel>
+                      <FormControl>
+                        <Input type="datetime-local" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="materials"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Materials</FormLabel>
+                      <FormControl>
+                        <Textarea {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
                 <Button type="submit">{selectedEvent ? 'Update Event' : 'Create Event'}</Button>
               </form>
             </Form>
@@ -323,6 +449,10 @@ export default function EventManagement() {
               <TableHead>Start Date</TableHead>
               <TableHead>End Date</TableHead>
               <TableHead>Venue</TableHead>
+              <TableHead>CPD Points</TableHead>
+              <TableHead>Speakers</TableHead>
+              <TableHead>Moderators</TableHead>
+              <TableHead>Capacity</TableHead>
               <TableHead>Attendees</TableHead>
               <TableHead>Actions</TableHead>
             </TableRow>
@@ -339,6 +469,10 @@ export default function EventManagement() {
                   {format(new Date(event.endDate), "PPp")}
                 </TableCell>
                 <TableCell>{event.venue}</TableCell>
+                <TableCell>{event.cpdPoints}</TableCell>
+                <TableCell>{event.speakers.join(", ")}</TableCell>
+                <TableCell>{event.moderators.join(", ")}</TableCell>
+                <TableCell>{event.capacity || "Unlimited"}</TableCell>
                 <TableCell>{event.attendees?.length || 0}</TableCell>
                 <TableCell>
                   <div className="flex items-center gap-2">

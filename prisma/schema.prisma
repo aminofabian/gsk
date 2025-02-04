@@ -118,6 +118,13 @@ model Event {
   startDate   DateTime
   endDate     DateTime
   venue       String
+  objectives  String[]
+  cpdPoints   Int       @default(0)
+  speakers    String[]
+  moderators  String[]
+  capacity    Int?
+  registrationDeadline DateTime?
+  materials   Json?     @default("{}")
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   attendees   User[]    @relation("EventAttendees")
