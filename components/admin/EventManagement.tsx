@@ -260,8 +260,8 @@ export default function EventManagement() {
           <DialogTrigger asChild>
             <Button>Add New Event</Button>
           </DialogTrigger>
-          <DialogContent className="sm:max-w-[800px] p-6">
-            <DialogHeader className="space-y-3 mb-6">
+          <DialogContent className="sm:max-w-[800px] max-h-[90vh] overflow-y-auto p-6">
+            <DialogHeader className="space-y-3 mb-6 sticky top-0 bg-white pb-6 border-b">
               <DialogTitle className="text-2xl font-bold">
                 {selectedEvent ? 'Edit Event' : 'Create New Event'}
               </DialogTitle>
@@ -321,7 +321,7 @@ export default function EventManagement() {
                     <FormItem>
                       <FormLabel className="text-sm font-semibold">Description</FormLabel>
                       <FormControl>
-                        <Textarea className="min-h-[100px] resize-none" {...field} />
+                        <Textarea className="min-h-[80px] resize-none" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -434,7 +434,7 @@ export default function EventManagement() {
                   />
                 </div>
 
-                <div className="space-y-6">
+                <div className="grid grid-cols-2 gap-6">
                   <FormField
                     control={form.control}
                     name="objectives"
@@ -443,7 +443,7 @@ export default function EventManagement() {
                         <FormLabel className="text-sm font-semibold">Objectives</FormLabel>
                         <FormControl>
                           <Textarea 
-                            className="min-h-[100px] resize-none"
+                            className="min-h-[80px] resize-none"
                             placeholder="Enter objectives (one per line)"
                             value={field.value.join('\n')}
                             onChange={(e) => {
@@ -456,7 +456,6 @@ export default function EventManagement() {
                       </FormItem>
                     )}
                   />
-
                   <FormField
                     control={form.control}
                     name="speakers"
@@ -465,7 +464,7 @@ export default function EventManagement() {
                         <FormLabel className="text-sm font-semibold">Speakers</FormLabel>
                         <FormControl>
                           <Textarea 
-                            className="min-h-[100px] resize-none"
+                            className="min-h-[80px] resize-none"
                             placeholder="Enter speakers (one per line)"
                             value={field.value.join('\n')}
                             onChange={(e) => {
@@ -478,7 +477,9 @@ export default function EventManagement() {
                       </FormItem>
                     )}
                   />
+                </div>
 
+                <div className="grid grid-cols-2 gap-6">
                   <FormField
                     control={form.control}
                     name="moderators"
@@ -487,7 +488,7 @@ export default function EventManagement() {
                         <FormLabel className="text-sm font-semibold">Moderators</FormLabel>
                         <FormControl>
                           <Textarea 
-                            className="min-h-[100px] resize-none"
+                            className="min-h-[80px] resize-none"
                             placeholder="Enter moderators (one per line)"
                             value={field.value.join('\n')}
                             onChange={(e) => {
@@ -500,7 +501,6 @@ export default function EventManagement() {
                       </FormItem>
                     )}
                   />
-
                   <FormField
                     control={form.control}
                     name="materials"
@@ -509,7 +509,7 @@ export default function EventManagement() {
                         <FormLabel className="text-sm font-semibold">Materials</FormLabel>
                         <FormControl>
                           <Textarea
-                            className="min-h-[100px] resize-none font-mono text-sm"
+                            className="min-h-[80px] resize-none font-mono text-sm"
                             placeholder="Enter materials in JSON format"
                             value={field.value ? JSON.stringify(field.value, null, 2) : ''}
                             onChange={e => {
@@ -528,7 +528,7 @@ export default function EventManagement() {
                   />
                 </div>
 
-                <div className="flex justify-end pt-4">
+                <div className="flex justify-end pt-4 sticky bottom-0 bg-white pb-2 border-t mt-6">
                   <Button type="submit" className="w-[200px]">
                     {selectedEvent ? 'Update Event' : 'Create Event'}
                   </Button>
