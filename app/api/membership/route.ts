@@ -1,10 +1,16 @@
 import { NextResponse } from "next/server";
+import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
-import { hash } from "bcrypt";
 
 export async function POST(req: Request) {
   try {
-    const data = await req.json();
+    const session = await auth();
+    
+    if (!session?.user?.id) {
+      return new NextResponse("Unauthorized", { status: 401 });
+    }
+
+    const body = await req.json();
     const {
       firstName,
       lastName,
@@ -18,24 +24,12 @@ export async function POST(req: Request) {
       city,
       county,
       postalCode,
-      password,
-    } = data;
+    } = body;
 
-    // Check if user already exists
-    const existingUser = await prisma.user.findUnique({
-      where: { email }
-    });
-
-    if (existingUser) {
-      return new NextResponse("User already exists", { status: 400 });
-    }
-
-    // Hash password
-    const hashedPassword = await hash(password, 10);
-
-    // Create membership application with user
-    const application = await prisma.membershipApplication.create({
+    // Create membership application
+    const membershipApplication = await prisma.membershipApplication.create({
       data: {
+        userId: session.user.id,
         phone,
         designation,
         specialization,
@@ -46,27 +40,54 @@ export async function POST(req: Request) {
         county,
         postalCode,
         status: "PENDING",
-        user: {
-          create: {
-            email,
-            password: hashedPassword,
-            firstName,
-            lastName,
-            role: "USER",
-          }
-        }
       },
-      include: {
-        user: true
-      }
     });
 
-    // Remove password from response
-    const { password: _, ...userWithoutPassword } = application.user;
-    
-    return NextResponse.json({ ...application, user: userWithoutPassword });
+    // Get current user data
+    const currentUser = await prisma.user.findUnique({
+      where: { id: session.user.id },
+      select: { email: true }
+    });
+
+    // Prepare update data without email
+    const updateData = {
+      firstName,
+      lastName,
+      phone,
+      designation,
+      specialization,
+      hospital,
+      profileCompleteness: 50, // Set initial profile completeness
+    };
+
+    // Only include email in update if it's different from current email
+    if (email !== currentUser?.email) {
+      // Check if the new email is already used by another user
+      const existingUserWithEmail = await prisma.user.findUnique({
+        where: { email }
+      });
+
+      if (existingUserWithEmail && existingUserWithEmail.id !== session.user.id) {
+        return new NextResponse("Email already in use", { status: 400 });
+      }
+
+      Object.assign(updateData, { email });
+    }
+
+    // Update user profile with the provided information
+    const updatedUser = await prisma.user.update({
+      where: {
+        id: session.user.id,
+      },
+      data: updateData,
+    });
+
+    return NextResponse.json({
+      membershipApplication,
+      user: updatedUser,
+    });
   } catch (error) {
-    console.error("Error creating membership:", error);
+    console.error("[MEMBERSHIP_POST]", error);
     return new NextResponse("Internal Error", { status: 500 });
   }
 } 

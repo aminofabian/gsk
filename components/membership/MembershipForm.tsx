@@ -110,15 +110,14 @@ export default function MembershipForm() {
         throw new Error(error || "Failed to submit membership application");
       }
 
-      const data = await response.json();
-      toast.success("Membership application submitted successfully!", {
-        description: "Please check your email for further instructions.",
+      toast.success("Welcome to GSK!", {
+        description: "Your membership application has been submitted successfully. We'll review it shortly.",
         duration: 5000,
       });
       
       // Redirect after a short delay
       setTimeout(() => {
-        window.location.href = "/login";
+        window.location.href = "/dashboard";
       }, 2000);
     } catch (error) {
       console.error("Error submitting form:", error);
