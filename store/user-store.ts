@@ -12,6 +12,9 @@ interface User {
   specialization: string | null;
   hospital: string | null;
   profileSlug: string | null;
+  namePrefix: string | null;
+  fullName: string | null;
+  designation: string | null;
   socialLinks: Array<{ platform: string; url: string; }>;
   education: Array<{
     institution: string;
