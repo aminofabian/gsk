@@ -310,8 +310,8 @@ export default function EditProfilePage() {
                               }}
                             >
                               <option value="">None</option>
-                              <option value="dr">Dr</option>
-                              <option value="prof">Prof</option>
+                              <option value="DR">Dr</option>
+                              <option value="PROF">Prof</option>
                             </select>
                           </FormControl>
                           <FormMessage />
@@ -356,12 +356,12 @@ export default function EditProfilePage() {
                               }}
                             >
                               <option value="">None</option>
-                              <option value="md">MD</option>
-                              <option value="mbbs">MBBS</option>
-                              <option value="phd">PhD</option>
-                              <option value="mph">MPH</option>
-                              <option value="mrcp">MRCP</option>
-                              <option value="frcp">FRCP</option>
+                              <option value="MD">MD</option>
+                              <option value="MBBS">MBBS</option>
+                              <option value="PHD">PhD</option>
+                              <option value="MPH">MPH</option>
+                              <option value="MRCP">MRCP</option>
+                              <option value="FRCP">FRCP</option>
                             </select>
                           </FormControl>
                           <FormMessage />

@@ -113,7 +113,7 @@ export default function PublicProfile({ params }: { params: { slug: string } }) 
                   )}
                   {profile.fullName || `${profile.firstName} ${profile.lastName}`}
                   {profile.designation && (
-                    <span className="text-2xl font-medium text-gray-700">, {profile.designation}</span>
+                    <span className="text-2xl font-medium text-gray-700">, {profile.designation.toUpperCase()}</span>
                   )}
                 </h1>
                 

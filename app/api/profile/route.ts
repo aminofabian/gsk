@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { Prisma } from "@prisma/client";
 import { auth } from "@/auth";
 
 export async function PUT(request: Request) {
@@ -18,6 +17,9 @@ export async function PUT(request: Request) {
       specialization,
       hospital,
       profileSlug,
+      namePrefix,
+      fullName,
+      designation,
       socialLinks,
       education,
       achievements
@@ -33,20 +35,33 @@ export async function PUT(request: Request) {
         specialization,
         hospital,
         profileSlug,
-        // Handle social links
+        namePrefix,
+        fullName,
+        designation,
         socialLinks: {
           deleteMany: {},
-          create: socialLinks
+          create: socialLinks?.map((link: any) => ({
+            platform: link.platform,
+            url: link.url
+          }))
         },
-        // Handle education
         education: {
           deleteMany: {},
-          create: education
+          create: education?.map((edu: any) => ({
+            institution: edu.institution,
+            degree: edu.degree,
+            field: edu.field,
+            startYear: edu.startYear,
+            endYear: edu.endYear
+          }))
         },
-        // Handle achievements
         achievements: {
           deleteMany: {},
-          create: achievements
+          create: achievements?.map((achievement: any) => ({
+            title: achievement.title,
+            description: achievement.description,
+            year: achievement.year
+          }))
         }
       },
       include: {
@@ -56,9 +71,7 @@ export async function PUT(request: Request) {
       }
     });
 
-    // Remove sensitive information
-    const { password, ...safeUser } = updatedUser;
-    return NextResponse.json(safeUser);
+    return NextResponse.json(updatedUser);
   } catch (error) {
     console.error("Error updating profile:", error);
     return new NextResponse("Error updating profile", { status: 500 });
@@ -87,6 +100,9 @@ export async function GET(req: Request) {
         bio: true,
         specialization: true,
         hospital: true,
+        namePrefix: true,
+        fullName: true,
+        designation: true,
         socialLinks: {
           select: {
             platform: true,
@@ -124,7 +140,7 @@ export async function GET(req: Request) {
 
     return NextResponse.json(user);
   } catch (error) {
-    console.error("[PROFILE_GET]", error);
-    return new NextResponse("Internal Error", { status: 500 });
+    console.error("Error fetching profile:", error);
+    return new NextResponse("Error fetching profile", { status: 500 });
   }
 } 
