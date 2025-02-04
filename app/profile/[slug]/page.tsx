@@ -105,25 +105,27 @@ export default function PublicProfile({ params }: { params: { slug: string } }) 
                   {profile.firstName?.[0]}{profile.lastName?.[0]}
                 </AvatarFallback>
               </Avatar>
-              <h1 className="text-3xl font-bold text-gray-900">
-                {profile.namePrefix && (
-                  <span className="font-medium">{profile.namePrefix.toUpperCase()}. </span>
+              <div className="space-y-2">
+                <h1 className="text-3xl font-bold text-gray-900">
+                  {profile.namePrefix && (
+                    <span className="font-medium">{profile.namePrefix.toUpperCase()}. </span>
+                  )}
+                  {profile.fullName || `${profile.firstName} ${profile.lastName}`}
+                  {profile.designation && (
+                    <span className="font-medium text-gray-600">, {profile.designation.toUpperCase()}</span>
+                  )}
+                </h1>
+                {profile.title && (
+                  <p className="text-xl text-gray-600">{profile.title}</p>
                 )}
-                {profile.fullName || `${profile.firstName} ${profile.lastName}`}
-                {profile.designation && (
-                  <span className="font-medium text-gray-600">, {profile.designation.toUpperCase()}</span>
+                {profile.specialization && (
+                  <div className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-50 text-blue-700">
+                    {profile.specialization}
+                  </div>
                 )}
-              </h1>
-              {profile.title && (
-                <p className="text-xl text-gray-600 mt-2">{profile.title}</p>
-              )}
-              {profile.specialization && (
-                <div className="mt-2 inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-50 text-blue-700">
-                  {profile.specialization}
-                </div>
-              )}
+              </div>
               {profile.hospital && (
-                <p className="text-gray-500 mt-3 flex items-center justify-center">
+                <p className="text-gray-500 mt-4 flex items-center justify-center">
                   <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" 
                       d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
