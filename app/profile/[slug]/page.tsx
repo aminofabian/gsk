@@ -65,6 +65,7 @@ export default function PublicProfile({ params }: { params: { slug: string } }) 
           throw new Error("Profile not found");
         }
         const data = await response.json();
+        console.log("Profile data:", data);
         setProfile(data);
       } catch (err) {
         setError(err instanceof Error ? err.message : "Failed to load profile");
@@ -107,17 +108,23 @@ export default function PublicProfile({ params }: { params: { slug: string } }) 
                 </AvatarFallback>
               </Avatar>
               <div className="space-y-3">
-                {profile.title && (
-                  <p className="text-xl text-gray-700 font-medium">{profile.title}</p>
+                {/* Extract title from bio if not available directly */}
+                {(profile.title || (profile.bio && profile.bio.includes("Consultant"))) && (
+                  <p className="text-xl text-gray-700 font-medium mb-2">
+                    {profile.title || profile.bio?.split('\n')[1]}
+                  </p>
                 )}
                 <h1 className="text-3xl font-bold text-gray-900">
                   {profile.namePrefix && (
-                    <span className="font-medium">{profile.namePrefix.toUpperCase()}. </span>
+                    <span className="font-medium">{profile.namePrefix.toLowerCase()}. </span>
                   )}
                   {profile.fullName || `${profile.firstName} ${profile.lastName}`}
                 </h1>
-                {profile.designation && (
-                  <p className="text-xl text-gray-700 font-medium">{profile.designation}</p>
+                {/* Extract designation from bio if not available directly */}
+                {(profile.designation || (profile.bio && profile.bio.includes("MBChB"))) && (
+                  <p className="text-xl text-gray-700 font-medium mt-2">
+                    {profile.designation || profile.bio?.split('\n')[0]}
+                  </p>
                 )}
                 
                 {/* Subspecialties */}
