@@ -22,7 +22,9 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   }, [fetchUserData]);
 
   const fullName = user
-    ? `${user.firstName || ''} ${user.lastName || ''}`.trim()
+    ? user.firstName || user.lastName 
+      ? `${user.firstName || ''} ${user.lastName || ''}`.trim()
+      : 'No name provided'
     : 'Loading...';
 
   return (
