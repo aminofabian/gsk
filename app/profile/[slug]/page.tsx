@@ -116,7 +116,7 @@ export default function PublicProfile({ params }: { params: { slug: string } }) 
                 )}
                 <h1 className="text-3xl font-bold text-gray-900">
                   {profile.namePrefix && (
-                    <span className="font-medium">{profile.namePrefix.toLowerCase()}. </span>
+                    <span className="font-medium">{profile.namePrefix.toLocaleUpperCase()}. </span>
                   )}
                   {profile.fullName || `${profile.firstName} ${profile.lastName}`}
                 </h1>
