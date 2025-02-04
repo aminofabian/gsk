@@ -41,4 +41,16 @@ export interface User {
     description?: string;
     year?: number;
   }>;
+}
+
+export type Banner = {
+  id: string;
+  image: string;
+  title: string;
+  link: string;
+  cta: string;
+  order: number;
+  active: boolean;
+  createdAt: Date;
+  updatedAt: Date;
 } 

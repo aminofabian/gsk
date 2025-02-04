@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 // Form Schema
 const membershipSchema = z.object({
@@ -71,6 +72,7 @@ const steps = [
 ];
 
 export default function MembershipForm() {
+  const router = useRouter();
   const [currentStep, setCurrentStep] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -115,9 +117,10 @@ export default function MembershipForm() {
         duration: 5000,
       });
       
-      // Redirect after a short delay
+      // Use Next.js router for navigation
       setTimeout(() => {
-        window.location.href = "/dashboard";
+        router.push("/dashboard");
+        router.refresh(); // Refresh the page to ensure we have the latest data
       }, 2000);
     } catch (error) {
       console.error("Error submitting form:", error);

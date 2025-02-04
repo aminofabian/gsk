@@ -1,137 +1,74 @@
 import { NextResponse } from "next/server";
 import { uploadToS3 } from "@/lib/s3-upload";
 import { auth } from "@/auth";
+import { prisma } from "@/lib/prisma";
+
+export async function GET() {
+  try {
+    const banners = await prisma.banner.findMany({
+      orderBy: { order: "asc" },
+      where: { active: true },
+    });
+    return NextResponse.json(banners);
+  } catch (error) {
+    return NextResponse.json({ error: "Failed to fetch banners" }, { status: 500 });
+  }
+}
 
 export async function POST(request: Request) {
-  const session = await auth();
-
-  // Check if user is authenticated
-  if (!session) {
-    return NextResponse.json(
-      { 
-        error: "Unauthorized", 
-        details: "You must be logged in to upload banners",
-        success: false 
-      },
-      { 
-        status: 401,
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      }
-    );
-  }
-
   try {
-    console.log('Starting banner upload process...');
-    
-    const formData = await request.formData().catch(error => {
-      console.error('FormData parsing error:', error);
-      throw new Error('Failed to parse form data');
-    });
-    
-    const file = formData.get("file");
-    
-    // Type check and logging
-    if (file instanceof File) {
-      console.log('File received:', {
-        type: file.type,
-        size: file.size,
-        name: file.name
-      });
-    } else {
-      console.error('Invalid file object received:', typeof file);
-      return NextResponse.json(
-        { 
-          error: "Invalid file object",
-          details: `Expected File, got ${typeof file}`,
-          success: false
-        },
-        { 
-          status: 400,
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        }
-      );
+    const session = await auth();
+    if (!session?.user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    // Validate file type
-    if (!file.type.startsWith('image/')) {
-      console.error('Invalid file type:', file.type);
-      return NextResponse.json(
-        { 
-          error: "Invalid file type. Please upload an image.",
-          details: `File type ${file.type} is not supported`,
-          success: false
-        },
-        { 
-          status: 400,
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        }
-      );
+    const formData = await request.formData();
+    const file = formData.get("file") as File;
+    
+    if (!file) {
+      return NextResponse.json({ error: "No file provided" }, { status: 400 });
     }
 
-    // Validate file size (5MB)
-    if (file.size > 5 * 1024 * 1024) {
-      console.error('File too large:', file.size);
-      return NextResponse.json(
-        { 
-          error: "File too large. Maximum size is 5MB.",
-          details: `File size ${file.size} exceeds limit of ${5 * 1024 * 1024}`,
-          success: false
-        },
-        { 
-          status: 400,
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        }
-      );
-    }
-
-    console.log('Starting S3 upload for file:', file.name);
+    const url = await uploadToS3(file);
     
-    // Upload to S3
-    const imageUrl = await uploadToS3(file);
-    
-    console.log('S3 upload successful:', imageUrl);
-
-    return NextResponse.json(
-      { 
-        url: imageUrl, 
-        success: true,
-        message: 'File uploaded successfully'
+    const banner = await prisma.banner.create({
+      data: {
+        title: "New Banner",
+        image: url,
+        link: "/",
+        cta: "Learn More",
+        order: 0,
       },
-      { 
-        status: 200,
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      }
-    );
-  } catch (error: any) {
-    console.error("Detailed upload error:", {
-      message: error.message,
-      stack: error.stack,
-      name: error.name
     });
-    
-    return NextResponse.json(
-      { 
-        error: "Error uploading banner",
-        details: error.message,
-        success: false,
-        timestamp: new Date().toISOString()
+
+    return NextResponse.json({ url, banner });
+  } catch (error) {
+    console.error("Error uploading file:", error);
+    return NextResponse.json({ error: "Failed to upload file" }, { status: 500 });
+  }
+}
+
+export async function PUT(req: Request) {
+  try {
+    const session = await auth();
+    if (!session?.user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const data = await req.json();
+    const banner = await prisma.banner.update({
+      where: { id: data.id },
+      data: {
+        title: data.title,
+        image: data.image,
+        link: data.link,
+        cta: data.cta,
+        order: data.order,
+        active: data.active,
       },
-      { 
-        status: 500,
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      }
-    );
+    });
+    return NextResponse.json(banner);
+  } catch (error) {
+    return NextResponse.json({ error: "Failed to update banner" }, { status: 500 });
   }
 } 

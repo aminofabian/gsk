@@ -25,30 +25,23 @@ const s3Client = new S3Client({
 export async function uploadToS3(file: File): Promise<string> {
   try {
     const fileBuffer = await file.arrayBuffer();
-    const fileName = `banners/${Date.now()}-${file.name.replace(/[^a-zA-Z0-9.-]/g, '-')}`;
-
-    const command = new PutObjectCommand({
-      Bucket: process.env.AWS_S3_BUCKET_NAME,
-      Key: fileName,
-      Body: Buffer.from(fileBuffer),
-      ContentType: file.type,
-      ACL: 'public-read',
-    });
-
-    await s3Client.send(command);
-
-    const imageUrl = `https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${fileName}`;
+    const bytes = new Uint8Array(fileBuffer);
     
-    // Verify the URL is valid
-    try {
-      await fetch(imageUrl, { method: 'HEAD' });
-    } catch (error) {
-      throw new Error('Failed to verify uploaded image URL');
-    }
+    const key = `banners/${Date.now()}-${file.name.replace(/[^a-zA-Z0-9.-]/g, '')}`;
+    
+    await s3Client.send(
+      new PutObjectCommand({
+        Bucket: process.env.AWS_S3_BUCKET_NAME,
+        Key: key,
+        Body: bytes,
+        ContentType: file.type,
+        ACL: "public-read",
+      })
+    );
 
-    return imageUrl;
-  } catch (error: any) {
-    console.error('S3 upload error:', error);
-    throw new Error(error.message || 'Failed to upload file to S3');
+    return `https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${key}`;
+  } catch (error) {
+    console.error("S3 upload error:", error);
+    throw new Error("Failed to upload file to S3");
   }
 } 

@@ -256,6 +256,20 @@ model Subscription {
   @@map("subscriptions")
 }
 
+model Banner {
+  id        String   @id @default(cuid())
+  image     String
+  title     String
+  link      String
+  cta       String
+  order     Int      @default(0)
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("banners")
+}
+
 enum UserRole {
   ADMIN
   USER

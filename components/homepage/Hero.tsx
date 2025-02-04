@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { motion, useMotionValue, AnimatePresence } from "framer-motion";
+import { Banner } from "@/types";
 
 // Enhanced global styles with unique effects
 const styles = {
@@ -81,10 +82,27 @@ const TRANSITION_EASE = [0.32, 0.72, 0, 1];
 
 const Hero = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [banners, setBanners] = useState<Banner[]>([]);
 
   useEffect(() => {
     setIsVisible(true);
+    
+    // Fetch banners
+    const fetchBanners = async () => {
+      try {
+        const response = await fetch("/api/banners");
+        const data = await response.json();
+        setBanners(data);
+      } catch (error) {
+        console.error("Failed to fetch banners:", error);
+      }
+    };
+
+    fetchBanners();
   }, []);
+
+  // Update imgs array to use fetched banners
+  const imgs = banners.map(banner => banner.image);
 
   return (
       <div className="relative min-h-screen bg-[#001a35] overflow-hidden">
@@ -385,100 +403,99 @@ const SwipeCarousel = () => {
 };
 
 const Images = ({ imgIndex }: { imgIndex: number }) => {
+  const [banners, setBanners] = useState<Banner[]>([]);
+
+  useEffect(() => {
+    const fetchBanners = async () => {
+      try {
+        const response = await fetch("/api/banners");
+        const data = await response.json();
+        setBanners(data);
+      } catch (error) {
+        console.error("Failed to fetch banners:", error);
+      }
+    };
+
+    fetchBanners();
+  }, []);
+
   return (
     <>
-      {imgs.map((imgSrc, idx) => {
-        const bannerInfo = {
-          title: idx === 0 ? "Annual GI Conference" : 
-                 idx === 1 ? "Clinical Excellence Workshop" :
-                 idx === 2 ? "Research Symposium" :
-                 idx === 3 ? "CME Program" : "Specialist Network",
-          link: idx === 0 ? "/events/annual-gi-conference" :
-                idx === 1 ? "/events/clinical-workshop" :
-                idx === 2 ? "/events/research-symposium" :
-                idx === 3 ? "/events/cme-program" : "/membership",
-          cta: idx === 0 ? "Register Now" :
-               idx === 1 ? "Join Workshop" :
-               idx === 2 ? "Learn More" :
-               idx === 3 ? "Enroll Now" : "Join Network"
-        };
-
-        return (
-          <motion.div
-            key={idx}
-            className="relative w-full shrink-0 flex items-center justify-center"
-          >
-            <div className="relative w-full mx-auto">
-              <div className="relative overflow-visible group">
-                <motion.img
-                  src={imgSrc}
-                  alt={bannerInfo.title}
-                  className="w-full h-auto object-contain"
-                  style={{ 
-                    maxHeight: 'calc(32vh - 20px)',
-                    width: 'auto',
-                    margin: '0 auto'
+      {banners.map((banner, idx) => (
+        <motion.div
+          key={banner.id}
+          className="relative w-full shrink-0 flex items-center justify-center"
+        >
+          <div className="relative w-full mx-auto">
+            <div className="relative overflow-visible group">
+              <motion.img
+                src={banner.image}
+                alt={banner.title}
+                className="w-full h-auto object-contain"
+                style={{ 
+                  maxHeight: 'calc(32vh - 20px)',
+                  width: 'auto',
+                  margin: '0 auto'
+                }}
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.3 }}
+              />
+              
+              {/* CTA Overlay */}
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="absolute top-4 left-1/2 -translate-x-1/2 overflow-hidden z-10"
+              >
+                <motion.a
+                  href={banner.link}
+                  className="flex flex-col items-center gap-1 px-6 py-3 bg-black/40 backdrop-blur-md border border-white/20 
+                           text-white rounded-lg group/cta hover:bg-black/60 transition-all duration-300"
+                  whileHover={{ scale: 1.05 }}
+                  initial={{ opacity: 0.9 }}
+                  animate={{ 
+                    boxShadow: [
+                      "0 0 0 0 rgba(255, 255, 255, 0)",
+                      "0 0 20px 2px rgba(255, 255, 255, 0.3)",
+                      "0 0 0 0 rgba(255, 255, 255, 0)"
+                    ]
                   }}
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ duration: 0.3 }}
-                />
-                
-                {/* CTA Overlay */}
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 }}
-                  className="absolute top-4 left-1/2 -translate-x-1/2 overflow-hidden z-10"
+                  transition={{
+                    boxShadow: {
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }
+                  }}
                 >
-                  <motion.a
-                    href={bannerInfo.link}
-                    className="flex flex-col items-center gap-1 px-6 py-3 bg-black/40 backdrop-blur-md border border-white/20 
-                             text-white rounded-lg group/cta hover:bg-black/60 transition-all duration-300"
-                    whileHover={{ scale: 1.05 }}
-                    initial={{ opacity: 0.9 }}
-                    animate={{ 
-                      boxShadow: [
-                        "0 0 0 0 rgba(255, 255, 255, 0)",
-                        "0 0 20px 2px rgba(255, 255, 255, 0.3)",
-                        "0 0 0 0 rgba(255, 255, 255, 0)"
-                      ]
+                  <span className="text-xs text-white/80">{banner.title}</span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium">{banner.cta}</span>
+                    <motion.span
+                      className="text-lg"
+                      animate={{ x: [0, 5, 0] }}
+                      transition={{ duration: 1.5, repeat: Infinity }}
+                    >
+                      →
+                    </motion.span>
+                  </div>
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent"
+                    initial={{ x: '-100%' }}
+                    animate={{ x: '100%' }}
+                    transition={{ 
+                      duration: 1.5, 
+                      repeat: Infinity,
+                      repeatDelay: 1
                     }}
-                    transition={{
-                      boxShadow: {
-                        duration: 2,
-                        repeat: Infinity,
-                        ease: "easeInOut"
-                      }
-                    }}
-                  >
-                    <span className="text-xs text-white/80">{bannerInfo.title}</span>
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm font-medium">{bannerInfo.cta}</span>
-                      <motion.span
-                        className="text-lg"
-                        animate={{ x: [0, 5, 0] }}
-                        transition={{ duration: 1.5, repeat: Infinity }}
-                      >
-                        →
-                      </motion.span>
-                    </div>
-                    <motion.div
-                      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent"
-                      initial={{ x: '-100%' }}
-                      animate={{ x: '100%' }}
-                      transition={{ 
-                        duration: 1.5, 
-                        repeat: Infinity,
-                        repeatDelay: 1
-                      }}
-                    />
-                  </motion.a>
-                </motion.div>
-              </div>
+                  />
+                </motion.a>
+              </motion.div>
             </div>
-          </motion.div>
-        );
-      })}
+          </div>
+        </motion.div>
+      ))}
     </>
   );
 };
