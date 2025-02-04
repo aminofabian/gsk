@@ -260,242 +260,279 @@ export default function EventManagement() {
           <DialogTrigger asChild>
             <Button>Add New Event</Button>
           </DialogTrigger>
-          <DialogContent className="sm:max-w-[425px]">
-            <DialogHeader>
-              <DialogTitle>{selectedEvent ? 'Edit Event' : 'Create New Event'}</DialogTitle>
+          <DialogContent className="sm:max-w-[800px] p-6">
+            <DialogHeader className="space-y-3 mb-6">
+              <DialogTitle className="text-2xl font-bold">
+                {selectedEvent ? 'Edit Event' : 'Create New Event'}
+              </DialogTitle>
+              <p className="text-muted-foreground">
+                Fill in the details below to {selectedEvent ? 'update' : 'create'} an event.
+              </p>
             </DialogHeader>
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                <FormField
-                  control={form.control}
-                  name="title"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Title</FormLabel>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                <div className="grid grid-cols-2 gap-6">
+                  <FormField
+                    control={form.control}
+                    name="title"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-sm font-semibold">Title</FormLabel>
+                        <FormControl>
+                          <Input className="h-10" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="type"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-sm font-semibold">Type</FormLabel>
+                        <Select
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                        >
+                          <FormControl>
+                            <SelectTrigger className="h-10">
+                              <SelectValue placeholder="Select event type" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            {Object.values(EventType).map((type) => (
+                              <SelectItem key={type} value={type}>
+                                {type}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
                 <FormField
                   control={form.control}
                   name="description"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Description</FormLabel>
+                      <FormLabel className="text-sm font-semibold">Description</FormLabel>
                       <FormControl>
-                        <Textarea {...field} />
+                        <Textarea className="min-h-[100px] resize-none" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-                <FormField
-                  control={form.control}
-                  name="type"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Type</FormLabel>
-                      <Select
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                      >
+
+                <div className="grid grid-cols-2 gap-6">
+                  <FormField
+                    control={form.control}
+                    name="startDate"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-sm font-semibold">Start Date</FormLabel>
                         <FormControl>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select event type" />
-                          </SelectTrigger>
+                          <Input type="datetime-local" className="h-10" {...field} />
                         </FormControl>
-                        <SelectContent>
-                          {Object.values(EventType).map((type) => (
-                            <SelectItem key={type} value={type}>
-                              {type}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="startDate"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Start Date</FormLabel>
-                      <FormControl>
-                        <Input type="datetime-local" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="endDate"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>End Date</FormLabel>
-                      <FormControl>
-                        <Input type="datetime-local" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="venue"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Venue</FormLabel>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="objectives"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Objectives (one per line)</FormLabel>
-                      <FormControl>
-                        <Textarea 
-                          value={field.value.join('\n')}
-                          onChange={(e) => {
-                            const value = e.target.value.split('\n').filter(Boolean);
-                            field.onChange(value);
-                          }}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="cpdPoints"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>CPD Points</FormLabel>
-                      <FormControl>
-                        <Input 
-                          type="number" 
-                          {...field} 
-                          onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
-                          value={field.value}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="speakers"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Speakers (one per line)</FormLabel>
-                      <FormControl>
-                        <Textarea 
-                          value={field.value.join('\n')}
-                          onChange={(e) => {
-                            const value = e.target.value.split('\n').filter(Boolean);
-                            field.onChange(value);
-                          }}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="moderators"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Moderators (one per line)</FormLabel>
-                      <FormControl>
-                        <Textarea 
-                          value={field.value.join('\n')}
-                          onChange={(e) => {
-                            const value = e.target.value.split('\n').filter(Boolean);
-                            field.onChange(value);
-                          }}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="capacity"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Capacity (optional)</FormLabel>
-                      <FormControl>
-                        <Input 
-                          type="number" 
-                          value={field.value || ''}
-                          onChange={(e) => {
-                            const value = e.target.value ? parseInt(e.target.value) : null;
-                            field.onChange(value);
-                          }}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="registrationDeadline"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Registration Deadline (optional)</FormLabel>
-                      <FormControl>
-                        <Input 
-                          type="datetime-local" 
-                          value={field.value || ''}
-                          onChange={(e) => field.onChange(e.target.value || null)}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="materials"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Materials (JSON format)</FormLabel>
-                      <FormControl>
-                        <Textarea
-                          className="min-h-[100px]"
-                          placeholder="Enter JSON data"
-                          value={field.value ? JSON.stringify(field.value, null, 2) : ''}
-                          onChange={e => {
-                            try {
-                              const value = e.target.value ? JSON.parse(e.target.value) : null;
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="endDate"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-sm font-semibold">End Date</FormLabel>
+                        <FormControl>
+                          <Input type="datetime-local" className="h-10" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                <div className="grid grid-cols-2 gap-6">
+                  <FormField
+                    control={form.control}
+                    name="venue"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-sm font-semibold">Venue</FormLabel>
+                        <FormControl>
+                          <Input className="h-10" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="cpdPoints"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-sm font-semibold">CPD Points</FormLabel>
+                        <FormControl>
+                          <Input 
+                            type="number"
+                            className="h-10"
+                            {...field} 
+                            onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
+                            value={field.value}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                <div className="grid grid-cols-2 gap-6">
+                  <FormField
+                    control={form.control}
+                    name="capacity"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-sm font-semibold">Capacity (optional)</FormLabel>
+                        <FormControl>
+                          <Input 
+                            type="number"
+                            className="h-10"
+                            value={field.value || ''}
+                            onChange={(e) => {
+                              const value = e.target.value ? parseInt(e.target.value) : null;
                               field.onChange(value);
-                            } catch (error) {
-                              // Invalid JSON, keep the text but don't update the value
-                            }
-                          }}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <Button type="submit">{selectedEvent ? 'Update Event' : 'Create Event'}</Button>
+                            }}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="registrationDeadline"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-sm font-semibold">Registration Deadline</FormLabel>
+                        <FormControl>
+                          <Input 
+                            type="datetime-local"
+                            className="h-10"
+                            value={field.value || ''}
+                            onChange={(e) => field.onChange(e.target.value || null)}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                <div className="space-y-6">
+                  <FormField
+                    control={form.control}
+                    name="objectives"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-sm font-semibold">Objectives</FormLabel>
+                        <FormControl>
+                          <Textarea 
+                            className="min-h-[100px] resize-none"
+                            placeholder="Enter objectives (one per line)"
+                            value={field.value.join('\n')}
+                            onChange={(e) => {
+                              const value = e.target.value.split('\n').filter(Boolean);
+                              field.onChange(value);
+                            }}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="speakers"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-sm font-semibold">Speakers</FormLabel>
+                        <FormControl>
+                          <Textarea 
+                            className="min-h-[100px] resize-none"
+                            placeholder="Enter speakers (one per line)"
+                            value={field.value.join('\n')}
+                            onChange={(e) => {
+                              const value = e.target.value.split('\n').filter(Boolean);
+                              field.onChange(value);
+                            }}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="moderators"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-sm font-semibold">Moderators</FormLabel>
+                        <FormControl>
+                          <Textarea 
+                            className="min-h-[100px] resize-none"
+                            placeholder="Enter moderators (one per line)"
+                            value={field.value.join('\n')}
+                            onChange={(e) => {
+                              const value = e.target.value.split('\n').filter(Boolean);
+                              field.onChange(value);
+                            }}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="materials"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-sm font-semibold">Materials</FormLabel>
+                        <FormControl>
+                          <Textarea
+                            className="min-h-[100px] resize-none font-mono text-sm"
+                            placeholder="Enter materials in JSON format"
+                            value={field.value ? JSON.stringify(field.value, null, 2) : ''}
+                            onChange={e => {
+                              try {
+                                const value = e.target.value ? JSON.parse(e.target.value) : null;
+                                field.onChange(value);
+                              } catch (error) {
+                                // Invalid JSON, keep the text but don't update the value
+                              }
+                            }}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                <div className="flex justify-end pt-4">
+                  <Button type="submit" className="w-[200px]">
+                    {selectedEvent ? 'Update Event' : 'Create Event'}
+                  </Button>
+                </div>
               </form>
             </Form>
           </DialogContent>
