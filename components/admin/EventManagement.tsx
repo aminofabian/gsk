@@ -478,7 +478,17 @@ export default function EventManagement() {
                       <FormLabel>Materials (JSON format)</FormLabel>
                       <FormControl>
                         <Textarea 
-                        <Textarea {...field} />
+                          placeholder="Enter JSON data"
+                          value={field.value ? JSON.stringify(field.value, null, 2) : ''}
+                          onChange={(e) => {
+                            try {
+                              const value = e.target.value ? JSON.parse(e.target.value) : null;
+                              field.onChange(value);
+                            } catch (error) {
+                              // Invalid JSON, keep the text but don't update the value
+                            }
+                          }}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
