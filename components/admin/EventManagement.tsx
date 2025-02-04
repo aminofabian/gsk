@@ -251,17 +251,33 @@ export default function EventManagement() {
   }
 
   return (
-    <div className="space-y-4">
-      <div className="flex justify-end">
+    <div className="space-y-6 p-6 bg-gray-50 min-h-screen">
+      <div className="flex items-center justify-between">
+        <h1 className="text-3xl font-bold tracking-tight">Event Management</h1>
         <Dialog open={open} onOpenChange={(isOpen) => {
           setOpen(isOpen);
           if (!isOpen) setSelectedEvent(null);
         }}>
           <DialogTrigger asChild>
-            <Button>Add New Event</Button>
+            <Button size="lg" className="gap-2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M12 5v14M5 12h14" />
+              </svg>
+              Add New Event
+            </Button>
           </DialogTrigger>
-          <DialogContent className="sm:max-w-[800px] max-h-[90vh] overflow-y-auto p-6">
-            <DialogHeader className="space-y-3 mb-6 sticky top-0 bg-white pb-6 border-b">
+          <DialogContent className="sm:max-w-[800px] max-h-[90vh] overflow-y-auto">
+            <DialogHeader className="space-y-3 mb-6 sticky top-0 bg-white pb-6 border-b z-10">
               <DialogTitle className="text-2xl font-bold">
                 {selectedEvent ? 'Edit Event' : 'Create New Event'}
               </DialogTitle>
@@ -270,7 +286,7 @@ export default function EventManagement() {
               </p>
             </DialogHeader>
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 px-6">
                 <div className="grid grid-cols-2 gap-6">
                   <FormField
                     control={form.control}
@@ -528,9 +544,45 @@ export default function EventManagement() {
                   />
                 </div>
 
-                <div className="flex justify-end pt-4 sticky bottom-0 bg-white pb-2 border-t mt-6">
-                  <Button type="submit" className="w-[200px]">
-                    {selectedEvent ? 'Update Event' : 'Create Event'}
+                <div className="flex justify-end pt-4 sticky bottom-0 bg-white pb-2 border-t mt-6 -mx-6 px-6">
+                  <Button type="submit" size="lg" className="w-[200px] gap-2">
+                    {selectedEvent ? (
+                      <>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
+                          <polyline points="17 21 17 13 7 13 7 21" />
+                          <polyline points="7 3 7 8 15 8" />
+                        </svg>
+                        Update Event
+                      </>
+                    ) : (
+                      <>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="M12 5v14M5 12h14" />
+                        </svg>
+                        Create Event
+                      </>
+                    )}
                   </Button>
                 </div>
               </form>
@@ -539,46 +591,71 @@ export default function EventManagement() {
         </Dialog>
       </div>
 
-      <div className="rounded-md border">
+      <div className="rounded-lg border bg-white shadow-sm">
         <Table>
           <TableHeader>
-            <TableRow>
-              <TableHead>Title</TableHead>
-              <TableHead>Type</TableHead>
-              <TableHead>Start Date</TableHead>
-              <TableHead>End Date</TableHead>
-              <TableHead>Venue</TableHead>
-              <TableHead>CPD Points</TableHead>
-              <TableHead>Speakers</TableHead>
-              <TableHead>Moderators</TableHead>
-              <TableHead>Capacity</TableHead>
-              <TableHead>Attendees</TableHead>
-              <TableHead>Actions</TableHead>
+            <TableRow className="bg-gray-50/50">
+              <TableHead className="font-semibold">Title</TableHead>
+              <TableHead className="font-semibold">Type</TableHead>
+              <TableHead className="font-semibold">Start Date</TableHead>
+              <TableHead className="font-semibold">End Date</TableHead>
+              <TableHead className="font-semibold">Venue</TableHead>
+              <TableHead className="font-semibold">CPD Points</TableHead>
+              <TableHead className="font-semibold">Speakers</TableHead>
+              <TableHead className="font-semibold">Moderators</TableHead>
+              <TableHead className="font-semibold">Capacity</TableHead>
+              <TableHead className="font-semibold">Attendees</TableHead>
+              <TableHead className="font-semibold text-right">Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {events.map((event) => (
-              <TableRow key={event.id}>
-                <TableCell>{event.title}</TableCell>
-                <TableCell>{event.type}</TableCell>
+              <TableRow key={event.id} className="hover:bg-gray-50/50">
+                <TableCell className="font-medium">{event.title}</TableCell>
                 <TableCell>
+                  <span className="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
+                    {event.type}
+                  </span>
+                </TableCell>
+                <TableCell className="text-gray-600">
                   {format(new Date(event.startDate), "PPp")}
                 </TableCell>
-                <TableCell>
+                <TableCell className="text-gray-600">
                   {format(new Date(event.endDate), "PPp")}
                 </TableCell>
                 <TableCell>{event.venue}</TableCell>
-                <TableCell>{event.cpdPoints}</TableCell>
-                <TableCell>{event.speakers.join(", ")}</TableCell>
-                <TableCell>{event.moderators.join(", ")}</TableCell>
-                <TableCell>{event.capacity || "Unlimited"}</TableCell>
-                <TableCell>{event.attendees?.length || 0}</TableCell>
                 <TableCell>
-                  <div className="flex items-center gap-2">
+                  <span className="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/10">
+                    {event.cpdPoints} points
+                  </span>
+                </TableCell>
+                <TableCell className="max-w-[200px] truncate" title={event.speakers.join(", ")}>
+                  {event.speakers.join(", ")}
+                </TableCell>
+                <TableCell className="max-w-[200px] truncate" title={event.moderators.join(", ")}>
+                  {event.moderators.join(", ")}
+                </TableCell>
+                <TableCell>
+                  {event.capacity ? (
+                    <span className="inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20">
+                      {event.capacity} seats
+                    </span>
+                  ) : (
+                    <span className="text-gray-500">Unlimited</span>
+                  )}
+                </TableCell>
+                <TableCell>
+                  <span className="inline-flex items-center rounded-md bg-purple-50 px-2 py-1 text-xs font-medium text-purple-700 ring-1 ring-inset ring-purple-700/10">
+                    {event.attendees?.length || 0} registered
+                  </span>
+                </TableCell>
+                <TableCell>
+                  <div className="flex items-center justify-end gap-2">
                     <Button
                       onClick={() => handleEdit(event)}
                       size="sm"
                       variant="outline"
+                      className="h-8 w-8 p-0"
                     >
                       <FaEdit className="h-4 w-4" />
                     </Button>
@@ -586,6 +663,7 @@ export default function EventManagement() {
                       onClick={() => handleDelete(event.id)}
                       size="sm"
                       variant="destructive"
+                      className="h-8 w-8 p-0"
                     >
                       <FaTrash className="h-4 w-4" />
                     </Button>
