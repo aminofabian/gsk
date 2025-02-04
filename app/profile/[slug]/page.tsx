@@ -107,21 +107,19 @@ export default function PublicProfile({ params }: { params: { slug: string } }) 
                 </AvatarFallback>
               </Avatar>
               <div className="space-y-3">
+                {profile.title && (
+                  <p className="text-xl text-gray-700 font-medium">{profile.title}</p>
+                )}
                 <h1 className="text-3xl font-bold text-gray-900">
                   {profile.namePrefix && (
                     <span className="font-medium">{profile.namePrefix.toUpperCase()}. </span>
                   )}
                   {profile.fullName || `${profile.firstName} ${profile.lastName}`}
-                  {profile.designation && (
-                    <span className="text-2xl font-medium text-gray-700">, {profile.designation.toUpperCase()}</span>
-                  )}
                 </h1>
-                
-                {/* Professional Title */}
-                {profile.title && (
-                  <p className="text-xl text-gray-700 font-medium mt-2">{profile.title}</p>
+                {profile.designation && (
+                  <p className="text-xl text-gray-700 font-medium">{profile.designation}</p>
                 )}
-
+                
                 {/* Subspecialties */}
                 {profile.subspecialties && profile.subspecialties.length > 0 && (
                   <div className="flex flex-wrap gap-2 justify-center">
