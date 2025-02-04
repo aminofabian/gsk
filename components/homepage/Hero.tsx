@@ -366,7 +366,7 @@ const Images = ({ imgIndex }: { imgIndex: number }) => {
           className="relative w-full shrink-0 flex items-center justify-center"
         >
           <div className="relative w-full mx-auto">
-            <div className="relative overflow-visible">
+            <div className="relative overflow-visible group">
               <motion.img
                 src={imgSrc}
                 alt={`Slide ${idx + 1}`}
@@ -379,6 +379,55 @@ const Images = ({ imgIndex }: { imgIndex: number }) => {
                 whileHover={{ scale: 1.02 }}
                 transition={{ duration: 0.3 }}
               />
+              
+              {/* CTA Overlay */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="absolute bottom-4 right-4 overflow-hidden"
+              >
+                <motion.a
+                  href="/membership"
+                  className="flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-md border border-white/20 
+                           text-white rounded-sm group/cta hover:bg-white/20 transition-all duration-300"
+                  whileHover={{ scale: 1.05 }}
+                  initial={{ opacity: 0.9 }}
+                  animate={{ 
+                    boxShadow: [
+                      "0 0 0 0 rgba(255, 255, 255, 0)",
+                      "0 0 20px 2px rgba(255, 255, 255, 0.3)",
+                      "0 0 0 0 rgba(255, 255, 255, 0)"
+                    ]
+                  }}
+                  transition={{
+                    boxShadow: {
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }
+                  }}
+                >
+                  <span className="text-sm font-medium">Join GSK Today</span>
+                  <motion.span
+                    className="text-lg"
+                    animate={{ x: [0, 5, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                  >
+                    →
+                  </motion.span>
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent"
+                    initial={{ x: '-100%' }}
+                    animate={{ x: '100%' }}
+                    transition={{ 
+                      duration: 1.5, 
+                      repeat: Infinity,
+                      repeatDelay: 1
+                    }}
+                  />
+                </motion.a>
+              </motion.div>
             </div>
           </div>
         </motion.div>
