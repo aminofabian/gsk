@@ -23,6 +23,9 @@ interface ProfileData {
   bio: string | null;
   specialization: string | null;
   hospital: string | null;
+  namePrefix: string | null;
+  fullName: string | null;
+  designation: string | null;
   socialLinks: Array<{ platform: string; url: string; }>;
   education: Array<{
     institution: string;
@@ -98,24 +101,40 @@ export default function PublicProfile({ params }: { params: { slug: string } }) 
             <div className="flex flex-col items-center text-center">
               <Avatar className="h-32 w-32 mb-4">
                 <AvatarImage src={profile.image || ""} />
-                <AvatarFallback>
+                <AvatarFallback className="bg-[#003366] text-white text-2xl">
                   {profile.firstName?.[0]}{profile.lastName?.[0]}
                 </AvatarFallback>
               </Avatar>
               <h1 className="text-3xl font-bold text-gray-900">
-                {profile.firstName} {profile.lastName}
+                {profile.namePrefix && (
+                  <span className="font-medium">{profile.namePrefix.toUpperCase()}. </span>
+                )}
+                {profile.fullName || `${profile.firstName} ${profile.lastName}`}
+                {profile.designation && (
+                  <span className="font-medium text-gray-600">, {profile.designation.toUpperCase()}</span>
+                )}
               </h1>
               {profile.title && (
                 <p className="text-xl text-gray-600 mt-2">{profile.title}</p>
               )}
               {profile.specialization && (
-                <p className="text-gray-500 mt-1">{profile.specialization}</p>
+                <div className="mt-2 inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-50 text-blue-700">
+                  {profile.specialization}
+                </div>
               )}
               {profile.hospital && (
-                <p className="text-gray-500">{profile.hospital}</p>
+                <p className="text-gray-500 mt-3 flex items-center justify-center">
+                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" 
+                      d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                  </svg>
+                  {profile.hospital}
+                </p>
               )}
               {profile.bio && (
-                <p className="mt-4 text-gray-600 max-w-2xl">{profile.bio}</p>
+                <div className="mt-6">
+                  <p className="text-gray-600 max-w-2xl leading-relaxed">{profile.bio}</p>
+                </div>
               )}
               
               {/* Social Links */}
@@ -127,12 +146,14 @@ export default function PublicProfile({ params }: { params: { slug: string } }) 
                       variant="outline"
                       size="icon"
                       asChild
+                      className="hover:bg-gray-50 transition-colors"
                     >
                       <a 
                         href={link.url} 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="hover:text-primary"
+                        className="hover:text-[#003366]"
+                        title={link.platform}
                       >
                         {platformIcons[link.platform] || platformIcons.OTHER}
                       </a>
@@ -149,15 +170,19 @@ export default function PublicProfile({ params }: { params: { slug: string } }) 
           <Card>
             <CardContent className="p-8">
               <div className="flex items-center gap-2 mb-6">
-                <GraduationCapIcon className="h-6 w-6 text-gray-400" />
+                <GraduationCapIcon className="h-6 w-6 text-[#003366]" />
                 <h2 className="text-2xl font-semibold text-gray-900">Education</h2>
               </div>
               <div className="space-y-6">
                 {profile.education.map((edu, index) => (
                   <div key={index} className="border-b last:border-0 pb-4 last:pb-0">
-                    <h3 className="font-medium text-gray-900">{edu.degree} in {edu.field}</h3>
-                    <p className="text-gray-600">{edu.institution}</p>
-                    <p className="text-sm text-gray-500">
+                    <h3 className="font-medium text-gray-900 text-lg">{edu.degree} in {edu.field}</h3>
+                    <p className="text-gray-600 mt-1">{edu.institution}</p>
+                    <p className="text-sm text-gray-500 mt-1 flex items-center">
+                      <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" 
+                          d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                      </svg>
                       {edu.startYear} - {edu.endYear || 'Present'}
                     </p>
                   </div>
@@ -172,18 +197,24 @@ export default function PublicProfile({ params }: { params: { slug: string } }) 
           <Card>
             <CardContent className="p-8">
               <div className="flex items-center gap-2 mb-6">
-                <AwardIcon className="h-6 w-6 text-gray-400" />
+                <AwardIcon className="h-6 w-6 text-[#003366]" />
                 <h2 className="text-2xl font-semibold text-gray-900">Achievements</h2>
               </div>
               <div className="space-y-6">
                 {profile.achievements.map((achievement, index) => (
                   <div key={index} className="border-b last:border-0 pb-4 last:pb-0">
-                    <h3 className="font-medium text-gray-900">{achievement.title}</h3>
+                    <h3 className="font-medium text-gray-900 text-lg">{achievement.title}</h3>
                     {achievement.description && (
-                      <p className="text-gray-600 mt-1">{achievement.description}</p>
+                      <p className="text-gray-600 mt-2 leading-relaxed">{achievement.description}</p>
                     )}
                     {achievement.year && (
-                      <p className="text-sm text-gray-500 mt-1">{achievement.year}</p>
+                      <p className="text-sm text-gray-500 mt-2 flex items-center">
+                        <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" 
+                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        </svg>
+                        {achievement.year}
+                      </p>
                     )}
                   </div>
                 ))}
