@@ -21,11 +21,9 @@ export default function Home() {
   return (
     <main className="relative">
       {/* Hero Section */}
-      <section className="relative bg-white">
+      <section className="relative">
         <Hero />
       </section>
-
-     
 
       {/* About GSK Section */}
       <section className="relative">

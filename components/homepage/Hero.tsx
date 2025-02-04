@@ -33,40 +33,6 @@ const impactStats = [
   { number: '15+', label: 'Research Papers', icon: '📚' }
 ];
 
-const bannerData = [
-  {
-    image: "/ban/19195.jpg",
-    title: "Annual GI Conference",
-    link: "/events/annual-gi-conference",
-    cta: "Register Now"
-  },
-  {
-    image: "/ban/Business-Facebook-Cover-01.jpg",
-    title: "Clinical Excellence Workshop",
-    link: "/events/clinical-workshop",
-    cta: "Join Workshop"
-  },
-  {
-    image: "/ban/SL-122519-26430-01.jpg",
-    title: "Research Symposium",
-    link: "/events/research-symposium",
-    cta: "Learn More"
-  },
-  {
-    image: "/ban/ddff.png",
-    title: "CME Program",
-    link: "/events/cme-program",
-    cta: "Enroll Now"
-  },
-  {
-    image: "/ban/ffff.webp",
-    title: "Specialist Network",
-    link: "/membership",
-    cta: "Join Network"
-  }
-];
-
-const imgs = bannerData.map(item => item.image);
 const ONE_SECOND = 1000;
 const AUTO_DELAY = ONE_SECOND * 8;
 const DRAG_BUFFER = 50;
@@ -83,6 +49,7 @@ const TRANSITION_EASE = [0.32, 0.72, 0, 1];
 const Hero = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [banners, setBanners] = useState<Banner[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setIsVisible(true);
@@ -90,24 +57,54 @@ const Hero = () => {
     // Fetch banners
     const fetchBanners = async () => {
       try {
+        setLoading(true);
         const response = await fetch("/api/banners");
+        if (!response.ok) {
+          throw new Error('Failed to fetch banners');
+        }
         const data = await response.json();
-        setBanners(data);
+        setBanners(data.filter((banner: Banner) => banner.active));
       } catch (error) {
         console.error("Failed to fetch banners:", error);
+        // Set a default banner if fetch fails
+        setBanners([{
+          id: 'default',
+          title: 'Welcome to GSK',
+          image: '/images/default-banner.jpg',
+          link: '/membership',
+          cta: 'Join Now',
+          order: 0,
+          active: true
+        }]);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchBanners();
   }, []);
 
-  // Update imgs array to use fetched banners
-  const imgs = banners.map(banner => banner.image);
-
-  return (
+  // Show loading state
+  if (loading) {
+    return (
       <div className="relative min-h-screen bg-[#001a35] overflow-hidden">
-      {/* Background effects */}
         <div className="absolute inset-0" style={styles.meshGradient} />
+        <div className="absolute inset-0 bg-[url('/effects/noise.png')] opacity-[0.02] mix-blend-overlay" />
+        <div className="flex items-center justify-center h-screen">
+          <div className="animate-pulse space-y-4">
+            <div className="h-12 w-48 bg-white/10 rounded"></div>
+            <div className="h-24 w-96 bg-white/10 rounded"></div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Always show the hero section, even without banners
+  return (
+    <div className="relative min-h-screen bg-[#001a35] overflow-hidden">
+      {/* Background effects */}
+      <div className="absolute inset-0" style={styles.meshGradient} />
       <div className="absolute inset-0 bg-[url('/effects/noise.png')] opacity-[0.02] mix-blend-overlay" />
       
       {/* Main content */}
@@ -250,7 +247,7 @@ const Hero = () => {
               className="relative"
             >
               <div className="absolute -left-12 top-0 h-full w-24 bg-gradient-to-r from-[#001a35] via-[#001a35]/80 to-transparent z-20" />
-              <SwipeCarousel />
+              {banners.length > 0 && <SwipeCarousel banners={banners} />}
               
               {/* Stats overlay with enhanced animation */}
               <motion.div
@@ -318,185 +315,120 @@ const Hero = () => {
   );
 };
 
-const SwipeCarousel = () => {
+const SwipeCarousel = ({ banners }: { banners: Banner[] }) => {
   const [imgIndex, setImgIndex] = useState(0);
   const dragX = useMotionValue(0);
+  const [dragStartX, setDragStartX] = useState<number | null>(null);
+  const [autoplayEnabled, setAutoplayEnabled] = useState(true);
 
   useEffect(() => {
-    const intervalRef = setInterval(() => {
-      const x = dragX.get();
-      if (x === 0) {
-        setImgIndex((pv) => (pv === imgs.length - 1 ? 0 : pv + 1));
-      }
+    if (!autoplayEnabled) return;
+
+    const intervalId = setInterval(() => {
+      const next = (imgIndex + 1) % banners.length;
+      setImgIndex(next);
     }, AUTO_DELAY);
-    return () => clearInterval(intervalRef);
-  }, []);
+
+    return () => clearInterval(intervalId);
+  }, [imgIndex, autoplayEnabled, banners.length]);
+
+  const onDragStart = () => {
+    setDragStartX(dragX.get());
+    setAutoplayEnabled(false);
+  };
 
   const onDragEnd = () => {
-    const x = dragX.get();
-    if (x <= -DRAG_BUFFER && imgIndex < imgs.length - 1) {
-      setImgIndex((pv) => pv + 1);
-    } else if (x >= DRAG_BUFFER && imgIndex > 0) {
-      setImgIndex((pv) => pv - 1);
+    const dragEndX = dragX.get();
+    if (dragStartX === null) return;
+
+    const dragDelta = dragEndX - dragStartX;
+
+    if (Math.abs(dragDelta) > DRAG_BUFFER) {
+      if (dragDelta > 0) {
+        const next = (imgIndex - 1 + banners.length) % banners.length;
+        setImgIndex(next);
+      } else {
+        const next = (imgIndex + 1) % banners.length;
+        setImgIndex(next);
+      }
     }
+
+    setAutoplayEnabled(true);
   };
 
   return (
-    <div className="relative w-full overflow-hidden">
-      {/* Navigation arrows */}
-      <button 
-        onClick={() => imgIndex > 0 && setImgIndex(prev => prev - 1)}
-        className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-10 p-3 text-white/70 hover:text-white bg-black/20 hover:bg-black/30 backdrop-blur-sm border border-white/10 transition-all duration-300 group"
+    <div className="relative overflow-hidden bg-black/20 rounded-lg">
+      <motion.div
+        drag="x"
+        dragConstraints={{
+          left: 0,
+          right: 0,
+        }}
+        style={{
+          x: dragX,
+        }}
+        animate={{
+          translateX: `-${imgIndex * 100}%`,
+        }}
+        transition={SPRING_OPTIONS}
+        onDragStart={onDragStart}
+        onDragEnd={onDragEnd}
+        className="flex cursor-grab items-center active:cursor-grabbing"
       >
-        <svg className="w-5 h-5 sm:w-6 sm:h-6 transform group-hover:-translate-x-0.5 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 19l-7-7 7-7" />
-        </svg>
-      </button>
-      <button 
-        onClick={() => imgIndex < imgs.length - 1 && setImgIndex(prev => prev + 1)}
-        className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-10 p-3 text-white/70 hover:text-white bg-black/20 hover:bg-black/30 backdrop-blur-sm border border-white/10 transition-all duration-300 group"
-      >
-        <svg className="w-5 h-5 sm:w-6 sm:h-6 transform group-hover:translate-x-0.5 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" />
-        </svg>
-      </button>
+        <Images banners={banners} imgIndex={imgIndex} />
+      </motion.div>
 
-      <div className="relative w-full">
-        <motion.div
-          drag="x"
-          dragConstraints={{ left: 0, right: 0 }}
-          style={{ x: dragX }}
-          animate={{ translateX: `-${imgIndex * 100}%` }}
-          transition={{
-            duration: 0.8,
-            ease: TRANSITION_EASE,
-          }}
-          onDragEnd={onDragEnd}
-          className="flex w-full cursor-grab active:cursor-grabbing"
-        >
-          <Images imgIndex={imgIndex} />
-        </motion.div>
-      </div>
-
-      {/* Enhanced dots navigation */}
-      <div className="absolute -bottom-4 sm:-bottom-6 left-0 right-0 flex justify-center gap-2 z-10">
-        <div className="flex gap-3 px-4 py-2 bg-black/20 backdrop-blur-sm border border-white/10">
-          {imgs.map((_, idx) => (
-            <button
-              key={idx}
-              onClick={() => setImgIndex(idx)}
-              className={`relative transition-all duration-300
-                ${idx === imgIndex 
-                  ? "w-6 h-1.5 bg-white" 
-                  : "w-1.5 h-1.5 bg-white/30 hover:bg-white/50"
-                }`}
-            >
-              {idx === imgIndex && (
-                <div className="absolute -inset-1 bg-white/30 animate-pulse"></div>
-              )}
-            </button>
-          ))}
-        </div>
-      </div>
+      <Dots banners={banners} imgIndex={imgIndex} setImgIndex={setImgIndex} />
     </div>
   );
 };
 
-const Images = ({ imgIndex }: { imgIndex: number }) => {
-  const [banners, setBanners] = useState<Banner[]>([]);
-
-  useEffect(() => {
-    const fetchBanners = async () => {
-      try {
-        const response = await fetch("/api/banners");
-        const data = await response.json();
-        setBanners(data);
-      } catch (error) {
-        console.error("Failed to fetch banners:", error);
-      }
-    };
-
-    fetchBanners();
-  }, []);
-
+const Images = ({ banners, imgIndex }: { banners: Banner[]; imgIndex: number }) => {
   return (
     <>
-      {banners.map((banner, idx) => (
+      {banners.map((banner, index) => (
         <motion.div
           key={banner.id}
-          className="relative w-full shrink-0 flex items-center justify-center"
+          style={{
+            backgroundImage: `url(${banner.image})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+          animate={{
+            scale: imgIndex === index ? 1 : 0.85,
+          }}
+          transition={SPRING_OPTIONS}
+          className="aspect-video w-full shrink-0 rounded-lg bg-neutral-800 object-cover relative"
         >
-          <div className="relative w-full mx-auto">
-            <div className="relative overflow-visible group">
-              <motion.img
-                src={banner.image}
-                alt={banner.title}
-                className="w-full h-auto object-contain"
-                style={{ 
-                  maxHeight: 'calc(32vh - 20px)',
-                  width: 'auto',
-                  margin: '0 auto'
-                }}
-                whileHover={{ scale: 1.02 }}
-                transition={{ duration: 0.3 }}
-              />
-              
-              {/* CTA Overlay */}
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-                className="absolute top-4 left-1/2 -translate-x-1/2 overflow-hidden z-10"
-              >
-                <motion.a
-                  href={banner.link}
-                  className="flex flex-col items-center gap-1 px-6 py-3 bg-black/40 backdrop-blur-md border border-white/20 
-                           text-white rounded-lg group/cta hover:bg-black/60 transition-all duration-300"
-                  whileHover={{ scale: 1.05 }}
-                  initial={{ opacity: 0.9 }}
-                  animate={{ 
-                    boxShadow: [
-                      "0 0 0 0 rgba(255, 255, 255, 0)",
-                      "0 0 20px 2px rgba(255, 255, 255, 0.3)",
-                      "0 0 0 0 rgba(255, 255, 255, 0)"
-                    ]
-                  }}
-                  transition={{
-                    boxShadow: {
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: "easeInOut"
-                    }
-                  }}
-                >
-                  <span className="text-xs text-white/80">{banner.title}</span>
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm font-medium">{banner.cta}</span>
-                    <motion.span
-                      className="text-lg"
-                      animate={{ x: [0, 5, 0] }}
-                      transition={{ duration: 1.5, repeat: Infinity }}
-                    >
-                      →
-                    </motion.span>
-                  </div>
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent"
-                    initial={{ x: '-100%' }}
-                    animate={{ x: '100%' }}
-                    transition={{ 
-                      duration: 1.5, 
-                      repeat: Infinity,
-                      repeatDelay: 1
-                    }}
-                  />
-                </motion.a>
-              </motion.div>
-            </div>
+          <div className="absolute inset-0 bg-black/25 rounded-lg" />
+          <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+            <h3 className="text-2xl font-bold mb-2">{banner.title}</h3>
+            <a
+              href={banner.link}
+              className="inline-block bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg transition-colors"
+            >
+              {banner.cta}
+            </a>
           </div>
         </motion.div>
       ))}
     </>
+  );
+};
+
+const Dots = ({ banners, imgIndex, setImgIndex }: { banners: Banner[]; imgIndex: number; setImgIndex: (index: number) => void }) => {
+  return (
+    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+      {banners.map((_, index) => (
+        <button
+          key={index}
+          onClick={() => setImgIndex(index)}
+          className={`h-2 w-2 rounded-full transition-colors ${
+            index === imgIndex ? "bg-white" : "bg-white/50"
+          }`}
+        />
+      ))}
+    </div>
   );
 };
 

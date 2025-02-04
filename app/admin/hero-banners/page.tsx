@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Banner } from "@/types";
 import { DragDropContext, Droppable, Draggable, DropResult, DroppableProvided, DraggableProvided } from "@hello-pangea/dnd";
@@ -13,39 +13,50 @@ export default function HeroBannersPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [uploadingIndex, setUploadingIndex] = useState<number | null>(null);
 
+  // Fetch banners on load
+  useEffect(() => {
+    const fetchBanners = async () => {
+      try {
+        setIsLoading(true);
+        const response = await fetch("/api/banners");
+        if (!response.ok) throw new Error("Failed to fetch banners");
+        const data = await response.json();
+        setBanners(data);
+      } catch (error) {
+        toast.error("Failed to fetch banners");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchBanners();
+  }, []);
+
   const handleFileUpload = async (file: File, index: number) => {
     try {
       setUploadingIndex(index);
       const formData = new FormData();
       formData.append("file", file);
 
-      const response = await fetch("/api/upload", {
+      // Use the banner API endpoint directly
+      const response = await fetch("/api/banners", {
         method: "POST",
         body: formData,
       });
 
       if (!response.ok) throw new Error("Upload failed");
 
-      const { url } = await response.json();
+      const { banner } = await response.json();
       
-      // Update banner image URL
+      // Update banners array with the new banner
       const updatedBanners = [...banners];
-      updatedBanners[index] = {
-        ...updatedBanners[index],
-        image: url
-      };
-      
-      // Save to database
-      await fetch("/api/banners", {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id: updatedBanners[index].id, image: url }),
-      });
-
+      updatedBanners[index] = banner;
       setBanners(updatedBanners);
+      
       toast.success("Banner updated successfully");
       router.refresh();
     } catch (error) {
+      console.error("Upload error:", error);
       toast.error("Failed to upload image");
     } finally {
       setUploadingIndex(null);
@@ -119,129 +130,158 @@ export default function HeroBannersPage() {
         <p className="text-gray-600">Drag and drop to reorder banners. Click on fields to edit.</p>
       </div>
 
-      <DragDropContext onDragEnd={handleDragEnd}>
-        <Droppable droppableId="banners">
-          {(provided: DroppableProvided) => (
-            <div {...provided.droppableProps} ref={provided.innerRef}>
-              {banners.map((banner, index) => (
-                <Draggable key={banner.id} draggableId={banner.id} index={index}>
-                  {(provided: DraggableProvided) => (
-                    <div
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      className="bg-white p-4 rounded-lg shadow-sm mb-4 border"
-                    >
-                      <div className="flex items-start gap-4">
-                        <div {...provided.dragHandleProps} className="mt-2">
-                          <GripVertical className="text-gray-400" />
-                        </div>
-                        
-                        <div className="flex-1 space-y-4">
-                          {/* Image upload */}
-                          <div className="relative">
-                            {banner.image ? (
-                              <img
-                                src={banner.image}
-                                alt={banner.title}
-                                className="w-full h-48 object-cover rounded-lg"
-                              />
-                            ) : (
-                              <div className="w-full h-48 bg-gray-100 rounded-lg flex items-center justify-center">
-                                <Upload className="text-gray-400" />
-                              </div>
-                            )}
-                            <input
-                              type="file"
-                              accept="image/*"
-                              onChange={(e) => {
-                                const file = e.target.files?.[0];
-                                if (file) handleFileUpload(file, index);
-                              }}
-                              className="absolute inset-0 opacity-0 cursor-pointer"
-                            />
-                            {uploadingIndex === index && (
-                              <div className="absolute inset-0 bg-black/50 rounded-lg flex items-center justify-center">
-                                <Loader2 className="animate-spin text-white" />
-                              </div>
-                            )}
+      {isLoading && banners.length === 0 ? (
+        <div className="flex items-center justify-center h-64">
+          <Loader2 className="w-8 h-8 animate-spin text-gray-400" />
+        </div>
+      ) : (
+        <DragDropContext onDragEnd={handleDragEnd}>
+          <Droppable droppableId="banners">
+            {(provided: DroppableProvided) => (
+              <div {...provided.droppableProps} ref={provided.innerRef} className="space-y-4">
+                {banners.map((banner, index) => (
+                  <Draggable key={banner.id} draggableId={banner.id} index={index}>
+                    {(provided: DraggableProvided) => (
+                      <div
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 transition-shadow hover:shadow-md"
+                      >
+                        <div className="flex items-start gap-4">
+                          <div {...provided.dragHandleProps} className="mt-2 cursor-move">
+                            <GripVertical className="text-gray-400 hover:text-gray-600" />
                           </div>
+                          
+                          <div className="flex-1 space-y-6">
+                            {/* Image upload */}
+                            <div className="relative group">
+                              {banner.image ? (
+                                <div className="relative">
+                                  <img
+                                    src={banner.image}
+                                    alt={banner.title}
+                                    className="w-full h-48 object-cover rounded-lg"
+                                  />
+                                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors rounded-lg flex items-center justify-center">
+                                    <Upload className="text-white/0 group-hover:text-white/90 transition-opacity" />
+                                  </div>
+                                </div>
+                              ) : (
+                                <div className="w-full h-48 bg-gray-100 rounded-lg flex items-center justify-center border-2 border-dashed border-gray-300">
+                                  <Upload className="text-gray-400" />
+                                </div>
+                              )}
+                              <input
+                                type="file"
+                                accept="image/*"
+                                onChange={(e) => {
+                                  const file = e.target.files?.[0];
+                                  if (file) handleFileUpload(file, index);
+                                }}
+                                className="absolute inset-0 opacity-0 cursor-pointer"
+                              />
+                              {uploadingIndex === index && (
+                                <div className="absolute inset-0 bg-black/50 rounded-lg flex items-center justify-center">
+                                  <Loader2 className="animate-spin text-white" />
+                                </div>
+                              )}
+                            </div>
 
-                          {/* Banner details */}
-                          <div className="grid grid-cols-2 gap-4">
-                            <div>
-                              <label className="block text-sm font-medium text-gray-700 mb-1">
-                                Title
-                              </label>
-                              <input
-                                type="text"
-                                value={banner.title}
-                                onChange={(e) => {
-                                  const updatedBanner = {
-                                    ...banner,
-                                    title: e.target.value,
-                                  };
-                                  handleBannerUpdate(updatedBanner);
-                                }}
-                                className="w-full p-2 border rounded-md"
-                              />
+                            {/* Banner details */}
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">
+                                  Title
+                                </label>
+                                <input
+                                  type="text"
+                                  value={banner.title}
+                                  onChange={(e) => {
+                                    const updatedBanner = {
+                                      ...banner,
+                                      title: e.target.value,
+                                    };
+                                    handleBannerUpdate(updatedBanner);
+                                  }}
+                                  className="w-full p-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                  placeholder="Enter banner title"
+                                />
+                              </div>
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">
+                                  CTA Text
+                                </label>
+                                <input
+                                  type="text"
+                                  value={banner.cta}
+                                  onChange={(e) => {
+                                    const updatedBanner = {
+                                      ...banner,
+                                      cta: e.target.value,
+                                    };
+                                    handleBannerUpdate(updatedBanner);
+                                  }}
+                                  className="w-full p-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                  placeholder="Enter call to action text"
+                                />
+                              </div>
+                              <div className="md:col-span-2">
+                                <label className="block text-sm font-medium text-gray-700 mb-1">
+                                  Link
+                                </label>
+                                <input
+                                  type="text"
+                                  value={banner.link}
+                                  onChange={(e) => {
+                                    const updatedBanner = {
+                                      ...banner,
+                                      link: e.target.value,
+                                    };
+                                    handleBannerUpdate(updatedBanner);
+                                  }}
+                                  className="w-full p-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                  placeholder="Enter banner link"
+                                />
+                              </div>
                             </div>
-                            <div>
-                              <label className="block text-sm font-medium text-gray-700 mb-1">
-                                CTA Text
-                              </label>
-                              <input
-                                type="text"
-                                value={banner.cta}
-                                onChange={(e) => {
-                                  const updatedBanner = {
-                                    ...banner,
-                                    cta: e.target.value,
-                                  };
-                                  handleBannerUpdate(updatedBanner);
-                                }}
-                                className="w-full p-2 border rounded-md"
-                              />
-                            </div>
-                            <div className="col-span-2">
-                              <label className="block text-sm font-medium text-gray-700 mb-1">
-                                Link
-                              </label>
-                              <input
-                                type="text"
-                                value={banner.link}
-                                onChange={(e) => {
-                                  const updatedBanner = {
-                                    ...banner,
-                                    link: e.target.value,
-                                  };
-                                  handleBannerUpdate(updatedBanner);
-                                }}
-                                className="w-full p-2 border rounded-md"
-                              />
-                            </div>
-                          </div>
 
-                          {/* Actions */}
-                          <div className="flex justify-end">
-                            <button
-                              onClick={() => handleBannerDelete(banner.id)}
-                              className="text-red-600 hover:text-red-700"
-                              disabled={isLoading}
-                            >
-                              <Trash2 className="w-5 h-5" />
-                            </button>
+                            {/* Actions */}
+                            <div className="flex justify-between items-center pt-4 border-t">
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  checked={banner.active}
+                                  onChange={(e) => {
+                                    const updatedBanner = {
+                                      ...banner,
+                                      active: e.target.checked,
+                                    };
+                                    handleBannerUpdate(updatedBanner);
+                                  }}
+                                  className="rounded text-blue-600 focus:ring-blue-500"
+                                />
+                                <span className="text-sm text-gray-600">Active</span>
+                              </div>
+                              <button
+                                onClick={() => handleBannerDelete(banner.id)}
+                                className="text-red-600 hover:text-red-700 p-2 rounded-full hover:bg-red-50 transition-colors"
+                                disabled={isLoading}
+                              >
+                                <Trash2 className="w-5 h-5" />
+                              </button>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
-      </DragDropContext>
+                    )}
+                  </Draggable>
+                ))}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
+      )}
 
       {/* Add new banner button */}
       <button
@@ -250,27 +290,27 @@ export default function HeroBannersPage() {
             setIsLoading(true);
             const response = await fetch("/api/banners", {
               method: "POST",
-              headers: { "Content-Type": "application/json" },
               body: JSON.stringify({
                 title: "New Banner",
                 image: "",
                 link: "/",
                 cta: "Learn More",
-                order: banners.length,
               }),
             });
-            const newBanner = await response.json();
-            setBanners([...banners, newBanner]);
-            toast.success("New banner added");
-            router.refresh();
+            
+            if (!response.ok) throw new Error("Failed to create banner");
+            
+            const { banner } = await response.json();
+            setBanners([...banners, banner]);
+            toast.success("New banner created");
           } catch (error) {
-            toast.error("Failed to add banner");
+            toast.error("Failed to create banner");
           } finally {
             setIsLoading(false);
           }
         }}
-        className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50"
         disabled={isLoading}
+        className="mt-6 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
       >
         Add New Banner
       </button>
