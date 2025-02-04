@@ -14,12 +14,12 @@ const AboutHero = () => {
   ];
 
   React.useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentImage((prev) => (prev + 1) % images.length);
-    }, 5000); // Change image every 5 seconds
+    const interval = setInterval(() => {
+      setCurrentImage((prevIndex) => (prevIndex + 1) % images.length);
+    }, 5000);
 
-    return () => clearInterval(timer);
-  }, []);
+    return () => clearInterval(interval);
+  }, [images.length]);
 
   return (
     <div className="relative h-screen min-h-[600px] bg-[#003366]">

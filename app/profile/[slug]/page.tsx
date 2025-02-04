@@ -82,7 +82,7 @@ export default function PublicProfile({ params }: { params: { slug: string } }) 
         <Card className="w-full max-w-2xl">
           <CardContent className="p-6 text-center">
             <h1 className="text-2xl font-bold text-gray-900 mb-2">Profile Not Found</h1>
-            <p className="text-gray-500">The profile you're looking for doesn't exist or is private.</p>
+            <p className="text-gray-500">We couldn&apos;t find the profile you&apos;re looking for.</p>
           </CardContent>
         </Card>
       </div>
