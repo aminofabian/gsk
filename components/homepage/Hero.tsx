@@ -74,7 +74,9 @@ const Hero = () => {
           link: '/membership',
           cta: 'Join Now',
           order: 0,
-          active: true
+          active: true,
+          createdAt: new Date(),
+          updatedAt: new Date()
         }]);
       } finally {
         setLoading(false);
