@@ -28,19 +28,18 @@ export async function POST(request: Request) {
     }
 
     const formData = await request.formData();
-    const file = formData.get("file") as File;
+    const file = formData.get("file") as File | null;
     const title = formData.get("title") as string || "New Banner";
     const link = formData.get("link") as string || "/";
     const cta = formData.get("cta") as string || "Learn More";
     
-    if (!file) {
-      console.log("No file provided in banner creation");
-      return NextResponse.json({ error: "No file provided" }, { status: 400 });
+    let imageUrl = "/images/placeholder-banner.jpg";
+    
+    if (file) {
+      console.log("Uploading file to S3...");
+      imageUrl = await uploadToS3(file);
+      console.log("File uploaded successfully:", imageUrl);
     }
-
-    console.log("Uploading file to S3...");
-    const imageUrl = await uploadToS3(file);
-    console.log("File uploaded successfully:", imageUrl);
     
     // Get the highest order number
     const highestOrder = await prisma.banner.findFirst({

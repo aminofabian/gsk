@@ -34,8 +34,7 @@ export async function uploadToS3(file: File): Promise<string> {
         Bucket: process.env.AWS_S3_BUCKET_NAME,
         Key: key,
         Body: bytes,
-        ContentType: file.type,
-        ACL: "public-read",
+        ContentType: file.type
       })
     );
 

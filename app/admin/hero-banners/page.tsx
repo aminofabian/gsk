@@ -288,14 +288,14 @@ export default function HeroBannersPage() {
         onClick={async () => {
           try {
             setIsLoading(true);
+            const formData = new FormData();
+            formData.append("title", "New Banner");
+            formData.append("link", "/");
+            formData.append("cta", "Learn More");
+            
             const response = await fetch("/api/banners", {
               method: "POST",
-              body: JSON.stringify({
-                title: "New Banner",
-                image: "",
-                link: "/",
-                cta: "Learn More",
-              }),
+              body: formData,
             });
             
             if (!response.ok) throw new Error("Failed to create banner");
