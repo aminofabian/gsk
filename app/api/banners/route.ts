@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { uploadToS3 } from "@/lib/s3-upload";
-import { auth } from "@/lib/auth";
+import { auth } from "@/auth";
 
 export async function POST(request: Request) {
   const session = await auth();
