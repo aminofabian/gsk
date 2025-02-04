@@ -18,7 +18,7 @@ export default function HeroBannersPage() {
   const debouncedUpdate = useCallback(
     debounce(async (banner: Banner) => {
       try {
-        const response = await fetch("/api/banners", {
+        const response = await fetch(`/api/banners/${banner.id}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(banner),
@@ -34,8 +34,10 @@ export default function HeroBannersPage() {
       } catch (error) {
         console.error("Error updating banner:", error);
         toast.error("Failed to update banner");
+        // Revert to previous state if update fails
+        setBanners(prev => prev.map(b => b.id === banner.id ? banner : b));
       }
-    }, 500),
+    }, 1000),
     []
   );
 
@@ -89,12 +91,12 @@ export default function HeroBannersPage() {
     }
   };
 
-  const handleBannerUpdate = (banner: Banner) => {
+  const handleBannerUpdate = useCallback((banner: Banner) => {
     // Update local state immediately
     setBanners(prev => prev.map(b => b.id === banner.id ? banner : b));
     // Debounce the API call
     debouncedUpdate(banner);
-  };
+  }, [debouncedUpdate]);
 
   const handleBannerDelete = async (id: string) => {
     try {
@@ -212,13 +214,12 @@ export default function HeroBannersPage() {
                                   </label>
                                   <input
                                     type="text"
-                                    value={banner.title}
+                                    value={banner.title || ''}
                                     onChange={(e) => {
-                                      const updatedBanner = {
+                                      handleBannerUpdate({
                                         ...banner,
                                         title: e.target.value,
-                                      };
-                                      handleBannerUpdate(updatedBanner);
+                                      });
                                     }}
                                     className="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
                                     placeholder="Enter banner title"
@@ -230,13 +231,12 @@ export default function HeroBannersPage() {
                                   </label>
                                   <input
                                     type="text"
-                                    value={banner.cta}
+                                    value={banner.cta || ''}
                                     onChange={(e) => {
-                                      const updatedBanner = {
+                                      handleBannerUpdate({
                                         ...banner,
                                         cta: e.target.value,
-                                      };
-                                      handleBannerUpdate(updatedBanner);
+                                      });
                                     }}
                                     className="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
                                     placeholder="Enter call to action text"
@@ -248,13 +248,12 @@ export default function HeroBannersPage() {
                                   </label>
                                   <input
                                     type="text"
-                                    value={banner.link}
+                                    value={banner.link || ''}
                                     onChange={(e) => {
-                                      const updatedBanner = {
+                                      handleBannerUpdate({
                                         ...banner,
                                         link: e.target.value,
-                                      };
-                                      handleBannerUpdate(updatedBanner);
+                                      });
                                     }}
                                     className="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
                                     placeholder="Enter banner link"
