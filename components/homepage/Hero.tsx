@@ -382,15 +382,15 @@ const Images = ({ imgIndex }: { imgIndex: number }) => {
               
               {/* CTA Overlay */}
               <motion.div
-                initial={{ opacity: 0, y: 10 }}
+                initial={{ opacity: 0, y: -10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="absolute bottom-4 right-4 overflow-hidden"
+                className="absolute top-4 left-1/2 -translate-x-1/2 overflow-hidden z-10"
               >
                 <motion.a
                   href="/membership"
-                  className="flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-md border border-white/20 
-                           text-white rounded-sm group/cta hover:bg-white/20 transition-all duration-300"
+                  className="flex items-center gap-2 px-6 py-3 bg-black/40 backdrop-blur-md border border-white/20 
+                           text-white rounded-full group/cta hover:bg-black/60 transition-all duration-300"
                   whileHover={{ scale: 1.05 }}
                   initial={{ opacity: 0.9 }}
                   animate={{ 
@@ -408,7 +408,7 @@ const Images = ({ imgIndex }: { imgIndex: number }) => {
                     }
                   }}
                 >
-                  <span className="text-sm font-medium">Join GSK Today</span>
+                  <span className="text-sm font-medium">Become a Member</span>
                   <motion.span
                     className="text-lg"
                     animate={{ x: [0, 5, 0] }}
