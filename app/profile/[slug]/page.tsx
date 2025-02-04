@@ -112,14 +112,29 @@ export default function PublicProfile({ params }: { params: { slug: string } }) 
                     <span className="font-medium">{profile.namePrefix.toUpperCase()}. </span>
                   )}
                   {profile.fullName || `${profile.firstName} ${profile.lastName}`}
+                  {profile.designation && (
+                    <span className="text-2xl font-medium text-gray-700">, {profile.designation}</span>
+                  )}
                 </h1>
                 
-                {/* Qualifications */}
-                <p className="text-lg text-gray-600 font-medium">
-                  {profile.designation && (
-                    <span>{profile.designation}</span>
-                  )}
-                </p>
+                {/* Professional Title */}
+                {profile.title && (
+                  <p className="text-xl text-gray-700 font-medium mt-2">{profile.title}</p>
+                )}
+
+                {/* Subspecialties */}
+                {profile.subspecialties && profile.subspecialties.length > 0 && (
+                  <div className="flex flex-wrap gap-2 justify-center">
+                    {profile.subspecialties.map((specialty, index) => (
+                      <span 
+                        key={index}
+                        className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm"
+                      >
+                        {specialty}
+                      </span>
+                    ))}
+                  </div>
+                )}
 
                 {/* Specialization Badge */}
                 {profile.specialization && (
@@ -137,25 +152,6 @@ export default function PublicProfile({ params }: { params: { slug: string } }) 
                     </svg>
                     {profile.hospital}
                   </p>
-                )}
-
-                {/* Professional Title */}
-                {profile.title && (
-                  <p className="text-lg text-gray-800 font-medium">{profile.title}</p>
-                )}
-
-                {/* Subspecialties */}
-                {profile.subspecialties && profile.subspecialties.length > 0 && (
-                  <div className="flex flex-wrap gap-2 justify-center">
-                    {profile.subspecialties.map((specialty, index) => (
-                      <span 
-                        key={index}
-                        className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm"
-                      >
-                        {specialty}
-                      </span>
-                    ))}
-                  </div>
                 )}
 
                 {/* Bio */}
