@@ -15,7 +15,7 @@ const quickLinks = [
     title: "Upcoming CME",
     description: "View upcoming events",
     icon: FaCalendarAlt,
-    href: "/dashboard/events",
+    href: "/events",
     gradient: "from-[#083c74] to-[#083c74]"
   },
   {
