@@ -20,6 +20,7 @@ import {
   FaMicroscope
 } from "react-icons/fa";
 import { MdPayments } from "react-icons/md";
+import { signOut } from "next-auth/react";
 
 // Stats items
 const statsItems = [
@@ -73,7 +74,7 @@ const menuGroups = [
 
 const bottomMenuItems = [
   { icon: FaUserMd, label: "Profile", href: "/dashboard/profile" },
-  { icon: FaSignOutAlt, label: "Sign Out", href: "/auth/signout" },
+  { icon: FaSignOutAlt, label: "Sign Out", onClick: () => signOut() },
 ];
 
 export default function Sidebar() {
@@ -152,14 +153,25 @@ export default function Sidebar() {
           <h2 className="text-sm font-semibold text-white/60 mb-4 px-2">ACCOUNT</h2>
           <nav className="space-y-1.5">
             {bottomMenuItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="flex items-center gap-3 px-4 py-2.5  text-white/60 hover:text-white hover:bg-[#003366]/50 transition-all duration-200"
-              >
-                <item.icon className="text-xl" />
-                <span className="font-medium text-sm">{item.label}</span>
-              </Link>
+              item.onClick ? (
+                <button
+                  key="signout"
+                  onClick={item.onClick}
+                  className="w-full flex items-center gap-3 px-4 py-2.5 text-white/60 hover:text-white hover:bg-[#003366]/50 transition-all duration-200"
+                >
+                  <item.icon className="text-xl" />
+                  <span className="font-medium text-sm">{item.label}</span>
+                </button>
+              ) : (
+                <Link
+                  key={item.href}
+                  href={item.href!}
+                  className="flex items-center gap-3 px-4 py-2.5 text-white/60 hover:text-white hover:bg-[#003366]/50 transition-all duration-200"
+                >
+                  <item.icon className="text-xl" />
+                  <span className="font-medium text-sm">{item.label}</span>
+                </Link>
+              )
             ))}
           </nav>
         </div>
