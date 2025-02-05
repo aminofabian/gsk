@@ -47,6 +47,7 @@ model User {
   education             Education[]
   publications          Publication[]
   researchProjects      ResearchProject[]
+  payments              Payment[]
 
   @@map("users")
 }
@@ -277,6 +278,22 @@ model Banner {
   @@map("banners")
 }
 
+model Payment {
+  id            String        @id @default(cuid())
+  amount        Float
+  status        PaymentStatus
+  transactionId String        @unique
+  phoneNumber   String
+  description   String
+  userId        String
+  user          User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  @@index([userId])
+  @@map("payments")
+}
+
 enum UserRole {
   ADMIN
   USER
@@ -347,9 +364,7 @@ enum PlanType {
 }
 
 enum PaymentStatus {
-  ACTIVE
   PENDING
+  COMPLETED
   FAILED
-  CANCELLED
-  EXPIRED
 }

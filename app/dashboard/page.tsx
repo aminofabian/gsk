@@ -61,11 +61,12 @@ const quickLinks = [
     gradient: "from-[#083c74] to-[#083c74]"
   },
   {
-    title: "Facilities",
-    description: "View available facilities",
+    title: "Profile",
+    description: "Update your profile",
     icon: FaBuilding,
-    href: "/dashboard/facilities",
+    href: "/profile",
     gradient: "from-[#083c74] to-[#083c74]"
+
   }
 ];
 
