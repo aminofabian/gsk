@@ -74,7 +74,7 @@ const menuGroups = [
 
 const bottomMenuItems = [
   { icon: FaUserMd, label: "Profile", href: "/dashboard/profile" },
-  { icon: FaSignOutAlt, label: "Sign Out", onClick: () => signOut() },
+  { icon: FaSignOutAlt, label: "Sign Out", onClick: () => signOut({ callbackUrl: "/auth/login" }) },
 ];
 
 export default function Sidebar() {
