@@ -266,13 +266,11 @@ model Subscription {
 model Banner {
   id        String   @id @default(cuid())
   title     String
-  subtitle  String
-  imageUrl  String
+  image     String
+  link      String
+  cta       String
   active    Boolean  @default(true)
-  order     Int
-  date      DateTime
-  ctaText   String
-  ctaLink   String
+  order     Int     @default(0)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 

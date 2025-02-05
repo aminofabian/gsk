@@ -94,10 +94,8 @@ export default function HeroBannerManagement() {
         throw new Error('Failed to save banner');
       }
 
-      // Refresh banners list
       await fetchBanners();
       
-      // Reset form
       setFormData({
         title: "",
         image: "",
