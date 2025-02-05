@@ -51,6 +51,8 @@ export default {
       return true;
     },
     async session({ token, session }) {
+      console.log("Session Callback:", { token, sessionBefore: session });
+      
       if (token.sub && session.user) {
         session.user.id = token.sub;
       }
@@ -64,10 +66,15 @@ export default {
         session.user.emailVerified = token.emailVerified as Date | null;
         session.user.isTwoFactorEnabled = token.isTwoFactorEnabled as boolean;
       }
+
+      console.log("Session After:", { sessionAfter: session });
       return session;
     },
     async jwt({ token }) {
       if (!token.sub) return token;
+      
+      console.log("JWT Callback - Before:", { token });
+      
       const existingUser = await getUserById(token.sub);
       if (!existingUser) return token;
       
@@ -79,6 +86,7 @@ export default {
       token.picture = existingUser.image;
       token.emailVerified = existingUser.emailVerified;
       
+      console.log("JWT Callback - After:", { token, existingUser });
       return token;
     },
     async redirect() {

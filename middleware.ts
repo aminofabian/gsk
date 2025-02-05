@@ -26,6 +26,15 @@ export default auth((req) => {
   const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
   const isAuthRoute = authRoutes.includes(nextUrl.pathname);
 
+  // Debug logging
+  console.log("Auth Debug:", {
+    isLoggedIn,
+    user: req.auth?.user,
+    email: req.auth?.user?.email,
+    role: req.auth?.user?.role,
+    isAdminRoute,
+  });
+
   if (isApiAuthRoute) {
     return;
   }
@@ -49,6 +58,13 @@ export default auth((req) => {
   // Check for admin route access
   if (isAdminRoute) {
     const userRole = req.auth?.user?.role;
+    
+    // Debug logging for admin check
+    console.log("Admin Check:", {
+      userRole,
+      email: req.auth?.user?.email,
+      shouldRedirect: userRole !== "ADMIN"
+    });
     
     if (userRole !== "ADMIN") {
       return Response.redirect(new URL("/dashboard", nextUrl));
