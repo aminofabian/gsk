@@ -591,9 +591,9 @@ export default function EventManagement() {
                                 }}
                               />
                             </div>
-                            {field.value?.length > 0 && (
+                            {field.value && field.value.length > 0 && (
                               <div className="space-y-2">
-                                {Array.from(field.value).map((file, index) => (
+                                {field.value.map((file, index) => (
                                   <div
                                     key={index}
                                     className="flex items-center justify-between rounded-md border px-3 py-2"
