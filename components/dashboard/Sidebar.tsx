@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Logo from "@/components/homepage/Logo";
+import { toast } from "sonner";
 import {
   FaUserMd,
   FaCalendarAlt,
@@ -74,7 +75,14 @@ const menuGroups = [
 
 const bottomMenuItems = [
   { icon: FaUserMd, label: "Profile", href: "/dashboard/profile" },
-  { icon: FaSignOutAlt, label: "Sign Out", onClick: () => signOut({ callbackUrl: "/auth/login" }) },
+  { 
+    icon: FaSignOutAlt, 
+    label: "Sign Out", 
+    onClick: () => {
+      toast.success("Successfully signed out");
+      signOut({ callbackUrl: "/auth/login" });
+    }
+  },
 ];
 
 export default function Sidebar() {

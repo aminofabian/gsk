@@ -1,33 +1,20 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaEdit, FaTrash, FaImage, FaArrowUp, FaArrowDown } from "react-icons/fa";
+import { toast } from "sonner";
 
-// Mock data - replace with actual API calls
-const mockBanners = [
-  {
-    id: 1,
-    title: "Welcome to GSK",
-    subtitle: "Advancing Digestive Health Care",
-    imageUrl: "/images/banner1.jpg",
-    active: true,
-    order: 1,
-    date: "2024-03-20",
-    ctaText: "Learn More",
-    ctaLink: "/about",
-  },
-  {
-    id: 2,
-    title: "Join Our Community",
-    subtitle: "Connect with Leading Gastroenterologists",
-    imageUrl: "/images/banner2.jpg",
-    active: true,
-    order: 2,
-    date: "2024-03-21",
-    ctaText: "Join Now",
-    ctaLink: "/join",
-  },
-];
+interface Banner {
+  id: string;
+  title: string;
+  subtitle: string;
+  imageUrl: string;
+  active: boolean;
+  order: number;
+  date: string;
+  ctaText: string;
+  ctaLink: string;
+}
 
 interface BannerFormData {
   title: string;
@@ -39,8 +26,9 @@ interface BannerFormData {
 }
 
 export default function HeroBannerManagement() {
-  const [banners, setBanners] = useState(mockBanners);
-  const [showAddForm, setShowAddForm] = useState(false);
+  const [banners, setBanners] = useState<Banner[]>([]);
+  const [showForm, setShowForm] = useState(false);
+  const [editingBanner, setEditingBanner] = useState<Banner | null>(null);
   const [formData, setFormData] = useState<BannerFormData>({
     title: "",
     subtitle: "",
@@ -49,6 +37,22 @@ export default function HeroBannerManagement() {
     ctaText: "",
     ctaLink: "",
   });
+
+  useEffect(() => {
+    fetchBanners();
+  }, []);
+
+  const fetchBanners = async () => {
+    try {
+      const response = await fetch("/api/admin/banners");
+      if (!response.ok) throw new Error("Failed to fetch banners");
+      const data = await response.json();
+      setBanners(data);
+    } catch (error) {
+      console.error("Error fetching banners:", error);
+      toast.error("Failed to load banners");
+    }
+  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -61,46 +65,95 @@ export default function HeroBannerManagement() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Add validation here if needed
     if (!formData.title || !formData.subtitle || !formData.date) {
-      alert("Please fill in all required fields");
+      toast.error("Please fill in all required fields");
       return;
     }
 
-    // Create new banner object
-    const newBanner = {
-      id: banners.length + 1,
-      ...formData,
-      active: true,
-      order: banners.length + 1,
-    };
+    try {
+      const url = editingBanner 
+        ? `/api/admin/banners/${editingBanner.id}`
+        : '/api/admin/banners';
+      
+      const method = editingBanner ? 'PATCH' : 'POST';
+      
+      const response = await fetch(url, {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
 
-    // Update local state
-    setBanners([...banners, newBanner]);
-    
-    // Reset form
+      if (!response.ok) throw new Error('Failed to save banner');
+
+      // Refresh banners list
+      await fetchBanners();
+      
+      // Reset form
+      setFormData({
+        title: "",
+        subtitle: "",
+        date: "",
+        imageUrl: "",
+        ctaText: "",
+        ctaLink: "",
+      });
+      setShowForm(false);
+      setEditingBanner(null);
+      
+      toast.success(editingBanner ? "Banner updated successfully" : "Banner created successfully");
+    } catch (error) {
+      console.error('Error saving banner:', error);
+      toast.error('Failed to save banner. Please try again.');
+    }
+  };
+
+  const handleEdit = (banner: Banner) => {
+    setEditingBanner(banner);
     setFormData({
-      title: "",
-      subtitle: "",
-      date: "",
-      imageUrl: "",
-      ctaText: "",
-      ctaLink: "",
+      title: banner.title,
+      subtitle: banner.subtitle,
+      date: new Date(banner.date).toISOString().split('T')[0],
+      imageUrl: banner.imageUrl,
+      ctaText: banner.ctaText,
+      ctaLink: banner.ctaLink,
     });
-    setShowAddForm(false);
+    setShowForm(true);
+  };
 
-    // TODO: Add API call to save to database
-    // try {
-    //   const response = await fetch('/api/banners', {
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify(newBanner),
-    //   });
-    //   if (!response.ok) throw new Error('Failed to save banner');
-    // } catch (error) {
-    //   console.error('Error saving banner:', error);
-    //   alert('Failed to save banner. Please try again.');
-    // }
+  const handleDelete = async (id: string) => {
+    if (!confirm("Are you sure you want to delete this banner?")) return;
+
+    try {
+      const response = await fetch(`/api/admin/banners/${id}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) throw new Error('Failed to delete banner');
+
+      await fetchBanners();
+      toast.success("Banner deleted successfully");
+    } catch (error) {
+      console.error('Error deleting banner:', error);
+      toast.error('Failed to delete banner');
+    }
+  };
+
+  const handleToggleActive = async (banner: Banner) => {
+    try {
+      const response = await fetch(`/api/admin/banners/${banner.id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...banner, active: !banner.active }),
+      });
+
+      if (!response.ok) throw new Error('Failed to update banner');
+
+      await fetchBanners();
+      toast.success("Banner status updated");
+    } catch (error) {
+      console.error('Error updating banner:', error);
+      toast.error('Failed to update banner status');
+    }
   };
 
   return (
@@ -108,17 +161,30 @@ export default function HeroBannerManagement() {
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-2xl font-display font-bold text-gray-900">Hero Banner Management</h2>
         <button
-          onClick={() => setShowAddForm(true)}
-          className="px-4 py-2 bg-[#003366] text-white  hover:bg-[#004488] transition-colors"
+          onClick={() => {
+            setEditingBanner(null);
+            setFormData({
+              title: "",
+              subtitle: "",
+              date: "",
+              imageUrl: "",
+              ctaText: "",
+              ctaLink: "",
+            });
+            setShowForm(true);
+          }}
+          className="px-4 py-2 bg-[#003366] text-white hover:bg-[#004488] transition-colors"
         >
           Add New Banner
         </button>
       </div>
 
       {/* Add/Edit Form */}
-      {showAddForm && (
-        <div className="mb-8 p-6 bg-gray-50 ">
-          <h3 className="text-lg font-display font-bold text-gray-900 mb-4">Add New Banner</h3>
+      {showForm && (
+        <div className="mb-8 p-6 bg-gray-50">
+          <h3 className="text-lg font-display font-bold text-gray-900 mb-4">
+            {editingBanner ? "Edit Banner" : "Add New Banner"}
+          </h3>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Title</label>
@@ -190,7 +256,6 @@ export default function HeroBannerManagement() {
                       id="banner-image"
                       accept="image/*"
                       onChange={(e) => {
-                        // Handle file upload
                         const file = e.target.files?.[0];
                         if (file) {
                           // TODO: Implement file upload logic
@@ -223,7 +288,10 @@ export default function HeroBannerManagement() {
             <div className="flex items-center justify-end gap-3">
               <button
                 type="button"
-                onClick={() => setShowAddForm(false)}
+                onClick={() => {
+                  setShowForm(false);
+                  setEditingBanner(null);
+                }}
                 className="px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors"
               >
                 Cancel
@@ -232,7 +300,7 @@ export default function HeroBannerManagement() {
                 type="submit"
                 className="px-4 py-2 bg-[#003366] text-white hover:bg-[#004488] transition-colors"
               >
-                Save Banner
+                {editingBanner ? "Update Banner" : "Save Banner"}
               </button>
             </div>
           </form>
@@ -264,10 +332,16 @@ export default function HeroBannerManagement() {
               <button className="p-2 text-gray-600 hover:text-gray-800 transition-colors">
                 <FaArrowDown />
               </button>
-              <button className="p-2 text-blue-600 hover:text-blue-800 transition-colors">
+              <button 
+                onClick={() => handleEdit(banner)}
+                className="p-2 text-blue-600 hover:text-blue-800 transition-colors"
+              >
                 <FaEdit />
               </button>
-              <button className="p-2 text-red-600 hover:text-red-800 transition-colors">
+              <button 
+                onClick={() => handleDelete(banner.id)}
+                className="p-2 text-red-600 hover:text-red-800 transition-colors"
+              >
                 <FaTrash />
               </button>
               <div className="h-6 w-px bg-gray-200 mx-2"></div>
@@ -276,9 +350,9 @@ export default function HeroBannerManagement() {
                   type="checkbox"
                   checked={banner.active}
                   className="sr-only peer"
-                  onChange={() => {}}
+                  onChange={() => handleToggleActive(banner)}
                 />
-                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300  peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after: after:h-5 after:w-5 after:transition-all peer-checked:bg-[#003366]"></div>
+                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:h-5 after:w-5 after:transition-all peer-checked:bg-[#003366]"></div>
               </label>
             </div>
           </div>
