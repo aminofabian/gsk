@@ -30,8 +30,9 @@ export async function POST(request: Request) {
     const formData = await request.formData();
     const file = formData.get("file") as File | null;
     const title = formData.get("title") as string || "New Banner";
-    const link = formData.get("link") as string || "/";
-    const cta = formData.get("cta") as string || "Learn More";
+    const subtitle = formData.get("subtitle") as string || "Subtitle";
+    const ctaText = formData.get("ctaText") as string || "Learn More";
+    const ctaLink = formData.get("ctaLink") as string || "/";
     
     let imageUrl = "/images/placeholder-banner.jpg";
     
@@ -54,11 +55,13 @@ export async function POST(request: Request) {
     const banner = await prisma.banner.create({
       data: {
         title,
-        image: imageUrl,
-        link,
-        cta,
+        subtitle,
+        imageUrl,
+        ctaText,
+        ctaLink,
         order: newOrder,
         active: true,
+        date: new Date(),
       },
     });
 
@@ -80,18 +83,20 @@ export async function PUT(req: Request) {
     }
 
     const data = await req.json();
-    const { id, title, image, link, cta, order, active } = data;
+    const { id, title, subtitle, imageUrl, ctaText, ctaLink, order, active, date } = data;
 
     console.log("Updating banner with ID:", id);
     const banner = await prisma.banner.update({
       where: { id },
       data: {
         ...(title && { title }),
-        ...(image && { image }),
-        ...(link && { link }),
-        ...(cta && { cta }),
+        ...(subtitle && { subtitle }),
+        ...(imageUrl && { imageUrl }),
+        ...(ctaText && { ctaText }),
+        ...(ctaLink && { ctaLink }),
         ...(typeof order === 'number' && { order }),
         ...(typeof active === 'boolean' && { active }),
+        ...(date && { date: new Date(date) }),
       },
     });
     
