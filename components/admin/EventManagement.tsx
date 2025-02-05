@@ -80,7 +80,26 @@ type FormValues = {
   moderators: string[];
   capacity?: number | null;
   registrationDeadline?: string | null;
-  materials?: Record<string, any> | null;
+  materials?: File[];
+};
+
+const ACCEPTED_FILE_TYPES = {
+  'application/pdf': '.pdf',
+  'application/msword': '.doc',
+  'application/vnd.openxmlformats-officedocument.wordprocessingml.document': '.docx',
+  'application/vnd.ms-powerpoint': '.ppt',
+  'application/vnd.openxmlformats-officedocument.presentationml.presentation': '.pptx',
+  'application/vnd.ms-excel': '.xls',
+  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': '.xlsx',
+};
+
+const formatBytes = (bytes: number, decimals = 2) => {
+  if (bytes === 0) return '0 Bytes';
+  const k = 1024;
+  const dm = decimals < 0 ? 0 : decimals;
+  const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
 };
 
 const formSchema = z.object({
@@ -96,7 +115,7 @@ const formSchema = z.object({
   moderators: z.array(z.string()),
   capacity: z.number().nullable().optional(),
   registrationDeadline: z.string().nullable().optional(),
-  materials: z.record(z.any()).nullable().optional(),
+  materials: z.array(z.custom<File>()).optional(),
 });
 
 export default function EventManagement() {
@@ -122,7 +141,7 @@ export default function EventManagement() {
       moderators: [],
       capacity: null,
       registrationDeadline: null,
-      materials: null,
+      materials: [],
     },
   });
 
@@ -145,7 +164,7 @@ export default function EventManagement() {
         moderators: selectedEvent.moderators,
         capacity: selectedEvent.capacity,
         registrationDeadline: selectedEvent.registrationDeadline,
-        materials: selectedEvent.materials,
+        materials: selectedEvent.materials as File[],
       });
     } else {
       form.reset({
@@ -161,7 +180,7 @@ export default function EventManagement() {
         moderators: [],
         capacity: null,
         registrationDeadline: null,
-        materials: null,
+        materials: [],
       });
     }
   }, [selectedEvent, form]);
@@ -543,19 +562,90 @@ export default function EventManagement() {
                     name="materials"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-sm font-semibold">Materials</FormLabel>
+                        <FormLabel className="text-sm font-semibold">Documents</FormLabel>
                         <FormControl>
-                          <Input 
-                            type="file"
-                            multiple
-                            onChange={(e) => {
-                              // Handle file selection UI only
-                              const files = e.target.files;
-                              if (!files) return;
-                              
-                              // You can add preview logic here if needed
-                            }}
-                          />
+                          <div className="space-y-4">
+                            <div className="flex items-center gap-4">
+                              <Input
+                                type="file"
+                                className="cursor-pointer file:cursor-pointer"
+                                accept={Object.values(ACCEPTED_FILE_TYPES).join(',')}
+                                multiple
+                                onChange={(e) => {
+                                  const files = Array.from(e.target.files || []);
+                                  const validFiles = files.filter(file => {
+                                    const isValidType = Object.keys(ACCEPTED_FILE_TYPES).includes(file.type);
+                                    const isValidSize = file.size <= 10 * 1024 * 1024; // 10MB limit
+                                    return isValidType && isValidSize;
+                                  });
+
+                                  if (validFiles.length !== files.length) {
+                                    toast({
+                                      title: "Invalid files",
+                                      description: "Some files were skipped. Only documents up to 10MB are allowed.",
+                                      variant: "destructive",
+                                    });
+                                  }
+
+                                  field.onChange(validFiles);
+                                }}
+                              />
+                            </div>
+                            {field.value?.length > 0 && (
+                              <div className="space-y-2">
+                                {Array.from(field.value).map((file, index) => (
+                                  <div
+                                    key={index}
+                                    className="flex items-center justify-between rounded-md border px-3 py-2"
+                                  >
+                                    <div className="flex items-center gap-2">
+                                      <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        className="h-5 w-5 text-blue-500"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        strokeWidth="2"
+                                      >
+                                        <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
+                                        <polyline points="14 2 14 8 20 8" />
+                                      </svg>
+                                      <div className="text-sm">
+                                        <p className="font-medium">{file.name}</p>
+                                        <p className="text-gray-500">{formatBytes(file.size)}</p>
+                                      </div>
+                                    </div>
+                                    <Button
+                                      type="button"
+                                      variant="ghost"
+                                      size="sm"
+                                      className="h-8 w-8 p-0 text-red-500"
+                                      onClick={() => {
+                                        const newFiles = Array.from(field.value || []).filter(
+                                          (_, i) => i !== index
+                                        );
+                                        field.onChange(newFiles);
+                                      }}
+                                    >
+                                      <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        className="h-4 w-4"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        strokeWidth="2"
+                                      >
+                                        <path d="M18 6L6 18M6 6l12 12" />
+                                      </svg>
+                                    </Button>
+                                  </div>
+                                ))}
+                              </div>
+                            )}
+                            <p className="text-xs text-gray-500">
+                              Accepted file types: PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX (Max 10MB per file)
+                            </p>
+                          </div>
                         </FormControl>
                         <FormMessage />
                       </FormItem>

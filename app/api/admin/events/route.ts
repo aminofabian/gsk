@@ -4,6 +4,18 @@ import { db } from "@/lib/db";
 import { EventType } from "@prisma/client";
 import { uploadToS3 } from "@/lib/s3";
 
+const ACCEPTED_FILE_TYPES = [
+  'application/pdf',
+  'application/msword',
+  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+  'application/vnd.ms-powerpoint',
+  'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+  'application/vnd.ms-excel',
+  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+];
+
+const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
+
 export async function GET() {
   try {
     const session = await auth();
@@ -70,11 +82,21 @@ export async function POST(req: Request) {
       return new NextResponse("Missing required fields", { status: 400 });
     }
 
-    // Handle file uploads
+    // Handle file uploads with validation
     const materials: Record<string, string> = {};
     const files = formData.getAll("materials") as File[];
     
     for (const file of files) {
+      // Validate file type
+      if (!ACCEPTED_FILE_TYPES.includes(file.type)) {
+        return new NextResponse(`Invalid file type: ${file.type}`, { status: 400 });
+      }
+
+      // Validate file size
+      if (file.size > MAX_FILE_SIZE) {
+        return new NextResponse(`File too large: ${file.name}`, { status: 400 });
+      }
+
       const buffer = Buffer.from(await file.arrayBuffer());
       const fileUrl = await uploadToS3(buffer, file.name, file.type);
       materials[file.name] = fileUrl;
