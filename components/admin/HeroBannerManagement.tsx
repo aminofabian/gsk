@@ -77,13 +77,30 @@ export default function HeroBannerManagement() {
       
       const method = editingBanner ? 'PATCH' : 'POST';
       
+      const payload = {
+        title: formData.title,
+        subtitle: formData.subtitle,
+        imageUrl: formData.imageUrl,
+        date: new Date(formData.date).toISOString(),
+        ctaText: formData.ctaText,
+        ctaLink: formData.ctaLink,
+        ...(editingBanner && { active: editingBanner.active }),
+        ...(editingBanner && { order: editingBanner.order }),
+      };
+
+      console.log('Sending payload:', payload);
+
       const response = await fetch(url, {
         method,
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(payload),
       });
 
-      if (!response.ok) throw new Error('Failed to save banner');
+      if (!response.ok) {
+        const errorData = await response.text();
+        console.error('Server response:', errorData);
+        throw new Error('Failed to save banner');
+      }
 
       // Refresh banners list
       await fetchBanners();
@@ -143,7 +160,11 @@ export default function HeroBannerManagement() {
       const response = await fetch(`/api/admin/banners/${banner.id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...banner, active: !banner.active }),
+        body: JSON.stringify({
+          ...banner,
+          active: !banner.active,
+          date: new Date(banner.date).toISOString(),
+        }),
       });
 
       if (!response.ok) throw new Error('Failed to update banner');
