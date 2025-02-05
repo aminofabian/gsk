@@ -48,9 +48,9 @@ export default auth((req) => {
 
   // Check for admin route access
   if (isAdminRoute) {
-    const userEmail = req.auth?.user?.email;
+    const userRole = req.auth?.user?.role;
     
-    if (!userEmail || !ALLOWED_ADMIN_EMAILS.includes(userEmail)) {
+    if (userRole !== "ADMIN") {
       return Response.redirect(new URL("/dashboard", nextUrl));
     }
   }
