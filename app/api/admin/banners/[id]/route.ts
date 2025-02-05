@@ -14,7 +14,7 @@ export async function PATCH(
     }
 
     const body = await req.json();
-    const { title, subtitle, imageUrl, date, ctaText, ctaLink, active } = body;
+    const { title, image, link, cta, active } = body;
 
     if (!params.id) {
       return new NextResponse("Banner ID required", { status: 400 });
@@ -26,11 +26,9 @@ export async function PATCH(
       },
       data: {
         title,
-        subtitle,
-        imageUrl,
-        date: date ? new Date(date) : undefined,
-        ctaText,
-        ctaLink,
+        image,
+        link,
+        cta,
         active,
       }
     });
