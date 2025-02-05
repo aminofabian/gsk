@@ -26,9 +26,9 @@ export async function POST(req: Request) {
     }
 
     const body = await req.json();
-    const { title, subtitle, imageUrl, date, ctaText, ctaLink } = body;
+    const { title, image, link, cta } = body;
 
-    if (!title || !subtitle || !date) {
+    if (!title) {
       return new NextResponse("Missing required fields", { status: 400 });
     }
 
@@ -44,11 +44,9 @@ export async function POST(req: Request) {
     const banner = await db.banner.create({
       data: {
         title,
-        subtitle,
-        imageUrl,
-        date: new Date(date),
-        ctaText,
-        ctaLink,
+        image,
+        link,
+        cta,
         order: newOrder,
       }
     });
