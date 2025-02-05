@@ -161,9 +161,14 @@ export default function HeroBannerManagement() {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          ...banner,
-          active: !banner.active,
+          title: banner.title,
+          subtitle: banner.subtitle,
+          imageUrl: banner.imageUrl,
           date: new Date(banner.date).toISOString(),
+          ctaText: banner.ctaText,
+          ctaLink: banner.ctaLink,
+          active: !banner.active,
+          order: banner.order,
         }),
       });
 
