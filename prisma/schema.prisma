@@ -19,7 +19,7 @@ model User {
   password              String?
   role                  UserRole                @default(USER)
   isTwoFactorEnabled    Boolean                 @default(false)
-  bio                   String?                 @db.Text
+  bio                   String?
   hospital              String?
   profileSlug           String?                 @unique
   specialization        String?
@@ -27,17 +27,17 @@ model User {
   namePrefix            String?
   fullName              String?
   designation           String?
-  yearsOfExperience    Int?
-  languages            String[]
-  certifications       String[]
-  researchInterests    String[]
-  publicationCount     Int?                    @default(0)
-  lastActive           DateTime?
-  profileCompleteness  Int?                    @default(0)
-  isProfilePublic      Boolean                 @default(true)
-  hasActiveSubscription Boolean                @default(false)
-  subscriptionEndDate  DateTime?
-  subscriptions        Subscription[]
+  yearsOfExperience     Int?
+  languages             String[]
+  certifications        String[]
+  researchInterests     String[]
+  publicationCount      Int?                    @default(0)
+  lastActive            DateTime?
+  profileCompleteness   Int?                    @default(0)
+  isProfilePublic       Boolean                 @default(true)
+  hasActiveSubscription Boolean                 @default(false)
+  subscriptionEndDate   DateTime?
+  subscriptions         Subscription[]
   accounts              Account[]
   membershipApplication MembershipApplication[]
   eventsAttending       Event[]                 @relation("EventAttendees")
@@ -46,7 +46,7 @@ model User {
   achievements          Achievement[]
   education             Education[]
   publications          Publication[]
-  researchProjects     ResearchProject[]
+  researchProjects      ResearchProject[]
 
   @@map("users")
 }
@@ -91,134 +91,134 @@ model PasswordResetToken {
 }
 
 model MembershipApplication {
-  id            String   @id @default(cuid())
-  userId        String
-  phone         String
-  designation   String
+  id             String   @id @default(cuid())
+  userId         String
+  phone          String
+  designation    String
   specialization String
-  licenseNumber String?
-  hospital      String
-  address       String
-  city          String
-  county        String
-  postalCode    String?
-  status        String   @default("PENDING")
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  licenseNumber  String?
+  hospital       String
+  address        String
+  city           String
+  county         String
+  postalCode     String?
+  status         String   @default("PENDING")
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("membership_applications")
 }
 
 model Event {
-  id          String    @id @default(cuid())
-  title       String
-  description String
-  type        EventType
-  startDate   DateTime
-  endDate     DateTime
-  venue       String
-  objectives  String[]
-  cpdPoints   Int       @default(0)
-  speakers    String[]
-  moderators  String[]
-  capacity    Int?
+  id                   String    @id @default(cuid())
+  title                String
+  description          String
+  type                 EventType
+  startDate            DateTime
+  endDate              DateTime
+  venue                String
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+  capacity             Int?
+  cpdPoints            Int       @default(0)
+  materials            Json?     @default("{}")
+  moderators           String[]
+  objectives           String[]
   registrationDeadline DateTime?
-  materials   Json?     @default("{}")
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  attendees   User[]    @relation("EventAttendees")
-  organizers  User[]    @relation("EventOrganizers")
+  speakers             String[]
+  attendees            User[]    @relation("EventAttendees")
+  organizers           User[]    @relation("EventOrganizers")
 
   @@map("events")
 }
 
 model SocialLink {
-  id        String      @id @default(cuid())
-  platform  SocialPlatform
-  url       String
-  userId    String
-  isVerified Boolean   @default(false)
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id         String         @id @default(cuid())
+  platform   SocialPlatform
+  url        String
+  userId     String
+  isVerified Boolean        @default(false)
+  createdAt  DateTime       @default(now())
+  updatedAt  DateTime       @updatedAt
+  user       User           @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
   @@map("social_links")
 }
 
 model Achievement {
-  id          String   @id @default(cuid())
+  id          String          @id @default(cuid())
   title       String
-  description String?  @db.Text
+  description String?
   year        Int?
   type        AchievementType
   issuer      String?
   url         String?
   userId      String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+  user        User            @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
   @@map("achievements")
 }
 
 model Education {
-  id          String   @id @default(cuid())
-  institution String
-  degree      String
-  field       String
+  id             String   @id @default(cuid())
+  institution    String
+  degree         String
+  field          String
   specialization String?
-  startYear   Int
-  endYear     Int?
-  grade       String?
-  honors      String?
-  thesis      String? @db.Text
-  supervisor  String?
-  isVerified  Boolean @default(false)
-  userId      String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  startYear      Int
+  endYear        Int?
+  grade          String?
+  honors         String?
+  thesis         String?
+  supervisor     String?
+  isVerified     Boolean  @default(false)
+  userId         String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
   @@map("education")
 }
 
 model Publication {
-  id          String    @id @default(cuid())
-  title       String
-  abstract    String?   @db.Text
-  authors     String[]
-  journal     String?
-  year        Int
-  doi         String?   @unique
-  url         String?
-  citations   Int       @default(0)
-  type        PublicationType
-  userId      String
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id        String          @id @default(cuid())
+  title     String
+  abstract  String?
+  authors   String[]
+  journal   String?
+  year      Int
+  doi       String?         @unique
+  url       String?
+  citations Int             @default(0)
+  type      PublicationType
+  userId    String
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+  user      User            @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
   @@map("publications")
 }
 
 model ResearchProject {
-  id          String    @id @default(cuid())
-  title       String
-  description String?   @db.Text
-  startDate   DateTime
-  endDate     DateTime?
-  status      ProjectStatus
+  id            String        @id @default(cuid())
+  title         String
+  description   String?
+  startDate     DateTime
+  endDate       DateTime?
+  status        ProjectStatus
   fundingSource String?
   collaborators String[]
-  userId      String
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId        String
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  user          User          @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
   @@map("research_projects")
@@ -243,21 +243,21 @@ model EventOrganizers {
 }
 
 model Subscription {
-  id              String   @id @default(cuid())
+  id              String        @id @default(cuid())
   userId          String
   planType        PlanType
   amount          Float
-  currency        String   @default("USD")
+  currency        String        @default("USD")
   status          PaymentStatus
-  startDate       DateTime @default(now())
+  startDate       DateTime      @default(now())
   endDate         DateTime
-  isAutoRenew     Boolean  @default(true)
+  isAutoRenew     Boolean       @default(true)
   paymentMethod   String?
   lastPaymentDate DateTime?
   nextBillingDate DateTime?
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  user            User          @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
   @@map("subscriptions")
