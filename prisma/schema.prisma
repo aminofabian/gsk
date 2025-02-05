@@ -364,7 +364,10 @@ enum PlanType {
 }
 
 enum PaymentStatus {
+  ACTIVE
   PENDING
   COMPLETED
   FAILED
+  CANCELLED
+  EXPIRED
 }
