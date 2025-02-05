@@ -6,6 +6,7 @@ import { FaBell, FaSearch, FaChevronDown } from "react-icons/fa";
 import NotificationsDropdown from "./NotificationsDropdown";
 import UserMenuDropdown from "./UserMenuDropdown";
 import { getDashboardData } from "@/actions/get-dashboard-data";
+import Link from "next/link";
 
 interface DashboardData {
   user: {
@@ -58,6 +59,7 @@ export default function DashboardHeader() {
     : 'Loading...';
 
   const designation = dashboardData?.user?.designation || dashboardData?.user?.title || '';
+  const userRole = dashboardData?.user?.role === 'ADMIN' ? 'GSK ADMIN' : 'GSK MEMBER';
   const formattedDesignation = designation ? capitalizeWords(designation) : '';
 
   return (
@@ -73,6 +75,15 @@ export default function DashboardHeader() {
               <p className="text-sm sm:text-base text-gray-800 font-semibold tracking-wide">
                 {fullName}
               </p>
+              {dashboardData?.user?.role === 'ADMIN' ? (
+                <Link href="/admin" className="text-xs font-medium text-[#003366] hover:text-[#004488] transition-colors">
+                  {userRole}
+                </Link>
+              ) : (
+                <p className="text-xs font-medium text-[#003366]/70">
+                  {userRole}
+                </p>
+              )}
               {formattedDesignation && (
                 <p className="text-xs font-medium text-[#003366]/70">
                   {formattedDesignation}
