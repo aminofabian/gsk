@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { EventType } from "@prisma/client";
+import { uploadToS3 } from "@/lib/s3";
 
 export async function GET() {
   try {
@@ -50,32 +51,40 @@ export async function POST(req: Request) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    const body = await req.json();
-    const { 
-      title, 
-      description, 
-      type, 
-      startDate, 
-      endDate, 
-      venue,
-      objectives,
-      cpdPoints,
-      speakers,
-      moderators,
-      capacity,
-      registrationDeadline,
-      materials 
-    } = body;
+    const formData = await req.formData();
+    
+    const title = formData.get("title") as string;
+    const description = formData.get("description") as string;
+    const type = formData.get("type") as EventType;
+    const startDate = formData.get("startDate") as string;
+    const endDate = formData.get("endDate") as string;
+    const venue = formData.get("venue") as string;
+    const objectives = JSON.parse(formData.get("objectives") as string);
+    const cpdPoints = Number(formData.get("cpdPoints"));
+    const speakers = JSON.parse(formData.get("speakers") as string);
+    const moderators = JSON.parse(formData.get("moderators") as string);
+    const capacity = formData.get("capacity") ? Number(formData.get("capacity")) : null;
+    const registrationDeadline = formData.get("registrationDeadline") as string;
 
     if (!title || !description || !type || !startDate || !endDate || !venue || !objectives) {
       return new NextResponse("Missing required fields", { status: 400 });
+    }
+
+    // Handle file uploads
+    const materials: Record<string, string> = {};
+    const files = formData.getAll("materials") as File[];
+    
+    for (const file of files) {
+      const buffer = Buffer.from(await file.arrayBuffer());
+      const fileUrl = await uploadToS3(buffer, file.name, file.type);
+      materials[file.name] = fileUrl;
     }
 
     const event = await db.event.create({
       data: {
         title,
         description,
-        type: type as EventType,
+        type,
         startDate: new Date(startDate),
         endDate: new Date(endDate),
         venue,
@@ -85,7 +94,7 @@ export async function POST(req: Request) {
         moderators: moderators || [],
         capacity,
         registrationDeadline: registrationDeadline ? new Date(registrationDeadline) : null,
-        materials: materials || {},
+        materials,
       },
     });
 

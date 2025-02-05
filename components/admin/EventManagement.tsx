@@ -190,10 +190,31 @@ export default function EventManagement() {
         : "/api/admin/events";
       const method = selectedEvent ? "PATCH" : "POST";
 
+      const formData = new FormData();
+      formData.append("title", values.title);
+      formData.append("description", values.description);
+      formData.append("type", values.type);
+      formData.append("startDate", values.startDate);
+      formData.append("endDate", values.endDate);
+      formData.append("venue", values.venue);
+      formData.append("objectives", JSON.stringify(values.objectives));
+      formData.append("cpdPoints", values.cpdPoints.toString());
+      formData.append("speakers", JSON.stringify(values.speakers));
+      formData.append("moderators", JSON.stringify(values.moderators));
+      if (values.capacity) formData.append("capacity", values.capacity.toString());
+      if (values.registrationDeadline) formData.append("registrationDeadline", values.registrationDeadline);
+
+      // Handle file uploads
+      const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
+      if (fileInput && fileInput.files) {
+        for (const file of Array.from(fileInput.files)) {
+          formData.append("materials", file);
+        }
+      }
+
       const response = await fetch(url, {
         method,
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
+        body: formData,
       });
 
       if (!response.ok) throw new Error(`Failed to ${selectedEvent ? 'update' : 'create'} event`);
@@ -524,17 +545,15 @@ export default function EventManagement() {
                       <FormItem>
                         <FormLabel className="text-sm font-semibold">Materials</FormLabel>
                         <FormControl>
-                          <Textarea
-                            className="min-h-[80px] resize-none font-mono text-sm"
-                            placeholder="Enter materials in JSON format"
-                            value={field.value ? JSON.stringify(field.value, null, 2) : ''}
-                            onChange={e => {
-                              try {
-                                const value = e.target.value ? JSON.parse(e.target.value) : null;
-                                field.onChange(value);
-                              } catch (error) {
-                                // Invalid JSON, keep the text but don't update the value
-                              }
+                          <Input 
+                            type="file"
+                            multiple
+                            onChange={(e) => {
+                              // Handle file selection UI only
+                              const files = e.target.files;
+                              if (!files) return;
+                              
+                              // You can add preview logic here if needed
                             }}
                           />
                         </FormControl>
