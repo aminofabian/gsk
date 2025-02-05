@@ -121,6 +121,7 @@ const formSchema = z.object({
 export default function EventManagement() {
   const [events, setEvents] = useState<Event[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [open, setOpen] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const router = useRouter();
@@ -203,11 +204,17 @@ export default function EventManagement() {
   };
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    setIsSubmitting(true);
     try {
       const url = selectedEvent
         ? `/api/admin/events/${selectedEvent.id}`
         : "/api/admin/events";
       const method = selectedEvent ? "PATCH" : "POST";
+
+      toast({
+        title: "Processing",
+        description: "Uploading files and creating event...",
+      });
 
       const formData = new FormData();
       formData.append("title", values.title);
@@ -253,6 +260,8 @@ export default function EventManagement() {
         description: `Failed to ${selectedEvent ? 'update' : 'create'} event`,
         variant: "destructive",
       });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -654,19 +663,40 @@ export default function EventManagement() {
                 </div>
 
                 <div className="flex justify-end pt-4 sticky bottom-0 bg-white pb-2 border-t mt-6 -mx-6 px-6">
-                  <Button type="submit" size="lg" className="w-[200px] gap-2">
-                    {selectedEvent ? (
+                  <Button type="submit" size="lg" className="w-[200px] gap-2" disabled={isSubmitting}>
+                    {isSubmitting ? (
+                      <>
+                        <svg
+                          className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                        >
+                          <circle
+                            className="opacity-25"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                          />
+                          <path
+                            className="opacity-75"
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                          />
+                        </svg>
+                        Processing...
+                      </>
+                    ) : selectedEvent ? (
                       <>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
+                          className="h-5 w-5"
                           viewBox="0 0 24 24"
                           fill="none"
                           stroke="currentColor"
                           strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
                         >
                           <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
                           <polyline points="17 21 17 13 7 13 7 21" />
@@ -678,14 +708,11 @@ export default function EventManagement() {
                       <>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
+                          className="h-5 w-5"
                           viewBox="0 0 24 24"
                           fill="none"
                           stroke="currentColor"
                           strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
                         >
                           <path d="M12 5v14M5 12h14" />
                         </svg>
