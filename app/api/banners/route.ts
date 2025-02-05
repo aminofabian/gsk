@@ -30,16 +30,15 @@ export async function POST(request: Request) {
     const formData = await request.formData();
     const file = formData.get("file") as File | null;
     const title = formData.get("title") as string || "New Banner";
-    const subtitle = formData.get("subtitle") as string || "Subtitle";
-    const ctaText = formData.get("ctaText") as string || "Learn More";
-    const ctaLink = formData.get("ctaLink") as string || "/";
+    const link = formData.get("link") as string || "/";
+    const cta = formData.get("cta") as string || "Learn More";
     
-    let imageUrl = "/images/placeholder-banner.jpg";
+    let image = "/images/placeholder-banner.jpg";
     
     if (file) {
       console.log("Uploading file to S3...");
-      imageUrl = await uploadToS3(file);
-      console.log("File uploaded successfully:", imageUrl);
+      image = await uploadToS3(file);
+      console.log("File uploaded successfully:", image);
     }
     
     // Get the highest order number
@@ -55,13 +54,11 @@ export async function POST(request: Request) {
     const banner = await prisma.banner.create({
       data: {
         title,
-        subtitle,
-        imageUrl,
-        ctaText,
-        ctaLink,
+        image,
+        link,
+        cta,
         order: newOrder,
         active: true,
-        date: new Date(),
       },
     });
 
@@ -83,20 +80,18 @@ export async function PUT(req: Request) {
     }
 
     const data = await req.json();
-    const { id, title, subtitle, imageUrl, ctaText, ctaLink, order, active, date } = data;
+    const { id, title, image, link, cta, order, active } = data;
 
     console.log("Updating banner with ID:", id);
     const banner = await prisma.banner.update({
       where: { id },
       data: {
         ...(title && { title }),
-        ...(subtitle && { subtitle }),
-        ...(imageUrl && { imageUrl }),
-        ...(ctaText && { ctaText }),
-        ...(ctaLink && { ctaLink }),
+        ...(image && { image }),
+        ...(link && { link }),
+        ...(cta && { cta }),
         ...(typeof order === 'number' && { order }),
         ...(typeof active === 'boolean' && { active }),
-        ...(date && { date: new Date(date) }),
       },
     });
     

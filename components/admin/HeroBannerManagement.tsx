@@ -7,22 +7,20 @@ import { toast } from "sonner";
 interface Banner {
   id: string;
   title: string;
-  subtitle: string;
-  imageUrl: string;
+  image: string;
+  link: string;
+  cta: string;
   active: boolean;
   order: number;
-  date: string;
-  ctaText: string;
-  ctaLink: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 interface BannerFormData {
   title: string;
-  subtitle: string;
-  date: string;
-  imageUrl: string;
-  ctaText: string;
-  ctaLink: string;
+  image: string;
+  link: string;
+  cta: string;
 }
 
 export default function HeroBannerManagement() {
@@ -31,11 +29,9 @@ export default function HeroBannerManagement() {
   const [editingBanner, setEditingBanner] = useState<Banner | null>(null);
   const [formData, setFormData] = useState<BannerFormData>({
     title: "",
-    subtitle: "",
-    date: "",
-    imageUrl: "",
-    ctaText: "",
-    ctaLink: "",
+    image: "",
+    link: "",
+    cta: "",
   });
 
   useEffect(() => {
@@ -44,7 +40,7 @@ export default function HeroBannerManagement() {
 
   const fetchBanners = async () => {
     try {
-      const response = await fetch("/api/admin/banners");
+      const response = await fetch("/api/banners");
       if (!response.ok) throw new Error("Failed to fetch banners");
       const data = await response.json();
       setBanners(data);
@@ -65,25 +61,21 @@ export default function HeroBannerManagement() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!formData.title || !formData.subtitle || !formData.date) {
+    if (!formData.title) {
       toast.error("Please fill in all required fields");
       return;
     }
 
     try {
       const url = editingBanner 
-        ? `/api/admin/banners/${editingBanner.id}`
-        : '/api/admin/banners';
+        ? `/api/banners/${editingBanner.id}`
+        : '/api/banners';
       
-      const method = editingBanner ? 'PATCH' : 'POST';
+      const method = editingBanner ? 'PUT' : 'POST';
       
       const payload = {
-        title: formData.title,
-        subtitle: formData.subtitle,
-        imageUrl: formData.imageUrl,
-        date: new Date(formData.date).toISOString(),
-        ctaText: formData.ctaText,
-        ctaLink: formData.ctaLink,
+        ...formData,
+        ...(editingBanner && { id: editingBanner.id }),
         ...(editingBanner && { active: editingBanner.active }),
         ...(editingBanner && { order: editingBanner.order }),
       };
@@ -108,11 +100,9 @@ export default function HeroBannerManagement() {
       // Reset form
       setFormData({
         title: "",
-        subtitle: "",
-        date: "",
-        imageUrl: "",
-        ctaText: "",
-        ctaLink: "",
+        image: "",
+        link: "",
+        cta: "",
       });
       setShowForm(false);
       setEditingBanner(null);
@@ -128,11 +118,9 @@ export default function HeroBannerManagement() {
     setEditingBanner(banner);
     setFormData({
       title: banner.title,
-      subtitle: banner.subtitle,
-      date: new Date(banner.date).toISOString().split('T')[0],
-      imageUrl: banner.imageUrl,
-      ctaText: banner.ctaText,
-      ctaLink: banner.ctaLink,
+      image: banner.image,
+      link: banner.link,
+      cta: banner.cta,
     });
     setShowForm(true);
   };
@@ -141,7 +129,7 @@ export default function HeroBannerManagement() {
     if (!confirm("Are you sure you want to delete this banner?")) return;
 
     try {
-      const response = await fetch(`/api/admin/banners/${id}`, {
+      const response = await fetch(`/api/banners/${id}`, {
         method: 'DELETE',
       });
 
@@ -157,18 +145,12 @@ export default function HeroBannerManagement() {
 
   const handleToggleActive = async (banner: Banner) => {
     try {
-      const response = await fetch(`/api/admin/banners/${banner.id}`, {
-        method: 'PATCH',
+      const response = await fetch(`/api/banners/${banner.id}`, {
+        method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          title: banner.title,
-          subtitle: banner.subtitle,
-          imageUrl: banner.imageUrl,
-          date: new Date(banner.date).toISOString(),
-          ctaText: banner.ctaText,
-          ctaLink: banner.ctaLink,
+          ...banner,
           active: !banner.active,
-          order: banner.order,
         }),
       });
 
@@ -191,11 +173,9 @@ export default function HeroBannerManagement() {
             setEditingBanner(null);
             setFormData({
               title: "",
-              subtitle: "",
-              date: "",
-              imageUrl: "",
-              ctaText: "",
-              ctaLink: "",
+              image: "",
+              link: "",
+              cta: "",
             });
             setShowForm(true);
           }}
@@ -225,34 +205,11 @@ export default function HeroBannerManagement() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Subtitle</label>
-              <input
-                type="text"
-                name="subtitle"
-                value={formData.subtitle}
-                onChange={handleInputChange}
-                className="w-full px-4 py-2 border border-gray-200 focus:border-[#003366] focus:ring-1 focus:ring-[#003366]"
-                placeholder="Enter banner subtitle"
-                required
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Date</label>
-              <input
-                type="date"
-                name="date"
-                value={formData.date}
-                onChange={handleInputChange}
-                className="w-full px-4 py-2 border border-gray-200 focus:border-[#003366] focus:ring-1 focus:ring-[#003366]"
-                required
-              />
-            </div>
-            <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">CTA Text</label>
               <input
                 type="text"
-                name="ctaText"
-                value={formData.ctaText}
+                name="cta"
+                value={formData.cta}
                 onChange={handleInputChange}
                 className="w-full px-4 py-2 border border-gray-200 focus:border-[#003366] focus:ring-1 focus:ring-[#003366]"
                 placeholder="Enter call-to-action text"
@@ -260,14 +217,14 @@ export default function HeroBannerManagement() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">CTA Link</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Link</label>
               <input
                 type="text"
-                name="ctaLink"
-                value={formData.ctaLink}
+                name="link"
+                value={formData.link}
                 onChange={handleInputChange}
                 className="w-full px-4 py-2 border border-gray-200 focus:border-[#003366] focus:ring-1 focus:ring-[#003366]"
-                placeholder="Enter call-to-action link"
+                placeholder="Enter banner link"
                 required
               />
             </div>
@@ -288,7 +245,7 @@ export default function HeroBannerManagement() {
                           // For now, just set a placeholder URL
                           setFormData(prev => ({
                             ...prev,
-                            imageUrl: URL.createObjectURL(file)
+                            image: URL.createObjectURL(file)
                           }));
                         }
                       }}
@@ -304,9 +261,9 @@ export default function HeroBannerManagement() {
                     </label>
                   </div>
                 </div>
-                {formData.imageUrl && (
+                {formData.image && (
                   <div className="w-24 h-24 bg-gray-100">
-                    <img src={formData.imageUrl} alt="Preview" className="w-full h-full object-cover" />
+                    <img src={formData.image} alt="Preview" className="w-full h-full object-cover" />
                   </div>
                 )}
               </div>
@@ -341,15 +298,13 @@ export default function HeroBannerManagement() {
             className="flex items-center gap-6 p-4 bg-white border hover:shadow-sm transition-shadow"
           >
             <div className="w-32 h-20 bg-gray-100 overflow-hidden">
-              {banner.imageUrl && (
-                <img src={banner.imageUrl} alt={banner.title} className="w-full h-full object-cover" />
+              {banner.image && (
+                <img src={banner.image} alt={banner.title} className="w-full h-full object-cover" />
               )}
             </div>
             <div className="flex-1">
               <h3 className="font-medium text-gray-900">{banner.title}</h3>
-              <p className="text-sm text-gray-500">{banner.subtitle}</p>
-              <p className="text-sm text-gray-400 mt-1">Date: {new Date(banner.date).toLocaleDateString()}</p>
-              <p className="text-sm text-gray-400">CTA: {banner.ctaText} ({banner.ctaLink})</p>
+              <p className="text-sm text-gray-400">CTA: {banner.cta} ({banner.link})</p>
             </div>
             <div className="flex items-center gap-2">
               <button className="p-2 text-gray-600 hover:text-gray-800 transition-colors">
