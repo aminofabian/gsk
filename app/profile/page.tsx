@@ -137,6 +137,7 @@ export default function EditProfilePage() {
     
     // Convert to lowercase and remove special characters
     let slug = name.toLowerCase()
+      .trim()
       .replace(/\s+/g, '-')     // Replace spaces with hyphens
       .replace(/[^a-z0-9-]/g, '') // Remove special characters
       .replace(/-+/g, '-')      // Replace multiple hyphens with single hyphen
@@ -144,13 +145,23 @@ export default function EditProfilePage() {
 
     // Add prefix if it exists (e.g., dr, prof)
     if (prefix) {
-      const cleanPrefix = prefix.toLowerCase().replace(/[^a-z]/g, '');
-      slug = `${cleanPrefix}-${slug}`;
+      const cleanPrefix = prefix.toLowerCase()
+        .trim()
+        .replace(/\./g, '')     // Remove dots
+        .replace(/\s+/g, '')    // Remove spaces
+        .replace(/[^a-z]/g, ''); // Keep only letters
+      if (cleanPrefix) {
+        slug = `${cleanPrefix}-${slug}`;
+      }
     }
 
     // Add designation if it exists (e.g., md, phd)
     if (designation) {
-      const cleanDesignation = designation.toLowerCase().replace(/[^a-z]/g, '');
+      const cleanDesignation = designation.toLowerCase()
+        .trim()
+        .replace(/\./g, '')     // Remove dots
+        .replace(/\s+/g, '')    // Remove spaces
+        .replace(/[^a-z]/g, ''); // Keep only letters
       if (cleanDesignation) {
         slug = `${slug}-${cleanDesignation}`;
       }
@@ -165,13 +176,24 @@ export default function EditProfilePage() {
     form.setValue("profileSlug", slug);
   }, [form]);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  // Call updateProfileSlug whenever relevant fields change
+  useEffect(() => {
+    const subscription = form.watch((value, { name }) => {
+      if (name === 'fullName' || name === 'namePrefix' || name === 'designation') {
+        const values = form.getValues();
+        updateProfileSlug(values.namePrefix, values.fullName, values.designation);
+      }
+    });
+    return () => subscription.unsubscribe();
+  }, [form, updateProfileSlug]);
+
+  // Initial slug generation
   useEffect(() => {
     const values = form.getValues();
     if (values.fullName) {
       updateProfileSlug(values.namePrefix, values.fullName, values.designation);
     }
-  }, []);
+  }, [updateProfileSlug]);
 
   if (isLoading) {
     return (
