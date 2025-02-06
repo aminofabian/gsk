@@ -20,9 +20,9 @@ export async function GET() {
       },
       { 
         label: "Member Status", 
-        value: "Fellow", 
+        value: "Specialist", 
         icon: "🏅",
-        description: "FRACP"
+        description: "MMed (Medicine)"
       },
       { 
         label: "Research", 

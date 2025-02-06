@@ -91,7 +91,7 @@ export default function Sidebar() {
             label: "Member Status", 
             value: "-", 
             icon: "🏅",
-            description: "FRACP"
+            description: "MMed (Medicine)"
           },
           { 
             label: "Research", 
