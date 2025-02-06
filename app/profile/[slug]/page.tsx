@@ -113,12 +113,26 @@ export default function PublicProfile({ params }: { params: { slug: string } }) 
                 {/* Extract title from bio if not available directly */}
                 {(profile.title || (profile.bio && profile.bio.includes("Consultant"))) && (
                   <p className="text-xl text-blue-600 font-medium tracking-wide">
-                    {profile.title || profile.bio?.split('\n')[1]}
+                    {(() => {
+                      let text = '';
+                      if (profile.title) {
+                        text = profile.title;
+                      } else if (profile.bio) {
+                        const bioLines = profile.bio.split('\n');
+                        if (bioLines.length > 1) {
+                          text = bioLines[1];
+                        }
+                      }
+                      return text ? text.charAt(0).toUpperCase() + text.slice(1).toLowerCase() : '';
+                    })()}
                   </p>
                 )}
                 <h1 className="text-4xl font-bold text-gray-900 tracking-tight">
                   {profile.namePrefix && (
-                    <span className="font-medium">{profile.namePrefix.charAt(0).toUpperCase() + profile.namePrefix.slice(1)}. </span>
+                    <span className="font-medium">
+                      {profile.namePrefix.toLowerCase() === 'dr' ? 'Dr' : 
+                       profile.namePrefix.toLowerCase() === 'prof' ? 'Prof' : 
+                       profile.namePrefix.charAt(0).toUpperCase() + profile.namePrefix.slice(1).toLowerCase()}. </span>
                   )}
                   {profile.fullName || `${profile.firstName} ${profile.lastName}`}
                 </h1>
