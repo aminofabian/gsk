@@ -75,5 +75,9 @@ export default auth((req) => {
 });
 
 export const config = {
-  matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
+  matcher: [
+    "/((?!.+\\.[\\w]+$|_next).*)", // exclude all files with extensions
+    "/",  // include root
+    "/(api/admin|api/auth)(.*)",  // only protect admin and auth API routes
+  ],
 };

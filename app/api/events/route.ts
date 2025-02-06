@@ -5,6 +5,15 @@ export async function GET() {
   try {
     console.log("[EVENTS_API] Starting to fetch events");
     
+    // Test database connection
+    try {
+      await db.$connect();
+      console.log("[EVENTS_API] Database connection successful");
+    } catch (dbError) {
+      console.error("[EVENTS_API] Database connection failed:", dbError);
+      throw new Error("Database connection failed");
+    }
+    
     const events = await db.event.findMany({
       include: {
         attendees: {
@@ -38,8 +47,13 @@ export async function GET() {
     });
   } catch (error) {
     console.error("[EVENTS_API] Error fetching events:", error);
+    
+    // Return a proper JSON error response
     return new NextResponse(
-      JSON.stringify({ error: "Failed to fetch events" }), 
+      JSON.stringify({ 
+        error: "Failed to fetch events",
+        details: error instanceof Error ? error.message : "Unknown error"
+      }), 
       { 
         status: 500,
         headers: {
@@ -47,5 +61,12 @@ export async function GET() {
         }
       }
     );
+  } finally {
+    try {
+      await db.$disconnect();
+      console.log("[EVENTS_API] Database disconnected successfully");
+    } catch (error) {
+      console.error("[EVENTS_API] Error disconnecting from database:", error);
+    }
   }
 } 

@@ -18,7 +18,9 @@ export const publicRoutes = ["/",
   "/donate",
   "/volunteer",
   "/events",
-  "/about/leadership"
+  "/about/leadership",
+  "/api/events",
+  "/api/banners"
 ];
 
 /*
