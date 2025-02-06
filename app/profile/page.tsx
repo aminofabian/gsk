@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useUserStore } from "@/store/user-store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -163,7 +163,7 @@ export default function EditProfilePage() {
     form.setValue("image", "");
   };
 
-  const updateProfileSlug = (prefix: string | undefined, name: string | undefined, designation: string | undefined) => {
+  const updateProfileSlug = useCallback((prefix: string | undefined, name: string | undefined, designation: string | undefined) => {
     if (!name) return;
     
     // Convert to lowercase and remove special characters
@@ -194,15 +194,16 @@ export default function EditProfilePage() {
 
     console.log('Generated slug:', slug); // For debugging
     form.setValue("profileSlug", slug);
-  };
+  }, [form]);
 
   // Call updateProfileSlug on component mount if we have the required data
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     const values = form.getValues();
     if (values.fullName) {
       updateProfileSlug(values.namePrefix, values.fullName, values.designation);
     }
-  }, []);
+  }, []); // Empty dependency array since we only want this to run once on mount
 
   const onSubmit = async (values: z.infer<typeof profileSchema>) => {
     // Ensure slug is set before submitting
@@ -588,230 +589,6 @@ export default function EditProfilePage() {
                   </div>
                 </CardContent>
               </Card>
-
-              {/* Education Section */}
-              <Card>
-                <CardContent className="p-6">
-                  <div className="flex justify-between items-center mb-6">
-                    <h2 className="text-xl font-semibold text-gray-900">Education</h2>
-                    <Button
-                      type="button"
-                      variant="outline"
-                      onClick={() => {
-                        const currentEducation = form.getValues("education");
-                        form.setValue("education", [...currentEducation, {
-                          institution: "",
-                          degree: "",
-                          field: "",
-                          startYear: new Date().getFullYear(),
-                          endYear: undefined
-                        }]);
-                      }}
-                      className="inline-flex items-center"
-                    >
-                      <PlusCircleIcon className="h-4 w-4 mr-2" />
-                      Add Education
-                    </Button>
-                  </div>
-                  <div className="space-y-6">
-                    {(form.watch("education") || []).map((_, index) => (
-                      <div key={index} className="p-4 border rounded-lg space-y-4">
-                        <div className="flex justify-between">
-                          <h3 className="text-lg font-medium">Education #{index + 1}</h3>
-                          <Button
-                            type="button"
-                            variant="ghost"
-                            onClick={() => {
-                              const currentEducation = form.getValues("education");
-                              form.setValue(
-                                "education",
-                                currentEducation.filter((_, i) => i !== index)
-                              );
-                            }}
-                          >
-                            <XCircleIcon className="h-5 w-5 text-gray-400 hover:text-red-500" />
-                          </Button>
-                        </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                          <FormField
-                            control={form.control}
-                            name={`education.${index}.institution`}
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormLabel>Institution</FormLabel>
-                                <FormControl>
-                                  <Input placeholder="Institution name" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                              </FormItem>
-                            )}
-                          />
-                          <FormField
-                            control={form.control}
-                            name={`education.${index}.degree`}
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormLabel>Degree</FormLabel>
-                                <FormControl>
-                                  <Input placeholder="e.g. MD, PhD" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                              </FormItem>
-                            )}
-                          />
-                          <FormField
-                            control={form.control}
-                            name={`education.${index}.field`}
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormLabel>Field of Study</FormLabel>
-                                <FormControl>
-                                  <Input placeholder="e.g. Medicine" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                              </FormItem>
-                            )}
-                          />
-                          <div className="grid grid-cols-2 gap-4">
-                            <FormField
-                              control={form.control}
-                              name={`education.${index}.startYear`}
-                              render={({ field }) => (
-                                <FormItem>
-                                  <FormLabel>Start Year</FormLabel>
-                                  <FormControl>
-                                    <Input
-                                      type="number"
-                                      {...field}
-                                      onChange={e => field.onChange(parseInt(e.target.value))}
-                                    />
-                                  </FormControl>
-                                  <FormMessage />
-                                </FormItem>
-                              )}
-                            />
-                            <FormField
-                              control={form.control}
-                              name={`education.${index}.endYear`}
-                              render={({ field }) => (
-                                <FormItem>
-                                  <FormLabel>End Year</FormLabel>
-                                  <FormControl>
-                                    <Input
-                                      type="number"
-                                      placeholder="Present"
-                                      {...field}
-                                      onChange={e => field.onChange(e.target.value ? parseInt(e.target.value) : undefined)}
-                                    />
-                                  </FormControl>
-                                  <FormMessage />
-                                </FormItem>
-                              )}
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Achievements Section */}
-              <Card>
-                <CardContent className="p-6">
-                  <div className="flex justify-between items-center mb-6">
-                    <h2 className="text-xl font-semibold text-gray-900">Achievements</h2>
-                    <Button
-                      type="button"
-                      variant="outline"
-                      onClick={() => {
-                        const currentAchievements = form.getValues("achievements");
-                        form.setValue("achievements", [...currentAchievements, {
-                          title: "",
-                          description: "",
-                          year: new Date().getFullYear()
-                        }]);
-                      }}
-                      className="inline-flex items-center"
-                    >
-                      <PlusCircleIcon className="h-4 w-4 mr-2" />
-                      Add Achievement
-                    </Button>
-                  </div>
-                  <div className="space-y-6">
-                    {(form.watch("achievements") || []).map((_, index) => (
-                      <div key={index} className="p-4 border rounded-lg space-y-4">
-                        <div className="flex justify-between">
-                          <h3 className="text-lg font-medium">Achievement #{index + 1}</h3>
-                          <Button
-                            type="button"
-                            variant="ghost"
-                            onClick={() => {
-                              const currentAchievements = form.getValues("achievements");
-                              form.setValue(
-                                "achievements",
-                                currentAchievements.filter((_, i) => i !== index)
-                              );
-                            }}
-                          >
-                            <XCircleIcon className="h-5 w-5 text-gray-400 hover:text-red-500" />
-                          </Button>
-                        </div>
-                        <div className="space-y-4">
-                          <FormField
-                            control={form.control}
-                            name={`achievements.${index}.title`}
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormLabel>Title</FormLabel>
-                                <FormControl>
-                                  <Input placeholder="Achievement title" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                              </FormItem>
-                            )}
-                          />
-                          <FormField
-                            control={form.control}
-                            name={`achievements.${index}.description`}
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormLabel>Description</FormLabel>
-                                <FormControl>
-                                  <Textarea
-                                    placeholder="Describe your achievement..."
-                                    className="resize-none"
-                                    {...field}
-                                  />
-                                </FormControl>
-                                <FormMessage />
-                              </FormItem>
-                            )}
-                          />
-                          <FormField
-                            control={form.control}
-                            name={`achievements.${index}.year`}
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormLabel>Year</FormLabel>
-                                <FormControl>
-                                  <Input
-                                    type="number"
-                                    {...field}
-                                    onChange={e => field.onChange(e.target.value ? parseInt(e.target.value) : undefined)}
-                                  />
-                                </FormControl>
-                                <FormMessage />
-                              </FormItem>
-                            )}
-                          />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-
               {/* Submit Button */}
               <div className="flex justify-end">
                 <Button
@@ -835,4 +612,4 @@ export default function EditProfilePage() {
       </div>
     </div>
   );
-} 
+}
