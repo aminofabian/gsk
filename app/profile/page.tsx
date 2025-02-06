@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useUserStore } from "@/store/user-store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -163,7 +163,54 @@ export default function EditProfilePage() {
     form.setValue("image", "");
   };
 
+  const updateProfileSlug = (prefix: string | undefined, name: string | undefined, designation: string | undefined) => {
+    if (!name) return;
+    
+    // Convert to lowercase and remove special characters
+    let slug = name.toLowerCase()
+      .replace(/\s+/g, '-')     // Replace spaces with hyphens
+      .replace(/[^a-z0-9-]/g, '') // Remove special characters
+      .replace(/-+/g, '-')      // Replace multiple hyphens with single hyphen
+      .replace(/^-+|-+$/g, ''); // Remove hyphens from start and end
+
+    // Add prefix if it exists (e.g., dr, prof)
+    if (prefix) {
+      const cleanPrefix = prefix.toLowerCase().replace(/[^a-z]/g, '');
+      slug = `${cleanPrefix}-${slug}`;
+    }
+
+    // Add designation if it exists (e.g., md, phd)
+    if (designation) {
+      const cleanDesignation = designation.toLowerCase().replace(/[^a-z]/g, '');
+      if (cleanDesignation) {
+        slug = `${slug}-${cleanDesignation}`;
+      }
+    }
+
+    // Ensure slug is at least 3 characters
+    if (slug.length < 3) {
+      slug = slug.padEnd(3, '0');
+    }
+
+    console.log('Generated slug:', slug); // For debugging
+    form.setValue("profileSlug", slug);
+  };
+
+  // Call updateProfileSlug on component mount if we have the required data
+  useEffect(() => {
+    const values = form.getValues();
+    if (values.fullName) {
+      updateProfileSlug(values.namePrefix, values.fullName, values.designation);
+    }
+  }, []);
+
   const onSubmit = async (values: z.infer<typeof profileSchema>) => {
+    // Ensure slug is set before submitting
+    if (!values.profileSlug && values.fullName) {
+      updateProfileSlug(values.namePrefix, values.fullName, values.designation);
+      values.profileSlug = form.getValues("profileSlug");
+    }
+
     setIsSubmitting(true);
     try {
       // Handle image upload first if there's a new image
@@ -196,22 +243,6 @@ export default function EditProfilePage() {
     } finally {
       setIsSubmitting(false);
     }
-  };
-
-  const updateProfileSlug = (prefix: string | undefined, name: string | undefined, designation: string | undefined) => {
-    if (!name) return;
-    
-    let slug = name.toLowerCase()
-      .replace(/\s+/g, '-')
-      .replace(/[^a-z0-9-]/g, '')
-      .replace(/-+/g, '-')
-      .replace(/^-+|-+$/g, '');
-
-    if (prefix) {
-      slug = `${prefix}-${slug}`;
-    }
-
-    form.setValue("profileSlug", slug);
   };
 
   return (
