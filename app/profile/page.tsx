@@ -132,37 +132,6 @@ export default function EditProfilePage() {
     }
   });
 
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <Spinner size="lg" className="mb-4" />
-          <p className="text-gray-500">Loading profile data...</p>
-        </div>
-      </div>
-    );
-  }
-
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      if (file.size > 5 * 1024 * 1024) { // 5MB limit
-        toast.error("Image size should be less than 5MB");
-        return;
-      }
-      setImageFile(file);
-      const url = URL.createObjectURL(file);
-      setPreviewUrl(url);
-      form.setValue("image", url);
-    }
-  };
-
-  const removeImage = () => {
-    setImageFile(null);
-    setPreviewUrl(null);
-    form.setValue("image", "");
-  };
-
   const updateProfileSlug = useCallback((prefix: string | undefined, name: string | undefined, designation: string | undefined) => {
     if (!name) return;
     
@@ -196,14 +165,44 @@ export default function EditProfilePage() {
     form.setValue("profileSlug", slug);
   }, [form]);
 
-  // Call updateProfileSlug on component mount if we have the required data
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     const values = form.getValues();
     if (values.fullName) {
       updateProfileSlug(values.namePrefix, values.fullName, values.designation);
     }
-  }, []); // Empty dependency array since we only want this to run once on mount
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <Spinner size="lg" className="mb-4" />
+          <p className="text-gray-500">Loading profile data...</p>
+        </div>
+      </div>
+    );
+  }
+
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) { // 5MB limit
+        toast.error("Image size should be less than 5MB");
+        return;
+      }
+      setImageFile(file);
+      const url = URL.createObjectURL(file);
+      setPreviewUrl(url);
+      form.setValue("image", url);
+    }
+  };
+
+  const removeImage = () => {
+    setImageFile(null);
+    setPreviewUrl(null);
+    form.setValue("image", "");
+  };
 
   const onSubmit = async (values: z.infer<typeof profileSchema>) => {
     // Ensure slug is set before submitting
