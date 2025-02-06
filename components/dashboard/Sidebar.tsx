@@ -53,7 +53,7 @@ const menuGroups = [
 ];
 
 const bottomMenuItems = [
-  { icon: FaUserMd, label: "Profile", href: "/dashboard/profile" },
+  { icon: FaUserMd, label: "Profile", href: "/profile" },
   { 
     icon: FaSignOutAlt, 
     label: "Sign Out", 
