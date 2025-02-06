@@ -146,28 +146,31 @@ export default function EventsList() {
 
   const fetchEvents = async () => {
     try {
+      console.log("[EventsList] Starting to fetch events");
       const response = await fetch("/api/events", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
-        cache: 'no-store'
+        cache: "no-cache"
       });
       
-      if (!response.ok) throw new Error("Failed to fetch events");
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error("[EventsList] API response not ok:", response.status, errorText);
+        throw new Error(`Failed to fetch events: ${errorText}`);
+      }
+
       const data = await response.json();
-      
-      const processedEvents = data.map((event: Event) => ({
-        ...event,
-        attendees: event.attendees || []
-      }));
-      
-      setEvents(processedEvents);
+      console.log("[EventsList] Received events:", data?.length, "events");
+      console.log("[EventsList] Response headers:", Object.fromEntries(response.headers.entries()));
+      console.log("[EventsList] First event (if any):", data?.[0]);
+      setEvents(data || []);
     } catch (error) {
-      console.error("Error fetching events:", error);
+      console.error("[EventsList] Error fetching events:", error);
       toast({
         title: "Error",
-        description: "Failed to fetch events",
+        description: "Failed to fetch events. Please try refreshing the page.",
         variant: "destructive",
       });
     } finally {
@@ -216,7 +219,7 @@ export default function EventsList() {
         </div>
       ) : (
         events.map((event) => {
-          const isRegistered = session ? event.attendees.some(
+          const isRegistered = session ? event.attendees?.some(
             (attendee) => attendee.id === session?.user?.id
           ) : false;
           const isExpanded = expandedEvent === event.id;
@@ -224,15 +227,12 @@ export default function EventsList() {
             ? new Date(event.registrationDeadline) < new Date() 
             : false;
           const isFull = event.capacity 
-            ? event.attendees.length >= event.capacity 
+            ? event.attendees?.length >= event.capacity 
             : false;
 
           return (
-            <>
-              <div
-                key={event.id}
-                className="bg-white border rounded-lg overflow-hidden hover:shadow-lg transition-shadow"
-              >
+            <div key={event.id}>
+              <div className="bg-white border rounded-lg overflow-hidden hover:shadow-lg transition-shadow">
                 <div className="p-6">
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1">
@@ -285,7 +285,7 @@ export default function EventsList() {
                       <div className="flex items-center text-gray-600">
                         <Users className="w-5 h-5 mr-2 text-[#003366]" />
                         <span>
-                          {event.attendees.length} attendees
+                          {event.attendees?.length || 0} attendees
                           {event.capacity && ` / ${event.capacity} capacity`}
                         </span>
                       </div>
@@ -421,7 +421,7 @@ export default function EventsList() {
                   eventTitle={event.title}
                 />
               )}
-            </>
+            </div>
           );
         })
       )}
