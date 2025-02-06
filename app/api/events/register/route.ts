@@ -1,55 +1,89 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
+import { z } from "zod";
 
-export async function POST(req: Request) {
+const registerSchema = z.object({
+  eventId: z.string(),
+});
+
+export async function POST(request: Request) {
   try {
     const session = await auth();
-
-    if (!session?.user?.id) {
+    if (!session?.user) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    const body = await req.json();
-    const { eventId } = body;
+    const body = await request.json();
+    const { eventId } = registerSchema.parse(body);
 
-    if (!eventId) {
-      return new NextResponse("Event ID is required", { status: 400 });
+    // First check if the user exists
+    const user = await db.user.findUnique({
+      where: { id: session.user.id }
+    });
+
+    if (!user) {
+      return new NextResponse("User not found", { status: 404 });
     }
 
-    // Check if user is already registered
-    const event = await db.event.findFirst({
-      where: {
-        id: eventId,
+    // Check if event exists and get its current state
+    const event = await db.event.findUnique({
+      where: { id: eventId },
+      include: {
         attendees: {
-          some: {
-            id: session.user.id
+          select: {
+            id: true
           }
         }
       }
     });
 
-    if (event) {
+    if (!event) {
+      return new NextResponse("Event not found", { status: 404 });
+    }
+
+    // Check if registration is closed
+    if (event.registrationDeadline && new Date(event.registrationDeadline) < new Date()) {
+      return new NextResponse("Registration is closed for this event", { status: 400 });
+    }
+
+    // Check if event is full
+    if (event.capacity && event.attendees.length >= event.capacity) {
+      return new NextResponse("Event is at full capacity", { status: 400 });
+    }
+
+    // Check if user is already registered
+    const isAlreadyRegistered = event.attendees.some(
+      (attendee) => attendee.id === session.user.id
+    );
+
+    if (isAlreadyRegistered) {
       return new NextResponse("Already registered for this event", { status: 400 });
     }
 
     // Register user for the event
     await db.event.update({
-      where: {
-        id: eventId,
-      },
+      where: { id: eventId },
       data: {
         attendees: {
-          connect: {
-            id: session.user.id
-          }
+          connect: { id: user.id }
         }
       }
     });
 
-    return new NextResponse("Successfully registered for event", { status: 200 });
+    return NextResponse.json({
+      message: "Successfully registered for the event"
+    });
   } catch (error) {
     console.error("[EVENT_REGISTRATION]", error);
-    return new NextResponse("Internal Error", { status: 500 });
+    
+    if (error instanceof z.ZodError) {
+      return new NextResponse("Invalid request data", { status: 400 });
+    }
+
+    return new NextResponse(
+      "Internal Server Error", 
+      { status: 500 }
+    );
   }
 } 

@@ -146,10 +146,23 @@ export default function EventsList() {
 
   const fetchEvents = async () => {
     try {
-      const response = await fetch("/api/events");
+      const response = await fetch("/api/events", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        cache: 'no-store'
+      });
+      
       if (!response.ok) throw new Error("Failed to fetch events");
       const data = await response.json();
-      setEvents(data);
+      
+      const processedEvents = data.map((event: Event) => ({
+        ...event,
+        attendees: event.attendees || []
+      }));
+      
+      setEvents(processedEvents);
     } catch (error) {
       console.error("Error fetching events:", error);
       toast({
@@ -203,9 +216,9 @@ export default function EventsList() {
         </div>
       ) : (
         events.map((event) => {
-          const isRegistered = event.attendees.some(
+          const isRegistered = session ? event.attendees.some(
             (attendee) => attendee.id === session?.user?.id
-          );
+          ) : false;
           const isExpanded = expandedEvent === event.id;
           const isRegistrationClosed = event.registrationDeadline 
             ? new Date(event.registrationDeadline) < new Date() 
