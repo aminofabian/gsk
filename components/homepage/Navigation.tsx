@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Logo from './Logo';
 import { useSession } from "next-auth/react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -307,46 +307,72 @@ const UserNav = () => {
   );
 };
 
-const HelloBar = () => (
-  <div className="bg-[#003366] text-white">
-    {/* Announcement Banner */}
-    <div className="bg-gradient-to-r from-[#003366] via-[#004080] to-[#0f5a5e]/60 py-1.5 text-center relative overflow-hidden">
-      <div className="flex items-center justify-center gap-2">
-        <div className="w-1.5 h-1.5 bg-[#0f5a5e]/60 animate-pulse"></div>
-        <div className="whitespace-nowrap animate-marquee">
-          <span className="font-merriweather text-xs text-white/90">
-            Contact Us: +254 704 373746 | secretarygsk@gmail.com | ACS Building, 2nd Floor. Lenana Road, Nairobi, Kenya
-            <span className="mx-12">•</span>
-            Registration Now Open: 2024 Annual Gastroenterology Conference - Early Bird Rates Available
-          </span>
+const HelloBar = () => {
+  const [sliderItems, setSliderItems] = useState<Array<{ text: string; link?: string | null }>>([]);
+
+  useEffect(() => {
+    const fetchSliderItems = async () => {
+      try {
+        const response = await fetch("/api/slider");
+        if (!response.ok) throw new Error("Failed to fetch slider items");
+        const data = await response.json();
+        setSliderItems(data);
+      } catch (error) {
+        console.error("Failed to fetch slider items:", error);
+      }
+    };
+
+    fetchSliderItems();
+  }, []);
+
+  return (
+    <div className="bg-[#003366] text-white">
+      {/* Announcement Banner */}
+      <div className="bg-gradient-to-r from-[#003366] via-[#004080] to-[#0f5a5e]/60 py-1.5 text-center relative overflow-hidden">
+        <div className="flex items-center justify-center gap-2">
+          <div className="w-1.5 h-1.5 bg-[#0f5a5e]/60 animate-pulse"></div>
+          <div className="whitespace-nowrap animate-marquee">
+            {sliderItems.map((item, index) => (
+              <span key={index} className="font-merriweather text-xs text-white/90">
+                {item.link ? (
+                  <a href={item.link} className="hover:text-white transition-colors">
+                    {item.text}
+                  </a>
+                ) : (
+                  item.text
+                )}
+                {index < sliderItems.length - 1 && <span className="mx-12">•</span>}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+      <div className="max-w-7xl mx-auto px-4 py-1 flex flex-wrap items-center justify-between gap-4">
+        <div className="flex items-center gap-6">
+          <a href="/donate" className="inline-flex items-center gap-2 px-4 py-1 bg-[#0f5a5e]/80 hover:bg-[#0f5a5e] text-sm font-merriweather text-white transition-all">
+            Donate
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+            </svg>
+          </a>
+          <a href="/volunteer" className="inline-flex items-center gap-2 px-4 py-1 bg-[#003366] hover:bg-[#0f5a5e]/60 text-sm font-merriweather text-white/90 hover:text-white transition-all">
+            Volunteer
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 00-3 0m-6-3V11m0-5.5v-1a1.5 1.5 0 013 0v1m0 0V11m0-5.5a1.5 1.5 0 013 0v3m0 0V11" />
+            </svg>
+          </a>
+        </div>
+        <div className="flex items-center gap-4">
+          <a href="/guidelines" className="text-sm font-merriweather text-white/90 hover:text-[#0f5a5e]/80 transition-colors">Clinical Guidelines</a>
+          <span className="text-white/50">|</span>
+          <a href="/research" className="text-sm font-merriweather text-white/90 hover:text-[#0f5a5e]/80 transition-colors">Research Updates</a>
+          <span className="text-white/50">|</span>
+          <a href="/cpd" className="text-sm font-merriweather text-white/90 hover:text-[#0f5a5e]/80 transition-colors">CPD Points</a>
         </div>
       </div>
     </div>
-    <div className="max-w-7xl mx-auto px-4 py-1 flex flex-wrap items-center justify-between gap-4">
-      <div className="flex items-center gap-6">
-        <a href="/donate" className="inline-flex items-center gap-2 px-4 py-1 bg-[#0f5a5e]/80 hover:bg-[#0f5a5e] text-sm font-merriweather text-white transition-all">
-          Donate
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-          </svg>
-        </a>
-        <a href="/volunteer" className="inline-flex items-center gap-2 px-4 py-1 bg-[#003366] hover:bg-[#0f5a5e]/60 text-sm font-merriweather text-white/90 hover:text-white transition-all">
-          Volunteer
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 00-3 0m-6-3V11m0-5.5v-1a1.5 1.5 0 013 0v1m0 0V11m0-5.5a1.5 1.5 0 013 0v3m0 0V11" />
-          </svg>
-        </a>
-      </div>
-      <div className="flex items-center gap-4">
-        <a href="/guidelines" className="text-sm font-merriweather text-white/90 hover:text-[#0f5a5e]/80 transition-colors">Clinical Guidelines</a>
-        <span className="text-white/50">|</span>
-        <a href="/research" className="text-sm font-merriweather text-white/90 hover:text-[#0f5a5e]/80 transition-colors">Research Updates</a>
-        <span className="text-white/50">|</span>
-        <a href="/cpd" className="text-sm font-merriweather text-white/90 hover:text-[#0f5a5e]/80 transition-colors">CPD Points</a>
-      </div>
-    </div>
-  </div>
-);
+  );
+};
 
 const Navigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
