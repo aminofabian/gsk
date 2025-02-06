@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -23,33 +23,12 @@ import {
 import { MdPayments } from "react-icons/md";
 import { signOut } from "next-auth/react";
 
-// Stats items
-const statsItems = [
-  { 
-    label: "CPD Points", 
-    value: "150/200", 
-    icon: "🎯",
-    description: "Annual Target"
-  },
-  { 
-    label: "Member Status", 
-    value: "Fellow", 
-    icon: "🏅",
-    description: "FRACP"
-  },
-  { 
-    label: "Research", 
-    value: "12", 
-    icon: "🔬",
-    description: "Publications"
-  },
-  { 
-    label: "Procedures", 
-    value: "523", 
-    icon: "⚕️",
-    description: "This Year"
-  },
-];
+interface StatItem {
+  label: string;
+  value: string;
+  icon: string;
+  description: string;
+}
 
 // Menu items grouped by category
 const menuGroups = [
@@ -87,7 +66,53 @@ const bottomMenuItems = [
 
 export default function Sidebar() {
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [stats, setStats] = useState<StatItem[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const pathname = usePathname();
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const response = await fetch('/api/stats');
+        if (!response.ok) throw new Error('Failed to fetch stats');
+        const data = await response.json();
+        setStats(data);
+      } catch (error) {
+        console.error('Error fetching stats:', error);
+        // Fallback to default stats if API fails
+        setStats([
+          { 
+            label: "CPD Points", 
+            value: "-/-", 
+            icon: "🎯",
+            description: "Annual Target"
+          },
+          { 
+            label: "Member Status", 
+            value: "-", 
+            icon: "🏅",
+            description: "FRACP"
+          },
+          { 
+            label: "Research", 
+            value: "-", 
+            icon: "🔬",
+            description: "Publications"
+          },
+          { 
+            label: "Procedures", 
+            value: "-", 
+            icon: "⚕️",
+            description: "This Year"
+          },
+        ]);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchStats();
+  }, []);
 
   return (
     <div 
@@ -110,23 +135,36 @@ export default function Sidebar() {
           <div className="p-4 border-b border-white/10">
             <h2 className="text-xs font-semibold text-white/60 mb-3 px-2 tracking-wider">PROFESSIONAL STATS</h2>
             <div className="grid grid-cols-2 gap-2">
-              {statsItems.map((stat, index) => (
-                <div 
-                  key={index} 
-                  className="bg-[#003366]/50 hover:bg-[#003366] transition-all duration-200  p-2.5 group cursor-default"
-                >
-                  <div className="flex items-center gap-1.5 text-white/60 mb-1">
-                    <span className="text-base">{stat.icon}</span>
-                    <span className="text-[10px] uppercase tracking-wider font-medium">{stat.label}</span>
+              {isLoading ? (
+                // Loading skeleton
+                [...Array(4)].map((_, index) => (
+                  <div 
+                    key={index}
+                    className="bg-[#003366]/50 p-2.5 animate-pulse"
+                  >
+                    <div className="h-4 bg-white/20 rounded mb-2"></div>
+                    <div className="h-3 bg-white/20 rounded w-2/3"></div>
                   </div>
-                  <div className="flex flex-col">
-                    <div className="text-white font-bold text-sm leading-tight">{stat.value}</div>
-                    <div className="text-white/50 text-[10px] group-hover:text-white/70 transition-colors">
-                      {stat.description}
+                ))
+              ) : (
+                stats.map((stat, index) => (
+                  <div 
+                    key={index} 
+                    className="bg-[#003366]/50 hover:bg-[#003366] transition-all duration-200 p-2.5 group cursor-default"
+                  >
+                    <div className="flex items-center gap-1.5 text-white/60 mb-1">
+                      <span className="text-base">{stat.icon}</span>
+                      <span className="text-[10px] uppercase tracking-wider font-medium">{stat.label}</span>
+                    </div>
+                    <div className="flex flex-col">
+                      <div className="text-white font-bold text-sm leading-tight">{stat.value}</div>
+                      <div className="text-white/50 text-[10px] group-hover:text-white/70 transition-colors">
+                        {stat.description}
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))
+              )}
             </div>
           </div>
 
