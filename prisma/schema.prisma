@@ -303,6 +303,8 @@ model SliderInfo {
   order     Int      @default(0)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@map("slider_info")
 }
 
 enum UserRole {
