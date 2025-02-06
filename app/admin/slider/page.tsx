@@ -1,14 +1,16 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { toast } from "sonner";
 import { Loader2, Trash2, GripVertical } from "lucide-react";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
+import debounce from "lodash/debounce";
 
 interface SliderInfo {
   id: string;
   text: string;
   link?: string | null;
+  linkText?: string | null;
   active: boolean;
   order: number;
 }
@@ -16,6 +18,30 @@ interface SliderInfo {
 export default function SliderManagementPage() {
   const [sliderItems, setSliderItems] = useState<SliderInfo[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+
+  // Debounced update function
+  const debouncedUpdate = useCallback(
+    debounce(async (id: string, data: Partial<SliderInfo>) => {
+      try {
+        const response = await fetch(`/api/slider/${id}`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+
+        if (!response.ok) throw new Error("Failed to update slider item");
+
+        const updatedItem = await response.json();
+        setSliderItems(items => 
+          items.map(item => item.id === id ? updatedItem : item)
+        );
+        toast.success("Slider item updated");
+      } catch (error) {
+        toast.error("Failed to update slider item");
+      }
+    }, 1000),
+    []
+  );
 
   useEffect(() => {
     fetchSliderItems();
@@ -44,6 +70,7 @@ export default function SliderManagementPage() {
         body: JSON.stringify({
           text: "New Announcement",
           link: "",
+          linkText: "",
         }),
       });
 
@@ -59,24 +86,13 @@ export default function SliderManagementPage() {
     }
   };
 
-  const handleUpdateItem = async (id: string, data: Partial<SliderInfo>) => {
-    try {
-      const response = await fetch(`/api/slider/${id}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-
-      if (!response.ok) throw new Error("Failed to update slider item");
-
-      const updatedItem = await response.json();
-      setSliderItems(items => 
-        items.map(item => item.id === id ? updatedItem : item)
-      );
-      toast.success("Slider item updated");
-    } catch (error) {
-      toast.error("Failed to update slider item");
-    }
+  const handleUpdateItem = (id: string, data: Partial<SliderInfo>) => {
+    // Update local state immediately
+    setSliderItems(items => 
+      items.map(item => item.id === id ? { ...item, ...data } : item)
+    );
+    // Debounce the API call
+    debouncedUpdate(id, data);
   };
 
   const handleDeleteItem = async (id: string) => {
@@ -163,30 +179,43 @@ export default function SliderManagementPage() {
                             </div>
                             
                             <div className="flex-1 space-y-4">
-                              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                              <div className="space-y-4">
                                 <div className="space-y-2">
                                   <label className="block text-sm font-semibold text-gray-700">
                                     Announcement Text
                                   </label>
-                                  <input
-                                    type="text"
+                                  <textarea
                                     value={item.text}
                                     onChange={(e) => handleUpdateItem(item.id, { text: e.target.value })}
-                                    className="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                                    className="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 min-h-[100px] resize-y"
                                     placeholder="Enter announcement text"
                                   />
                                 </div>
-                                <div className="space-y-2">
-                                  <label className="block text-sm font-semibold text-gray-700">
-                                    Link (Optional)
-                                  </label>
-                                  <input
-                                    type="text"
-                                    value={item.link || ""}
-                                    onChange={(e) => handleUpdateItem(item.id, { link: e.target.value })}
-                                    className="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-                                    placeholder="Enter link URL"
-                                  />
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                  <div className="space-y-2">
+                                    <label className="block text-sm font-semibold text-gray-700">
+                                      Link URL (Optional)
+                                    </label>
+                                    <input
+                                      type="text"
+                                      value={item.link || ""}
+                                      onChange={(e) => handleUpdateItem(item.id, { link: e.target.value })}
+                                      className="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                                      placeholder="Enter link URL"
+                                    />
+                                  </div>
+                                  <div className="space-y-2">
+                                    <label className="block text-sm font-semibold text-gray-700">
+                                      Link Text (Optional)
+                                    </label>
+                                    <input
+                                      type="text"
+                                      value={item.linkText || ""}
+                                      onChange={(e) => handleUpdateItem(item.id, { linkText: e.target.value })}
+                                      className="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                                      placeholder="Enter link text"
+                                    />
+                                  </div>
                                 </div>
                               </div>
 

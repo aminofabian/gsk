@@ -29,7 +29,7 @@ export async function POST(req: Request) {
     }
 
     const body = await req.json();
-    const { text, link } = body;
+    const { text, link, linkText } = body;
 
     if (!text) {
       return new NextResponse("Missing required fields", { status: 400 });
@@ -48,6 +48,7 @@ export async function POST(req: Request) {
       data: {
         text,
         link,
+        linkText,
         order: newOrder,
       }
     });

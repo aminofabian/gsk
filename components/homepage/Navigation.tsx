@@ -308,7 +308,11 @@ const UserNav = () => {
 };
 
 const HelloBar = () => {
-  const [sliderItems, setSliderItems] = useState<Array<{ text: string; link?: string | null }>>([]);
+  const [sliderItems, setSliderItems] = useState<Array<{ 
+    text: string; 
+    link?: string | null;
+    linkText?: string | null;
+  }>>([]);
 
   useEffect(() => {
     const fetchSliderItems = async () => {
@@ -335,9 +339,17 @@ const HelloBar = () => {
             {sliderItems.map((item, index) => (
               <span key={index} className="font-merriweather text-xs text-white/90">
                 {item.link ? (
-                  <a href={item.link} className="hover:text-white transition-colors">
+                  <>
                     {item.text}
-                  </a>
+                    {item.linkText && (
+                      <>
+                        {" - "}
+                        <a href={item.link} className="hover:text-white transition-colors">
+                          {item.linkText}
+                        </a>
+                      </>
+                    )}
+                  </>
                 ) : (
                   item.text
                 )}

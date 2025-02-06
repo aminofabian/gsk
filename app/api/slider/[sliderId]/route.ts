@@ -14,7 +14,7 @@ export async function PATCH(
     }
 
     const body = await req.json();
-    const { text, link, active } = body;
+    const { text, link, linkText, active, order } = body;
 
     if (!text) {
       return new NextResponse("Missing required fields", { status: 400 });
@@ -27,7 +27,9 @@ export async function PATCH(
       data: {
         text,
         link,
-        active
+        linkText,
+        active,
+        ...(typeof order === 'number' && { order })
       }
     });
 
