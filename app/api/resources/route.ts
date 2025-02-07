@@ -1,7 +1,15 @@
 import { NextResponse } from 'next/server';
 import { auth } from "@/auth";
 import { prisma } from '@/lib/prisma';
-import { ResourceType } from '@prisma/client';
+import { Prisma, ResourceType } from '@prisma/client';
+
+type CreateResourceBody = {
+  title: string;
+  description: string;
+  type: ResourceType;
+  category: string;
+  fileUrl: string;
+};
 
 // Get all resources
 export async function GET() {
@@ -25,18 +33,17 @@ export async function POST(req: Request) {
       return new NextResponse('Unauthorized', { status: 401 });
     }
 
-    const body = await req.json();
-    const resource = await prisma.resource.create({
-      data: {
-        title: body.title,
-        description: body.description,
-        type: body.type as ResourceType,
-        category: body.category,
-        fileUrl: body.fileUrl,
-        userId: session.user.id,
-      },
-    });
+    const body = await req.json() as CreateResourceBody;
+    const data: Prisma.ResourceUncheckedCreateInput = {
+      title: body.title,
+      description: body.description,
+      type: body.type,
+      category: body.category,
+      fileUrl: body.fileUrl,
+      userId: session.user.id
+    };
 
+    const resource = await prisma.resource.create({ data });
     return NextResponse.json(resource);
   } catch (error) {
     console.error('Error creating resource:', error);
