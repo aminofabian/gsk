@@ -6,6 +6,7 @@ import Github from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
 import bcrypt from "bcryptjs";
 import { UserRole } from "@prisma/client";
+import { Session } from "next-auth";
 
 async function verifyPassword(password: string, hashedPassword: string) {
   return bcrypt.compare(password, hashedPassword);
@@ -45,39 +46,38 @@ export default {
   ],
   callbacks: {
     async signIn({ user, account }) {
-      if (account?.provider !== "credentials") return true;
-      const existingUser = await getUserById(user.id ?? "");
-      if (!existingUser?.emailVerified) return false;
-      return true;
-    },
-    async session({ token, session }) {
-      console.log("Session Callback:", { token, sessionBefore: session });
-      
-      if (token.sub && session.user) {
-        session.user.id = token.sub;
-      }
-      if (session.user) {
-        session.user.name = token.name as string;
-        session.user.firstName = token.firstName as string | null;
-        session.user.lastName = token.lastName as string | null;
-        session.user.email = token.email as string;
-        session.user.role = token.role as UserRole;
-        session.user.image = token.picture;
-        session.user.emailVerified = token.emailVerified as Date | null;
-        session.user.isTwoFactorEnabled = token.isTwoFactorEnabled as boolean;
+      if (account?.provider === "google" || account?.provider === "github") {
+        return true;
       }
 
-      console.log("Session After:", { sessionAfter: session });
+      if (account?.provider === "credentials") {
+        const existingUser = await getUserById(user.id ?? "");
+        if (!existingUser?.emailVerified) return false;
+      }
+      
+      return true;
+    },
+    async session({ token, session }: { token: any; session: Session }) {
+      if (!session.user) return session;
+
+      session.user.id = token.sub as string;
+      session.user.name = token.name as string;
+      session.user.firstName = token.firstName as string | null;
+      session.user.lastName = token.lastName as string | null;
+      session.user.email = token.email as string;
+      session.user.role = token.role as UserRole;
+      session.user.image = token.picture as string | null;
+      session.user.emailVerified = token.emailVerified as Date | null;
+      session.user.isTwoFactorEnabled = token.isTwoFactorEnabled as boolean;
+
       return session;
     },
-    async jwt({ token }) {
+    async jwt({ token, user, account, profile }) {
       if (!token.sub) return token;
-      
-      console.log("JWT Callback - Before:", { token });
-      
+
       const existingUser = await getUserById(token.sub);
       if (!existingUser) return token;
-      
+
       token.name = `${existingUser.firstName || ''} ${existingUser.lastName || ''}`.trim();
       token.firstName = existingUser.firstName;
       token.lastName = existingUser.lastName;
@@ -85,12 +85,14 @@ export default {
       token.role = existingUser.role;
       token.picture = existingUser.image;
       token.emailVerified = existingUser.emailVerified;
-      
-      console.log("JWT Callback - After:", { token, existingUser });
+      token.isTwoFactorEnabled = false;
+
       return token;
     },
-    async redirect() {
-      return "/dashboard";
+    async redirect({ url, baseUrl }) {
+      if (url.startsWith(baseUrl)) return url;
+      if (url.startsWith("/")) return `${baseUrl}${url}`;
+      return baseUrl + "/dashboard";
     }
   },
   pages: {
