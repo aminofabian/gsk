@@ -39,7 +39,7 @@ export async function POST(req: Request) {
       description: body.description,
       type: body.type,
       category: body.category,
-      fileUrl: `https://s3.${process.env.AWS_REGION}.amazonaws.com/${process.env.AWS_S3_BUCKET_NAME}/${body.fileUrl.split('/').pop()}`,
+      fileUrl: body.fileUrl,
       userId: session.user.id
     };
 

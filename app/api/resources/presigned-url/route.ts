@@ -39,7 +39,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ 
       url, 
       fileKey,
-      publicUrl: `https://s3.${process.env.AWS_REGION}.amazonaws.com/${process.env.AWS_S3_BUCKET_NAME}/${fileKey}`
+      publicUrl: `https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${fileKey}`
     });
   } catch (error) {
     console.error('Error generating presigned URL:', error);
