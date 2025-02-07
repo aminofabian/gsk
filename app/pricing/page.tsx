@@ -159,7 +159,7 @@ export default function PricingPage() {
           <div className="w-20 h-1 bg-primary/20 mx-auto mb-6" />
           <p className="text-xl text-muted-foreground">
             Partnering with GSK offers multiple financial benefits to sustain and expand the initiatives. 
-            Choose the partnership level that best suits your organization's needs.
+            Choose the partnership level that best suits your organization&apos;s needs.
           </p>
         </div>
 
