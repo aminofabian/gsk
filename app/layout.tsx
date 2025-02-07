@@ -3,6 +3,7 @@ import "./globals.css";
 import { Metadata } from "next";
 import ClientLayout from "@/components/ClientLayout";
 import Providers from "@/components/Providers";
+import { Toaster } from 'sonner';
 
 const outfit = Outfit({ 
   subsets: ["latin"], 
@@ -56,6 +57,7 @@ export default function RootLayout({
         <Providers>
           <ClientLayout>{children}</ClientLayout>
         </Providers>
+        <Toaster position="top-center" />
       </body>
     </html>
   );

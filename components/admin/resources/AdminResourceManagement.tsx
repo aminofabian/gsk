@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { FaPlus, FaTrash, FaEdit } from 'react-icons/fa';
+import { FaPlus, FaTrash, FaEdit, FaDownload } from 'react-icons/fa';
+import { toast } from 'sonner';
 
 type Resource = {
   id: string;
@@ -17,6 +18,7 @@ export default function AdminResourceManagement() {
   const router = useRouter();
   const [resources, setResources] = useState<Resource[]>([]);
   const [isUploading, setIsUploading] = useState(false);
+  const [isDeleting, setIsDeleting] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -36,6 +38,7 @@ export default function AdminResourceManagement() {
       setResources(data);
     } catch (error) {
       console.error('Error fetching resources:', error);
+      toast.error('Failed to fetch resources');
     }
   };
 
@@ -51,7 +54,6 @@ export default function AdminResourceManagement() {
 
     setIsUploading(true);
     try {
-      // Get upload URL
       const presignedUrlResponse = await fetch('/api/resources/presigned-url', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -62,7 +64,6 @@ export default function AdminResourceManagement() {
       });
       const { url, fileKey, publicUrl } = await presignedUrlResponse.json();
 
-      // Upload to S3
       await fetch(url, {
         method: 'PUT',
         body: formData.file,
@@ -71,7 +72,6 @@ export default function AdminResourceManagement() {
         },
       });
 
-      // Save resource metadata
       const response = await fetch('/api/resources', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -85,6 +85,7 @@ export default function AdminResourceManagement() {
       });
 
       if (response.ok) {
+        toast.success('Resource added successfully');
         await fetchResources();
         setFormData({
           title: '',
@@ -96,6 +97,7 @@ export default function AdminResourceManagement() {
       }
     } catch (error) {
       console.error('Error uploading resource:', error);
+      toast.error('Failed to upload resource');
     } finally {
       setIsUploading(false);
     }
@@ -104,26 +106,33 @@ export default function AdminResourceManagement() {
   const handleDelete = async (id: string) => {
     if (!confirm('Are you sure you want to delete this resource?')) return;
 
+    setIsDeleting(id);
     try {
-      const response = await fetch(`/api/resources/${id}`, {
+      const response = await fetch(`/api/resources?id=${id}`, {
         method: 'DELETE',
       });
 
       if (response.ok) {
+        toast.success('Resource deleted successfully');
         await fetchResources();
+      } else {
+        toast.error('Failed to delete resource');
       }
     } catch (error) {
       console.error('Error deleting resource:', error);
+      toast.error('Failed to delete resource');
+    } finally {
+      setIsDeleting(null);
     }
   };
 
   return (
-    <div className="space-y-8">
+    <div className="max-w-7xl mx-auto space-y-8">
       {/* Add Resource Form */}
-      <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-sm space-y-4">
-        <h2 className="text-xl font-semibold mb-4">Add New Resource</h2>
+      <form onSubmit={handleSubmit} className="bg-white p-6 rounded-xl shadow-sm space-y-6">
+        <h2 className="text-xl font-semibold text-gray-900">Add New Resource</h2>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <label className="block text-sm font-medium text-gray-700">Title</label>
             <input
@@ -131,7 +140,7 @@ export default function AdminResourceManagement() {
               required
               value={formData.title}
               onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+              className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
             />
           </div>
 
@@ -142,7 +151,7 @@ export default function AdminResourceManagement() {
               required
               value={formData.category}
               onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+              className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
             />
           </div>
 
@@ -151,7 +160,7 @@ export default function AdminResourceManagement() {
             <select
               value={formData.type}
               onChange={(e) => setFormData({ ...formData, type: e.target.value as Resource['type'] })}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+              className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
             >
               <option value="PDF">PDF</option>
               <option value="VIDEO">Video</option>
@@ -168,47 +177,63 @@ export default function AdminResourceManagement() {
               required
               className="mt-1 block w-full text-sm text-gray-500
                 file:mr-4 file:py-2 file:px-4
-                file:rounded-md file:border-0
+                file:rounded-lg file:border-0
                 file:text-sm file:font-semibold
                 file:bg-blue-50 file:text-blue-700
-                hover:file:bg-blue-100"
+                hover:file:bg-blue-100
+                focus:outline-none"
             />
           </div>
         </div>
 
-        <div className="col-span-2">
+        <div>
           <label className="block text-sm font-medium text-gray-700">Description</label>
           <textarea
             required
             value={formData.description}
             onChange={(e) => setFormData({ ...formData, description: e.target.value })}
             rows={3}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+            className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
           />
         </div>
 
-        <button
-          type="submit"
-          disabled={isUploading}
-          className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
-        >
-          {isUploading ? 'Uploading...' : 'Add Resource'}
-        </button>
+        <div>
+          <button
+            type="submit"
+            disabled={isUploading}
+            className="inline-flex items-center px-4 py-2 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {isUploading ? (
+              <>
+                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Uploading...
+              </>
+            ) : (
+              <>
+                <FaPlus className="mr-2 -ml-1 h-4 w-4" />
+                Add Resource
+              </>
+            )}
+          </button>
+        </div>
       </form>
 
       {/* Resources List */}
-      <div className="bg-white p-6 rounded-lg shadow-sm">
-        <h2 className="text-xl font-semibold mb-4">Existing Resources</h2>
+      <div className="bg-white p-6 rounded-xl shadow-sm">
+        <h2 className="text-xl font-semibold text-gray-900 mb-6">Existing Resources</h2>
         <div className="space-y-4">
           {resources.map((resource) => (
             <div
               key={resource.id}
-              className="flex items-center justify-between p-4 border rounded-lg"
+              className="flex items-start justify-between p-4 rounded-lg border border-gray-200 hover:shadow-md transition-shadow"
             >
-              <div>
-                <h3 className="font-medium">{resource.title}</h3>
-                <p className="text-sm text-gray-500">{resource.description}</p>
-                <div className="flex space-x-2 mt-1">
+              <div className="flex-1">
+                <h3 className="font-medium text-gray-900">{resource.title}</h3>
+                <p className="mt-1 text-sm text-gray-600">{resource.description}</p>
+                <div className="mt-2 flex items-center gap-2">
                   <span className="px-2 py-1 text-xs font-medium bg-gray-100 text-gray-600 rounded-full">
                     {resource.type}
                   </span>
@@ -217,16 +242,40 @@ export default function AdminResourceManagement() {
                   </span>
                 </div>
               </div>
-              <div className="flex space-x-2">
+              <div className="flex items-center gap-2 ml-4">
+                <a
+                  href={resource.fileUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 text-blue-600 hover:bg-blue-50 rounded-full transition-colors"
+                  title="Download"
+                >
+                  <FaDownload className="w-4 h-4" />
+                </a>
                 <button
                   onClick={() => handleDelete(resource.id)}
-                  className="p-2 text-red-600 hover:bg-red-50 rounded-full"
+                  disabled={isDeleting === resource.id}
+                  className="p-2 text-red-600 hover:bg-red-50 rounded-full transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  title="Delete"
                 >
-                  <FaTrash className="w-4 h-4" />
+                  {isDeleting === resource.id ? (
+                    <svg className="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                  ) : (
+                    <FaTrash className="w-4 h-4" />
+                  )}
                 </button>
               </div>
             </div>
           ))}
+
+          {resources.length === 0 && (
+            <div className="text-center py-12">
+              <p className="text-gray-500">No resources found</p>
+            </div>
+          )}
         </div>
       </div>
     </div>
