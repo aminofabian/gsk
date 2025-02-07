@@ -7,7 +7,7 @@ export default function PricingPage() {
       <div className="text-center mb-12">
         <h1 className="text-4xl font-bold text-primary mb-4">Financial Sustainability</h1>
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-          Partnering with GSK offers multiple financial benefits to sustain and expand the initiatives. Here's a clear breakdown:
+          Partnering with GSK offers multiple financial benefits to sustain and expand the initiatives. Here&apos;s a clear breakdown:
         </p>
       </div>
 
