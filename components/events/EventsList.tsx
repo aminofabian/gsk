@@ -77,6 +77,8 @@ export default function EventsList() {
   const registerSignedInUser = async (eventId: string) => {
     try {
       setIsLoading(eventId);
+      console.log("[EVENT_REGISTRATION] Sending registration request for event:", eventId);
+      
       const response = await fetch("/api/events/register", {
         method: "POST",
         headers: {
@@ -85,18 +87,20 @@ export default function EventsList() {
         body: JSON.stringify({ eventId }),
       });
 
+      const data = await response.json();
+
       if (!response.ok) {
-        const error = await response.text();
-        throw new Error(error);
+        throw new Error(data.message || "Failed to register for event");
       }
 
       toast({
         title: "Success",
-        description: "Successfully registered for the event",
+        description: data.message || "Successfully registered for the event",
       });
 
       fetchEvents();
     } catch (error) {
+      console.error("[EVENT_REGISTRATION_ERROR]", error);
       toast({
         title: "Error",
         description: error instanceof Error ? error.message : "Failed to register for event",
