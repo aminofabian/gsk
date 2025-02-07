@@ -60,7 +60,7 @@ export default function AdminResourceManagement() {
           fileType: formData.file.type,
         }),
       });
-      const { url, fileKey } = await presignedUrlResponse.json();
+      const { url, fileKey, publicUrl } = await presignedUrlResponse.json();
 
       // Upload to S3
       await fetch(url, {
@@ -71,9 +71,6 @@ export default function AdminResourceManagement() {
         },
       });
 
-      // Get the permanent URL
-      const fileUrl = `https://${process.env.NEXT_PUBLIC_AWS_S3_BUCKET_NAME}.s3.${process.env.NEXT_PUBLIC_AWS_REGION}.amazonaws.com/${fileKey}`;
-
       // Save resource metadata
       const response = await fetch('/api/resources', {
         method: 'POST',
@@ -83,7 +80,7 @@ export default function AdminResourceManagement() {
           description: formData.description,
           type: formData.type,
           category: formData.category,
-          fileUrl,
+          fileUrl: publicUrl,
         }),
       });
 

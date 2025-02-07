@@ -10,6 +10,7 @@ const s3Client = new S3Client({
     accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
   },
+  forcePathStyle: true
 });
 
 export async function POST(req: Request) {
@@ -28,11 +29,18 @@ export async function POST(req: Request) {
       Key: fileKey,
       ContentType: fileType,
       ACL: 'public-read',
+      CacheControl: 'max-age=31536000',
     });
 
-    const url = await getSignedUrl(s3Client, putObjectCommand, { expiresIn: 3600 });
+    const url = await getSignedUrl(s3Client, putObjectCommand, { 
+      expiresIn: 3600,
+    });
 
-    return NextResponse.json({ url, fileKey });
+    return NextResponse.json({ 
+      url, 
+      fileKey,
+      publicUrl: `https://s3.${process.env.AWS_REGION}.amazonaws.com/${process.env.AWS_S3_BUCKET_NAME}/${fileKey}`
+    });
   } catch (error) {
     console.error('Error generating presigned URL:', error);
     return new NextResponse('Internal Server Error', { status: 500 });
