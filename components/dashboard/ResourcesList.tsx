@@ -1,54 +1,55 @@
 "use client";
 
-import { useState } from 'react';
-import Link from 'next/link';
-import { FaBook, FaFilePdf, FaVideo, FaNewspaper, FaSearch } from 'react-icons/fa';
+import { useState, useEffect } from 'react';
+import { FaBook, FaFilePdf, FaVideo, FaNewspaper, FaSearch, FaDownload } from 'react-icons/fa';
 
-// Sample resources data - in a real app, this would come from an API
-const resources = [
-  {
-    id: 1,
-    title: 'Clinical Guidelines 2024',
-    description: 'Latest clinical practice guidelines for primary care physicians',
-    type: 'PDF',
-    category: 'Guidelines',
-    icon: FaFilePdf,
-    url: '#',
-  },
-  {
-    id: 2,
-    title: 'Medical Education Series',
-    description: 'Video lectures on recent medical advancements',
-    type: 'Video',
-    category: 'Education',
-    icon: FaVideo,
-    url: '#',
-  },
-  {
-    id: 3,
-    title: 'Research Publications',
-    description: 'Recent medical research papers and publications',
-    type: 'Article',
-    category: 'Research',
-    icon: FaNewspaper,
-    url: '#',
-  },
-  {
-    id: 4,
-    title: 'Medical Reference Books',
-    description: 'Digital collection of essential medical reference books',
-    type: 'E-Book',
-    category: 'Reference',
-    icon: FaBook,
-    url: '#',
-  },
-];
+type Resource = {
+  id: string;
+  title: string;
+  description: string;
+  type: 'PDF' | 'VIDEO' | 'ARTICLE' | 'EBOOK';
+  category: string;
+  fileUrl: string;
+};
+
+const getIconForType = (type: Resource['type']) => {
+  switch (type) {
+    case 'PDF':
+      return FaFilePdf;
+    case 'VIDEO':
+      return FaVideo;
+    case 'ARTICLE':
+      return FaNewspaper;
+    case 'EBOOK':
+      return FaBook;
+    default:
+      return FaFilePdf;
+  }
+};
 
 export default function ResourcesList() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const [resources, setResources] = useState<Resource[]>([]);
+  const [categories, setCategories] = useState<string[]>(['All']);
 
-  const categories = ['All', ...Array.from(new Set(resources.map(resource => resource.category)))];
+  useEffect(() => {
+    const fetchResources = async () => {
+      try {
+        const response = await fetch('/api/resources');
+        const data = await response.json() as Resource[];
+        setResources(data);
+        
+        // Extract unique categories
+        const uniqueCategories = Array.from(new Set(data.map(r => r.category)));
+        setCategories(['All', ...uniqueCategories]);
+      } catch (error) {
+        console.error('Error fetching resources:', error);
+      }
+    };
+
+    fetchResources();
+  }, []);
 
   const filteredResources = resources.filter(resource => {
     const matchesSearch = resource.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -84,12 +85,13 @@ export default function ResourcesList() {
 
       {/* Resources Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredResources.map((resource) => (
-          <Link href={resource.url} key={resource.id}>
-            <div className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow border border-gray-100">
+        {filteredResources.map((resource) => {
+          const Icon = getIconForType(resource.type);
+          return (
+            <div key={resource.id} className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow border border-gray-100">
               <div className="flex items-start space-x-4">
                 <div className="p-3 bg-blue-50 rounded-lg">
-                  <resource.icon className="w-6 h-6 text-blue-600" />
+                  <Icon className="w-6 h-6 text-blue-600" />
                 </div>
                 <div className="flex-1">
                   <h3 className="font-semibold text-gray-900">{resource.title}</h3>
@@ -102,11 +104,22 @@ export default function ResourcesList() {
                       {resource.category}
                     </span>
                   </div>
+                  <div className="mt-4">
+                    <a
+                      href={resource.fileUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                    >
+                      <FaDownload className="mr-2 h-4 w-4" />
+                      {resource.type === 'VIDEO' ? 'Watch' : 'Download'}
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
-          </Link>
-        ))}
+          );
+        })}
       </div>
 
       {filteredResources.length === 0 && (

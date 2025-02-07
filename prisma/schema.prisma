@@ -48,6 +48,7 @@ model User {
   publications          Publication[]
   researchProjects      ResearchProject[]
   payments              Payment[]
+  resources             Resource[]
 
   @@map("users")
 }
@@ -383,4 +384,28 @@ enum PaymentStatus {
   FAILED
   CANCELLED
   EXPIRED
+}
+
+enum ResourceType {
+  PDF
+  VIDEO
+  ARTICLE
+  EBOOK
+}
+
+model Resource {
+  id          String       @id @default(cuid())
+  title       String
+  description String
+  type        ResourceType
+  category    String
+  fileUrl     String
+  fileKey     String       @unique // S3 file key
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  createdBy   User         @relation(fields: [userId], references: [id])
+  userId      String
+
+  @@index([userId])
+  @@map("resources")
 }
