@@ -45,7 +45,7 @@ export default function NotFound() {
           className="space-y-6"
         >
           {/* 404 Text */}
-          <h1 className="text-8xl font-bold bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent font-serif">
+          <h1 className="text-8xl font-bold bg-gradient-to-r from-white to-emerald-200 bg-clip-text text-transparent font-serif">
             404
           </h1>
           
@@ -55,7 +55,7 @@ export default function NotFound() {
           </h2>
           
           {/* Description */}
-          <p className="text-lg text-blue-100/80 max-w-md mx-auto font-serif">
+          <p className="text-lg text-emerald-100/80 max-w-md mx-auto font-serif">
             The page you&apos;re looking for doesn&apos;t exist or has been moved. Please check the URL or navigate back to the homepage.
           </p>
 
@@ -63,7 +63,7 @@ export default function NotFound() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
             <Link 
               href="/"
-              className="inline-flex items-center justify-center px-6 py-3 bg-white text-[#003366]  font-serif font-semibold hover:bg-blue-50 transition-colors group"
+              className="inline-flex items-center justify-center px-6 py-3 bg-white text-[#003366]  font-serif font-semibold hover:bg-emerald-50 transition-colors group"
             >
               Return Home
               <svg 

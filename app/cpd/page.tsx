@@ -90,7 +90,7 @@ const CPDPage = () => {
                 {category.title}
               </h3>
               <div className="mb-4">
-                <span className="inline-block bg-blue-100 text-blue-800 font-merriweather text-sm px-3 py-1 ">
+                <span className="inline-block bg-emerald-100 text-emerald-800 font-merriweather text-sm px-3 py-1 ">
                   {category.points}
                 </span>
               </div>

@@ -175,7 +175,7 @@ export default function PartnersManagement() {
                     <p className="text-sm text-gray-500 line-clamp-2">{partner.description}</p>
                   </div>
                   <div className="flex items-center gap-2 flex-shrink-0">
-                    <button className="p-1.5 text-blue-600 hover:text-blue-800 transition-colors">
+                    <button className="p-1.5 text-emerald-600 hover:text-emerald-800 transition-colors">
                       <FaEdit />
                     </button>
                     <button className="p-1.5 text-red-600 hover:text-red-800 transition-colors">
@@ -184,7 +184,7 @@ export default function PartnersManagement() {
                   </div>
                 </div>
                 <div className="mt-2 flex items-center gap-3 text-sm">
-                  <span className="inline-flex items-center px-2.5 py-0.5  text-xs font-medium bg-blue-100 text-blue-800">
+                  <span className="inline-flex items-center px-2.5 py-0.5  text-xs font-medium bg-emerald-100 text-emerald-800">
                     {partner.category}
                   </span>
                   <a

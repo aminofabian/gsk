@@ -33,9 +33,9 @@ const statConfigs: StatConfig[] = [
     icon: FaMedal,
     label: "CPD Points",
     description: "This Year",
-    color: "from-blue-500 to-blue-600",
-    gradientFrom: "from-blue-400",
-    gradientTo: "to-blue-600",
+    color: "from-emerald-500 to-emerald-600",
+    gradientFrom: "from-emerald-400",
+    gradientTo: "to-emerald-600",
     dataKey: "cpdPoints",
   },
   {

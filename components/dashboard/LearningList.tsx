@@ -81,7 +81,7 @@ export default function LearningList() {
       case 'Completed':
         return 'bg-green-100 text-green-800';
       case 'In Progress':
-        return 'bg-blue-100 text-blue-800';
+        return 'bg-emerald-100 text-emerald-800';
       default:
         return 'bg-gray-100 text-gray-800';
     }
@@ -96,13 +96,13 @@ export default function LearningList() {
           <input
             type="text"
             placeholder="Search courses..."
-            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
         <select
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
           value={selectedLevel}
           onChange={(e) => setSelectedLevel(e.target.value)}
         >
@@ -111,7 +111,7 @@ export default function LearningList() {
           ))}
         </select>
         <select
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
           value={selectedCategory}
           onChange={(e) => setSelectedCategory(e.target.value)}
         >
@@ -127,8 +127,8 @@ export default function LearningList() {
           <Link href={`/dashboard/learning/${course.id}`} key={course.id}>
             <div className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow border border-gray-100">
               <div className="flex items-start gap-4">
-                <div className="p-3 bg-blue-50 rounded-lg">
-                  <course.icon className="w-6 h-6 text-blue-600" />
+                <div className="p-3 bg-emerald-50 rounded-lg">
+                  <course.icon className="w-6 h-6 text-emerald-600" />
                 </div>
                 <div className="flex-1">
                   <div className="flex items-start justify-between">
@@ -150,7 +150,7 @@ export default function LearningList() {
                         </div>
                         <div className="h-1.5 bg-gray-100 rounded-full">
                           <div 
-                            className="h-1.5 bg-blue-500 rounded-full transition-all duration-300" 
+                            className="h-1.5 bg-emerald-500 rounded-full transition-all duration-300" 
                             style={{ width: `${course.progress}%` }}
                           ></div>
                         </div>
@@ -166,7 +166,7 @@ export default function LearningList() {
                         <FaGraduationCap className="w-4 h-4" />
                         <span>{course.level}</span>
                       </div>
-                      <div className="ml-auto text-blue-600 font-medium">
+                      <div className="ml-auto text-emerald-600 font-medium">
                         {course.cmePoints} CME Points
                       </div>
                     </div>

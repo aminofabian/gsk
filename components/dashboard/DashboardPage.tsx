@@ -109,8 +109,8 @@ const recentUpdates = [
     date: "2024-04-05",
     type: "Event",
     icon: FaHospital,
-    color: "text-blue-600",
-    bgColor: "bg-blue-50"
+    color: "text-emerald-600",
+    bgColor: "bg-emerald-50"
   },
   {
     title: "Research Grant Applications Open",

@@ -105,7 +105,7 @@ export default function BottomNav() {
                   {isActive && (
                     <motion.div
                       layoutId="bottomNavIconBackground"
-                      className="absolute inset-0 -m-1.5  bg-blue-100/50"
+                      className="absolute inset-0 -m-1.5  bg-emerald-100/50"
                       transition={{
                         type: "spring",
                         stiffness: 300,

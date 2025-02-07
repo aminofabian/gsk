@@ -18,7 +18,7 @@ const MembershipFeatures = () => {
         {/* Animated background glow */}
         <div className="absolute inset-0">
           <div className="absolute inset-0 opacity-30">
-            <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/20 rounded-full filter blur-[128px] animate-pulse" />
+            <div className="absolute top-0 left-1/4 w-96 h-96 bg-emerald-500/20 rounded-full filter blur-[128px] animate-pulse" />
             <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-indigo-500/20 rounded-full filter blur-[128px] animate-pulse delay-1000" />
           </div>
         </div>
@@ -32,11 +32,11 @@ const MembershipFeatures = () => {
             className="text-center mb-20"
           >
             <h2 className="text-5xl md:text-6xl font-merriweather font-bold mb-8">
-              <span className="inline-block bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
+              <span className="inline-block bg-gradient-to-r from-white to-emerald-200 bg-clip-text text-transparent">
                 Empowering Gastroenterology
               </span>
               <br />
-              <span className="inline-block bg-gradient-to-r from-blue-200 to-white bg-clip-text text-transparent">
+              <span className="inline-block bg-gradient-to-r from-emerald-200 to-white bg-clip-text text-transparent">
                 Excellence
               </span>
             </h2>
@@ -59,7 +59,7 @@ const MembershipFeatures = () => {
                 <div className="h-full bg-gradient-to-br from-white/[0.05] to-transparent p-1">
                   <div className="relative h-full bg-gradient-to-br from-[#003366]/40 to-[#002347]/40 backdrop-blur-sm p-8">
                     {/* Animated highlight line */}
-                    <div className="absolute top-0 left-0 w-0 h-[2px] bg-gradient-to-r from-blue-400 to-indigo-400 group-hover:w-full transition-all duration-700" />
+                    <div className="absolute top-0 left-0 w-0 h-[2px] bg-gradient-to-r from-emerald-400 to-indigo-400 group-hover:w-full transition-all duration-700" />
                     
                     <div className="relative">
                       <motion.div 
@@ -67,11 +67,11 @@ const MembershipFeatures = () => {
                         whileHover={{ scale: 1.1, rotate: 5 }}
                         transition={{ type: "spring", stiffness: 300 }}
                       >
-                        <div className="absolute inset-0 bg-blue-500/20 filter blur-lg" />
+                        <div className="absolute inset-0 bg-emerald-500/20 filter blur-lg" />
                         {feature.icon}
                       </motion.div>
                       
-                      <h3 className="text-2xl font-merriweather text-white mb-4 font-semibold group-hover:text-blue-200 transition-colors duration-300">
+                      <h3 className="text-2xl font-merriweather text-white mb-4 font-semibold group-hover:text-emerald-200 transition-colors duration-300">
                         {feature.title}
                       </h3>
                       <p className="text-white/80 mb-8 text-lg">
@@ -79,7 +79,7 @@ const MembershipFeatures = () => {
                       </p>
                       <motion.a 
                         href={feature.link}
-                        className="inline-flex items-center text-white group-hover:text-blue-200 transition-all duration-300 text-lg font-medium"
+                        className="inline-flex items-center text-white group-hover:text-emerald-200 transition-all duration-300 text-lg font-medium"
                         whileHover={{ x: 5 }}
                       >
                         Learn More 

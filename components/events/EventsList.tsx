@@ -184,7 +184,7 @@ export default function EventsList() {
 
   const getEventTypeColor = (type: Event["type"]) => {
     const colors = {
-      CONFERENCE: "bg-blue-100 text-blue-800 border-blue-200",
+      CONFERENCE: "bg-emerald-100 text-emerald-800 border-emerald-200",
       WORKSHOP: "bg-green-100 text-green-800 border-green-200",
       SEMINAR: "bg-purple-100 text-purple-800 border-purple-200",
       MEETING: "bg-orange-100 text-orange-800 border-orange-200",

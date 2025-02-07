@@ -50,7 +50,7 @@ export default function PaymentHistory({ className = "" }: PaymentHistoryProps) 
       case "COMPLETED":
         return "bg-green-500 hover:bg-green-600";
       case "ACTIVE":
-        return "bg-blue-500 hover:bg-blue-600";
+        return "bg-emerald-500 hover:bg-emerald-600";
       case "PENDING":
         return "bg-yellow-500 hover:bg-yellow-600";
       case "FAILED":

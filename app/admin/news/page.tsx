@@ -127,7 +127,7 @@ export default function NewsPage() {
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
-                  <button className="p-2 text-blue-600 hover:text-blue-800 transition-colors">
+                  <button className="p-2 text-emerald-600 hover:text-emerald-800 transition-colors">
                     <FaEdit />
                   </button>
                   <button className="p-2 text-red-600 hover:text-red-800 transition-colors">

@@ -124,7 +124,7 @@ const Partners = () => {
       
       {/* Decorative Elements */}
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent" />
-      <div className="absolute -left-40 -top-40 w-80 h-80 bg-blue-50 rounded-full filter blur-3xl opacity-30 animate-blob" />
+      <div className="absolute -left-40 -top-40 w-80 h-80 bg-emerald-50 rounded-full filter blur-3xl opacity-30 animate-blob" />
       <div className="absolute -right-40 -bottom-40 w-80 h-80 bg-indigo-50 rounded-full filter blur-3xl opacity-30 animate-blob animation-delay-2000" />
       
       <div className="container mx-auto px-4 relative">
@@ -133,7 +133,7 @@ const Partners = () => {
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
             Our Trusted Partners
           </h2>
-          <div className="w-20 h-1 bg-blue-600/20 mx-auto mb-6" />
+          <div className="w-20 h-1 bg-emerald-600/20 mx-auto mb-6" />
           <p className="text-gray-600 text-lg leading-relaxed">
             We collaborate with leading organizations to advance research and innovation in healthcare, 
             working together to create a healthier future for all.
@@ -158,7 +158,7 @@ const Partners = () => {
           ].map((stat, index) => (
             <div key={index} className="text-center">
               <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 p-8">
-                <div className="text-4xl font-bold text-blue-600 mb-2">{stat.number}</div>
+                <div className="text-4xl font-bold text-emerald-600 mb-2">{stat.number}</div>
                 <div className="text-gray-600">{stat.label}</div>
               </div>
             </div>

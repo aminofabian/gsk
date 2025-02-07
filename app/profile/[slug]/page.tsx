@@ -112,7 +112,7 @@ export default function PublicProfile({ params }: { params: { slug: string } }) 
               <div className="space-y-4 mt-6">
                 {/* Extract title from bio if not available directly */}
                 {(profile.title || (profile.bio && profile.bio.includes("Consultant"))) && (
-                  <p className="text-xl text-blue-600 font-medium tracking-wide">
+                  <p className="text-xl text-emerald-600 font-medium tracking-wide">
                     {(() => {
                       let text = '';
                       if (profile.title) {
@@ -149,7 +149,7 @@ export default function PublicProfile({ params }: { params: { slug: string } }) 
                     {profile.subspecialties.map((specialty, index) => (
                       <span 
                         key={index}
-                        className="px-4 py-1.5 bg-blue-50 text-blue-700 rounded-full text-sm font-medium shadow-sm transition-all hover:shadow-md"
+                        className="px-4 py-1.5 bg-emerald-50 text-emerald-700 rounded-full text-sm font-medium shadow-sm transition-all hover:shadow-md"
                       >
                         {specialty}
                       </span>
@@ -159,7 +159,7 @@ export default function PublicProfile({ params }: { params: { slug: string } }) 
 
                 {/* Specialization Badge */}
                 {profile.specialization && (
-                  <div className="inline-flex items-center px-6 py-2.5 rounded-full text-sm font-semibold bg-gradient-to-r from-blue-50 to-indigo-50 text-blue-700 shadow-sm">
+                  <div className="inline-flex items-center px-6 py-2.5 rounded-full text-sm font-semibold bg-gradient-to-r from-emerald-50 to-indigo-50 text-emerald-700 shadow-sm">
                     {profile.specialization}
                   </div>
                 )}
@@ -167,7 +167,7 @@ export default function PublicProfile({ params }: { params: { slug: string } }) 
                 {/* Hospital/Institution */}
                 {profile.hospital && (
                   <p className="text-gray-700 font-medium flex items-center justify-center mt-4 text-lg">
-                    <svg className="w-6 h-6 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-6 h-6 mr-2 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" 
                         d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
                     </svg>
@@ -193,13 +193,13 @@ export default function PublicProfile({ params }: { params: { slug: string } }) 
                         variant="outline"
                         size="icon"
                         asChild
-                        className="hover:bg-blue-50 hover:text-blue-600 transition-all duration-200 border-gray-200"
+                        className="hover:bg-emerald-50 hover:text-emerald-600 transition-all duration-200 border-gray-200"
                       >
                         <a 
                           href={link.url} 
                           target="_blank" 
                           rel="noopener noreferrer"
-                          className="hover:text-blue-600"
+                          className="hover:text-emerald-600"
                           title={link.platform}
                         >
                           {platformIcons[link.platform] || platformIcons.OTHER}
@@ -218,14 +218,14 @@ export default function PublicProfile({ params }: { params: { slug: string } }) 
           <Card className="border-none shadow-lg overflow-hidden">
             <CardContent className="p-8 sm:p-12">
               <div className="flex items-center gap-3 mb-8">
-                <GraduationCapIcon className="h-7 w-7 text-blue-600" />
+                <GraduationCapIcon className="h-7 w-7 text-emerald-600" />
                 <h2 className="text-2xl font-bold text-gray-900">Education</h2>
               </div>
               <div className="space-y-8">
                 {profile.education.map((edu, index) => (
                   <div key={index} className="border-b border-gray-100 last:border-0 pb-6 last:pb-0">
                     <h3 className="font-semibold text-gray-900 text-lg">{edu.degree} in {edu.field}</h3>
-                    <p className="text-blue-600 mt-1 font-medium">{edu.institution}</p>
+                    <p className="text-emerald-600 mt-1 font-medium">{edu.institution}</p>
                     <p className="text-sm text-gray-500 mt-2 flex items-center">
                       <svg className="w-4 h-4 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" 
@@ -245,7 +245,7 @@ export default function PublicProfile({ params }: { params: { slug: string } }) 
           <Card className="border-none shadow-lg overflow-hidden">
             <CardContent className="p-8 sm:p-12">
               <div className="flex items-center gap-3 mb-8">
-                <AwardIcon className="h-7 w-7 text-blue-600" />
+                <AwardIcon className="h-7 w-7 text-emerald-600" />
                 <h2 className="text-2xl font-bold text-gray-900">Achievements</h2>
               </div>
               <div className="space-y-8">

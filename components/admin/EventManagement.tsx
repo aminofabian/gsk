@@ -610,7 +610,7 @@ export default function EventManagement() {
                                     <div className="flex items-center gap-2">
                                       <svg
                                         xmlns="http://www.w3.org/2000/svg"
-                                        className="h-5 w-5 text-blue-500"
+                                        className="h-5 w-5 text-emerald-500"
                                         viewBox="0 0 24 24"
                                         fill="none"
                                         stroke="currentColor"
@@ -749,7 +749,7 @@ export default function EventManagement() {
               <TableRow key={event.id} className="hover:bg-gray-50/50">
                 <TableCell className="font-medium">{event.title}</TableCell>
                 <TableCell>
-                  <span className="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
+                  <span className="inline-flex items-center rounded-md bg-emerald-50 px-2 py-1 text-xs font-medium text-emerald-700 ring-1 ring-inset ring-emerald-700/10">
                     {event.type}
                   </span>
                 </TableCell>

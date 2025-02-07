@@ -40,8 +40,8 @@ export default function ResearchPage() {
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center">
-                    <span className="text-blue-600 text-lg">🔬</span>
+                  <div className="w-12 h-12 bg-emerald-50 rounded-lg flex items-center justify-center">
+                    <span className="text-emerald-600 text-lg">🔬</span>
                   </div>
                   <div>
                     <p className="text-2xl font-semibold text-gray-900">5</p>

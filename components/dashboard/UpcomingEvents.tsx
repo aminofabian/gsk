@@ -53,7 +53,7 @@ function getTimeStatus(startDate: Date) {
   } else {
     return {
       text: "Upcoming",
-      color: "bg-blue-500",
+      color: "bg-emerald-500",
     };
   }
 }
@@ -111,8 +111,8 @@ export default function UpcomingEvents() {
                 whileHover={{ scale: 1.05 }}
                 className="flex flex-col items-end gap-1"
               >
-                <div className="flex items-center gap-1.5 px-3 py-1.5  bg-blue-50 text-blue-600 font-medium">
-                  <FaMedal className="text-blue-500" />
+                <div className="flex items-center gap-1.5 px-3 py-1.5  bg-emerald-50 text-emerald-600 font-medium">
+                  <FaMedal className="text-emerald-500" />
                   <span className="text-sm">{event.points} Points</span>
                 </div>
                 {event.startDate && (

@@ -152,7 +152,7 @@ export default function DonationsManagement() {
                   </div>
                 </td>
                 <td className="px-4 py-3">
-                  <span className="inline-flex items-center px-2.5 py-0.5  text-xs font-medium bg-blue-100 text-blue-800">
+                  <span className="inline-flex items-center px-2.5 py-0.5  text-xs font-medium bg-emerald-100 text-emerald-800">
                     {donation.campaign}
                   </span>
                 </td>
@@ -173,7 +173,7 @@ export default function DonationsManagement() {
                 <td className="px-4 py-3 text-gray-600">{donation.paymentMethod}</td>
                 <td className="px-4 py-3">
                   <div className="flex items-center justify-end gap-2">
-                    <button className="p-1.5 text-blue-600 hover:text-blue-800 transition-colors">
+                    <button className="p-1.5 text-emerald-600 hover:text-emerald-800 transition-colors">
                       <FaEye />
                     </button>
                   </div>

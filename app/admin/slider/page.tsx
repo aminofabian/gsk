@@ -158,7 +158,7 @@ export default function SliderManagementPage() {
 
         {isLoading && sliderItems.length === 0 ? (
           <div className="flex items-center justify-center h-64 bg-white rounded-xl shadow-sm">
-            <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
+            <Loader2 className="w-8 h-8 animate-spin text-emerald-600" />
           </div>
         ) : (
           <DragDropContext onDragEnd={handleDragEnd}>
@@ -187,7 +187,7 @@ export default function SliderManagementPage() {
                                   <textarea
                                     value={item.text}
                                     onChange={(e) => handleUpdateItem(item.id, { text: e.target.value })}
-                                    className="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 min-h-[100px] resize-y"
+                                    className="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-200 min-h-[100px] resize-y"
                                     placeholder="Enter announcement text"
                                   />
                                 </div>
@@ -200,7 +200,7 @@ export default function SliderManagementPage() {
                                       type="text"
                                       value={item.link || ""}
                                       onChange={(e) => handleUpdateItem(item.id, { link: e.target.value })}
-                                      className="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                                      className="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-200"
                                       placeholder="Enter link URL"
                                     />
                                   </div>
@@ -212,7 +212,7 @@ export default function SliderManagementPage() {
                                       type="text"
                                       value={item.linkText || ""}
                                       onChange={(e) => handleUpdateItem(item.id, { linkText: e.target.value })}
-                                      className="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                                      className="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-200"
                                       placeholder="Enter link text"
                                     />
                                   </div>
@@ -226,7 +226,7 @@ export default function SliderManagementPage() {
                                       type="checkbox"
                                       checked={item.active}
                                       onChange={(e) => handleUpdateItem(item.id, { active: e.target.checked })}
-                                      className="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 transition-colors duration-200"
+                                      className="w-4 h-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-500 transition-colors duration-200"
                                     />
                                     <span className="ml-2 text-sm font-medium text-gray-700">Active</span>
                                   </div>
@@ -255,7 +255,7 @@ export default function SliderManagementPage() {
         <button
           onClick={handleAddItem}
           disabled={isLoading}
-          className="mt-8 px-6 py-3 bg-blue-600 text-white text-sm font-semibold rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200 flex items-center justify-center gap-2"
+          className="mt-8 px-6 py-3 bg-emerald-600 text-white text-sm font-semibold rounded-lg hover:bg-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200 flex items-center justify-center gap-2"
         >
           Add New Announcement
         </button>

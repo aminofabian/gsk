@@ -313,7 +313,7 @@ export default function HeroBannerManagement() {
               </button>
               <button 
                 onClick={() => handleEdit(banner)}
-                className="p-2 text-blue-600 hover:text-blue-800 transition-colors"
+                className="p-2 text-emerald-600 hover:text-emerald-800 transition-colors"
               >
                 <FaEdit />
               </button>
@@ -331,7 +331,7 @@ export default function HeroBannerManagement() {
                   className="sr-only peer"
                   onChange={() => handleToggleActive(banner)}
                 />
-                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:h-5 after:w-5 after:transition-all peer-checked:bg-[#003366]"></div>
+                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-emerald-300 peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:h-5 after:w-5 after:transition-all peer-checked:bg-[#003366]"></div>
               </label>
             </div>
           </div>

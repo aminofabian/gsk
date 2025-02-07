@@ -77,7 +77,7 @@ export default function ResearchList() {
       case 'Recruiting':
         return 'bg-green-100 text-green-800';
       case 'Published':
-        return 'bg-blue-100 text-blue-800';
+        return 'bg-emerald-100 text-emerald-800';
       case 'Open':
         return 'bg-purple-100 text-purple-800';
       case 'Ongoing':
@@ -96,13 +96,13 @@ export default function ResearchList() {
           <input
             type="text"
             placeholder="Search research..."
-            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
         <select
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
           value={selectedType}
           onChange={(e) => setSelectedType(e.target.value)}
         >
@@ -111,7 +111,7 @@ export default function ResearchList() {
           ))}
         </select>
         <select
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
           value={selectedCategory}
           onChange={(e) => setSelectedCategory(e.target.value)}
         >
@@ -127,8 +127,8 @@ export default function ResearchList() {
           <Link href={`/dashboard/research/${item.id}`} key={item.id}>
             <div className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow border border-gray-100">
               <div className="flex items-start gap-4">
-                <div className="p-3 bg-blue-50 rounded-lg">
-                  <item.icon className="w-6 h-6 text-blue-600" />
+                <div className="p-3 bg-emerald-50 rounded-lg">
+                  <item.icon className="w-6 h-6 text-emerald-600" />
                 </div>
                 <div className="flex-1">
                   <div className="flex items-start justify-between">

@@ -36,7 +36,7 @@ export default function LearningPage() {
                     <span className="text-gray-900 font-medium">4/12</span>
                   </div>
                   <div className="h-2 bg-gray-100 rounded-full">
-                    <div className="h-2 bg-blue-500 rounded-full" style={{ width: '33%' }}></div>
+                    <div className="h-2 bg-emerald-500 rounded-full" style={{ width: '33%' }}></div>
                   </div>
                 </div>
                 <div>
@@ -65,8 +65,8 @@ export default function LearningPage() {
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                    <span className="text-blue-600 text-lg">⭐</span>
+                  <div className="w-8 h-8 bg-emerald-100 rounded-full flex items-center justify-center">
+                    <span className="text-emerald-600 text-lg">⭐</span>
                   </div>
                   <div>
                     <p className="text-sm font-medium text-gray-900">Knowledge Seeker</p>

@@ -101,7 +101,7 @@ export async function GET() {
           change: "N/A",
           trend: "up",
           icon: "FaUsers",
-          color: "blue",
+          color: "emerald",
         },
         {
           label: "Active Partners",

@@ -56,7 +56,7 @@ const PartnerSlider = () => {
           <SwiperSlide key={index}>
             <div className="partner-card group">
               <div className="relative overflow-hidden bg-white rounded-xl shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl">
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-indigo-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-r from-emerald-50 to-indigo-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <div className="relative p-8">
                   <Image
                     src={partner}

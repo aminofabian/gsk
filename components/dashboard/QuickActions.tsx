@@ -22,9 +22,9 @@ const quickActions: QuickAction[] = [
     label: "CME Events",
     description: "Register & View",
     href: "/dashboard/events",
-    color: "bg-blue-500",
-    gradientFrom: "from-blue-400",
-    gradientTo: "to-blue-600",
+    color: "bg-emerald-500",
+    gradientFrom: "from-emerald-400",
+    gradientTo: "to-emerald-600",
   },
   {
     icon: FaFileAlt,

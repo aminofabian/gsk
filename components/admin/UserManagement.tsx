@@ -136,7 +136,7 @@ export default function UserManagement() {
                   </td>
                   <td className="px-4 py-3 text-gray-600">{user.email}</td>
                   <td className="px-4 py-3">
-                    <span className="inline-flex items-center px-2.5 py-0.5 text-xs font-medium bg-blue-100 text-blue-800">
+                    <span className="inline-flex items-center px-2.5 py-0.5 text-xs font-medium bg-emerald-100 text-emerald-800">
                       {user.role.toLowerCase()}
                     </span>
                   </td>
@@ -161,7 +161,7 @@ export default function UserManagement() {
                   </td>
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-2">
-                      <button className="p-1 text-blue-600 hover:text-blue-800 transition-colors">
+                      <button className="p-1 text-emerald-600 hover:text-emerald-800 transition-colors">
                         <FaEdit />
                       </button>
                       <button className="p-1 text-red-600 hover:text-red-800 transition-colors">

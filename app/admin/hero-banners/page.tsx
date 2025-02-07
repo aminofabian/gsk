@@ -180,8 +180,8 @@ export default function HeroBannersPage() {
                 href={item.href}
                 className={`flex items-center gap-3 px-6 py-3 text-sm font-medium transition-colors duration-200 ${
                   isActive
-                    ? "text-blue-600 bg-blue-50 border-r-2 border-blue-600"
-                    : "text-gray-600 hover:text-blue-600 hover:bg-gray-50"
+                    ? "text-emerald-600 bg-emerald-50 border-r-2 border-emerald-600"
+                    : "text-gray-600 hover:text-emerald-600 hover:bg-gray-50"
                 }`}
               >
                 <Icon className="w-5 h-5" />
@@ -203,7 +203,7 @@ export default function HeroBannersPage() {
 
             {isLoading && banners.length === 0 ? (
               <div className="flex items-center justify-center h-64 bg-white rounded-xl shadow-sm">
-                <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
+                <Loader2 className="w-8 h-8 animate-spin text-emerald-600" />
               </div>
             ) : (
               <DragDropContext onDragEnd={handleDragEnd}>
@@ -238,8 +238,8 @@ export default function HeroBannersPage() {
                                         </div>
                                       </div>
                                     ) : (
-                                      <div className="w-full h-64 bg-gray-50 rounded-xl flex items-center justify-center border-2 border-dashed border-gray-200 group-hover:border-blue-500 transition-colors duration-200">
-                                        <Upload className="w-8 h-8 text-gray-400 group-hover:text-blue-500 transition-colors duration-200" />
+                                      <div className="w-full h-64 bg-gray-50 rounded-xl flex items-center justify-center border-2 border-dashed border-gray-200 group-hover:border-emerald-500 transition-colors duration-200">
+                                        <Upload className="w-8 h-8 text-gray-400 group-hover:text-emerald-500 transition-colors duration-200" />
                                       </div>
                                     )}
                                     <input
@@ -273,7 +273,7 @@ export default function HeroBannersPage() {
                                             title: e.target.value,
                                           });
                                         }}
-                                        className="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                                        className="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-200"
                                         placeholder="Enter banner title"
                                       />
                                     </div>
@@ -290,7 +290,7 @@ export default function HeroBannersPage() {
                                             cta: e.target.value,
                                           });
                                         }}
-                                        className="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                                        className="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-200"
                                         placeholder="Enter call to action text"
                                       />
                                     </div>
@@ -307,7 +307,7 @@ export default function HeroBannersPage() {
                                             link: e.target.value,
                                           });
                                         }}
-                                        className="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                                        className="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-200"
                                         placeholder="Enter banner link"
                                       />
                                     </div>
@@ -327,7 +327,7 @@ export default function HeroBannersPage() {
                                             };
                                             handleBannerUpdate(updatedBanner);
                                           }}
-                                          className="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 transition-colors duration-200"
+                                          className="w-4 h-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-500 transition-colors duration-200"
                                         />
                                         <span className="ml-2 text-sm font-medium text-gray-700">Active</span>
                                       </div>
@@ -380,7 +380,7 @@ export default function HeroBannersPage() {
                 }
               }}
               disabled={isLoading}
-              className="mt-8 px-6 py-3 bg-blue-600 text-white text-sm font-semibold rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200 flex items-center justify-center gap-2"
+              className="mt-8 px-6 py-3 bg-emerald-600 text-white text-sm font-semibold rounded-lg hover:bg-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200 flex items-center justify-center gap-2"
             >
               Add New Banner
             </button>

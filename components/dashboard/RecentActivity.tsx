@@ -30,8 +30,8 @@ const recentActivities: Activity[] = [
     title: "Annual Membership Renewed",
     date: "1 week ago",
     icon: MdPayments,
-    color: "text-blue-500",
-    gradientFrom: "from-blue-500",
+    color: "text-emerald-500",
+    gradientFrom: "from-emerald-500",
     gradientTo: "to-indigo-400",
   },
   {

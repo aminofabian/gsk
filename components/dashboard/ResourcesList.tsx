@@ -67,13 +67,13 @@ export default function ResourcesList() {
           <input
             type="text"
             placeholder="Search resources..."
-            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
         <select
-          className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
           value={selectedCategory}
           onChange={(e) => setSelectedCategory(e.target.value)}
         >
@@ -90,8 +90,8 @@ export default function ResourcesList() {
           return (
             <div key={resource.id} className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow border border-gray-100">
               <div className="flex items-start space-x-4">
-                <div className="p-3 bg-blue-50 rounded-lg">
-                  <Icon className="w-6 h-6 text-blue-600" />
+                <div className="p-3 bg-emerald-50 rounded-lg">
+                  <Icon className="w-6 h-6 text-emerald-600" />
                 </div>
                 <div className="flex-1">
                   <h3 className="font-semibold text-gray-900">{resource.title}</h3>
@@ -100,7 +100,7 @@ export default function ResourcesList() {
                     <span className="px-2 py-1 text-xs font-medium bg-gray-100 text-gray-600 rounded-full">
                       {resource.type}
                     </span>
-                    <span className="px-2 py-1 text-xs font-medium bg-blue-50 text-blue-600 rounded-full">
+                    <span className="px-2 py-1 text-xs font-medium bg-emerald-50 text-emerald-600 rounded-full">
                       {resource.category}
                     </span>
                   </div>
@@ -109,7 +109,7 @@ export default function ResourcesList() {
                       href={resource.fileUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                      className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500"
                       onClick={(e) => {
                         if (!resource.fileUrl.startsWith('http')) {
                           e.preventDefault();

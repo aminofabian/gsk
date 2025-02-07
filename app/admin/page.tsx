@@ -18,7 +18,7 @@ interface Stat {
   change: string;
   trend: "up" | "down";
   icon: string;
-  color: "blue" | "green" | "purple" | "orange";
+  color: "emerald" | "green" | "purple" | "orange";
 }
 
 interface DashboardData {
@@ -109,8 +109,8 @@ export default function AdminDashboard() {
                   </div>
                   <div
                     className={`p-3 ${
-                      stat.color === "blue"
-                        ? "bg-blue-100 text-blue-600"
+                      stat.color === "emerald"
+                        ? "bg-emerald-100 text-emerald-600"
                         : stat.color === "green"
                         ? "bg-green-100 text-green-600"
                         : stat.color === "purple"
@@ -166,7 +166,7 @@ export default function AdminDashboard() {
                 <div
                   className={`p-2 ${
                     activity.type === "user"
-                      ? "bg-blue-100 text-blue-600"
+                      ? "bg-emerald-100 text-emerald-600"
                       : activity.type === "donation"
                       ? "bg-green-100 text-green-600"
                       : "bg-purple-100 text-purple-600"

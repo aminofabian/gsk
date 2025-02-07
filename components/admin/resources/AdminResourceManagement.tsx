@@ -141,7 +141,7 @@ export default function AdminResourceManagement() {
               value={formData.title}
               onChange={(e) => setFormData({ ...formData, title: e.target.value })}
               className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm 
-                focus:border-blue-500 focus:ring-2 focus:ring-blue-200 
+                focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 
                 transition-colors duration-200"
               placeholder="Enter resource title"
             />
@@ -155,7 +155,7 @@ export default function AdminResourceManagement() {
               value={formData.category}
               onChange={(e) => setFormData({ ...formData, category: e.target.value })}
               className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm 
-                focus:border-blue-500 focus:ring-2 focus:ring-blue-200 
+                focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 
                 transition-colors duration-200"
               placeholder="e.g., Guidelines, Research, Education"
             />
@@ -167,7 +167,7 @@ export default function AdminResourceManagement() {
               value={formData.type}
               onChange={(e) => setFormData({ ...formData, type: e.target.value as Resource['type'] })}
               className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm 
-                focus:border-blue-500 focus:ring-2 focus:ring-blue-200 
+                focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 
                 transition-colors duration-200 
                 bg-white"
             >
@@ -188,8 +188,8 @@ export default function AdminResourceManagement() {
                 file:mr-4 file:py-2.5 file:px-4
                 file:rounded-lg file:border-0
                 file:text-sm file:font-medium
-                file:bg-blue-50 file:text-blue-700
-                hover:file:bg-blue-100
+                file:bg-emerald-50 file:text-emerald-700
+                hover:file:bg-emerald-100
                 focus:outline-none
                 transition-colors duration-200"
             />
@@ -204,7 +204,7 @@ export default function AdminResourceManagement() {
             onChange={(e) => setFormData({ ...formData, description: e.target.value })}
             rows={3}
             className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm 
-              focus:border-blue-500 focus:ring-2 focus:ring-blue-200 
+              focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 
               transition-colors duration-200"
             placeholder="Provide a brief description of the resource"
           />
@@ -216,8 +216,8 @@ export default function AdminResourceManagement() {
             disabled={isUploading}
             className="inline-flex items-center px-6 py-2.5 border border-transparent 
               rounded-lg shadow-sm text-sm font-medium text-white 
-              bg-blue-600 hover:bg-blue-700 
-              focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 
+              bg-emerald-600 hover:bg-emerald-700 
+              focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 
               disabled:opacity-50 disabled:cursor-not-allowed
               transition-colors duration-200"
           >
@@ -247,13 +247,13 @@ export default function AdminResourceManagement() {
             <div
               key={resource.id}
               className="flex items-start justify-between p-6 rounded-lg border border-gray-200 
-                hover:shadow-md transition-all duration-200 hover:border-blue-100"
+                hover:shadow-md transition-all duration-200 hover:border-emerald-100"
             >
               <div className="flex-1">
                 <h3 className="font-medium text-gray-900">{resource.title}</h3>
                 <p className="mt-1 text-sm text-gray-600">{resource.description}</p>
                 <div className="mt-2 flex items-center gap-2">
-                  <span className="px-3 py-1 text-xs font-medium bg-blue-50 text-blue-700 rounded-full">
+                  <span className="px-3 py-1 text-xs font-medium bg-emerald-50 text-emerald-700 rounded-full">
                     {resource.type}
                   </span>
                   <span className="px-3 py-1 text-xs font-medium bg-gray-100 text-gray-600 rounded-full">
@@ -266,7 +266,7 @@ export default function AdminResourceManagement() {
                   href={resource.fileUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2 text-blue-600 hover:bg-blue-50 rounded-full transition-colors"
+                  className="p-2 text-emerald-600 hover:bg-emerald-50 rounded-full transition-colors"
                   title="Download"
                 >
                   <FaDownload className="w-4 h-4" />

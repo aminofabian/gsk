@@ -73,7 +73,7 @@ const AuthLoader = ({ onAuthenticated }: AuthLoaderProps) => {
                 </div>
                 <button
                   type="submit"
-                  className="w-full px-4 py-2 bg-white text-[#003366]  font-serif font-semibold hover:bg-blue-50 transition-colors"
+                  className="w-full px-4 py-2 bg-white text-[#003366]  font-serif font-semibold hover:bg-emerald-50 transition-colors"
                 >
                   Access Website
                 </button>
