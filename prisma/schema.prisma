@@ -400,7 +400,6 @@ model Resource {
   type        ResourceType
   category    String
   fileUrl     String
-  fileKey     String       @unique // S3 file key
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
   createdBy   User         @relation(fields: [userId], references: [id])

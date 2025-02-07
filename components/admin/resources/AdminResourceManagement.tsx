@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { FaPlus, FaTrash, FaEdit } from 'react-icons/fa';
 
@@ -11,7 +11,6 @@ type Resource = {
   type: 'PDF' | 'VIDEO' | 'ARTICLE' | 'EBOOK';
   category: string;
   fileUrl: string;
-  fileKey: string;
 };
 
 export default function AdminResourceManagement() {
@@ -26,6 +25,20 @@ export default function AdminResourceManagement() {
     file: null as File | null,
   });
 
+  useEffect(() => {
+    fetchResources();
+  }, []);
+
+  const fetchResources = async () => {
+    try {
+      const response = await fetch('/api/resources');
+      const data = await response.json();
+      setResources(data);
+    } catch (error) {
+      console.error('Error fetching resources:', error);
+    }
+  };
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       setFormData({ ...formData, file: e.target.files[0] });
@@ -38,7 +51,7 @@ export default function AdminResourceManagement() {
 
     setIsUploading(true);
     try {
-      // First, get a presigned URL from your API
+      // Get upload URL
       const presignedUrlResponse = await fetch('/api/resources/presigned-url', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -49,7 +62,7 @@ export default function AdminResourceManagement() {
       });
       const { url, fileKey } = await presignedUrlResponse.json();
 
-      // Upload file to S3
+      // Upload to S3
       await fetch(url, {
         method: 'PUT',
         body: formData.file,
@@ -58,7 +71,10 @@ export default function AdminResourceManagement() {
         },
       });
 
-      // Create resource in database
+      // Get the permanent URL
+      const fileUrl = `https://${process.env.NEXT_PUBLIC_AWS_S3_BUCKET_NAME}.s3.${process.env.NEXT_PUBLIC_AWS_REGION}.amazonaws.com/${fileKey}`;
+
+      // Save resource metadata
       const response = await fetch('/api/resources', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -67,12 +83,12 @@ export default function AdminResourceManagement() {
           description: formData.description,
           type: formData.type,
           category: formData.category,
-          fileKey,
+          fileUrl,
         }),
       });
 
       if (response.ok) {
-        router.refresh();
+        await fetchResources();
         setFormData({
           title: '',
           description: '',
@@ -97,7 +113,7 @@ export default function AdminResourceManagement() {
       });
 
       if (response.ok) {
-        router.refresh();
+        await fetchResources();
       }
     } catch (error) {
       console.error('Error deleting resource:', error);

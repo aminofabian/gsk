@@ -26,7 +26,10 @@ CREATE TYPE "ProjectStatus" AS ENUM ('PLANNED', 'ONGOING', 'COMPLETED', 'SUSPEND
 CREATE TYPE "PlanType" AS ENUM ('MONTHLY', 'ANNUAL', 'LIFETIME');
 
 -- CreateEnum
-CREATE TYPE "PaymentStatus" AS ENUM ('ACTIVE', 'PENDING', 'FAILED', 'CANCELLED', 'EXPIRED');
+CREATE TYPE "PaymentStatus" AS ENUM ('ACTIVE', 'PENDING', 'COMPLETED', 'FAILED', 'CANCELLED', 'EXPIRED');
+
+-- CreateEnum
+CREATE TYPE "ResourceType" AS ENUM ('PDF', 'VIDEO', 'ARTICLE', 'EBOOK');
 
 -- CreateTable
 CREATE TABLE "users" (
@@ -131,6 +134,13 @@ CREATE TABLE "events" (
     "venue" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
+    "capacity" INTEGER,
+    "cpdPoints" INTEGER NOT NULL DEFAULT 0,
+    "materials" JSONB DEFAULT '{}',
+    "moderators" TEXT[],
+    "objectives" TEXT[],
+    "registrationDeadline" TIMESTAMP(3),
+    "speakers" TEXT[],
 
     CONSTRAINT "events_pkey" PRIMARY KEY ("id")
 );
@@ -244,16 +254,60 @@ CREATE TABLE "subscriptions" (
 -- CreateTable
 CREATE TABLE "banners" (
     "id" TEXT NOT NULL,
-    "image" TEXT NOT NULL,
     "title" TEXT NOT NULL,
+    "image" TEXT NOT NULL,
     "link" TEXT NOT NULL,
     "cta" TEXT NOT NULL,
-    "order" INTEGER NOT NULL DEFAULT 0,
     "active" BOOLEAN NOT NULL DEFAULT true,
+    "order" INTEGER NOT NULL DEFAULT 0,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "banners_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "payments" (
+    "id" TEXT NOT NULL,
+    "amount" DOUBLE PRECISION NOT NULL,
+    "status" "PaymentStatus" NOT NULL,
+    "transactionId" TEXT NOT NULL,
+    "phoneNumber" TEXT NOT NULL,
+    "description" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "payments_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "slider_info" (
+    "id" TEXT NOT NULL,
+    "text" TEXT NOT NULL,
+    "link" TEXT,
+    "linkText" TEXT,
+    "active" BOOLEAN NOT NULL DEFAULT true,
+    "order" INTEGER NOT NULL DEFAULT 0,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "slider_info_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "resources" (
+    "id" TEXT NOT NULL,
+    "title" TEXT NOT NULL,
+    "description" TEXT NOT NULL,
+    "type" "ResourceType" NOT NULL,
+    "category" TEXT NOT NULL,
+    "fileUrl" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "userId" TEXT NOT NULL,
+
+    CONSTRAINT "resources_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -309,6 +363,15 @@ CREATE INDEX "research_projects_userId_idx" ON "research_projects"("userId");
 
 -- CreateIndex
 CREATE INDEX "subscriptions_userId_idx" ON "subscriptions"("userId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "payments_transactionId_key" ON "payments"("transactionId");
+
+-- CreateIndex
+CREATE INDEX "payments_userId_idx" ON "payments"("userId");
+
+-- CreateIndex
+CREATE INDEX "resources_userId_idx" ON "resources"("userId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "_EventAttendees_AB_unique" ON "_EventAttendees"("A", "B");
