@@ -422,6 +422,7 @@ const Navigation = () => {
       ]
     } as StandardNavItem,
     { title: 'News', link: '/news' } as StandardNavItem,
+    { title: 'Pricing', link: '/pricing' } as StandardNavItem,
     {
       title: 'Membership',
       link: '/membership',

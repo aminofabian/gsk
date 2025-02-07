@@ -22,7 +22,8 @@ export const publicRoutes = ["/",
   "/api/events",
   "/api/banners",
   "/profile/[slug]",
-  "/api/profiles/[slug]"
+  "/api/profiles/[slug]",
+  "/pricing"
 ];
 
 /*

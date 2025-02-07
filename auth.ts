@@ -13,6 +13,7 @@ export const {
   session: { strategy: "jwt" },
   events: {
     async linkAccount({ user }) {
+      // Temporarily auto-verifying email on account creation
       await db.user.update({
         where: { id: user.id },
         data: { emailVerified: new Date() },
