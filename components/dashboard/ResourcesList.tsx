@@ -110,6 +110,12 @@ export default function ResourcesList() {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                      onClick={(e) => {
+                        if (!resource.fileUrl.startsWith('http')) {
+                          e.preventDefault();
+                          console.error('Invalid file URL');
+                        }
+                      }}
                     >
                       <FaDownload className="mr-2 h-4 w-4" />
                       {resource.type === 'VIDEO' ? 'Watch' : 'Download'}
