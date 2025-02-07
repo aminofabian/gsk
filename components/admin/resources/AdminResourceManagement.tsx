@@ -129,38 +129,47 @@ export default function AdminResourceManagement() {
   return (
     <div className="max-w-7xl mx-auto space-y-8">
       {/* Add Resource Form */}
-      <form onSubmit={handleSubmit} className="bg-white p-6 rounded-xl shadow-sm space-y-6">
-        <h2 className="text-xl font-semibold text-gray-900">Add New Resource</h2>
+      <form onSubmit={handleSubmit} className="bg-white p-8 rounded-xl shadow-sm space-y-6">
+        <h2 className="text-2xl font-playfair font-semibold text-gray-900 mb-6">Add New Resource</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700">Title</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Title</label>
             <input
               type="text"
               required
               value={formData.title}
               onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-              className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+              className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm 
+                focus:border-blue-500 focus:ring-2 focus:ring-blue-200 
+                transition-colors duration-200"
+              placeholder="Enter resource title"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">Category</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
             <input
               type="text"
               required
               value={formData.category}
               onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-              className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+              className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm 
+                focus:border-blue-500 focus:ring-2 focus:ring-blue-200 
+                transition-colors duration-200"
+              placeholder="e.g., Guidelines, Research, Education"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">Type</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Type</label>
             <select
               value={formData.type}
               onChange={(e) => setFormData({ ...formData, type: e.target.value as Resource['type'] })}
-              className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+              className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm 
+                focus:border-blue-500 focus:ring-2 focus:ring-blue-200 
+                transition-colors duration-200 
+                bg-white"
             >
               <option value="PDF">PDF</option>
               <option value="VIDEO">Video</option>
@@ -170,30 +179,34 @@ export default function AdminResourceManagement() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">File</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">File</label>
             <input
               type="file"
               onChange={handleFileChange}
               required
               className="mt-1 block w-full text-sm text-gray-500
-                file:mr-4 file:py-2 file:px-4
+                file:mr-4 file:py-2.5 file:px-4
                 file:rounded-lg file:border-0
-                file:text-sm file:font-semibold
+                file:text-sm file:font-medium
                 file:bg-blue-50 file:text-blue-700
                 hover:file:bg-blue-100
-                focus:outline-none"
+                focus:outline-none
+                transition-colors duration-200"
             />
           </div>
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">Description</label>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
           <textarea
             required
             value={formData.description}
             onChange={(e) => setFormData({ ...formData, description: e.target.value })}
             rows={3}
-            className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+            className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm 
+              focus:border-blue-500 focus:ring-2 focus:ring-blue-200 
+              transition-colors duration-200"
+            placeholder="Provide a brief description of the resource"
           />
         </div>
 
@@ -201,7 +214,12 @@ export default function AdminResourceManagement() {
           <button
             type="submit"
             disabled={isUploading}
-            className="inline-flex items-center px-4 py-2 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="inline-flex items-center px-6 py-2.5 border border-transparent 
+              rounded-lg shadow-sm text-sm font-medium text-white 
+              bg-blue-600 hover:bg-blue-700 
+              focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 
+              disabled:opacity-50 disabled:cursor-not-allowed
+              transition-colors duration-200"
           >
             {isUploading ? (
               <>
@@ -222,27 +240,28 @@ export default function AdminResourceManagement() {
       </form>
 
       {/* Resources List */}
-      <div className="bg-white p-6 rounded-xl shadow-sm">
-        <h2 className="text-xl font-semibold text-gray-900 mb-6">Existing Resources</h2>
+      <div className="bg-white p-8 rounded-xl shadow-sm">
+        <h2 className="text-2xl font-playfair font-semibold text-gray-900 mb-8">Existing Resources</h2>
         <div className="space-y-4">
           {resources.map((resource) => (
             <div
               key={resource.id}
-              className="flex items-start justify-between p-4 rounded-lg border border-gray-200 hover:shadow-md transition-shadow"
+              className="flex items-start justify-between p-6 rounded-lg border border-gray-200 
+                hover:shadow-md transition-all duration-200 hover:border-blue-100"
             >
               <div className="flex-1">
                 <h3 className="font-medium text-gray-900">{resource.title}</h3>
                 <p className="mt-1 text-sm text-gray-600">{resource.description}</p>
                 <div className="mt-2 flex items-center gap-2">
-                  <span className="px-2 py-1 text-xs font-medium bg-gray-100 text-gray-600 rounded-full">
+                  <span className="px-3 py-1 text-xs font-medium bg-blue-50 text-blue-700 rounded-full">
                     {resource.type}
                   </span>
-                  <span className="px-2 py-1 text-xs font-medium bg-blue-50 text-blue-600 rounded-full">
+                  <span className="px-3 py-1 text-xs font-medium bg-gray-100 text-gray-600 rounded-full">
                     {resource.category}
                   </span>
                 </div>
               </div>
-              <div className="flex items-center gap-2 ml-4">
+              <div className="flex items-center gap-3 ml-4">
                 <a
                   href={resource.fileUrl}
                   target="_blank"
@@ -255,7 +274,8 @@ export default function AdminResourceManagement() {
                 <button
                   onClick={() => handleDelete(resource.id)}
                   disabled={isDeleting === resource.id}
-                  className="p-2 text-red-600 hover:bg-red-50 rounded-full transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="p-2 text-red-600 hover:bg-red-50 rounded-full 
+                    transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   title="Delete"
                 >
                   {isDeleting === resource.id ? (
