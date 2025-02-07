@@ -75,16 +75,14 @@ const Footer = () => {
             <div className="space-y-3 text-base text-white/90">
               <p className="flex items-center gap-2">
                 <FaMapMarkerAlt className="text-white/70" />
-                KMA Centre, Upper Hill, Nairobi
+                2nd floor of ACS Plaza, Lenana road, Kilimani Nairobi.
               </p>
               <p className="flex items-center gap-2">
                 <FaPhone className="text-white/70" />
-                +254 123 456 789
-              </p>
+                (254) 704 373 746              </p>
               <p className="flex items-center gap-2">
                 <FaEnvelope className="text-white/70" />
-                info@gastro.or.ke
-              </p>
+                secretatygsk@gmail.com              </p>
             </div>
           </motion.div>
         </div>
