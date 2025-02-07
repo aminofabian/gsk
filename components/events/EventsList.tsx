@@ -43,6 +43,8 @@ interface Event {
   capacity?: number | null;
   registrationDeadline?: string | null;
   materials?: Record<string, string> | null;
+  memberPrice?: number | null;
+  nonMemberPrice?: number | null;
   attendees: Array<{
     id: string;
     firstName: string;
@@ -246,19 +248,34 @@ export default function EventsList() {
                       </div>
                       <p className="text-gray-600 mb-4">{event.description}</p>
                     </div>
-                    <TooltipProvider>
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <Badge variant="secondary" className="whitespace-nowrap">
-                            <Award className="w-4 h-4 mr-1" />
-                            {event.cpdPoints} CPD Points
+                    <div className="flex flex-col items-end gap-2">
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <Badge variant="secondary" className="whitespace-nowrap">
+                              <Award className="w-4 h-4 mr-1" />
+                              {event.cpdPoints} CPD Points
+                            </Badge>
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>Continuing Professional Development Points</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+                      <div className="flex flex-col items-end gap-2 mt-1">
+                        <span className="text-sm font-medium text-gray-600">Registration Fee</span>
+                        <div className="flex flex-col gap-1.5">
+                          <Badge variant="outline" className="border-blue-200 bg-blue-50 text-blue-700 px-3 py-1.5 text-sm font-medium">
+                            <span className="opacity-75 mr-2">Members:</span>
+                            KES {event.memberPrice?.toLocaleString() ?? '0'}
                           </Badge>
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          <p>Continuing Professional Development Points</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </TooltipProvider>
+                          <Badge variant="outline" className="border-orange-200 bg-orange-50 text-orange-700 px-3 py-1.5 text-sm font-medium">
+                            <span className="opacity-75 mr-2">Non-Members:</span>
+                            KES {event.nonMemberPrice?.toLocaleString() ?? '0'}
+                          </Badge>
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">

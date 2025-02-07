@@ -59,6 +59,8 @@ interface Event {
   capacity?: number | null;
   registrationDeadline?: string | null;
   materials?: Record<string, any> | null;
+  memberPrice?: number | null;
+  nonMemberPrice?: number | null;
   attendees: Array<{
     id: string;
     firstName: string;
@@ -81,6 +83,8 @@ type FormValues = {
   capacity?: number | null;
   registrationDeadline?: string | null;
   materials?: File[];
+  memberPrice?: number | null;
+  nonMemberPrice?: number | null;
 };
 
 const ACCEPTED_FILE_TYPES = {
@@ -116,6 +120,8 @@ const formSchema = z.object({
   capacity: z.number().nullable().optional(),
   registrationDeadline: z.string().nullable().optional(),
   materials: z.array(z.custom<File>()).optional(),
+  memberPrice: z.number().nullable().optional(),
+  nonMemberPrice: z.number().nullable().optional(),
 });
 
 export default function EventManagement() {
@@ -143,6 +149,8 @@ export default function EventManagement() {
       capacity: null,
       registrationDeadline: null,
       materials: [],
+      memberPrice: 0,
+      nonMemberPrice: 0,
     },
   });
 
@@ -166,6 +174,8 @@ export default function EventManagement() {
         capacity: selectedEvent.capacity,
         registrationDeadline: selectedEvent.registrationDeadline,
         materials: selectedEvent.materials as File[],
+        memberPrice: selectedEvent.memberPrice || 0,
+        nonMemberPrice: selectedEvent.nonMemberPrice || 0,
       });
     } else {
       form.reset({
@@ -182,6 +192,8 @@ export default function EventManagement() {
         capacity: null,
         registrationDeadline: null,
         materials: [],
+        memberPrice: 0,
+        nonMemberPrice: 0,
       });
     }
   }, [selectedEvent, form]);
@@ -229,6 +241,8 @@ export default function EventManagement() {
       formData.append("moderators", JSON.stringify(values.moderators));
       if (values.capacity) formData.append("capacity", values.capacity.toString());
       if (values.registrationDeadline) formData.append("registrationDeadline", values.registrationDeadline);
+      formData.append("memberPrice", (values.memberPrice ?? 0).toString());
+      formData.append("nonMemberPrice", (values.nonMemberPrice ?? 0).toString());
 
       // Handle file uploads
       const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
@@ -460,19 +474,17 @@ export default function EventManagement() {
                 <div className="grid grid-cols-2 gap-6">
                   <FormField
                     control={form.control}
-                    name="capacity"
+                    name="memberPrice"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-sm font-semibold">Capacity (optional)</FormLabel>
+                        <FormLabel className="text-sm font-semibold">Member Price (KES)</FormLabel>
                         <FormControl>
                           <Input 
                             type="number"
                             className="h-10"
-                            value={field.value || ''}
-                            onChange={(e) => {
-                              const value = e.target.value ? parseInt(e.target.value) : null;
-                              field.onChange(value);
-                            }}
+                            {...field} 
+                            onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)}
+                            value={field.value ?? ''}
                           />
                         </FormControl>
                         <FormMessage />
@@ -481,16 +493,17 @@ export default function EventManagement() {
                   />
                   <FormField
                     control={form.control}
-                    name="registrationDeadline"
+                    name="nonMemberPrice"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-sm font-semibold">Registration Deadline</FormLabel>
+                        <FormLabel className="text-sm font-semibold">Non-Member Price (KES)</FormLabel>
                         <FormControl>
                           <Input 
-                            type="datetime-local"
+                            type="number"
                             className="h-10"
-                            value={field.value || ''}
-                            onChange={(e) => field.onChange(e.target.value || null)}
+                            {...field} 
+                            onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)}
+                            value={field.value ?? ''}
                           />
                         </FormControl>
                         <FormMessage />
@@ -737,6 +750,8 @@ export default function EventManagement() {
               <TableHead className="font-semibold">End Date</TableHead>
               <TableHead className="font-semibold">Venue</TableHead>
               <TableHead className="font-semibold">CPD Points</TableHead>
+              <TableHead className="font-semibold">Member Price</TableHead>
+              <TableHead className="font-semibold">Non-Member Price</TableHead>
               <TableHead className="font-semibold">Speakers</TableHead>
               <TableHead className="font-semibold">Moderators</TableHead>
               <TableHead className="font-semibold">Capacity</TableHead>
@@ -763,6 +778,16 @@ export default function EventManagement() {
                 <TableCell>
                   <span className="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/10">
                     {event.cpdPoints} points
+                  </span>
+                </TableCell>
+                <TableCell>
+                  <span className="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
+                    KES {event.memberPrice?.toLocaleString() ?? '0'}
+                  </span>
+                </TableCell>
+                <TableCell>
+                  <span className="inline-flex items-center rounded-md bg-orange-50 px-2 py-1 text-xs font-medium text-orange-700 ring-1 ring-inset ring-orange-700/10">
+                    KES {event.nonMemberPrice?.toLocaleString() ?? '0'}
                   </span>
                 </TableCell>
                 <TableCell className="max-w-[200px] truncate" title={event.speakers.join(", ")}>

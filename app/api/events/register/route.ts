@@ -3,21 +3,21 @@ import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { z } from "zod";
 
-const registerSchema = z.object({
-  eventId: z.string(),
-});
-
-export async function POST(request: Request) {
+export async function POST(req: Request) {
   try {
+    // Get the authenticated user
     const session = await auth();
     if (!session?.user) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    const body = await request.json();
-    const { eventId } = registerSchema.parse(body);
+    // Parse and validate the request body
+    const body = await req.json();
+    const { eventId } = z.object({
+      eventId: z.string().min(1, "Event ID is required"),
+    }).parse(body);
 
-    // First check if the user exists
+    // Check if user exists
     const user = await db.user.findUnique({
       where: { id: session.user.id }
     });
@@ -26,14 +26,12 @@ export async function POST(request: Request) {
       return new NextResponse("User not found", { status: 404 });
     }
 
-    // Check if event exists and get its current state
+    // Check if event exists and get its details
     const event = await db.event.findUnique({
       where: { id: eventId },
       include: {
         attendees: {
-          select: {
-            id: true
-          }
+          select: { id: true }
         }
       }
     });
@@ -47,7 +45,7 @@ export async function POST(request: Request) {
       return new NextResponse("Registration is closed for this event", { status: 400 });
     }
 
-    // Check if event is full
+    // Check if event is at capacity
     if (event.capacity && event.attendees.length >= event.capacity) {
       return new NextResponse("Event is at full capacity", { status: 400 });
     }
@@ -62,21 +60,26 @@ export async function POST(request: Request) {
     }
 
     // Register user for the event
-    await db.event.update({
+    const updatedEvent = await db.event.update({
       where: { id: eventId },
       data: {
         attendees: {
-          connect: { id: user.id }
+          connect: { id: session.user.id }
         }
+      },
+      include: {
+        attendees: true
       }
     });
 
     return NextResponse.json({
-      message: "Successfully registered for the event"
+      message: "Successfully registered for the event",
+      event: updatedEvent
     });
+
   } catch (error) {
-    console.error("[EVENT_REGISTRATION]", error);
-    
+    console.error("[EVENT_REGISTRATION_ERROR]", error);
+
     if (error instanceof z.ZodError) {
       return new NextResponse("Invalid request data", { status: 400 });
     }

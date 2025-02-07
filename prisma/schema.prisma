@@ -129,6 +129,8 @@ model Event {
   objectives           String[]
   registrationDeadline DateTime?
   speakers             String[]
+  memberPrice          Float?    @default(0)
+  nonMemberPrice       Float?    @default(0)
   attendees            User[]    @relation("EventAttendees")
   organizers           User[]    @relation("EventOrganizers")
 
