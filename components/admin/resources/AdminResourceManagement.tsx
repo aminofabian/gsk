@@ -141,7 +141,7 @@ export default function AdminResourceManagement() {
               value={formData.title}
               onChange={(e) => setFormData({ ...formData, title: e.target.value })}
               className="mt-1 block w-full rounded-lg bg-gray-50 shadow-sm 
-                focus:ring-2 focus:ring-blue-200 focus:bg-white
+                focus:ring-2 focus:ring-emerald-200 focus:bg-white
                 transition-all duration-200 outline-none border-0
                 px-4 py-2.5"
               placeholder="Enter resource title"
@@ -156,7 +156,7 @@ export default function AdminResourceManagement() {
               value={formData.category}
               onChange={(e) => setFormData({ ...formData, category: e.target.value })}
               className="mt-1 block w-full rounded-lg bg-gray-50 shadow-sm 
-                focus:ring-2 focus:ring-blue-200 focus:bg-white
+                focus:ring-2 focus:ring-emerald-200 focus:bg-white
                 transition-all duration-200 outline-none border-0
                 px-4 py-2.5"
               placeholder="e.g., Guidelines, Research, Education"
@@ -169,7 +169,7 @@ export default function AdminResourceManagement() {
               value={formData.type}
               onChange={(e) => setFormData({ ...formData, type: e.target.value as Resource['type'] })}
               className="mt-1 block w-full rounded-lg bg-gray-50 shadow-sm 
-                focus:ring-2 focus:ring-blue-200 focus:bg-white
+                focus:ring-2 focus:ring-emerald-200 focus:bg-white
                 transition-all duration-200 outline-none border-0
                 px-4 py-2.5 appearance-none"
               style={{ 
@@ -196,9 +196,9 @@ export default function AdminResourceManagement() {
                 file:mr-4 file:py-2.5 file:px-4
                 file:rounded-lg file:border-0
                 file:text-sm file:font-medium
-                file:bg-gradient-to-r file:from-blue-50 file:to-blue-100
-                file:text-blue-700
-                hover:file:bg-gradient-to-r hover:file:from-blue-100 hover:file:to-blue-200
+                file:bg-gradient-to-r file:from-emerald-50 file:to-emerald-100
+                file:text-emerald-700
+                hover:file:bg-gradient-to-r hover:file:from-emerald-100 hover:file:to-emerald-200
                 focus:outline-none
                 transition-all duration-200"
             />
@@ -213,7 +213,7 @@ export default function AdminResourceManagement() {
             onChange={(e) => setFormData({ ...formData, description: e.target.value })}
             rows={3}
             className="mt-1 block w-full rounded-lg bg-gray-50 shadow-sm 
-              focus:ring-2 focus:ring-blue-200 focus:bg-white
+              focus:ring-2 focus:ring-emerald-200 focus:bg-white
               transition-all duration-200 outline-none border-0
               px-4 py-2.5"
             placeholder="Provide a brief description of the resource"
@@ -226,9 +226,9 @@ export default function AdminResourceManagement() {
             disabled={isUploading}
             className="inline-flex items-center px-6 py-2.5
               rounded-lg shadow-sm text-sm font-medium text-white 
-              bg-gradient-to-r from-blue-600 to-blue-700
-              hover:from-blue-700 hover:to-blue-800
-              focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 
+              bg-gradient-to-r from-emerald-600 to-emerald-700
+              hover:from-emerald-700 hover:to-emerald-800
+              focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 
               disabled:opacity-50 disabled:cursor-not-allowed
               transition-all duration-200 transform hover:scale-[1.02]"
           >
@@ -259,13 +259,13 @@ export default function AdminResourceManagement() {
               key={resource.id}
               className="flex items-start justify-between p-6 rounded-lg bg-gradient-to-r from-white to-gray-50
                 hover:shadow-md transition-all duration-200 transform hover:scale-[1.01]
-                hover:from-blue-50 hover:to-white"
+                hover:from-emerald-50 hover:to-white"
             >
               <div className="flex-1">
                 <h3 className="font-medium text-gray-900">{resource.title}</h3>
                 <p className="mt-1 text-sm text-gray-600">{resource.description}</p>
                 <div className="mt-2 flex items-center gap-2">
-                  <span className="px-3 py-1 text-xs font-medium bg-gradient-to-r from-blue-50 to-blue-100 text-blue-700 rounded-full">
+                  <span className="px-3 py-1 text-xs font-medium bg-gradient-to-r from-emerald-50 to-emerald-100 text-emerald-700 rounded-full">
                     {resource.type}
                   </span>
                   <span className="px-3 py-1 text-xs font-medium bg-gradient-to-r from-gray-50 to-gray-100 text-gray-600 rounded-full">
@@ -278,7 +278,7 @@ export default function AdminResourceManagement() {
                   href={resource.fileUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2 text-blue-600 hover:bg-blue-50 rounded-full transition-all duration-200
+                  className="p-2 text-emerald-600 hover:bg-emerald-50 rounded-full transition-all duration-200
                     hover:scale-110 hover:shadow-sm"
                   title="Download"
                 >
