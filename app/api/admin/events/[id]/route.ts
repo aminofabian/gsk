@@ -14,31 +14,41 @@ export async function PATCH(
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    const body = await req.json();
-    const { 
-      title, 
-      description, 
-      type, 
-      startDate, 
-      endDate, 
-      venue,
-      objectives,
-      cpdPoints,
-      speakers,
-      moderators,
-      capacity,
-      registrationDeadline,
-      materials,
-      memberPrice,
-      nonMemberPrice
-    } = body;
+    const formData = await req.formData();
+    
+    // Parse the form data
+    const title = formData.get('title') as string;
+    const description = formData.get('description') as string;
+    const type = formData.get('type') as EventType;
+    const startDate = formData.get('startDate') as string;
+    const endDate = formData.get('endDate') as string;
+    const venue = formData.get('venue') as string;
+    const objectives = JSON.parse(formData.get('objectives') as string);
+    const cpdPoints = parseInt(formData.get('cpdPoints') as string) || 0;
+    const speakers = JSON.parse(formData.get('speakers') as string);
+    const moderators = JSON.parse(formData.get('moderators') as string);
+    const capacity = formData.get('capacity') ? parseInt(formData.get('capacity') as string) : null;
+    const registrationDeadline = formData.get('registrationDeadline') as string;
+    const materials = formData.get('materials') ? JSON.parse(formData.get('materials') as string) : {};
+
+    // Parse price values
+    const memberPriceStr = formData.get('memberPrice') as string;
+    const nonMemberPriceStr = formData.get('nonMemberPrice') as string;
+    
+    // Convert prices to numbers or null
+    const memberPrice = memberPriceStr === 'null' || memberPriceStr === '' ? null : parseFloat(memberPriceStr);
+    const nonMemberPrice = nonMemberPriceStr === 'null' || nonMemberPriceStr === '' ? null : parseFloat(nonMemberPriceStr);
 
     if (!title || !description || !type || !startDate || !endDate || !venue || !objectives) {
       return new NextResponse("Missing required fields", { status: 400 });
     }
 
-    if (typeof memberPrice !== 'number' || typeof nonMemberPrice !== 'number') {
-      return new NextResponse("Pricing must be numeric values", { status: 400 });
+    // Validate prices
+    if (memberPrice !== null && (isNaN(memberPrice) || memberPrice < 0)) {
+      return new NextResponse("Invalid member price", { status: 400 });
+    }
+    if (nonMemberPrice !== null && (isNaN(nonMemberPrice) || nonMemberPrice < 0)) {
+      return new NextResponse("Invalid non-member price", { status: 400 });
     }
 
     const event = await db.event.update({
@@ -53,14 +63,14 @@ export async function PATCH(
         endDate: new Date(endDate),
         venue,
         objectives,
-        cpdPoints: cpdPoints || 0,
-        speakers: speakers || [],
-        moderators: moderators || [],
+        cpdPoints,
+        speakers,
+        moderators,
         capacity,
         registrationDeadline: registrationDeadline ? new Date(registrationDeadline) : null,
-        materials: materials || {},
-        memberPrice: memberPrice ?? null,
-        nonMemberPrice: nonMemberPrice ?? null,
+        materials,
+        memberPrice,
+        nonMemberPrice
       },
     });
 

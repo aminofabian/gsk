@@ -241,8 +241,10 @@ export default function EventManagement() {
       formData.append("moderators", JSON.stringify(values.moderators));
       if (values.capacity) formData.append("capacity", values.capacity.toString());
       if (values.registrationDeadline) formData.append("registrationDeadline", values.registrationDeadline);
-      formData.append("memberPrice", values.memberPrice?.toString() ?? "null");
-      formData.append("nonMemberPrice", values.nonMemberPrice?.toString() ?? "null");
+      
+      // Handle price fields - explicitly handle null values
+      formData.append("memberPrice", values.memberPrice === null ? 'null' : values.memberPrice.toString());
+      formData.append("nonMemberPrice", values.nonMemberPrice === null ? 'null' : values.nonMemberPrice.toString());
 
       // Handle file uploads
       const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
@@ -482,12 +484,13 @@ export default function EventManagement() {
                           <Input 
                             type="number"
                             className="h-10"
+                            placeholder="Enter amount"
                             {...field} 
                             onChange={(e) => {
-                              const value = parseFloat(e.target.value);
-                              field.onChange(isNaN(value) ? null : value);
+                              const value = e.target.value === '' ? null : parseFloat(e.target.value);
+                              field.onChange(value);
                             }}
-                            value={field.value ?? ''}
+                            value={field.value === null ? '' : field.value}
                           />
                         </FormControl>
                         <FormMessage />
@@ -504,12 +507,13 @@ export default function EventManagement() {
                           <Input 
                             type="number"
                             className="h-10"
+                            placeholder="Enter amount"
                             {...field} 
                             onChange={(e) => {
-                              const value = parseFloat(e.target.value);
-                              field.onChange(isNaN(value) ? null : value);
+                              const value = e.target.value === '' ? null : parseFloat(e.target.value);
+                              field.onChange(value);
                             }}
-                            value={field.value ?? ''}
+                            value={field.value === null ? '' : field.value}
                           />
                         </FormControl>
                         <FormMessage />

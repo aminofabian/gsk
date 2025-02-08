@@ -78,8 +78,24 @@ export async function POST(req: Request) {
     const capacity = formData.get("capacity") ? Number(formData.get("capacity")) : null;
     const registrationDeadline = formData.get("registrationDeadline") as string;
 
+    // Parse price values
+    const memberPriceStr = formData.get('memberPrice') as string;
+    const nonMemberPriceStr = formData.get('nonMemberPrice') as string;
+    
+    // Convert prices to numbers or null
+    const memberPrice = memberPriceStr === 'null' || memberPriceStr === '' ? null : parseFloat(memberPriceStr);
+    const nonMemberPrice = nonMemberPriceStr === 'null' || nonMemberPriceStr === '' ? null : parseFloat(nonMemberPriceStr);
+
     if (!title || !description || !type || !startDate || !endDate || !venue || !objectives) {
       return new NextResponse("Missing required fields", { status: 400 });
+    }
+
+    // Validate prices
+    if (memberPrice !== null && (isNaN(memberPrice) || memberPrice < 0)) {
+      return new NextResponse("Invalid member price", { status: 400 });
+    }
+    if (nonMemberPrice !== null && (isNaN(nonMemberPrice) || nonMemberPrice < 0)) {
+      return new NextResponse("Invalid non-member price", { status: 400 });
     }
 
     // Handle file uploads with validation
@@ -117,6 +133,8 @@ export async function POST(req: Request) {
         capacity,
         registrationDeadline: registrationDeadline ? new Date(registrationDeadline) : null,
         materials,
+        memberPrice,
+        nonMemberPrice,
       },
     });
 
