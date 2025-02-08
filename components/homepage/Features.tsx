@@ -1,23 +1,45 @@
 "use client"
 
 import { useState, useEffect } from 'react';
+import { useSession } from "next-auth/react";
+import { useToast } from "@/components/ui/use-toast";
+import EventRegistrationModal from "@/components/events/EventRegistrationModal";
 import Link from 'next/link';
-import { EventType } from '@prisma/client';
 
 interface Event {
   id: string;
   title: string;
   description: string;
-  type: EventType;
+  type: "CONFERENCE" | "WORKSHOP" | "SEMINAR" | "MEETING";
   startDate: string;
   endDate: string;
   venue: string;
+  objectives: string[];
   cpdPoints: number;
+  speakers: string[];
+  moderators: string[];
+  capacity?: number | null;
+  registrationDeadline?: string | null;
+  materials?: Record<string, any> | null;
+  memberPrice?: number | null;
+  nonMemberPrice?: number | null;
+  attendees: Array<{
+    id: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+  }>;
 }
 
 const Features = () => {
   const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState<string | null>(null);
+  const [showRegistrationModal, setShowRegistrationModal] = useState(false);
+  const [selectedEventId, setSelectedEventId] = useState<string | null>(null);
+  
+  const { data: session } = useSession();
+  const { toast } = useToast();
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -27,13 +49,101 @@ const Features = () => {
         setEvents(data);
       } catch (error) {
         console.error('Error fetching events:', error);
+        toast({
+          title: "Error",
+          description: "Failed to fetch events",
+          variant: "destructive",
+        });
       } finally {
         setLoading(false);
       }
     };
 
     fetchEvents();
-  }, []);
+  }, [toast]);
+
+  const handleRegister = async (eventId: string) => {
+    if (!session) {
+      setSelectedEventId(eventId);
+      setShowRegistrationModal(true);
+      return;
+    }
+
+    try {
+      setIsLoading(eventId);
+      const response = await fetch("/api/events/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ eventId }),
+      });
+
+      if (!response.ok) {
+        const error = await response.text();
+        throw new Error(error);
+      }
+
+      toast({
+        title: "Success",
+        description: "Successfully registered for the event",
+      });
+
+      const updatedResponse = await fetch('/api/events');
+      const updatedData = await updatedResponse.json();
+      setEvents(updatedData);
+    } catch (error) {
+      console.error("[EVENT_REGISTRATION_ERROR]", error);
+      toast({
+        title: "Error",
+        description: error instanceof Error ? error.message : "Failed to register for event",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(null);
+    }
+  };
+
+  const handleGuestRegistration = async (formData: any) => {
+    if (!selectedEventId) return;
+
+    try {
+      setIsLoading(selectedEventId);
+      const response = await fetch("/api/events/register-guest", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          eventId: selectedEventId,
+          ...formData
+        }),
+      });
+
+      if (!response.ok) {
+        const error = await response.text();
+        throw new Error(error);
+      }
+
+      toast({
+        title: "Success",
+        description: "Successfully registered for the event. Please check your email for payment instructions.",
+      });
+
+      setShowRegistrationModal(false);
+      const updatedResponse = await fetch('/api/events');
+      const updatedData = await updatedResponse.json();
+      setEvents(updatedData);
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: error instanceof Error ? error.message : "Failed to register for event",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(null);
+    }
+  };
 
   const features = [
     {
@@ -144,79 +254,119 @@ const Features = () => {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row justify-center gap-8 p-4 sm:p-8 bg-white">
-      {/* Why Join GSK Card */}
-      <div className="w-full lg:w-[500px] bg-[#003366] GSK p-6 sm:p-8">
-        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6 gap-4">
-          <h2 className="text-xl sm:text-2xl text-white">Why Join GSK?</h2>
-          <span className="text-sm text-white bg-white/10 px-3 py-1 rounded inline-block">Premium Benefits</span>
-        </div>
-        <div className="space-y-6">
-          {memberBenefits.map((benefit, index) => (
-            <div key={index} className="flex items-start sm:items-center gap-4">
-              <div className="w-5 h-5 mt-1 sm:mt-0 flex-shrink-0">
-                {benefit.icon}
+    <>
+      <div className="flex flex-col lg:flex-row justify-center gap-8 p-4 sm:p-8 bg-white">
+        {/* Why Join GSK Card */}
+        <div className="w-full lg:w-[500px] bg-[#003366] GSK p-6 sm:p-8">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6 gap-4">
+            <h2 className="text-xl sm:text-2xl text-white">Why Join GSK?</h2>
+            <span className="text-sm text-white bg-white/10 px-3 py-1 rounded inline-block">Premium Benefits</span>
+          </div>
+          <div className="space-y-6">
+            {memberBenefits.map((benefit, index) => (
+              <div key={index} className="flex items-start sm:items-center gap-4">
+                <div className="w-5 h-5 mt-1 sm:mt-0 flex-shrink-0">
+                  {benefit.icon}
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-white text-base sm:text-lg font-medium">{benefit.title}</h3>
+                  <p className="text-white/70 text-sm break-words">{benefit.description}</p>
+                </div>
               </div>
-              <div className="flex-1">
-                <h3 className="text-white text-base sm:text-lg font-medium">{benefit.title}</h3>
-                <p className="text-white/70 text-sm break-words">{benefit.description}</p>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
+          <Link href="/join" className="inline-block mt-8 px-6 py-2 bg-[#40e0d0]/20 text-white rounded hover:bg-[#40e0d0]/30 transition-colors">
+            Join Now →
+          </Link>
         </div>
-        <Link href="/join" className="inline-block mt-8 px-6 py-2 bg-[#40e0d0]/20 text-white rounded hover:bg-[#40e0d0]/30 transition-colors">
-          Join Now →
-        </Link>
+
+        {/* Upcoming Events Card */}
+        <div className="w-full lg:w-[500px] bg-white GSK p-6 sm:p-8 shadow-lg">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6 gap-4">
+            <h2 className="text-xl sm:text-2xl text-[#003366]">Upcoming CPD Events</h2>
+            <span className="text-sm text-[#003366] bg-[#003366]/10 px-3 py-1 rounded inline-block">Earn Points</span>
+          </div>
+          <div className="space-y-6">
+            {loading ? (
+              <div className="text-center py-4">Loading events...</div>
+            ) : events.length === 0 ? (
+              <div className="text-center py-4">No upcoming events</div>
+            ) : (
+              events.slice(0, 3).map((event) => {
+                const { date, month } = formatDate(event.startDate);
+                const isRegistered = session ? event.attendees?.some(
+                  (attendee) => attendee.id === session?.user?.id
+                ) : false;
+                const isRegistrationClosed = event.registrationDeadline 
+                  ? new Date(event.registrationDeadline) < new Date() 
+                  : false;
+                const isFull = event.capacity 
+                  ? event.attendees?.length >= event.capacity 
+                  : false;
+
+                return (
+                  <div key={event.id} className="flex items-start gap-4">
+                    <div className="text-center w-14 sm:w-16 flex-shrink-0">
+                      <div className="text-xl sm:text-2xl font-bold text-[#003366]">{date}</div>
+                      <div className="text-sm text-[#003366]/70">{month}</div>
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <h3 className="text-base sm:text-lg font-medium text-[#003366] break-words">{event.title}</h3>
+                      <p className="text-[#003366]/70 text-sm mb-2 break-words">{event.venue}</p>
+                      <div className="flex flex-wrap gap-2 mb-2">
+                        <span className="text-xs px-2 py-1 bg-[#003366]/10 text-[#003366]/70 rounded">
+                          {event.type}
+                        </span>
+                        <span className="text-xs px-2 py-1 bg-[#003366]/10 text-[#003366]/70 rounded">
+                          {event.cpdPoints} CPD Points
+                        </span>
+                      </div>
+                      <button
+                        onClick={() => handleRegister(event.id)}
+                        disabled={isLoading === event.id || isRegistered || isRegistrationClosed || isFull}
+                        className={`inline-block text-sm px-3 py-1 rounded transition-colors ${
+                          isRegistered 
+                            ? "bg-green-600 text-white hover:bg-green-700"
+                            : isRegistrationClosed || isFull
+                            ? "bg-gray-300 text-gray-600 cursor-not-allowed"
+                            : "bg-[#40e0d0]/20 text-[#003366] hover:bg-[#40e0d0]/30"
+                        }`}
+                      >
+                        {isLoading === event.id ? (
+                          "Registering..."
+                        ) : isRegistered ? (
+                          "Registered"
+                        ) : isRegistrationClosed ? (
+                          "Registration Closed"
+                        ) : isFull ? (
+                          "Event Full"
+                        ) : (
+                          "Register Now →"
+                        )}
+                      </button>
+                    </div>
+                  </div>
+                );
+              })
+            )}
+          </div>
+          <Link href="/events" className="inline-block mt-4 text-[#003366] hover:underline">
+            View All Events →
+          </Link>
+        </div>
       </div>
 
-      {/* Upcoming Events Card */}
-      <div className="w-full lg:w-[500px] bg-white GSK p-6 sm:p-8 shadow-lg">
-        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6 gap-4">
-          <h2 className="text-xl sm:text-2xl text-[#003366]">Upcoming CPD Events</h2>
-          <span className="text-sm text-[#003366] bg-[#003366]/10 px-3 py-1 rounded inline-block">Earn Points</span>
-        </div>
-        <div className="space-y-6">
-          {loading ? (
-            <div className="text-center py-4">Loading events...</div>
-          ) : events.length === 0 ? (
-            <div className="text-center py-4">No upcoming events</div>
-          ) : (
-            events.slice(0, 3).map((event) => {
-              const { date, month } = formatDate(event.startDate);
-              return (
-                <div key={event.id} className="flex items-start gap-4">
-                  <div className="text-center w-14 sm:w-16 flex-shrink-0">
-                    <div className="text-xl sm:text-2xl font-bold text-[#003366]">{date}</div>
-                    <div className="text-sm text-[#003366]/70">{month}</div>
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <h3 className="text-base sm:text-lg font-medium text-[#003366] break-words">{event.title}</h3>
-                    <p className="text-[#003366]/70 text-sm mb-2 break-words">{event.venue}</p>
-                    <div className="flex flex-wrap gap-2 mb-2">
-                      <span className="text-xs px-2 py-1 bg-[#003366]/10 text-[#003366]/70 rounded">
-                        {event.type}
-                      </span>
-                      <span className="text-xs px-2 py-1 bg-[#003366]/10 text-[#003366]/70 rounded">
-                        {event.cpdPoints} CPD Points
-                      </span>
-                    </div>
-                    <Link 
-                      href={`/events/register/${event.id}`}
-                      className="inline-block text-sm px-3 py-1 bg-[#40e0d0]/20 text-[#003366] rounded hover:bg-[#40e0d0]/30 transition-colors"
-                    >
-                      Register Now →
-                    </Link>
-                  </div>
-                </div>
-              );
-            })
-          )}
-        </div>
-        <Link href="/events" className="inline-block mt-4 text-[#003366] hover:underline">
-          View All Events →
-        </Link>
-      </div>
-    </div>
+      <EventRegistrationModal
+        isOpen={showRegistrationModal}
+        onClose={() => {
+          setShowRegistrationModal(false);
+          setSelectedEventId(null);
+        }}
+        onSubmit={handleGuestRegistration}
+        isLoading={false}
+        eventTitle={events.find(e => e.id === selectedEventId)?.title || ''}
+      />
+    </>
   );
 };
 
