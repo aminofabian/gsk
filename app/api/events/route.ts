@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export async function GET() {
   try {
     console.log("[EVENTS_API] Starting to fetch events");
@@ -43,6 +46,7 @@ export async function GET() {
       status: 200,
       headers: {
         'Content-Type': 'application/json',
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
       },
     });
   } catch (error) {
@@ -58,6 +62,7 @@ export async function GET() {
         status: 500,
         headers: {
           'Content-Type': 'application/json',
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
         }
       }
     );

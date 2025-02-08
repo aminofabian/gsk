@@ -47,20 +47,38 @@ const Features = () => {
         const response = await fetch('/api/events');
         const data = await response.json();
         setEvents(data);
+        setLoading(false);
       } catch (error) {
         console.error('Error fetching events:', error);
-        toast({
-          title: "Error",
-          description: "Failed to fetch events",
-          variant: "destructive",
-        });
-      } finally {
         setLoading(false);
       }
     };
 
+    // Initial fetch
     fetchEvents();
-  }, [toast]);
+
+    // Set up SSE connection
+    const eventSource = new EventSource('/api/events/sse');
+
+    eventSource.onmessage = (event) => {
+      try {
+        const updatedEvents = JSON.parse(event.data);
+        setEvents(updatedEvents);
+      } catch (error) {
+        console.error('Error parsing SSE data:', error);
+      }
+    };
+
+    eventSource.onerror = (error) => {
+      console.error('SSE connection error:', error);
+      eventSource.close();
+    };
+
+    // Cleanup on unmount
+    return () => {
+      eventSource.close();
+    };
+  }, []);
 
   const handleRegister = async (eventId: string) => {
     if (!session) {
