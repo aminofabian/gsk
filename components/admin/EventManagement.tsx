@@ -149,8 +149,8 @@ export default function EventManagement() {
       capacity: null,
       registrationDeadline: null,
       materials: [],
-      memberPrice: 0,
-      nonMemberPrice: 0,
+      memberPrice: null,
+      nonMemberPrice: null,
     },
   });
 
@@ -174,8 +174,8 @@ export default function EventManagement() {
         capacity: selectedEvent.capacity,
         registrationDeadline: selectedEvent.registrationDeadline,
         materials: selectedEvent.materials as File[],
-        memberPrice: selectedEvent.memberPrice || 0,
-        nonMemberPrice: selectedEvent.nonMemberPrice || 0,
+        memberPrice: selectedEvent.memberPrice || null,
+        nonMemberPrice: selectedEvent.nonMemberPrice || null,
       });
     } else {
       form.reset({
@@ -192,8 +192,8 @@ export default function EventManagement() {
         capacity: null,
         registrationDeadline: null,
         materials: [],
-        memberPrice: 0,
-        nonMemberPrice: 0,
+        memberPrice: null,
+        nonMemberPrice: null,
       });
     }
   }, [selectedEvent, form]);
@@ -241,8 +241,8 @@ export default function EventManagement() {
       formData.append("moderators", JSON.stringify(values.moderators));
       if (values.capacity) formData.append("capacity", values.capacity.toString());
       if (values.registrationDeadline) formData.append("registrationDeadline", values.registrationDeadline);
-      formData.append("memberPrice", (values.memberPrice ?? 0).toString());
-      formData.append("nonMemberPrice", (values.nonMemberPrice ?? 0).toString());
+      formData.append("memberPrice", values.memberPrice?.toString() ?? "null");
+      formData.append("nonMemberPrice", values.nonMemberPrice?.toString() ?? "null");
 
       // Handle file uploads
       const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
@@ -483,7 +483,10 @@ export default function EventManagement() {
                             type="number"
                             className="h-10"
                             {...field} 
-                            onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)}
+                            onChange={(e) => {
+                              const value = parseFloat(e.target.value);
+                              field.onChange(isNaN(value) ? null : value);
+                            }}
                             value={field.value ?? ''}
                           />
                         </FormControl>
@@ -502,7 +505,10 @@ export default function EventManagement() {
                             type="number"
                             className="h-10"
                             {...field} 
-                            onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)}
+                            onChange={(e) => {
+                              const value = parseFloat(e.target.value);
+                              field.onChange(isNaN(value) ? null : value);
+                            }}
                             value={field.value ?? ''}
                           />
                         </FormControl>
@@ -782,12 +788,12 @@ export default function EventManagement() {
                 </TableCell>
                 <TableCell>
                   <span className="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
-                    KES {event.memberPrice?.toLocaleString() ?? '0'}
+                    {event.memberPrice !== null ? `KES ${event.memberPrice?.toLocaleString()}` : 'Free'}
                   </span>
                 </TableCell>
                 <TableCell>
                   <span className="inline-flex items-center rounded-md bg-orange-50 px-2 py-1 text-xs font-medium text-orange-700 ring-1 ring-inset ring-orange-700/10">
-                    KES {event.nonMemberPrice?.toLocaleString() ?? '0'}
+                    {event.nonMemberPrice !== null ? `KES ${event.nonMemberPrice?.toLocaleString()}` : 'N/A'}
                   </span>
                 </TableCell>
                 <TableCell className="max-w-[200px] truncate" title={event.speakers.join(", ")}>

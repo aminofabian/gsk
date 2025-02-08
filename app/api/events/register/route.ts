@@ -13,7 +13,8 @@ export async function POST(req: Request) {
   try {
     // Get the authenticated user
     const session = await auth();
-    console.log("[EVENT_REGISTRATION] Auth session:", session?.user?.id);
+    console.log('[EVENT_REGISTRATION] Full auth session:', JSON.stringify(session));
+    console.log('[EVENT_REGISTRATION] Auth session user ID:', session?.user?.id);
     
     if (!session?.user) {
       return new NextResponse("Unauthorized", { status: 401 });

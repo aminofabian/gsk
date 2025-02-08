@@ -28,11 +28,17 @@ export async function PATCH(
       moderators,
       capacity,
       registrationDeadline,
-      materials 
+      materials,
+      memberPrice,
+      nonMemberPrice
     } = body;
 
     if (!title || !description || !type || !startDate || !endDate || !venue || !objectives) {
       return new NextResponse("Missing required fields", { status: 400 });
+    }
+
+    if (typeof memberPrice !== 'number' || typeof nonMemberPrice !== 'number') {
+      return new NextResponse("Pricing must be numeric values", { status: 400 });
     }
 
     const event = await db.event.update({
@@ -53,6 +59,8 @@ export async function PATCH(
         capacity,
         registrationDeadline: registrationDeadline ? new Date(registrationDeadline) : null,
         materials: materials || {},
+        memberPrice: memberPrice ?? null,
+        nonMemberPrice: nonMemberPrice ?? null,
       },
     });
 
