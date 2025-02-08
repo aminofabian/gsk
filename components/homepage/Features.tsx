@@ -1,6 +1,40 @@
 "use client"
 
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { EventType } from '@prisma/client';
+
+interface Event {
+  id: string;
+  title: string;
+  description: string;
+  type: EventType;
+  startDate: string;
+  endDate: string;
+  venue: string;
+  cpdPoints: number;
+}
+
 const Features = () => {
+  const [events, setEvents] = useState<Event[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const response = await fetch('/api/events');
+        const data = await response.json();
+        setEvents(data);
+      } catch (error) {
+        console.error('Error fetching events:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchEvents();
+  }, []);
+
   const features = [
     {
       icon: (
@@ -100,32 +134,14 @@ const Features = () => {
     }
   ];
 
-  const upcomingEvents = [
-    {
-      date: "23",
-      month: "FEB",
-      title: "Advanced Endoscopy Workshop",
-      location: "Nairobi International Convention Centre",
-      type: "CME",
-      points: "6 CPD Points"
-    },
-    {
-      date: "15",
-      month: "MAR",
-      title: "GI Pathology Masterclass",
-      location: "Virtual Event",
-      type: "Workshop",
-      points: "4 CPD Points"
-    },
-    {
-      date: "05",
-      month: "APR",
-      title: "GSK Annual Conference",
-      location: "Kenyatta University",
-      type: "Conference",
-      points: "12 CPD Points"
-    }
-  ];
+  // Format date to get day and month
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return {
+      date: date.getDate().toString().padStart(2, '0'),
+      month: date.toLocaleString('default', { month: 'short' }).toUpperCase()
+    };
+  };
 
   return (
     <div className="flex flex-col lg:flex-row justify-center gap-8 p-4 sm:p-8 bg-white">
@@ -148,9 +164,9 @@ const Features = () => {
             </div>
           ))}
         </div>
-        <a href="/join" className="inline-block mt-8 px-6 py-2 bg-[#40e0d0]/20 text-white rounded hover:bg-[#40e0d0]/30 transition-colors">
+        <Link href="/join" className="inline-block mt-8 px-6 py-2 bg-[#40e0d0]/20 text-white rounded hover:bg-[#40e0d0]/30 transition-colors">
           Join Now →
-        </a>
+        </Link>
       </div>
 
       {/* Upcoming Events Card */}
@@ -160,33 +176,48 @@ const Features = () => {
           <span className="text-sm text-[#003366] bg-[#003366]/10 px-3 py-1 rounded inline-block">Earn Points</span>
         </div>
         <div className="space-y-6">
-          {upcomingEvents.map((event, index) => (
-            <div key={index} className="flex items-start gap-4">
-              <div className="text-center w-14 sm:w-16 flex-shrink-0">
-                <div className="text-xl sm:text-2xl font-bold text-[#003366]">{event.date}</div>
-                <div className="text-sm text-[#003366]/70">{event.month}</div>
-              </div>
-              <div className="flex-1 min-w-0">
-                <h3 className="text-base sm:text-lg font-medium text-[#003366] break-words">{event.title}</h3>
-                <p className="text-[#003366]/70 text-sm mb-2 break-words">{event.location}</p>
-                <div className="flex flex-wrap gap-2">
-                  <span className="text-xs px-2 py-1 bg-[#003366]/10 text-[#003366]/70 rounded">
-                    {event.type}
-                  </span>
-                  <span className="text-xs px-2 py-1 bg-[#003366]/10 text-[#003366]/70 rounded">
-                    {event.points}
-                  </span>
+          {loading ? (
+            <div className="text-center py-4">Loading events...</div>
+          ) : events.length === 0 ? (
+            <div className="text-center py-4">No upcoming events</div>
+          ) : (
+            events.slice(0, 3).map((event) => {
+              const { date, month } = formatDate(event.startDate);
+              return (
+                <div key={event.id} className="flex items-start gap-4">
+                  <div className="text-center w-14 sm:w-16 flex-shrink-0">
+                    <div className="text-xl sm:text-2xl font-bold text-[#003366]">{date}</div>
+                    <div className="text-sm text-[#003366]/70">{month}</div>
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-base sm:text-lg font-medium text-[#003366] break-words">{event.title}</h3>
+                    <p className="text-[#003366]/70 text-sm mb-2 break-words">{event.venue}</p>
+                    <div className="flex flex-wrap gap-2 mb-2">
+                      <span className="text-xs px-2 py-1 bg-[#003366]/10 text-[#003366]/70 rounded">
+                        {event.type}
+                      </span>
+                      <span className="text-xs px-2 py-1 bg-[#003366]/10 text-[#003366]/70 rounded">
+                        {event.cpdPoints} CPD Points
+                      </span>
+                    </div>
+                    <Link 
+                      href={`/events/register/${event.id}`}
+                      className="inline-block text-sm px-3 py-1 bg-[#40e0d0]/20 text-[#003366] rounded hover:bg-[#40e0d0]/30 transition-colors"
+                    >
+                      Register Now →
+                    </Link>
+                  </div>
                 </div>
-              </div>
-            </div>
-          ))}
+              );
+            })
+          )}
         </div>
-        <a href="/events" className="inline-block mt-4 text-[#003366] hover:underline">
+        <Link href="/events" className="inline-block mt-4 text-[#003366] hover:underline">
           View All Events →
-        </a>
+        </Link>
       </div>
     </div>
   );
 };
 
-export default Features; 
+export default Features;
