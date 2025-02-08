@@ -129,6 +129,8 @@ export default function EventManagement() {
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [open, setOpen] = useState(false);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [eventToDelete, setEventToDelete] = useState<string | null>(null);
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const router = useRouter();
   const { toast } = useToast();
@@ -242,9 +244,9 @@ export default function EventManagement() {
       if (values.capacity) formData.append("capacity", values.capacity.toString());
       if (values.registrationDeadline) formData.append("registrationDeadline", values.registrationDeadline);
       
-      // Handle price fields - explicitly handle null values
-      formData.append("memberPrice", values.memberPrice === null ? 'null' : values.memberPrice.toString());
-      formData.append("nonMemberPrice", values.nonMemberPrice === null ? 'null' : values.nonMemberPrice.toString());
+      // Handle price fields - explicitly handle null and undefined values
+      formData.append("memberPrice", values.memberPrice === null || values.memberPrice === undefined ? 'null' : values.memberPrice.toString());
+      formData.append("nonMemberPrice", values.nonMemberPrice === null || values.nonMemberPrice === undefined ? 'null' : values.nonMemberPrice.toString());
 
       // Handle file uploads
       const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
@@ -287,10 +289,15 @@ export default function EventManagement() {
   };
 
   const handleDelete = async (id: string) => {
-    if (!window.confirm("Are you sure you want to delete this event?")) return;
+    setEventToDelete(id);
+    setDeleteDialogOpen(true);
+  };
+
+  const confirmDelete = async () => {
+    if (!eventToDelete) return;
 
     try {
-      const response = await fetch(`/api/admin/events/${id}`, {
+      const response = await fetch(`/api/admin/events/${eventToDelete}`, {
         method: "DELETE",
       });
 
@@ -300,6 +307,7 @@ export default function EventManagement() {
         title: "Success",
         description: "Event deleted successfully",
       });
+
       fetchEvents();
     } catch (error) {
       console.error("Error deleting event:", error);
@@ -308,6 +316,9 @@ export default function EventManagement() {
         description: "Failed to delete event",
         variant: "destructive",
       });
+    } finally {
+      setDeleteDialogOpen(false);
+      setEventToDelete(null);
     }
   };
 
@@ -749,6 +760,34 @@ export default function EventManagement() {
           </DialogContent>
         </Dialog>
       </div>
+
+      <Dialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Delete Event</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <p>Are you sure you want to delete this event? This action cannot be undone.</p>
+            <div className="flex justify-end gap-3">
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setDeleteDialogOpen(false);
+                  setEventToDelete(null);
+                }}
+              >
+                Cancel
+              </Button>
+              <Button
+                variant="destructive"
+                onClick={confirmDelete}
+              >
+                Delete Event
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
 
       <div className="rounded-lg border bg-white shadow-sm">
         <Table>
