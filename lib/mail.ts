@@ -5,9 +5,9 @@ export const sendPasswordResetEmail = async (
   email: string,
   token: string,
 ) => {
-  const resetLink = `http://localhost:3000/auth/new-password?token=${token}`;
+  const resetLink = `https://gastro.or.ke/auth/new-password?token=${token}`;
   await resend.emails.send({
-    from: "onboarding@resend.dev",
+    from: "secretaty@gastro.or.ke",
     to: email,
     subject: "Reset Your Password",
     html: ` <p>Please click the link below to Reset your Password
@@ -16,14 +16,12 @@ export const sendPasswordResetEmail = async (
   });
 };
 
-
-
 export const sendVerificationEmail = async (
   email: string,
   token: string) => {
-  const confirmLink = `http://localhost:3000/auth/new-verification?token=${token}`;
+  const confirmLink = `https://gastro.or.ke/auth/new-verification?token=${token}`;
   await resend.emails.send({
-    from: "onboarding@resend.dev",
+    from: "secretaty@gastro.or.ke",
     to: email,
     subject: "Verify your email",
     html: ` <p>Please click the link below to verify your email
