@@ -1,12 +1,14 @@
 import type { NextAuthConfig } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
-import { LoginSchema } from "./schemas";
-import { getUserByEmail, getUserById } from "./data/user";
+import { LoginSchema } from "@/schemas";
+import { getUserByEmail, getUserById } from "@/data/user";
 import Github from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
 import bcrypt from "bcryptjs";
 import { UserRole } from "@prisma/client";
 import { Session } from "next-auth";
+
+export const runtime = 'nodejs';
 
 async function verifyPassword(password: string, hashedPassword: string) {
   return bcrypt.compare(password, hashedPassword);

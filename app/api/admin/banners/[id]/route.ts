@@ -40,24 +40,23 @@ export async function PATCH(
   }
 }
 
+export const runtime = 'nodejs';
+
 export async function DELETE(
-  req: Request,
-  { params }: { params: { id: string } }
+  request: Request,
+  context: { params: { id: string } }
 ) {
   try {
     const session = await auth();
-    if (!session || session.user.role !== UserRole.ADMIN) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
 
-    if (!params.id) {
-      return new NextResponse("Banner ID required", { status: 400 });
+    if (!session || session.user.role !== "ADMIN") {
+      return new NextResponse("Unauthorized", { status: 401 });
     }
 
     const banner = await db.banner.delete({
       where: {
-        id: params.id
-      }
+        id: context.params.id,
+      },
     });
 
     return NextResponse.json(banner);
