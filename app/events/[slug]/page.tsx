@@ -3,6 +3,8 @@ import { Metadata } from "next";
 import { db } from "@/lib/db";
 import { format } from "date-fns";
 
+export const runtime = 'nodejs';
+
 interface EventPageProps {
   params: {
     slug: string;
