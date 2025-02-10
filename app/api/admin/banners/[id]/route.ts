@@ -43,8 +43,8 @@ export async function PATCH(
 export const runtime = 'nodejs';
 
 export async function DELETE(
-  request: Request,
-  context: { params: { id: string } }
+  req: Request,
+  { params }: { params: { id: string } }
 ) {
   try {
     const session = await auth();
@@ -55,7 +55,7 @@ export async function DELETE(
 
     const banner = await db.banner.delete({
       where: {
-        id: context.params.id,
+        id: params.id,
       },
     });
 
