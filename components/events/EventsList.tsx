@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { format } from "date-fns";
+import Link from "next/link";
 import { 
   CalendarDays, 
   MapPin, 
@@ -36,6 +37,7 @@ interface Event {
   startDate: string;
   endDate: string;
   venue: string;
+  slug: string;
   objectives: string[];
   cpdPoints: number;
   speakers: string[];
@@ -243,12 +245,20 @@ export default function EventsList() {
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-2">
-                        <h2 className="text-2xl font-bold text-[#003366]">
+                        <Link 
+                          href={`/events/${event.slug}`}
+                          className="text-2xl font-bold text-[#003366] hover:text-blue-700 transition-colors"
+                        >
                           {event.title}
-                        </h2>
+                        </Link>
                         <Badge className={getEventTypeColor(event.type)}>
                           {event.type}
                         </Badge>
+                        {process.env.NODE_ENV === 'development' && (
+                          <span className="text-xs text-gray-500">
+                            (Slug: {event.slug})
+                          </span>
+                        )}
                       </div>
                       <p className="text-gray-600 mb-4">{event.description}</p>
                     </div>

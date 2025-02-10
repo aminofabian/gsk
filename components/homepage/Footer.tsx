@@ -82,7 +82,7 @@ const Footer = () => {
                 (254) 704 373 746              </p>
               <p className="flex items-center gap-2">
                 <FaEnvelope className="text-white/70" />
-                secretatygsk@gmail.com              </p>
+                secretat@gmail.com              </p>
             </div>
           </motion.div>
         </div>

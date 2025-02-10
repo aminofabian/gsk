@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { EventType } from "@prisma/client";
+import { generateSlug } from "@/lib/utils";
 
 export async function PATCH(
   req: Request,
@@ -43,12 +44,37 @@ export async function PATCH(
       return new NextResponse("Missing required fields", { status: 400 });
     }
 
-    // Validate prices
-    if (memberPrice !== null && (isNaN(memberPrice) || memberPrice < 0)) {
-      return new NextResponse("Invalid member price", { status: 400 });
+    // Get the current event to check if title has changed
+    const currentEvent = await db.event.findUnique({
+      where: { id: params.id },
+    });
+
+    if (!currentEvent) {
+      return new NextResponse("Event not found", { status: 404 });
     }
-    if (nonMemberPrice !== null && (isNaN(nonMemberPrice) || nonMemberPrice < 0)) {
-      return new NextResponse("Invalid non-member price", { status: 400 });
+
+    // Generate new slug if title has changed
+    let slug = currentEvent.slug;
+    if (title !== currentEvent.title) {
+      let baseSlug = generateSlug(title);
+      slug = baseSlug;
+      let counter = 1;
+
+      // Check for existing slugs and generate a unique one
+      while (true) {
+        const existing = await db.event.findUnique({
+          where: { 
+            slug,
+            NOT: {
+              id: params.id
+            }
+          },
+        });
+
+        if (!existing) break;
+        slug = `${baseSlug}-${counter}`;
+        counter++;
+      }
     }
 
     const event = await db.event.update({
@@ -62,6 +88,7 @@ export async function PATCH(
         startDate: new Date(startDate),
         endDate: new Date(endDate),
         venue,
+        slug,
         objectives,
         cpdPoints,
         speakers,

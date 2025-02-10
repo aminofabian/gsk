@@ -3,6 +3,7 @@ import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { EventType } from "@prisma/client";
 import { uploadToS3 } from "@/lib/s3";
+import { generateSlug } from "@/lib/utils";
 
 const ACCEPTED_FILE_TYPES = [
   'application/pdf',
@@ -90,6 +91,22 @@ export async function POST(req: Request) {
       return new NextResponse("Missing required fields", { status: 400 });
     }
 
+    // Generate base slug
+    let baseSlug = generateSlug(title);
+    let slug = baseSlug;
+    let counter = 1;
+
+    // Check for existing slugs and generate a unique one
+    while (true) {
+      const existing = await db.event.findUnique({
+        where: { slug },
+      });
+
+      if (!existing) break;
+      slug = `${baseSlug}-${counter}`;
+      counter++;
+    }
+
     // Validate prices
     if (memberPrice !== null && (isNaN(memberPrice) || memberPrice < 0)) {
       return new NextResponse("Invalid member price", { status: 400 });
@@ -126,6 +143,7 @@ export async function POST(req: Request) {
         startDate: new Date(startDate),
         endDate: new Date(endDate),
         venue,
+        slug,
         objectives,
         cpdPoints: cpdPoints || 0,
         speakers: speakers || [],

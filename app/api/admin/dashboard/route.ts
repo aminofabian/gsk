@@ -15,12 +15,12 @@ interface Activity {
 export async function GET() {
   try {
     const session = await auth();
-    if (!session?.user?.email) {
+    if (!session?.user) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    // Check if user is an allowed admin
-    if (!isAllowedAdmin(session.user.email)) {
+    // Check if user is an admin
+    if (session.user.role !== UserRole.ADMIN) {
       return new NextResponse("Forbidden", { status: 403 });
     }
 
