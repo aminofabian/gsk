@@ -3,12 +3,12 @@
 import { useEffect, useState } from "react";
 import DashboardLayout from "@/components/dashboard/DashboardLayout";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import Link from "next/link";
 import { FaCalendarAlt, FaFileAlt, FaGraduationCap, FaStethoscope, FaCertificate, FaFile, FaBuilding } from "react-icons/fa";
 import { MdPayments } from "react-icons/md";
-import { getDashboardData } from "@/actions/get-dashboard-data";
 import { useUserStore } from "@/store/user-store";
+import { format } from "date-fns";
+import { getRecentUpdates, RecentUpdate } from "../actions/get-recent-updates";
 
 const quickLinks = [
   {
@@ -70,27 +70,18 @@ const quickLinks = [
   }
 ];
 
-const recentUpdates = [
-  {
-    title: "New Clinical Guidelines Released",
-    date: "March 15, 2024",
-    type: "Publication"
-  },
-  {
-    title: "Annual Gastroenterology Conference",
-    date: "April 5-7, 2024",
-    type: "Event"
-  },
-  {
-    title: "Research Grant Applications Open",
-    date: "March 20, 2024",
-    type: "Opportunity"
-  }
-];
-
 export default function DashboardPage() {
   const { user } = useUserStore();
   const firstName = user?.firstName || 'there';
+  const [recentUpdates, setRecentUpdates] = useState<RecentUpdate[]>([]);
+
+  useEffect(() => {
+    const fetchUpdates = async () => {
+      const updates = await getRecentUpdates();
+      setRecentUpdates(updates);
+    };
+    fetchUpdates();
+  }, []);
 
   return (
     <DashboardLayout>
@@ -124,10 +115,10 @@ export default function DashboardPage() {
       </div>
 
       {/* Recent Updates */}
-      <div className="bg-white  p-6 shadow-lg">
+      <div className="bg-white p-6 shadow-lg">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
-            <div className="w-1 h-8 bg-[#083c74] "></div>
+            <div className="w-1 h-8 bg-[#083c74]"></div>
             <div>
               <h2 className="text-xl font-bold text-[#083c74]">Recent Updates</h2>
               <p className="text-sm text-gray-500">Latest medical updates and announcements</p>
@@ -140,29 +131,31 @@ export default function DashboardPage() {
         <div className="space-y-2.5">
           {recentUpdates.map((update, index) => (
             <motion.div
-              key={index}
+              key={update.id}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
-              className="flex items-center justify-between p-3.5  bg-[#083c74]/5 hover:bg-[#083c74]/10 transition-all duration-200 border border-[#083c74]/10 hover:border-[#083c74]/20 group"
+              className="flex items-center justify-between p-3.5 bg-[#083c74]/5 hover:bg-[#083c74]/10 transition-all duration-200 border border-[#083c74]/10 hover:border-[#083c74]/20 group"
             >
               <div className="flex items-start gap-3">
-                <div className="p-2  bg-[#083c74]/10 text-[#083c74]">
+                <div className="p-2 bg-[#083c74]/10 text-[#083c74]">
                   {update.type === 'Publication' ? <FaFileAlt className="text-sm" /> :
                    update.type === 'Event' ? <FaCalendarAlt className="text-sm" /> :
                    <FaGraduationCap className="text-sm" />}
                 </div>
                 <div className="space-y-0.5">
-                  <h3 className="text-[#083c74] font-medium text-sm group-hover:text-[#004488] transition-colors line-clamp-1">
-                    {update.title}
-                  </h3>
+                  <Link href={update.link}>
+                    <h3 className="text-[#083c74] font-medium text-sm group-hover:text-[#004488] transition-colors line-clamp-1">
+                      {update.title}
+                    </h3>
+                  </Link>
                   <p className="text-gray-500 text-xs flex items-center gap-2">
-                    <span className="w-1 h-1 bg-[#083c74]/30 "></span>
-                    {update.date}
+                    <span className="w-1 h-1 bg-[#083c74]/30"></span>
+                    {format(new Date(update.date), 'MMMM d, yyyy')}
                   </p>
                 </div>
               </div>
-              <span className="px-2.5 py-1  text-[10px] font-medium bg-[#083c74]/10 text-[#083c74]">
+              <span className="px-2.5 py-1 text-[10px] font-medium bg-[#083c74]/10 text-[#083c74]">
                 {update.type}
               </span>
             </motion.div>
