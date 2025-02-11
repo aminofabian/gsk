@@ -50,18 +50,18 @@ interface RouteHandlerContext {
 
 export async function DELETE(
   request: Request,
-  context: RouteHandlerContext
+  { params }: { params: { id: string } }
 ) {
   try {
     const session = await auth();
 
-    if (!session || session.user.role !== "ADMIN") {
+    if (!session || session.user.role !== UserRole.ADMIN) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
     const banner = await db.banner.delete({
       where: {
-        id: context.params.id,
+        id: params.id,
       },
     });
 
