@@ -3,6 +3,8 @@ import { db } from "@/lib/db";
 import { auth } from "@/auth";
 import { UserRole } from "@prisma/client";
 
+export const runtime = 'nodejs';
+
 export async function PATCH(
   req: Request,
   { params }: { params: { id: string } }
@@ -40,11 +42,15 @@ export async function PATCH(
   }
 }
 
-export const runtime = 'nodejs';
+interface RouteHandlerContext {
+  params: {
+    id: string;
+  };
+}
 
 export async function DELETE(
-  req: Request,
-  { params }: { params: { id: string } }
+  request: Request,
+  context: RouteHandlerContext
 ) {
   try {
     const session = await auth();
@@ -55,7 +61,7 @@ export async function DELETE(
 
     const banner = await db.banner.delete({
       where: {
-        id: params.id,
+        id: context.params.id,
       },
     });
 
