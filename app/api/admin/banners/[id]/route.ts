@@ -2,9 +2,9 @@ import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { auth } from "@/auth";
 import { UserRole } from "@prisma/client";
-import { runtime } from "@/app/api/config";
 
-export { runtime };
+// Explicitly set Node.js runtime
+export const runtime = 'nodejs';
 
 export async function PATCH(
   req: Request,
@@ -50,20 +50,23 @@ interface RouteHandlerContext {
 }
 
 export async function DELETE(
-  request: Request,
-  { params }: { params: { id: string } }
+  req: Request,
+  context: { params: { id: string } }
 ) {
   try {
     const session = await auth();
-
     if (!session || session.user.role !== UserRole.ADMIN) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
+    if (!context.params.id) {
+      return new NextResponse("Banner ID required", { status: 400 });
+    }
+
     const banner = await db.banner.delete({
       where: {
-        id: params.id,
-      },
+        id: context.params.id
+      }
     });
 
     return NextResponse.json(banner);
@@ -71,4 +74,4 @@ export async function DELETE(
     console.error("[BANNER_DELETE]", error);
     return new NextResponse("Internal Error", { status: 500 });
   }
-} 
+}
