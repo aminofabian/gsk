@@ -45,21 +45,21 @@ export async function PATCH(
 
 export async function DELETE(
   request: Request,
-  context: { params: { id: string } }
-) {
+  { params }: { params: { id: string } }
+): Promise<NextResponse> {
   try {
     const session = await auth();
     if (!session || session.user.role !== UserRole.ADMIN) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    if (!context.params.id) {
+    if (!params.id) {
       return new NextResponse("Banner ID required", { status: 400 });
     }
 
     const banner = await db.banner.delete({
       where: {
-        id: context.params.id
+        id: params.id
       }
     });
 

@@ -13,7 +13,10 @@ const outfit = Outfit({
 const garamond = EB_Garamond({ 
   weight: ['400', '500', '600', '700', '800'],
   subsets: ["latin"],
-  variable: "--font-garamond"
+  variable: "--font-garamond",
+  display: 'swap',
+  preload: true,
+  adjustFontFallback: true
 });
 
 const playfair = Playfair_Display({ 
