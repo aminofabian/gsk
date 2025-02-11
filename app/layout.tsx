@@ -1,36 +1,8 @@
-import { Outfit, EB_Garamond, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { Metadata } from "next";
 import ClientLayout from "@/components/ClientLayout";
 import Providers from "@/components/Providers";
 import { Toaster } from 'sonner';
-
-const outfit = Outfit({ 
-  subsets: ["latin"], 
-  variable: "--font-outfit",
-  display: 'swap',
-  preload: true,
-  fallback: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Arial', 'sans-serif']
-});
-
-const garamond = EB_Garamond({ 
-  weight: ['400', '500', '600', '700', '800'],
-  subsets: ["latin"],
-  variable: "--font-garamond",
-  display: 'swap',
-  preload: true,
-  adjustFontFallback: true,
-  fallback: ['Georgia', 'Times New Roman', 'serif']
-});
-
-const playfair = Playfair_Display({ 
-  subsets: ["latin"],
-  variable: "--font-playfair",
-  display: 'swap',
-  preload: true,
-  adjustFontFallback: true,
-  fallback: ['Georgia', 'Times New Roman', 'serif']
-});
 
 export const metadata: Metadata = {
   title: "GSK - Gastroenterology Society of Kenya",
@@ -64,7 +36,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${outfit.variable} ${garamond.variable} ${playfair.variable} font-garamond antialiased`}>
+      <body className="font-garamond antialiased">
         <Providers>
           <ClientLayout>{children}</ClientLayout>
         </Providers>

@@ -7,6 +7,9 @@ const config = {
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
+    './pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
 	],
   prefix: "",
   theme: {
@@ -21,9 +24,10 @@ const config = {
       fontFamily: {
         sans: ['var(--font-merriweather)', 'var(--font-outfit)', 'system-ui'],
         display: ['var(--font-merriweather)', 'var(--font-outfit)', 'serif'],
-        outfit: ['var(--font-outfit)'],
+        outfit: ['Outfit', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Arial', 'sans-serif'],
         merriweather: ['var(--font-merriweather)'],
-        playfair: ['var(--font-playfair)'],
+        playfair: ['Playfair Display', 'Georgia', 'Times New Roman', 'serif'],
+        garamond: ['EB Garamond', 'Georgia', 'Times New Roman', 'serif'],
       },
       colors: {
         border: "hsl(var(--border))",
