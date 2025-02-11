@@ -8,8 +8,10 @@ import bcrypt from "bcryptjs";
 import { UserRole } from "@prisma/client";
 import { Session } from "next-auth";
 
+// Explicitly set Node.js runtime for bcrypt usage
 export const runtime = 'nodejs';
 
+// Separate bcrypt functionality into a Node.js-only module
 async function verifyPassword(password: string, hashedPassword: string) {
   return bcrypt.compare(password, hashedPassword);
 }

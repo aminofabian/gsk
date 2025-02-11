@@ -9,6 +9,8 @@ import {
   publicRoutes,
 } from "@/routes";
 
+export const runtime = 'nodejs';
+
 // List of allowed admin emails
 const ALLOWED_ADMIN_EMAILS = [
   "fabianngaira@gmail.com",
