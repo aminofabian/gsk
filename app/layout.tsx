@@ -7,7 +7,10 @@ import { Toaster } from 'sonner';
 
 const outfit = Outfit({ 
   subsets: ["latin"], 
-  variable: "--font-outfit"
+  variable: "--font-outfit",
+  display: 'swap',
+  preload: true,
+  fallback: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Arial', 'sans-serif']
 });
 
 const garamond = EB_Garamond({ 
@@ -16,12 +19,17 @@ const garamond = EB_Garamond({
   variable: "--font-garamond",
   display: 'swap',
   preload: true,
-  adjustFontFallback: true
+  adjustFontFallback: true,
+  fallback: ['Georgia', 'Times New Roman', 'serif']
 });
 
 const playfair = Playfair_Display({ 
   subsets: ["latin"],
-  variable: "--font-playfair"
+  variable: "--font-playfair",
+  display: 'swap',
+  preload: true,
+  adjustFontFallback: true,
+  fallback: ['Georgia', 'Times New Roman', 'serif']
 });
 
 export const metadata: Metadata = {

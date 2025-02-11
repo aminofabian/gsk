@@ -112,3 +112,26 @@ body {
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background-color: rgba(255, 255, 255, 0.2);
 }
+
+@layer base {
+  @font-face {
+    font-family: 'EB Garamond';
+    font-display: swap;
+    font-weight: 400 800;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'Playfair Display';
+    font-display: swap;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'Outfit';
+    font-display: swap;
+    font-weight: 400;
+    font-style: normal;
+  }
+}
