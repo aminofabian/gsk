@@ -3,7 +3,7 @@ import { db } from "@/lib/db";
 import { auth } from "@/auth";
 import { UserRole } from "@prisma/client";
 
-// Explicitly set Node.js runtime
+// Force Node.js runtime
 export const runtime = 'nodejs';
 
 export async function PATCH(
@@ -43,15 +43,9 @@ export async function PATCH(
   }
 }
 
-interface RouteHandlerContext {
-  params: {
-    id: string;
-  };
-}
-
 export async function DELETE(
-  req: Request,
-  context: { params: { id: string } }
+  request: Request,
+  { params }: { params: { id: string } }
 ) {
   try {
     const session = await auth();
@@ -59,13 +53,13 @@ export async function DELETE(
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    if (!context.params.id) {
+    if (!params.id) {
       return new NextResponse("Banner ID required", { status: 400 });
     }
 
     const banner = await db.banner.delete({
       where: {
-        id: context.params.id
+        id: params.id
       }
     });
 
