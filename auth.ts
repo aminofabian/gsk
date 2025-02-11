@@ -4,6 +4,8 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import { db } from "@/lib/db";
 import { UserRole } from "@prisma/client";
 
+export const runtime = 'nodejs';
+
 export const {
   handlers: { GET, POST },
   auth,
