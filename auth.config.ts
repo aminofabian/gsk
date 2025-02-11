@@ -4,7 +4,7 @@ import { LoginSchema } from "@/schemas";
 import { getUserByEmail } from "@/data/user";
 import Github from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
-import bcrypt from "bcryptjs";
+import { comparePasswords } from "@/lib/auth";
 import { UserRole } from "@prisma/client";
 import type { Session } from "next-auth";
 
@@ -31,7 +31,7 @@ export default {
           const user = await getUserByEmail(email);
           if (!user || !user.password) return null;
 
-          const passwordsMatch = await bcrypt.compare(password, user.password);
+          const passwordsMatch = await comparePasswords(password, user.password);
 
           if (passwordsMatch) return user;
         }
