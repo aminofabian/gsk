@@ -45,7 +45,7 @@ export async function PATCH(
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } }
 ) {
   try {
     const session = await auth();
@@ -53,13 +53,13 @@ export async function DELETE(
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    if (!params.id) {
+    if (!context.params.id) {
       return new NextResponse("Banner ID required", { status: 400 });
     }
 
     const banner = await db.banner.delete({
       where: {
-        id: params.id
+        id: context.params.id
       }
     });
 
